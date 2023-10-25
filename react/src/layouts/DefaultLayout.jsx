@@ -1,7 +1,9 @@
-export default DefaultLayout = () => {
+const DefaultLayout = () => {
     return (
         <>
             
         </>
     )
 }
+
+export default DefaultLayout;
