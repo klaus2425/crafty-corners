@@ -11,7 +11,7 @@ const GuestLayout = () => {
         <div>
             <div className='navbar'>
                 <div className='navbar title'>
-                    <img src='../../public/Logo.png'/>
+                    <img src='Logo.png'/>
                     <h1>Crafty Corners</h1>
                 </div>
                 <input placeholder="Search for Discussions or Topics"/>
