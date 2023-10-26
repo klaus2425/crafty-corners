@@ -9,7 +9,7 @@ const GuestLayout = () => {
     
     return (
         <div>
-            <div>For Guest Users Only</div>
+            <div className="navbar"></div>
             <Outlet />
         </div>
     )
