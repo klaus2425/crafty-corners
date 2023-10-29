@@ -136,7 +136,7 @@
     display: flex;
     width: 43rem;
     input {
-      width: 80%;
+      width: 100%;
       height: 2.125rem;
       flex-shrink: 1;
       border-radius: 3.125rem;
@@ -165,22 +165,7 @@
     }
   
     
-    .add-post {
-      border: 4px solid #D8DCE3;
-      width: 3.125rem;
-      height: 3.125rem;
-      border-radius: 100%;
-      background: transparent;
-      margin-right: 3rem;
-      transition: 0.5s;
-      flex-shrink: 0;
-    }
-  
-    .add-post:hover{
-      border-color: #6339DC;
-      outline: 0;
-  
-    }
+
   }
 
 @media screen and (max-width: 910px) {
@@ -207,6 +192,23 @@
       max-height: 3.125rem;
       min-height: 3.125rem;
       
+    }
+
+    .add-post {
+      border: 4px solid #D8DCE3;
+      width: 3.125rem;
+      height: 3.125rem;
+      border-radius: 100%;
+      background: transparent;
+      margin-right: 1rem;
+      transition: 0.5s;
+      flex-shrink: 0;
+    }
+  
+    .add-post:hover{
+      border-color: #6339DC;
+      outline: 0;
+  
     }
   }
 
