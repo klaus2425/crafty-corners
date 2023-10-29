@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
 import { useStateContext } from "../context/ContextProvider";
-
+import '../styles/index.scss'
 const GuestLayout = () => {
     const {token} = useStateContext;
     if (token) {
