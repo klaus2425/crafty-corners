@@ -9,7 +9,7 @@ const DefaultLayout = () => {
     }
 
     return (
-        <div>
+        <div style = {{height:"100dvh"}}>
             <div className='authenticated-navbar'>
                 <div className='navbar title'>
                     <img src='Logo.png'/>
