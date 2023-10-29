@@ -14,7 +14,7 @@ const GuestLayout = () => {
                     <img src='Logo.png'/>
                     <h1>Crafty Corners</h1>
                 </div>
-                <input placeholder="Search for Discussions or Topics"/>
+                <input type='text' placeholder="Search for Discussions or Topics"/>
                 <button>Login</button>
             </div>
             <Outlet />

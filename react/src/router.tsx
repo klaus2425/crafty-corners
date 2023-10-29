@@ -6,7 +6,7 @@ import UserFeed from './views/UserFeed';
 import NotFound from './views/NotFound';
 import DefaultLayout from './layouts/DefaultLayout';
 import GuestLayout from "./layouts/GuestLayout";
-
+import Landing from './views/Landing';
 
 const router = createBrowserRouter([
     {
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
         element: <DefaultLayout />,
         children: [
             {
-                path: '',
+                path: '/',
                 element: <Navigate to='/users'/>,
             },
             {
@@ -38,6 +38,10 @@ const router = createBrowserRouter([
             {
                 path: '/signup',
                 element: <Signup />
+            },
+            {
+                path: '/landing',
+                element: <Landing />
             },
         ],
     },
