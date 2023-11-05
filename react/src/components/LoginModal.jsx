@@ -8,8 +8,11 @@ export default function LoginModal(props) {
         <>
             <div className='overlay'>
                 <div className='modal'>
-                    <div>LoginModal</div>
-                    <button onClick={() => props.setIsOpen(false)}>Button</button>
+                    <div className='close-login'>
+                        <button onClick={() => props.setIsOpen(false)}>X</button>
+                    </div>
+                    <div className='login-main'>LoginModal</div>
+                    
                 </div>
             </div>
         </>
