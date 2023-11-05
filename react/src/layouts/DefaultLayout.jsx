@@ -7,7 +7,7 @@ import { Sidebar } from "../components/Sidebar";
 const DefaultLayout = () => {
     const {user, token} = useStateContext();
 
-    if (token) { // Change to false later
+    if (!token) { // Change to false later
         return <Navigate to='./Landing' />;
     }
     const name = 'Jaycie';

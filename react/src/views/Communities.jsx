@@ -7,7 +7,7 @@ const UserFeed =  () => {
     return (
         <div className="authenticated-container">
             <div className="feed">
-            User Feed
+            Communities
             </div>
             <div className="recommended">
             recommended section

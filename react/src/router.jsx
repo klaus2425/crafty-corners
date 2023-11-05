@@ -10,7 +10,7 @@ import Notifications from './views/Notifications';
 import Profile from './views/Profile';
 import Communities from './views/Communities';
 import Articles from './views/Articles';
-import Videos from './views/Video';
+import Videos from './views/Videos';
 import Mentors from './views/Mentors';
 
 const router = createBrowserRouter([
