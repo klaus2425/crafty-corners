@@ -119,12 +119,21 @@ $font_grey: #677186;
       width: 100%;
       justify-content: flex-end;
       button {
-        width: auto;
-        height: auto;
+        width: 1.5rem;
+        height: 1.5em;
+        border-radius: 50%;
         margin: 0;
         background-color: transparent;
         border-radius: 50%;
         color: #FFF;
+      }
+      svg {
+        border-radius: 50%;
+        transition: 0.3s;
+      }
+      svg:hover {
+        background-color: #e6e6e6;
+        
       }
 
     }
@@ -132,13 +141,16 @@ $font_grey: #677186;
     .login-main{
       h2 {
         padding-left: 0.3rem;
+        color: black;
       }
       display: flex;
       flex-direction: column;
       input {
         margin-bottom: 0.8rem;
         width: 20rem;
+        border-width: 2px;
         padding-left: 2rem;
+        border-radius: 20px;
       }
 
       
