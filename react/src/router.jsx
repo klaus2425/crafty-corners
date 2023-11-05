@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import Signup from './views/Signup';
 import Login from './views/Login';
 import Users from './views/Users';
-import UserFeed from './views/UserFeed';
+import Home from './views/Home';
 import NotFound from './views/NotFound';
 import DefaultLayout from './layouts/DefaultLayout';
 import GuestLayout from "./layouts/GuestLayout";
@@ -15,14 +15,14 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Navigate to='/userfeed'/>,
+                element: <Navigate to='/Home'/>,
             },
             {
-                path: '/userfeed',
-                element: <UserFeed />
+                path: '/Home',
+                element: <Home />
             },
             {
-                path: '/users',
+                path: '/Home',
                 element: <Users />
             },
         ],
