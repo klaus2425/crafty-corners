@@ -36,7 +36,7 @@ const Navbar = () => {
                 </div>
                 <input type='text' placeholder="Search for Discussions or Topics"/>
                 <div className="guest-buttons">
-                    <button onClick={() => setIsOpen(true)}>Login</button>
+                    <button onClick={() => setIsOpen(true)}>Log In</button>
                     <button>Sign Up</button>
                     <LoginModal isOpen={isOpen} setIsOpen={setIsOpen}/>
                 </div>
