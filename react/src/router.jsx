@@ -1,12 +1,12 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Signup from './views/Signup';
 import Login from './views/Login';
-import Users from './views/Users';
 import Home from './views/Home';
 import NotFound from './views/NotFound';
 import DefaultLayout from './layouts/DefaultLayout';
 import GuestLayout from "./layouts/GuestLayout";
 import Landing from './views/Landing';
+import Notifications from './views/Notifications';
 
 const router = createBrowserRouter([
     {
@@ -22,9 +22,10 @@ const router = createBrowserRouter([
                 element: <Home />
             },
             {
-                path: '/Home',
-                element: <Users />
+                path: '/Notifications',
+                element: <Notifications />
             },
+
         ],
     },
     {
