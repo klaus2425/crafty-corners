@@ -1,6 +1,5 @@
 import { useStateContext } from "../context/ContextProvider";
 
-
 const Navbar = () => {
     const {user, token} = useStateContext();
     if (token){ //change to true
@@ -33,7 +32,11 @@ const Navbar = () => {
                     <h1>Crafty Corners</h1>
                 </div>
                 <input type='text' placeholder="Search for Discussions or Topics"/>
-                <button>Login</button>
+                <div className="guest-buttons">
+                    <button>Login</button>
+                    <button>Sign Up</button>
+                </div>
+                
             </div>
         );
     }

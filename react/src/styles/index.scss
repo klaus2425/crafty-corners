@@ -73,7 +73,7 @@ $font_grey: #677186;
 
   button {
     border: 0;
-    width: 10.125rem;
+    width: 8.125rem;
     height: 2.5625rem;
     border-radius: 3.125rem;
     background: #6339DC;
@@ -83,8 +83,13 @@ $font_grey: #677186;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    margin-right: 3rem;
+    margin-right: 1rem;
   }
+  button:hover {
+    background-color: #6d697c;
+    transition: 0.4s;
+  }
+  
 
   .title{
     display: flex;
