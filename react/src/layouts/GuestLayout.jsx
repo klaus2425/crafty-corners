@@ -5,7 +5,8 @@ import Navbar from '../components/Navbar';
 
 
 const GuestLayout = () => {
-    const {token} = useStateContext;
+    const {token} = useStateContext();
+    const {isOpen, setIsOpen} = useStateContext(false);
     if (token) {
         return <Navigate to='/' />
     };
