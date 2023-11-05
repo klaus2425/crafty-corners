@@ -239,6 +239,7 @@ $font_grey: #677186;
 }
 
 .authenticated-container {
+
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -248,8 +249,11 @@ $font_grey: #677186;
   .sidebar {
     display: flex;
     flex-direction: column;
+    min-width: 20%;
+    align-items: end;
     .sidebar-upper {
       display: flex;
+      width: fit-content;
       flex-direction: column;
       margin-top: 5rem;
     }
@@ -285,6 +289,12 @@ $font_grey: #677186;
   .sidebar-link:hover {
     transition: 0.2s;
     background-color: #D8DCE3;
+  }
+
+  .feed {
+    display: flex;
+    width: 80%;
+    justify-content: center;
   }
 }
 
