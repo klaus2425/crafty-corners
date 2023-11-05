@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom'
+import { PropsWithChildren } from 'react';
+import { Link, useOutletContext } from 'react-router-dom'
+
 
 const UserFeed =  () => {
+    const [name] = useOutletContext();
     return (
         <div className="authenticated-container">
             <aside className="sidebar">
@@ -55,13 +58,13 @@ const UserFeed =  () => {
                         <Link to={'/'}>Videos</Link>
                     </div>
                     <div className="sidebar-link">                
-                        <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55" fill="none">
-                            <path d="M42.3958 21.7708V19.9375C42.3958 17.3706 42.3958 16.0871 41.8963 15.1067C41.4569 14.2443 40.7557 13.5431 39.8933 13.1037C38.9129 12.6042 37.6294 12.6042 35.0625 12.6042H17.6458C15.0789 12.6042 13.7955 12.6042 12.815 13.1037C11.9526 13.5431 11.2515 14.2443 10.8121 15.1067C10.3125 16.0871 10.3125 17.3706 10.3125 19.9375V28.1875C10.3125 30.7544 10.3125 32.0379 10.8121 33.0183C11.2515 33.8807 11.9526 34.5819 12.815 35.0213C13.7955 35.5208 15.0789 35.5208 17.6458 35.5208H30.9375" stroke="#677186" stroke-width="2.29167" stroke-linecap="round"/>
-                            <path d="M17.1875 28.6458H26.3542" stroke="#677186" stroke-width="2.29167" stroke-linecap="round"/>
-                            <path d="M17.1875 19.4792H33.2292" stroke="#677186" stroke-width="2.29167" stroke-linecap="round"/>
-                            <circle cx="40.1042" cy="30.9375" r="4.58333" stroke="#677186" stroke-width="2.29167"/>
-                            <path d="M44.6875 42.3958C44.6875 42.3958 43.5417 40.1042 40.1042 40.1042C36.6667 40.1042 35.5209 42.3958 35.5209 42.3958" stroke="#677186" stroke-width="2.29167" stroke-linecap="round"/>
-                        </svg> 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="46" height="39" viewBox="0 0 46 39" fill="none">
+  <path d="M34.7598 15.4375V15.4375C34.7598 13.6534 34.7598 12.7613 34.5148 12.0424C34.0564 10.6973 33 9.64088 31.6549 9.18249C30.9359 8.9375 30.0439 8.9375 28.2598 8.9375H15.7884C13.2215 8.9375 11.9381 8.9375 10.9576 9.43705C10.0952 9.87647 9.39405 10.5776 8.95463 11.44C8.45508 12.4205 8.45508 13.7039 8.45508 16.2708V17.8542C8.45508 20.4211 8.45508 21.7045 8.95463 22.685C9.39405 23.5474 10.0952 24.2485 10.9576 24.6879C11.9381 25.1875 13.2215 25.1875 15.7884 25.1875H25.3652" stroke="#677186" stroke-width="2.29167" stroke-linecap="round"/>
+  <path d="M14.0918 20.3125H21.6074" stroke="#677186" stroke-width="2.29167" stroke-linecap="round"/>
+  <path d="M14.0918 13.8125H27.2441" stroke="#677186" stroke-width="2.29167" stroke-linecap="round"/>
+  <path d="M36.4323 21.9375C36.4323 23.3978 35.0041 24.8542 32.8809 24.8542C30.7577 24.8542 29.3294 23.3978 29.3294 21.9375C29.3294 20.4772 30.7577 19.0208 32.8809 19.0208C35.0041 19.0208 36.4323 20.4772 36.4323 21.9375Z" stroke="#677186" stroke-width="2.29167"/>
+  <path d="M36.6387 30.0625C36.6387 30.0625 35.6992 28.4375 32.8809 28.4375C30.0625 28.4375 29.123 30.0625 29.123 30.0625" stroke="#677186" stroke-width="2.29167" stroke-linecap="round"/>
+</svg>
                         <Link to={'/'}>Mentors</Link>
                     </div>
                     
@@ -70,10 +73,10 @@ const UserFeed =  () => {
                 </div>
             </aside>
             <div className="feed">
-                User Feed
+            User Feed
             </div>
             <div className="recommended">
-                recommended section
+            recommended section
             </div>
         </div>
     )
