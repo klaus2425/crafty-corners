@@ -7,6 +7,11 @@ import DefaultLayout from './layouts/DefaultLayout';
 import GuestLayout from "./layouts/GuestLayout";
 import Landing from './views/Landing';
 import Notifications from './views/Notifications';
+import Profile from './views/Profile';
+import Communities from './views/Communities';
+import Articles from './views/Articles';
+import Videos from './views/Video';
+import Mentors from './views/Mentors';
 
 const router = createBrowserRouter([
     {
@@ -24,6 +29,26 @@ const router = createBrowserRouter([
             {
                 path: '/Notifications',
                 element: <Notifications />
+            },
+            {
+                path: '/Profile',
+                element: <Profile />
+            },
+            {
+                path: '/Communities',
+                element: <Communities />
+            },
+            {
+                path: '/Articles',
+                element: <Articles />
+            },            
+            {
+                path: '/Videos',
+                element: <Videos />
+            },
+            {
+                path: '/Mentors',
+                element: <Mentors />
             },
 
         ],
