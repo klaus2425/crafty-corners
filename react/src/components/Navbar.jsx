@@ -3,7 +3,7 @@ import { useStateContext } from "../context/ContextProvider";
 
 const Navbar = () => {
     const {user, token} = useStateContext();
-    if (!token){ //change to true
+    if (token){ //change to true
         return (
             <div className='authenticated-navbar'>
                 <div className='navbar title'>
