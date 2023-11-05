@@ -1,4 +1,7 @@
 $font_grey: #677186;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   font-family: Helvetica, system-ui, Avenir, Arial, sans-serif;
