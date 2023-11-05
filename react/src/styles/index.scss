@@ -99,7 +99,6 @@ $font_grey: #677186;
   }
 
   .modal {
-    color: red;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -116,7 +115,7 @@ $font_grey: #677186;
     right: 0;
     bottom: 0;
     background: rgba($color: #000000, $alpha: 0.7);
-    z-index: 1000;
+    z-index: 10000;
   }
 }
 
