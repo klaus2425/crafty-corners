@@ -99,13 +99,37 @@ $font_grey: #677186;
   }
 
   .modal {
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #FFF;
-    padding: 50px;
+    min-width: 250px;
+    min-height: 250px;
+    padding: 1rem;
     z-index: 1000;
+    
+    .close-login {
+      display: flex;
+      width: 100%;
+      justify-content: flex-end;
+      button {
+        width: 2rem;
+        height: 2rem;
+        margin: 0;
+        background-color: #6339DC;
+        border-radius: 50%;
+        opacity: 0.7;
+        color: #FFF;
+      }
+    }
+
+    .login-main{
+      
+    }
   }
 
   .overlay{
