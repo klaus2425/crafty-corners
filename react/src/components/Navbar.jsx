@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 
 const Navbar = () => {
@@ -33,7 +34,9 @@ const Navbar = () => {
                 </div>
                 <input type='text' placeholder="Search for Discussions or Topics"/>
                 <div className="guest-buttons">
-                    <button>Login</button>
+                    <Link to={'/Login'} >
+                        <button>Login</button>
+                    </Link>
                     <button>Sign Up</button>
                 </div>
                 
