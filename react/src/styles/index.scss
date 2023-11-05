@@ -11,7 +11,6 @@ $font_grey: #677186;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
 }
 
 *{
@@ -96,6 +95,11 @@ $font_grey: #677186;
     align-items: center;
     justify-content: start;
     width: auto;
+    margin-right: 2rem;
+    h1 {
+      white-space: nowrap;
+      font-size: 2.21763rem;
+    }
   }
 
   .modal {
@@ -107,28 +111,42 @@ $font_grey: #677186;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #FFF;
-    min-width: 250px;
-    min-height: 250px;
-    padding: 1rem;
     z-index: 1000;
+    padding: 1.46rem;
     
     .close-login {
       display: flex;
       width: 100%;
       justify-content: flex-end;
       button {
-        width: 2rem;
-        height: 2rem;
+        width: auto;
+        height: auto;
         margin: 0;
-        background-color: #6339DC;
+        background-color: transparent;
         border-radius: 50%;
-        opacity: 0.7;
         color: #FFF;
       }
+
     }
 
     .login-main{
+      h2 {
+        padding-left: 0.3rem;
+      }
+      display: flex;
+      flex-direction: column;
+      input {
+        margin-bottom: 0.8rem;
+        width: 20rem;
+        padding-left: 2rem;
+      }
+
       
+    }
+    .login-button{
+      display: flex;
+      justify-content: center;
+      margin: 0.125rem;
     }
   }
 
