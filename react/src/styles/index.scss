@@ -143,6 +143,12 @@ $font_grey: #677186;
         padding-left: 0.3rem;
         color: black;
       }
+      hr {
+        margin: 0.5rem 0;
+        border: 0.1rem solid $font_grey;
+        border-radius: 25px;
+
+      }
       display: flex;
       flex-direction: column;
       input {
