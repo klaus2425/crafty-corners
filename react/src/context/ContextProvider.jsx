@@ -13,7 +13,8 @@ export const ContextProvider = ({children}) => {
     const [user, setUser] = useState({});
     const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
     const [isOpen, setIsOpen] = useState(false);
-
+    const [isSignUpOpen, setIsSignUpOpen] = useState(false);
+    
     const setToken = (token) =>  {
         _setToken(token)
         if(token) {
@@ -30,6 +31,9 @@ export const ContextProvider = ({children}) => {
             setUser,
             setToken,
             setIsOpen,
+            isSignUpOpen,
+            setIsSignUpOpen,
+
         }}>
             {children}
         </StateContext.Provider>
