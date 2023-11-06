@@ -24,8 +24,9 @@ export default function SignUpModal(props) {
                         <input placeholder='Middle Name'></input>
                         <input placeholder='Last Name'></input>
                         <input placeholder='Username'></input>
-                        <input placeholder='Email Address'></input>
-                        <input placeholder='Password'></input>
+                        <input type='email' placeholder='Email Address'></input>
+                        <input type='password' placeholder='Password'></input>
+                        <input type='password' placeholder='Password Confirmation'></input>
                         <input placeholder='Birthday'></input>
                         <input placeholder='Street Address'></input>
                         <input placeholder='Municipality'></input>
