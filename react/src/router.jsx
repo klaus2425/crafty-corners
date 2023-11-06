@@ -1,17 +1,17 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import Signup from './views/Signup';
-import Login from './views/Login';
-import Home from './views/Home';
-import NotFound from './views/NotFound';
+import Signup from './Pages/Signup';
+import Login from './Pages/Login';
+import Home from './Pages/Home';
+import NotFound from './Pages/NotFound';
+import Landing from './Pages/Landing';
+import Notifications from './Pages/Notifications';
+import Profile from './Pages/Profile';
+import Communities from './Pages/Communities';
+import Articles from './Pages/Articles';
+import Videos from './Pages/Videos';
+import Mentors from './Pages/Mentors';
 import DefaultLayout from './layouts/DefaultLayout';
 import GuestLayout from "./layouts/GuestLayout";
-import Landing from './views/Landing';
-import Notifications from './views/Notifications';
-import Profile from './views/Profile';
-import Communities from './views/Communities';
-import Articles from './views/Articles';
-import Videos from './views/Videos';
-import Mentors from './views/Mentors';
 
 const router = createBrowserRouter([
     {
