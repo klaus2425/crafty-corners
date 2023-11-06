@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 import LoginModal from "./LoginModal";
+import SignUpModal from "./SignUpModal";
 
 const Navbar = () => {
     const {isOpen, setIsOpen} = useStateContext();
+    const {isSignUpOpen, setIsSignUpOpen} = useStateContext();
+
     const {user, token} = useStateContext();
     if (token){ //change to true
         return (
@@ -37,7 +40,8 @@ const Navbar = () => {
                 <input type='text' placeholder="Search for Discussions or Topics"/>
                 <div className="guest-buttons">
                     <button onClick={() => setIsOpen(true)}>Log In</button>
-                    <button>Sign Up</button>
+                    <button onClick={() => setIsSignUpOpen(true)}>Sign Up</button>
+                    <SignUpModal isOpen={isSignUpOpen} setIsOpen={setIsSignUpOpen}/>
                     <LoginModal isOpen={isOpen} setIsOpen={setIsOpen}/>
                 </div>
                 
