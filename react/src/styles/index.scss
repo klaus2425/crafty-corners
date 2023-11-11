@@ -19,21 +19,20 @@ $font_grey: #677186;
 }
 
 .navbar {
-  width: 100%;
   height: 4.5rem;
   border-bottom: 3px solid #F0F2F5;
   background: #FDFDFD;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   h1 {
     color: #000;
     font-family: Helvetica;
-    font-size: 2.21763rem;
+    font-size: max(1.8vw, 1.2rem); 
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    white-space: nowrap;
   }
 
   img {
@@ -42,9 +41,8 @@ $font_grey: #677186;
   }
   
   input {
-    width: 47.5rem;
+    width: 42rem;
     height: 2.125rem;
-    flex-shrink: 1;
     border-radius: 3.125rem;
     border: 3px solid #D8DCE3;
     background: #FFF;
@@ -55,6 +53,7 @@ $font_grey: #677186;
     font-weight: 400;
     line-height: normal;
     padding: 0.4rem;
+    margin-left: 1rem;
     transition: 0.5s;
 
   }
@@ -67,8 +66,6 @@ $font_grey: #677186;
   input:hover{
     border-color: #6339DC;
   }
-
-  
 
   button {
     border: 0;
@@ -94,12 +91,6 @@ $font_grey: #677186;
     display: flex;
     align-items: center;
     justify-content: start;
-    width: auto;
-    margin-right: 2rem;
-    h1 {
-      white-space: nowrap;
-      font-size: 2.21763rem;
-    }
   }
 
   .modal {
@@ -177,6 +168,16 @@ $font_grey: #677186;
     background: rgba($color: #000000, $alpha: 0.7);
     z-index: 10000;
   }
+
+  @media screen and (max-width: 900px) {
+    .guest-buttons {
+      display: none;
+    } 
+    
+  }
+
+
+
 }
 
 .container {
@@ -224,12 +225,10 @@ $font_grey: #677186;
     input {
       width: 100%;
       height: 2.125rem;
-      flex-shrink: 1;
       border-radius: 3.125rem;
       border: 3px solid #D8DCE3;
       background: #FFF;
       color: #677186;
-      flex-shrink: 1;
       font-family: Helvetica;
       font-size: 1.20rem;
       font-style: normal;
@@ -249,16 +248,15 @@ $font_grey: #677186;
     input:hover{
       border-color: #6339DC;
     }
-  
-    
 
   }
 
-@media screen and (max-width: 910px) {
-  .search-post{
-    display: none;
-  } 
-}
+  @media screen and (max-width: 900px) {
+    .search-post {
+      display: none;
+    } 
+
+  }
 
 
   .profile{
@@ -288,7 +286,6 @@ $font_grey: #677186;
       background: transparent;
       margin-right: 1rem;
       transition: 0.5s;
-      flex-shrink: 0;
     }
   
     .add-post:hover{
