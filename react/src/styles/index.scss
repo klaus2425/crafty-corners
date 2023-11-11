@@ -41,7 +41,7 @@ $font_grey: #677186;
   }
   
   input {
-    width: 40vw;
+    width: 42rem;
     height: 2.125rem;
     border-radius: 3.125rem;
     border: 3px solid #D8DCE3;
@@ -53,6 +53,7 @@ $font_grey: #677186;
     font-weight: 400;
     line-height: normal;
     padding: 0.4rem;
+    margin-left: 1rem;
     transition: 0.5s;
 
   }
