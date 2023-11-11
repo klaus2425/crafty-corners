@@ -36,7 +36,7 @@ export default function SignUpModal(props) {
             province: provinceRef.current.value,
         }
         console.log(payload);
-        axiosClient.post('/signup', payload)
+        axiosClient.post('/register', payload)
         .then(({data}) => {
             setUser(data.user);
             setToken(data.token);
