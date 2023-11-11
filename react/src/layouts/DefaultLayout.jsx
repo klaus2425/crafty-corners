@@ -10,13 +10,13 @@ const DefaultLayout = () => {
     if (!token) { // Change to false later
         return <Navigate to='./Landing' />;
     }
-    const name = 'Jaycie';
+    
     return (
         <div style = {{height:"100dvh"}}>
             <Navbar />
             <div className="authenticated-container">            
                 <Sidebar />
-                <Outlet context={[name]}/>
+                <Outlet />
             </div>
         </div>
     );
