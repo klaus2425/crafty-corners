@@ -11,10 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('password_confirmation');
-        });
-
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
@@ -23,7 +19,6 @@ return new class extends Migration
             $table->string('user_name')->unique();
             $table->string('email')->unique();
             $table->string('password');
-
             $table->string('birthday')->nullable();
             $table->string('street_address')->nullable();
             $table->string('municipality')->nullable();
@@ -39,8 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('password_confirmation')->nullable()->default(null);
-        });
+        Schema::dropIfExists('users');
     }
 };
