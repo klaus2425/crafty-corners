@@ -1,8 +1,54 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import axiosClient from '../axios-client';
+import { useStateContext } from '../context/ContextProvider';
 
 
 
 export default function SignUpModal(props) {
+
+    const firstNameRef = useRef();
+    const lastNameRef = useRef();
+    const middleNameRef = useRef();
+    const userNameRef = useRef();
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const passwordConfirmationRef = useRef();
+    const birthdayRef = useRef();
+    const streetAddressRef = useRef();
+    const municipalityRef = useRef();
+    const provinceRef = useRef();
+
+    const {setUser, setToken} = useStateContext();
+
+    const onSubmit = (ev) => {
+        ev.preventDefault();
+        const payload = {
+            first_name: firstNameRef.current.value,
+            last_name: middleNameRef.current.value,
+            middle_name: lastNameRef.current.value,
+            user_name: userNameRef.current.value,
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+            password_confirmation: passwordConfirmationRef.current.value,
+            birthday: birthdayRef.current.value,
+            street_address: streetAddressRef.current.value,
+            municipality: municipalityRef.current.value,
+            province: provinceRef.current.value,
+        }
+        console.log(payload);
+        axiosClient.post('/signup', payload)
+        .then(({data}) => {
+            setUser(data.user);
+            setToken(data.token);
+        })
+        .catch(err => {
+            const response = err.response;
+            if (response && response.status === 422){
+                console.log(response.data.errors);
+            }
+        });
+    }
+
     if(!props.isOpen) return null;
     return (
         <>
@@ -17,25 +63,26 @@ export default function SignUpModal(props) {
                             </svg>
                         </button>
                     </div>
-                    <div className='login-main'>
-                        <h2>Sign Up</h2>
-                        <hr />
-                        <input placeholder='First Name'></input>
-                        <input placeholder='Middle Name'></input>
-                        <input placeholder='Last Name'></input>
-                        <input placeholder='Username'></input>
-                        <input type='email' placeholder='Email Address'></input>
-                        <input type='password' placeholder='Password'></input>
-                        <input type='password' placeholder='Password Confirmation'></input>
-                        <input placeholder='Birthday'></input>
-                        <input placeholder='Street Address'></input>
-                        <input placeholder='Municipality'></input>
-                        <input placeholder='Province'></input>
-                    </div>
-                    <div className="login-button">
-                        <button>Sign Up</button>
-                    </div>
-                    
+                    <form onSubmit={onSubmit}>
+                        <div className='login-main'>
+                            <h2>Sign Up</h2>
+                            <hr />
+                            <input ref={firstNameRef} placeholder='First Name'></input>
+                            <input ref={middleNameRef} placeholder='Middle Name'></input>
+                            <input ref={lastNameRef} placeholder='Last Name'></input>
+                            <input ref={userNameRef} placeholder='Username'></input>
+                            <input ref={emailRef} type='email' placeholder='Email Address'></input>
+                            <input ref={passwordRef} type='password' placeholder='Password'></input>
+                            <input ref={passwordConfirmationRef} type='password' placeholder='Password Confirmation'></input>
+                            <input ref={birthdayRef} placeholder='Birthday'></input>
+                            <input ref={streetAddressRef} placeholder='Street Address'></input>
+                            <input ref={municipalityRef} placeholder='Municipality'></input>
+                            <input ref={provinceRef} placeholder='Province'></input>
+                        </div>
+                        <div className="login-button">
+                            <button>Sign Up</button>
+                        </div>   
+                    </form>                 
                 </div>
             </div>
         </>
