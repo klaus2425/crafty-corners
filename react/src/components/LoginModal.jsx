@@ -16,6 +16,7 @@ export default function LoginModal(props) {
             email: emailRef.current.value,
             password: passwordRef.current.value,
         }
+        setError(null);
         console.log(payload);
         axiosClient.post('/login', payload)
         .then(({data}) => {
@@ -25,7 +26,13 @@ export default function LoginModal(props) {
         .catch(err => {
             const response = err.response;
             if (response && response.status === 422){
-                setError(response.data.errors);
+                if(response.data.errors) {
+                    setError(response.data.errors);
+                } else {
+                    setError({
+                        email: [response.data.message]
+                    })
+                }
             }
         });
     }
