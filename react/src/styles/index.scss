@@ -13,9 +13,26 @@ $font_grey: #677186;
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 *{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+#logout_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: 3rem;
+  background-color: transparent;
+  border-radius: 100%;
+  border: none;
+  transition: 0.3s;
+}
+#logout_button:hover {
+  background-color: rgba(#6339DC, $alpha: 0.4);
 }
 
 .navbar {
@@ -52,10 +69,10 @@ $font_grey: #677186;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    padding: 0.4rem;
+    padding: 1.2rem;
     margin-left: 1rem;
     transition: 0.5s;
-
+    
   }
 
   input[type]:focus {
@@ -217,6 +234,8 @@ $font_grey: #677186;
   img {
     width: 4.6875rem;
     height: 4.125rem;
+    margin-right: 0.5rem;
+
   }
   
   .search-post {
@@ -235,7 +254,7 @@ $font_grey: #677186;
       font-weight: 400;
       line-height: normal;
       font-size: 1rem;
-      padding: 0.4rem;
+      padding: 1.2rem;
       transition: 0.5s;
       margin-right: 1.25rem;
     }
