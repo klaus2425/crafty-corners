@@ -12,6 +12,7 @@ import Videos from './Pages/Videos';
 import Mentors from './Pages/Mentors';
 import DefaultLayout from './layouts/DefaultLayout';
 import GuestLayout from "./layouts/GuestLayout";
+import EditProfile from './Pages/EditProfile';
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,11 @@ const router = createBrowserRouter([
             {
                 path: '/Mentors',
                 element: <Mentors />
+            },
+
+            {
+                path: '/EditProfile',
+                element: <EditProfile />
             },
 
         ],
