@@ -1,8 +1,13 @@
-import { PropsWithChildren } from 'react';
-import { Link, useOutletContext } from 'react-router-dom'
-
+import { useStateContext } from '../context/ContextProvider'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 
 const UserFeed =  () => {
+
+    const {user, token} = useStateContext();
+
+
+
     return (
         <div className="authenticated-container">
             <div className="feed">
@@ -15,11 +20,30 @@ const UserFeed =  () => {
                 </div>
                 <div className='profile-card'>
                     <div id='edit-profile-button'>
-                        <button className=''>Edit Profile</button>
+                        <button> <FontAwesomeIcon icon={faPenToSquare} size="lg" />Edit Profile</button>
                     </div>
                     <div className='profile-details'>
-                        <img src='/Jaycie.png' alt='Profile Picture'></img>
+                        <div className='left'>
+                            <div className='upper-details'>
+                                <img id='profile-picture' src='/Jaycie.png' alt='Profile Picture'></img>
+                                <div id='display-name'>
+                                    <h2>{user.first_name}</h2>
+                                    @{user.user_name}
+                                </div>
+                            </div>
+                            <div className='lower-details'>
+                                <span id='community-count'>0</span><p>Communities</p>
+                            </div>
+                        </div>
+                        <div className='right'>
+                            <img src='/level_sample.png' alt='Level'></img>
+                            <div id='display-level'>
+                                <h2>Level 1</h2>
+                            </div>
+                        </div>
                     </div>
+
+                    
 
                 </div>
             </div>
