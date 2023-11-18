@@ -23,6 +23,15 @@ class AuthController extends Controller
             'province' => $request->province,
             'password' => bcrypt($request->password),
         ]);
+
+        if($request->hasFile('profile_picture')){
+            $profile_picture = $request->file('profile_picture');
+            $path = $profile_picture->storeAs('profile_pictures', $user->id.'.'. $profile_picture->getClientOriginalExtension(),'public');
+            $user->update([
+                'profile_picture' => $path
+            ]);
+        }
+
         $token = $user->createToken('UserToken')->plainTextToken;
         return response()->json([
             'user' => $user,
