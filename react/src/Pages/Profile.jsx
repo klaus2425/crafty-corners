@@ -1,6 +1,7 @@
 import { useStateContext } from '../context/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom';
 
 const UserFeed =  () => {
 
@@ -18,33 +19,32 @@ const UserFeed =  () => {
                     </svg>
                     <h3>Profile</h3>
                 </div>
-                <div className='profile-card'>
-                    <div id='edit-profile-button'>
-                        <button> <FontAwesomeIcon icon={faPenToSquare} size="lg" />Edit Profile</button>
-                    </div>
-                    <div className='profile-details'>
-                        <div className='left'>
-                            <div className='upper-details'>
-                                <img id='profile-picture' src='/Jaycie.png' alt='Profile Picture'></img>
-                                <div id='display-name'>
-                                    <h2>{user.first_name}</h2>
-                                    @{user.user_name}
+                <div className="card">
+                    <div className='profile-card'>
+                        <div id='edit-profile-button'>
+                        <Link to={'/EditProfile'}> <FontAwesomeIcon icon={faPenToSquare} size="lg" /> Edit Profile</Link>
+                        </div>
+                        <div className='profile-details'>
+                            <div className='left'>
+                                <div className='upper-details'>
+                                    <img id='profile-picture' src='/Jaycie.png' alt='Profile Picture'></img>
+                                    <div id='display-name'>
+                                        <h2>{user.first_name}</h2>
+                                        @{user.user_name}
+                                    </div>
+                                </div>
+                                <div className='lower-details'>
+                                    <span id='community-count'>0</span><p>Communities</p>
                                 </div>
                             </div>
-                            <div className='lower-details'>
-                                <span id='community-count'>0</span><p>Communities</p>
-                            </div>
-                        </div>
-                        <div className='right'>
-                            <img src='/level_sample.png' alt='Level'></img>
-                            <div id='display-level'>
-                                <h2>Level 1</h2>
+                            <div className='right'>
+                                <img src='/level_sample.png' alt='Level'></img>
+                                <div id='display-level'>
+                                    <h2>Level 1</h2>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    
-
                 </div>
             </div>
             <div className="recommended">
