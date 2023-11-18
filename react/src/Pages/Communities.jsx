@@ -1,6 +1,3 @@
-import { PropsWithChildren } from 'react';
-import { Link, useOutletContext } from 'react-router-dom'
-
 
 const UserFeed =  () => {
     return (
