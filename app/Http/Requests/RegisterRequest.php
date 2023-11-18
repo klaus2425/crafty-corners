@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
+
 class RegisterRequest extends FormRequest
 {
     /**
@@ -37,7 +38,8 @@ class RegisterRequest extends FormRequest
                     ->letters()
                     ->symbols()
                     ->numbers()
-            ]
+            ],
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }
