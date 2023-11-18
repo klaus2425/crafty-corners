@@ -14,11 +14,11 @@ const UserFeed =  () => {
                     <h3>Profile</h3>
                 </div>
                 <div className='profile-card'>
-                    <div className='display-profile'>
+                    <div id='edit-profile-button'>
                         <button className=''>Edit Profile</button>
                     </div>
-                    <div>
-                        
+                    <div className='profile-details'>
+                        <img src='/Jaycie.png' alt='Profile Picture'></img>
                     </div>
 
                 </div>
