@@ -1,8 +1,4 @@
-import { PropsWithChildren } from 'react';
-import { Link, useOutletContext } from 'react-router-dom'
-
-
-const UserFeed =  () => {
+const Mentors =  () => {
     return (
         <div className="authenticated-container">
             <div className="feed">
@@ -15,4 +11,4 @@ const UserFeed =  () => {
     )
 }
 
-export default UserFeed;
+export default Mentors;
