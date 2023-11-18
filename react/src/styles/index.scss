@@ -417,6 +417,7 @@ $font_grey: #677186;
 
   .profile-card {
     display: flex;
+    flex-direction: column;
     background-color: #FDFDFD;
     border: 2px solid #D8DCE3;
     border-radius: 15px;
@@ -440,12 +441,24 @@ $font_grey: #677186;
       color: #FFF;
     }
 
-    .display-profile {
+    #edit-profile-button   {
       width: 100%;
       display: flex;
       justify-content: flex-end;
     }
+
+    .profile-details{
+      display: flex;
+      padding: 2rem;
+      img {
+        width: 7rem;
+        border-radius: 50%;
+        border: 5px solid black;
+      }
+    }
   }
+  
+
   @media screen and (max-width: 1350px) {
     .feed{
       width: 100%;
