@@ -23,7 +23,6 @@ class User extends Authenticatable
         'last_name',
         'middle_name',
         'user_name',
-        'birthday',
         'street_address',
         'municipality',
         'province',
@@ -48,5 +47,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'birthday' => 'date:Y-m-d',
     ];
+    public function setBirthdayAttribute($value)
+    {
+        $this->attributes['birthday'] = date('Y-m-d', strtotime($value));
+    }
 }
