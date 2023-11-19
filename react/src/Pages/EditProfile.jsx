@@ -1,7 +1,21 @@
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react';
+import { useStateContext } from '../context/ContextProvider'
 
 const EditProfile =  () => {
+    const {user} = useStateContext();
+    const [image, setImage] = useState();
+    if (!image) {setImage('/avatar.jpg')}
+    const handleChange = (e) => {
+        setImage(URL.createObjectURL(e.target.files[0]));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+       
+    }
+
     return (
         <div className="authenticated-container">
             <div className="feed">
@@ -19,54 +33,47 @@ const EditProfile =  () => {
                                 <FontAwesomeIcon icon={faPencil} />
                                 <h1>Update your Profile</h1>
                             </div>
-                                <div className="input-row-container">
-                                    <div className="field-holder">
-                                        <input type="text" required/>
-                                        <label >Username</label>
-                                    </div>
-                                    <div className="field-holder">
-                                        <input  type="password" required/>
-                                        <label className="label">Password</label>
-                                    </div>
-                                    <div className="field-holder">
-                                        <input  type="text" required/>
-                                        <label className="label">Email Address</label>
-                                    </div>
-                                </div>
+                            <div className="upload-picture">
+                                <img id='update-picture'src={image}/>
+                                <input id='upload-button' type="file" onChange={handleChange} />
+                                <label for='upload-button'>Upload File</label>
+                            </div>
+
+
                                 <div className="input-row-container"> 
                                     <div className="field-holder">
-                                        <input  type="text" required/>
+                                        <input type="text" value={user.first_name} required/>
                                         <label>First Name</label>
                                     </div>
                                     <div className="field-holder">
-                                        <input  type="text" required/>
+                                        <input  type="text" value={user.middle_name} required/>
                                         <label>Middle Name</label>
                                     </div>
                                     <div className="field-holder">
-                                        <input  type="text" required/>
+                                        <input  type="text" value={user.last_name} required/>
                                         <label>Last Name</label>
                                     </div>
                                 </div>
                                 <div className="field-holder">
-                                        <input id='input-birthday' type="date" />
+                                        <input id='input-birthday' type="date" value={user.birthday} />
                                         <label>Birthday</label>
                                 </div>
                                 <div className="field-holder">
-                                        <input id="street-address" type="text" required/>
+                                        <input id="street-address" type="text" value={user.street_address}required/>
                                         <label>Street Address</label>
                                 </div>
                                 <div className="input-row-container">
                                     <div className="field-holder">
-                                            <input type="text" required/>
+                                            <input type="text" value={user.municipality}required/>
                                             <label>Municipality</label>
                                     </div>
                                     <div className="field-holder">
-                                            <input type="text" required/>
+                                            <input type="text" value={user.province}required/>
                                             <label>Province</label>
                                     </div>
                                 </div>
                         </div>
-                        <div className="button-section">
+                        <div onSubmit={handleSubmit} className="button-section">
                             <button>Update</button>
                         </div>
                        
