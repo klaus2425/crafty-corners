@@ -20,6 +20,18 @@ $font_grey: #677186;
   box-sizing: border-box;
 }
 
+#update-picture {
+  border-radius: 10000px;
+  max-width: 10.125rem;
+  min-width: 10.123rem;
+  max-height: 10.125rem;
+  min-height: 10.125rem;
+}
+
+#upload-button {
+  border: 0;
+}
+
 #logout_button {
   display: flex;
   justify-content: center;
@@ -34,6 +46,20 @@ $font_grey: #677186;
 #logout_button:hover {
   background-color: rgba(#6339DC, $alpha: 0.4);
 }
+
+
+.upload-picture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  input[type='file'] {
+    display: none;
+  }
+  img {
+    border: 3px solid #000;
+  }
+}
+
 
 .navbar {
   height: 4.5rem;
