@@ -25,6 +25,7 @@ const Navbar = () => {
     }, []);
 
     const {user, token} = useStateContext();
+    const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL
     if (token){ //change to true
         return (
             <div className='authenticated-navbar'>
@@ -42,7 +43,7 @@ const Navbar = () => {
                         </svg>
                     </button>
                     <h3>Hi, {user.first_name}</h3>
-                    <img src="/Jaycie.png" alt="Profile Picture" />
+                    <img src={`${storageBaseUrl}/${user.profile_picture}`} alt="Profile Picture" />
                     <button id='logout_button' onClick={onLogout}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none">
                             <path d="M8 18.9282C9.21615 19.6303 10.5957 20 12 20C13.4043 20 14.7838 19.6303 16 18.9282C17.2162 18.2261 18.2261 17.2162 18.9282 16C19.6303 14.7838 20 13.4043 20 12C20 10.5957 19.6303 9.21615 18.9282 8C18.2261 6.78385 17.2162 5.77394 16 5.0718C14.7838 4.36965 13.4043 4 12 4C10.5957 4 9.21615 4.36965 8 5.0718" stroke="#33363F" stroke-width="2"/>
@@ -52,7 +53,7 @@ const Navbar = () => {
                 </div>
             </div>
         )
-    } 
+    }
     else {
         return (
             <div className='navbar'>
@@ -67,12 +68,12 @@ const Navbar = () => {
                     <SignUpModal isOpen={isSignUpOpen} setIsOpen={setIsSignUpOpen}/>
                     <LoginModal isOpen={isOpen} setIsOpen={setIsOpen}/>
                 </div>
-                
+
             </div>
         );
     }
 
-    
+
 }
 
 export default Navbar;
