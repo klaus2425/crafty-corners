@@ -25,7 +25,7 @@ const Navbar = () => {
     }, []);
 
     const {user, token} = useStateContext();
-    const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL
+    const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     if (token){ //change to true
         return (
             <div className='authenticated-navbar'>
