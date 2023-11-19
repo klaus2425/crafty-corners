@@ -27,6 +27,7 @@ class User extends Authenticatable
         'municipality',
         'province',
         'password',
+        'profile_picture',
     ];
 
     /**
