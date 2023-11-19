@@ -7,7 +7,7 @@ const UserFeed =  () => {
 
     const {user, token} = useStateContext();
 
-    console.log(import.meta.env.VITE_API_STORAGE_URL+user.profile_picture);
+
 
     return (
         <div className="authenticated-container">
