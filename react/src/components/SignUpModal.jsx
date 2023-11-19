@@ -29,33 +29,33 @@ export default function SignUpModal(props) {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        const payload = {
-            first_name: firstNameRef.current.value,
-            last_name: middleNameRef.current.value,
-            middle_name: lastNameRef.current.value,
-            user_name: userNameRef.current.value,
-            email: emailRef.current.value,
-            password: passwordRef.current.value,
-            password_confirmation: passwordConfirmationRef.current.value,
-            birthday: birthdayRef.current.value,
-            street_address: streetAddressRef.current.value,
-            municipality: municipalityRef.current.value,
-            province: provinceRef.current.value,
-            profile_picture: profilePictureRef.current.files[0]
-        }
-        console.log(payload);
-        axiosClient.post('/register', payload)
-        .then(({data}) => {
-            setUser(data.user);
-            setToken(data.token);
-        })
-        .catch(err => {
-            const response = err.response;
-            if (response && response.status === 422){
-                setError(response.data.errors);
-            }
-        });
-    }
+    
+        const formData = new FormData();
+        formData.append('first_name', firstNameRef.current.value);
+        formData.append('last_name', middleNameRef.current.value);
+        formData.append('middle_name', lastNameRef.current.value);
+        formData.append('user_name', userNameRef.current.value);
+        formData.append('email', emailRef.current.value);
+        formData.append('password', passwordRef.current.value);
+        formData.append('password_confirmation', passwordConfirmationRef.current.value);
+        formData.append('birthday', birthdayRef.current.value);
+        formData.append('street_address', streetAddressRef.current.value);
+        formData.append('municipality', municipalityRef.current.value);
+        formData.append('province', provinceRef.current.value);
+        formData.append('profile_picture', profilePictureRef.current.files[0]);
+    
+        axiosClient.post('/register', formData)
+            .then(({ data }) => {
+                setUser(data.user);
+                setToken(data.token);
+            })
+            .catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    setError(response.data.errors);
+                }
+            });
+    };
 
     if(!props.isOpen) return null;
     return (
