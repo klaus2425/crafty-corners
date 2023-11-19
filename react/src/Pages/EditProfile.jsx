@@ -6,13 +6,15 @@ import { useStateContext } from '../context/ContextProvider'
 const EditProfile =  () => {
     const {user} = useStateContext();
     const [image, setImage] = useState();
+    const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
+
     if (!image) {setImage('/avatar.jpg')}
     const handleChange = (e) => {
         setImage(URL.createObjectURL(e.target.files[0]));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = (ev) => {
+        ev.preventDefault();
        
     }
 
@@ -73,8 +75,8 @@ const EditProfile =  () => {
                                     </div>
                                 </div>
                         </div>
-                        <div onSubmit={handleSubmit} className="button-section">
-                            <button>Update</button>
+                        <div className="button-section">
+                            <button onClick={handleSubmit}>Update</button>
                         </div>
                        
                     </form>
