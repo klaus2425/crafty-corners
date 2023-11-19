@@ -35,6 +35,7 @@ const EditProfile =  () => {
                             <div className="upload-picture">
                                 <img id='update-picture'src={image}/>
                                 <input id='upload-button' type="file" onChange={handleChange} />
+                                <label for='upload-button'>Upload File</label>
                             </div>
 
                                 <div className="input-row-container">
