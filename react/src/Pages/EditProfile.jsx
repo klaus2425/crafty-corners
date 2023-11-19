@@ -1,7 +1,20 @@
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react';
 
 const EditProfile =  () => {
+
+    const [image, setImage] = useState();
+    if (!image) {setImage('/avatar.jpg')}
+    const handleChange = (e) => {
+        setImage(URL.createObjectURL(e.target.files[0]));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(image);
+    }
+
     return (
         <div className="authenticated-container">
             <div className="feed">
@@ -19,6 +32,11 @@ const EditProfile =  () => {
                                 <FontAwesomeIcon icon={faPencil} />
                                 <h1>Update your Profile</h1>
                             </div>
+                            <div className="upload-picture">
+                                <img id='update-picture'src={image}/>
+                                <input id='upload-button' type="file" onChange={handleChange} />
+                            </div>
+
                                 <div className="input-row-container">
                                     <div className="field-holder">
                                         <input type="text" required/>
@@ -66,7 +84,7 @@ const EditProfile =  () => {
                                     </div>
                                 </div>
                         </div>
-                        <div className="button-section">
+                        <div onSubmit={handleSubmit} className="button-section">
                             <button>Update</button>
                         </div>
                        
