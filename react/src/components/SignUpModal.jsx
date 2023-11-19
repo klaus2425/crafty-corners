@@ -41,7 +41,7 @@ export default function SignUpModal(props) {
             street_address: streetAddressRef.current.value,
             municipality: municipalityRef.current.value,
             province: provinceRef.current.value,
-            profile_picture: profilePictureRef.current.value
+            profile_picture: profilePictureRef.current.files[0]
         }
         console.log(payload);
         axiosClient.post('/register', payload)
