@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 const UserFeed =  () => {
 
     const {user, token} = useStateContext();
+    const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
 
 
 
@@ -27,7 +28,7 @@ const UserFeed =  () => {
                         <div className='profile-details'>
                             <div className='left'>
                                 <div className='upper-details'>
-                                    <img id='profile-picture' src={import.meta.env.VITE_API_STORAGE_URL+user.profile_picture} alt='Profile Picture'></img>
+                                    <img id='profile-picture' src={`${storageBaseUrl}/${user.profile_picture}`} alt='Profile Picture'></img>
                                     <div id='display-name'>
                                         <h2>{user.first_name}</h2>
                                         @{user.user_name}
