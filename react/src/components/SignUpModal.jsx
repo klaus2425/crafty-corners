@@ -6,6 +6,12 @@ import { useStateContext } from '../context/ContextProvider';
 
 export default function SignUpModal(props) {
 
+    const [image, setImage] = useState();
+    if (!image) {setImage('/avatar.jpg')}
+    const handleChange = (e) => {
+        setImage(URL.createObjectURL(e.target.files[0]));
+    };
+
     const firstNameRef = useRef();
     const lastNameRef = useRef();
     const middleNameRef = useRef();
@@ -17,6 +23,7 @@ export default function SignUpModal(props) {
     const streetAddressRef = useRef();
     const municipalityRef = useRef();
     const provinceRef = useRef();
+    const profilePictureRef = useRef();
     const [errors, setError] = useState(null)
     const {setUser, setToken} = useStateContext();
 
@@ -34,6 +41,7 @@ export default function SignUpModal(props) {
             street_address: streetAddressRef.current.value,
             municipality: municipalityRef.current.value,
             province: provinceRef.current.value,
+            profile_picture: profilePictureRef.current.value
         }
         console.log(payload);
         axiosClient.post('/register', payload)
@@ -63,7 +71,7 @@ export default function SignUpModal(props) {
                             </svg>
                         </button>
                     </div>
-                    <form onSubmit={onSubmit}>
+                    <form enctype="multipart/form-data" onSubmit={onSubmit}>
                         <div className='login-main'>
                             <h2>Sign Up</h2>
                             {errors && <div className='alert'>
@@ -72,6 +80,11 @@ export default function SignUpModal(props) {
                                 ))}    
                             </div>}
                             <hr />
+                            <div className="upload-picture">
+                                <img id='update-picture'src={image}/>
+                                <input ref={profilePictureRef} id='upload-button' type="file" onChange={handleChange} />
+                                <label for='upload-button'>Upload File</label>
+                            </div>
                             <input ref={firstNameRef} placeholder='First Name'></input>
                             <input ref={middleNameRef} placeholder='Middle Name'></input>
                             <input ref={lastNameRef} placeholder='Last Name'></input>
@@ -79,7 +92,7 @@ export default function SignUpModal(props) {
                             <input ref={emailRef} type='email' placeholder='Email Address'></input>
                             <input ref={passwordRef} type='password' placeholder='Password'></input>
                             <input ref={passwordConfirmationRef} type='password' placeholder='Password Confirmation'></input>
-                            <input ref={birthdayRef} placeholder='Birthday'></input>
+                            <input ref={birthdayRef} type='date'placeholder='Birthday'></input>
                             <input ref={streetAddressRef} placeholder='Street Address'></input>
                             <input ref={municipalityRef} placeholder='Municipality'></input>
                             <input ref={provinceRef} placeholder='Province'></input>
