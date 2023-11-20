@@ -4,9 +4,27 @@ import { useState } from 'react';
 import { useStateContext } from '../context/ContextProvider'
 
 const EditProfile =  () => {
-    const {user} = useStateContext();
+    const {user, setUser} = useStateContext();
+    const [currentUser, setCurrentUser] = useState({
+        birthday: user.birthday,
+        created_at: '',
+        email: '',
+        email_verified_at: '',
+        first_name: user.first_name,
+        id: null,
+        last_name: '',
+        middle_name: '',
+        municipality: '',
+        profile_picture: '',
+        province: '',
+        street_address: '',
+        updated_at: '',
+        user_name: '',
+      });
+
+      console.log(currentUser);
+    
     const [image, setImage] = useState();
-    const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
 
     if (!image) {setImage('/avatar.jpg')}
     const handleChange = (e) => {
@@ -44,33 +62,33 @@ const EditProfile =  () => {
 
                                 <div className="input-row-container"> 
                                     <div className="field-holder">
-                                        <input type="text" value={user.first_name} required/>
+                                        <input type="text" value={currentUser.first_name}  onChange={ev => setCurrentUser({...user, first_name: ev.target.value})} required/>
                                         <label>First Name</label>
                                     </div>
                                     <div className="field-holder">
-                                        <input  type="text" value={user.middle_name} required/>
+                                        <input  type="text" value={currentUser.middle_name} onChange={ev => setCurrentUser({...user, middle_name: ev.target.value})} required/>
                                         <label>Middle Name</label>
                                     </div>
                                     <div className="field-holder">
-                                        <input  type="text" value={user.last_name} required/>
+                                        <input  type="text" value={currentUser.last_name} onChange={ev => setCurrentUser({...user, last_name: ev.target.value})} required/>
                                         <label>Last Name</label>
                                     </div>
                                 </div>
                                 <div className="field-holder">
-                                        <input id='input-birthday' type="date" value={user.birthday} />
+                                        <input id='input-birthday' type="date" value={currentUser.birthday} onChange={ev => setCurrentUser({...user, birthday: ev.target.value})} />
                                         <label>Birthday</label>
                                 </div>
                                 <div className="field-holder">
-                                        <input id="street-address" type="text" value={user.street_address}required/>
+                                        <input id="street-address" type="text" value={currentUser.street_address} onChange={ev => setCurrentUser({...user, street_address: ev.target.value})} required/>
                                         <label>Street Address</label>
                                 </div>
                                 <div className="input-row-container">
                                     <div className="field-holder">
-                                            <input type="text" value={user.municipality}required/>
+                                            <input type="text" value={currentUser.municipality} onChange={ev => setCurrentUser({...user, municipality: ev.target.value})} required/>
                                             <label>Municipality</label>
                                     </div>
                                     <div className="field-holder">
-                                            <input type="text" value={user.province}required/>
+                                            <input type="text" value={currentUser.province} onChange={ev => setCurrentUser({...user, province: ev.target.value})}required/>
                                             <label>Province</label>
                                     </div>
                                 </div>
