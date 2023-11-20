@@ -1,40 +1,28 @@
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react';
+import axiosClient from "../axios-client";
+import { useState, useEffect } from 'react';
 import { useStateContext } from '../context/ContextProvider'
 
 const EditProfile =  () => {
-    const {user, setUser} = useStateContext();
-    const [currentUser, setCurrentUser] = useState({
-        birthday: user.birthday,
-        created_at: '',
-        email: '',
-        email_verified_at: '',
-        first_name: user.first_name,
-        id: null,
-        last_name: '',
-        middle_name: '',
-        municipality: '',
-        profile_picture: '',
-        province: '',
-        street_address: '',
-        updated_at: '',
-        user_name: '',
-      });
-
-      console.log(currentUser);
-    
     const [image, setImage] = useState();
-
+    const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     if (!image) {setImage('/avatar.jpg')}
     const handleChange = (e) => {
         setImage(URL.createObjectURL(e.target.files[0]));
     };
-
     const handleSubmit = (ev) => {
         ev.preventDefault();
        
     }
+    const [currentUser, setCurrentUser] = useState({});
+
+    useEffect(() => {
+        axiosClient.get('/user')
+        .then(({data}) => {
+            setCurrentUser(data)
+        })
+    }, []);
 
     return (
         <div className="authenticated-container">
@@ -62,7 +50,7 @@ const EditProfile =  () => {
 
                                 <div className="input-row-container"> 
                                     <div className="field-holder">
-                                        <input type="text" value={currentUser.first_name}  onChange={ev => setCurrentUser({...user, first_name: ev.target.value})} required/>
+                                        <input type="text" value={currentUser.first_name}  onChange={ev => setCurrentUser({...currentUser, first_name: ev.target.value})} required/>
                                         <label>First Name</label>
                                     </div>
                                     <div className="field-holder">
