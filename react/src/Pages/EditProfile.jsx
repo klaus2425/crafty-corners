@@ -8,20 +8,42 @@ const EditProfile =  () => {
     const [image, setImage] = useState();
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     if (!image) {setImage('/avatar.jpg')}
-    const handleChange = (e) => {
-        setImage(URL.createObjectURL(e.target.files[0]));
+    const handleChange = (ev) => {
+        setImage(URL.createObjectURL(ev.target.files[0]));
+        setCurrentUser({...currentUser, profile_picture: ev.target.files[0]})
+        
     };
     const handleSubmit = (ev) => {
         ev.preventDefault();
+        console.log(currentUser);
+        axiosClient.put(`/users/${currentUser.id}`, currentUser)
+        .then(() => {
+            console.log('Successful Update');
+            navigate('/EditProfile');
+        })
+        .catch(err => {
+            const response = err.response;
+            if (response && response.status === 422) {
+              console.log(response.data.errors);
+            }
+          })
        
     }
     const [currentUser, setCurrentUser] = useState({});
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         axiosClient.get('/user')
         .then(({data}) => {
-            setCurrentUser(data)
+            setLoading(false);
+            setCurrentUser(data);
+            setImage(storageBaseUrl+data.profile_picture)
+
         })
+        .catch(() =>{
+            setLoading(false);
+        });
     }, []);
 
     return (
@@ -35,6 +57,13 @@ const EditProfile =  () => {
                     <h3>Edit Profile</h3>
             </div>
                 <div className="card">
+                    {loading && (
+                        <div className="loading">
+                            Loading...
+                        </div>
+                    )}
+
+                    {!loading && (
                     <form>
                         <div className="edit-card">
                             <div className='edit-header'>
@@ -54,29 +83,29 @@ const EditProfile =  () => {
                                         <label>First Name</label>
                                     </div>
                                     <div className="field-holder">
-                                        <input  type="text" value={currentUser.middle_name} onChange={ev => setCurrentUser({...user, middle_name: ev.target.value})} required/>
+                                        <input  type="text" value={currentUser.middle_name} onChange={ev => setCurrentUser({...currentUser, middle_name: ev.target.value})} required/>
                                         <label>Middle Name</label>
                                     </div>
                                     <div className="field-holder">
-                                        <input  type="text" value={currentUser.last_name} onChange={ev => setCurrentUser({...user, last_name: ev.target.value})} required/>
+                                        <input  type="text" value={currentUser.last_name} onChange={ev => setCurrentUser({...currentUser, last_name: ev.target.value})} required/>
                                         <label>Last Name</label>
                                     </div>
                                 </div>
                                 <div className="field-holder">
-                                        <input id='input-birthday' type="date" value={currentUser.birthday} onChange={ev => setCurrentUser({...user, birthday: ev.target.value})} />
+                                        <input id='input-birthday' type="date" value={currentUser.birthday} onChange={ev => setCurrentUser({...currentUser, birthday: ev.target.value})} />
                                         <label>Birthday</label>
                                 </div>
                                 <div className="field-holder">
-                                        <input id="street-address" type="text" value={currentUser.street_address} onChange={ev => setCurrentUser({...user, street_address: ev.target.value})} required/>
+                                        <input id="street-address" type="text" value={currentUser.street_address} onChange={ev => setCurrentUser({...currentUser, street_address: ev.target.value})} required/>
                                         <label>Street Address</label>
                                 </div>
                                 <div className="input-row-container">
                                     <div className="field-holder">
-                                            <input type="text" value={currentUser.municipality} onChange={ev => setCurrentUser({...user, municipality: ev.target.value})} required/>
+                                            <input type="text" value={currentUser.municipality} onChange={ev => setCurrentUser({...currentUser, municipality: ev.target.value})} required/>
                                             <label>Municipality</label>
                                     </div>
                                     <div className="field-holder">
-                                            <input type="text" value={currentUser.province} onChange={ev => setCurrentUser({...user, province: ev.target.value})}required/>
+                                            <input type="text" value={currentUser.province} onChange={ev => setCurrentUser({...currentUser, province: ev.target.value})}required/>
                                             <label>Province</label>
                                     </div>
                                 </div>
@@ -86,8 +115,10 @@ const EditProfile =  () => {
                         </div>
                        
                     </form>
+                    )}
                 </div>
             </div>
+            
             <div className="recommended">
                  section
             </div>
