@@ -17,7 +17,6 @@ export default function LoginModal(props) {
             password: passwordRef.current.value,
         }
         setError(null);
-        console.log(payload);
         axiosClient.post('/login', payload)
         .then(({data}) => {
             setUser(data.user);
