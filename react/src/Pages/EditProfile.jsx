@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 
 
 const EditProfile =  () => {
-    const currentImageRef = useRef(null)
+    
     const [image, setImage] = useState();
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     if (!image) {setImage('/avatar.jpg')}
