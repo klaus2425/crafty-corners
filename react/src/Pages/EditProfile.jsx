@@ -1,32 +1,49 @@
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axiosClient from "../axios-client";
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, } from 'react';
 
 
 const EditProfile =  () => {
     
     const [image, setImage] = useState();
+    const [imageChange, setImageChange] = useState(false);
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     if (!image) {setImage('/avatar.jpg')}
-    
+
     const handleChange = (ev) => {
         setImage(URL.createObjectURL(ev.target.files[0]));
+        setImageChange(true);
         setCurrentUser({...currentUser, profile_picture: ev.target.files[0]})
     };
 
+
     const onSubmit = (ev) => {
         ev.preventDefault();
+        const reader = new FileReader();
+        console.log(storageBaseUrl+currentUser.profile_picture);
 
+        if(!imageChange) {
+            const defaultImage = axiosClient.get(storageBaseUrl+currentUser.profile_picture) // http://localhost:8000/storage/users/g8w4a11Q00mog9H
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+
+        }
+
+
+        
         const formData = new FormData();
+                
         formData.append("_method", "PUT");
         for (const key in currentUser) {
             formData.append(key, currentUser[key]);
           }
-        
+          
+          
         axiosClient.post(`users/${currentUser.id}`, formData)
             .then((res) => {
-                console.log(res.data);  
+                console.log(res.data); 
+                window.location.reload();
             })
             .catch(err => {
                 const response = err.response;
@@ -47,11 +64,14 @@ const EditProfile =  () => {
             setLoading(false);
             setCurrentUser(data);
             setImage(storageBaseUrl+data.profile_picture)
+        
+
         })
         .catch(() =>{
             setLoading(false);
         });
     }, []);
+
 
     
 
