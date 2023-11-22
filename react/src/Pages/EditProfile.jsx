@@ -1,31 +1,31 @@
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axiosClient from "../axios-client";
-import { useState, useEffect } from 'react';
-import { useStateContext } from '../context/ContextProvider'
+import { useState, useEffect, useRef } from 'react';
+
 
 const EditProfile =  () => {
+    const currentImageRef = useRef(null)
     const [image, setImage] = useState();
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     if (!image) {setImage('/avatar.jpg')}
-
+    
     const handleChange = (ev) => {
         setImage(URL.createObjectURL(ev.target.files[0]));
         setCurrentUser({...currentUser, profile_picture: ev.target.files[0]})
-        console.log(ev.target.files[0]);
     };
 
     const onSubmit = (ev) => {
         ev.preventDefault();
+        const currentImage = currentImageRef.current.files[0];
+
+        console.log(currentImage);
+        
         const formData = new FormData();
         formData.append("_method", "PUT");
         for (const key in currentUser) {
             formData.append(key, currentUser[key]);
           }
-        
-        for (const value of formData.values()) {
-        console.log(value);
-        }
         
         axiosClient.post(`users/${currentUser.id}`, formData)
             .then((res) => {
@@ -50,6 +50,7 @@ const EditProfile =  () => {
             setLoading(false);
             setCurrentUser(data);
             setImage(storageBaseUrl+data.profile_picture)
+
 
         })
         .catch(() =>{
@@ -86,7 +87,7 @@ const EditProfile =  () => {
                             </div>
                             <div className="upload-picture">
                                 <img id='update-picture'src={image}/>
-                                <input id='upload-button' type="file" onChange={handleChange} />
+                                <input ref={currentImageRef} id='upload-button' type="file" onChange={handleChange} />
                                 <label for='upload-button'>Upload File</label>
                             </div>
 
