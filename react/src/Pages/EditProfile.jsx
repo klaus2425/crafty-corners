@@ -18,7 +18,7 @@ const EditProfile =  () => {
     const onSubmit = (ev) => {
         ev.preventDefault();
         const formData = new FormData();
-
+        formData.append("_method", "PUT");
         for (const key in currentUser) {
             formData.append(key, currentUser[key]);
           }
@@ -27,14 +27,14 @@ const EditProfile =  () => {
         console.log(value);
         }
         
-        axiosClient.put(`users/${currentUser.id}`, formData)
+        axiosClient.post(`users/${currentUser.id}`, formData)
             .then((res) => {
                 console.log(res.data);  
             })
             .catch(err => {
                 const response = err.response;
                 if (response && response.status === 422) {
-                    setError(response.data.errors);
+                    console.log(response);
                 }
             });
     };
@@ -78,6 +78,7 @@ const EditProfile =  () => {
 
                     {!loading && (
                     <form enctype="multipart/form-data" onSubmit={onSubmit}>
+                        
                         <div className="edit-card">
                             <div className='edit-header'>
                                 <FontAwesomeIcon icon={faPencil} />
