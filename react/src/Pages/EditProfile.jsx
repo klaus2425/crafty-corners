@@ -22,12 +22,14 @@ const EditProfile =  () => {
         for (const key in currentUser) {
             formData.append(key, currentUser[key]);
           }
-
         
-
+        for (const value of formData.values()) {
+        console.log(value);
+        }
+        
         axiosClient.put(`users/${currentUser.id}`, formData)
-            .then(() => {
-                console.log('Update Successful');
+            .then((res) => {
+                console.log(res.data);  
             })
             .catch(err => {
                 const response = err.response;
