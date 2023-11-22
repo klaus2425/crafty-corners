@@ -17,10 +17,7 @@ const EditProfile =  () => {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        const currentImage = currentImageRef.current.files[0];
 
-        console.log(currentImage);
-        
         const formData = new FormData();
         formData.append("_method", "PUT");
         for (const key in currentUser) {
@@ -50,8 +47,6 @@ const EditProfile =  () => {
             setLoading(false);
             setCurrentUser(data);
             setImage(storageBaseUrl+data.profile_picture)
-
-
         })
         .catch(() =>{
             setLoading(false);
@@ -87,7 +82,7 @@ const EditProfile =  () => {
                             </div>
                             <div className="upload-picture">
                                 <img id='update-picture'src={image}/>
-                                <input ref={currentImageRef} id='upload-button' type="file" onChange={handleChange} />
+                                <input id='upload-button' type="file" onChange={handleChange} />
                                 <label for='upload-button'>Upload File</label>
                             </div>
 
