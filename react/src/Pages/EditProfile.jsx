@@ -8,27 +8,36 @@ const EditProfile =  () => {
     const [image, setImage] = useState();
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     if (!image) {setImage('/avatar.jpg')}
+
     const handleChange = (ev) => {
         setImage(URL.createObjectURL(ev.target.files[0]));
         setCurrentUser({...currentUser, profile_picture: ev.target.files[0]})
-        
+        console.log(ev.target.files[0]);
     };
-    const handleSubmit = (ev) => {
+
+    const onSubmit = (ev) => {
         ev.preventDefault();
-        console.log(currentUser);
-        axiosClient.put(`/users/${currentUser.id}`, currentUser)
-        .then(() => {
-            console.log('Successful Update');
-            navigate('/EditProfile');
-        })
-        .catch(err => {
-            const response = err.response;
-            if (response && response.status === 422) {
-              console.log(response.data.errors);
-            }
-          })
-       
-    }
+        const formData = new FormData();
+
+        for (const key in currentUser) {
+            formData.append(key, currentUser[key]);
+          }
+
+        
+
+        axiosClient.put(`users/${currentUser.id}`, formData)
+            .then(() => {
+                console.log('Update Successful');
+            })
+            .catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    setError(response.data.errors);
+                }
+            });
+    };
+
+
     const [currentUser, setCurrentUser] = useState({});
     const [loading, setLoading] = useState(false);
 
@@ -45,6 +54,8 @@ const EditProfile =  () => {
             setLoading(false);
         });
     }, []);
+
+    
 
     return (
         <div className="authenticated-container">
@@ -64,7 +75,7 @@ const EditProfile =  () => {
                     )}
 
                     {!loading && (
-                    <form>
+                    <form enctype="multipart/form-data" onSubmit={onSubmit}>
                         <div className="edit-card">
                             <div className='edit-header'>
                                 <FontAwesomeIcon icon={faPencil} />
@@ -111,7 +122,7 @@ const EditProfile =  () => {
                                 </div>
                         </div>
                         <div className="button-section">
-                            <button onClick={handleSubmit}>Update</button>
+                            <button type='submit'>Update</button>
                         </div>
                        
                     </form>
