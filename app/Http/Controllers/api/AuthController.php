@@ -26,10 +26,9 @@ class AuthController extends Controller
 
         if($request->hasFile('profile_picture')){
             $profile_picture = $request->file('profile_picture');
-            $path = $profile_picture->store('users', 'public');
-            $user->update([
-                'profile_picture' => $path
-            ]);
+            $profile_picture->move(public_path() . '/storage/users/', $profile_picture->getClientOriginalName());
+            $user->profile_picture = $profile_picture->getClientOriginalName();
+            $user->save();
         }
 
         $token = $user->createToken('UserToken')->plainTextToken;
@@ -37,6 +36,13 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token
         ]);
+             // if($request->hasFile('profile_picture')){
+        //     $profile_picture = $request->file('profile_picture');
+        //     $path = $profile_picture->store('users', 'public');
+        //     $user->update([
+        //         'profile_picture' => $path
+        //     ]);
+        // }
     }
     public function login(LoginRequest $request){
         $credentials = $request->validated();
