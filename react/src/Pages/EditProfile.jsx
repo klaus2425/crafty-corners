@@ -45,7 +45,30 @@ const EditProfile =  () => {
                         console.log(response);
                     }
                 });
-
+        } 
+        else {
+            const formData = new FormData();
+                
+            formData.append("_method", "PUT");
+            for (const key in currentUser) {
+                formData.append(key, currentUser[key]);
+                console.log(currentUser[key]);
+              }
+        
+            axiosClient.post(`users/${currentUser.id}`, formData)
+                .then((res) => {
+                    console.log(res.data); 
+                    window.location.reload();
+                })
+                .catch(err => {
+                const response = err.response;
+                setLoading(false);
+                setCurrentUser(data);
+                setImage(storageBaseUrl+data.profile_picture)
+            })
+            .catch(() =>{
+                setLoading(false);
+            });
         }
 
         
