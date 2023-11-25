@@ -671,6 +671,7 @@ $purple: #6339DC;
 }
 
 .dropdown-menu{
+  border: 2px solid $purple;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -750,7 +751,11 @@ $purple: #6339DC;
   }
   
   .post-footer {
-    .like {
+    display: flex;
+    padding-left: 2rem;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    .footer-item {
       display: flex;
       align-items: center;
       justify-content: flex-start;
