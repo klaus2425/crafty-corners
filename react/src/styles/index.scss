@@ -47,6 +47,8 @@ $purple: #6339DC;
 }
 #logout_button:hover {
   background-color: rgba(#6339DC, $alpha: 0.4);
+  cursor: pointer;
+
 }
 
 
@@ -340,6 +342,8 @@ $purple: #6339DC;
 
     .navbar-img:hover {
       border: 3px solid#4627a1;
+      cursor: pointer;
+
     }
 
     ul {
@@ -359,6 +363,8 @@ $purple: #6339DC;
     .add-post:hover{
       border-color: #6339DC;
       outline: 0;
+      cursor: pointer;
+
   
     }
 
@@ -662,6 +668,8 @@ $purple: #6339DC;
       transition: 0.2s;
       background: #6339DC;
       color: #FFF;
+      cursor: pointer;
+
     }
     
   }
@@ -756,9 +764,15 @@ $purple: #6339DC;
     justify-content: flex-start;
     gap: 0.5rem;
     .footer-item {
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: flex-start;
+    }
+    .heart:hover {
+      transition: 0.2s;
+      fill: red;
+      
     }
     .count {
       padding-top: 0.25rem;
