@@ -1,5 +1,5 @@
 $font_grey: #677186;
-
+$purple: #6339DC;
 :root {
   font-family: Helvetica, system-ui, Avenir, Arial, sans-serif;
   line-height: 1.5;
@@ -34,17 +34,21 @@ $font_grey: #677186;
 
 #logout_button {
   display: flex;
+  color: white;
+  font-weight: bold;
   justify-content: center;
   align-items: center;
-  height: 3rem;
-  width: 3rem;
-  background-color: transparent;
-  border-radius: 100%;
+  height: 2.5rem;
+  width: 6rem;
+  background-color: $purple;
   border: none;
+  border-radius: 20px;
   transition: 0.3s;
 }
 #logout_button:hover {
   background-color: rgba(#6339DC, $alpha: 0.4);
+  cursor: pointer;
+
 }
 
 
@@ -250,6 +254,7 @@ $font_grey: #677186;
 }
 
 .authenticated-navbar {
+  position: fixed;
   width: 100%;
   height: 4.5rem;
   border-bottom: 3px solid #F0F2F5;
@@ -321,18 +326,28 @@ $font_grey: #677186;
     justify-content: center;
     align-items: center;
     margin-right: 2rem;
-    h3 {
+    #navbar-header {
       margin-right: 1rem;
       white-space: nowrap;
     }
 
-    img {
+    .navbar-img {
       border-radius: 10000px;
       max-width: 3.125rem;
       min-width: 3.123rem;
       max-height: 3.125rem;
       min-height: 3.125rem;
-      
+      transition: 0.1s;
+    }
+
+    .navbar-img:hover {
+      border: 3px solid#4627a1;
+      cursor: pointer;
+
+    }
+
+    ul {
+      list-style-type: none;
     }
 
     .add-post {
@@ -348,7 +363,14 @@ $font_grey: #677186;
     .add-post:hover{
       border-color: #6339DC;
       outline: 0;
+      cursor: pointer;
+
   
+    }
+
+    a {
+      text-decoration: none;
+      color: $font_grey;
     }
   }
 
@@ -377,7 +399,7 @@ $font_grey: #677186;
 }
 
 .authenticated-container {
-
+  padding-top: 2.25rem;
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -389,6 +411,9 @@ $font_grey: #677186;
   }
 
   .sidebar {
+    position: fixed;
+    left: 0;
+    margin-top: 3rem;
     margin-left: 2rem;
     display: flex;
     flex-direction: column;
@@ -436,10 +461,10 @@ $font_grey: #677186;
 
   .feed {
     display: flex;
-    width: 75%;
+    width: 50%;
     align-items: center;
     flex-direction: column;
-    padding: 0 4rem;
+    margin-left: 30rem;
   }
 
   .section-header {
@@ -450,6 +475,7 @@ $font_grey: #677186;
     color: #000;
     margin-top: 1.2rem;
     margin-bottom: 1rem;
+
   }
 
   .card{
@@ -550,6 +576,8 @@ $font_grey: #677186;
           }
         }
       }
+
+      
     }
 
     .edit-card{
@@ -640,13 +668,116 @@ $font_grey: #677186;
       transition: 0.2s;
       background: #6339DC;
       color: #FFF;
+      cursor: pointer;
+
     }
     
   }
 
-
-
-
+  
 
 }
+
+.dropdown-menu{
+  border: 2px solid $purple;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 80px;
+  right: 20px;
+  background-color: white;
+  border-radius: 15px;
+  padding: 10px;
+  width: 15rem;
+  gap: 0.5rem;
+  h3 {
+    border-bottom: 2px solid gray;
+    margin-bottom: 1rem;
+  }
+
+  .dropdown-picture {
+    height: 7rem;
+    width: 7rem;
+    border-radius: 10000px;
+  }
+
+}
+
+
+.post{
+  display: flex;
+  flex-direction: column;
+  background-color: #FDFDFD;
+  border: 2px solid #D8DCE3;
+  border-radius: 15px;
+  width: 80%;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+  .post-header{
+    display: flex;
+    justify-content: space-between;
+    .left {
+      display: flex;
+      gap: 0.5rem;
+      .post-image {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 10000px;
+        object-fit: cover;
+      }
+
+      .post-user {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        #post-time {
+          margin-top: -0.5rem;
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    .right {
+      color: #6339DC;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+  }
+  .post-content{
+    text-align: center;
+    .post-image {
+      object-fit: cover;
+      width: 100%;
+      border-radius: 20px;
+      max-width: 41.375rem;
+      max-height: 21.9375rem;
+    }
+  }
+  
+  .post-footer {
+    display: flex;
+    padding-left: 2rem;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    .footer-item {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .heart:hover {
+      transition: 0.2s;
+      fill: rgb(255, 40, 40);
+      
+    }
+    .count {
+      padding-top: 0.25rem;
+    }
+  }
+}
+
 

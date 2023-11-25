@@ -1,4 +1,4 @@
-import { Navigate, Outlet, Link } from "react-router-dom";
+import { Navigate, Outlet, } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 import '../styles/index.scss';
 import Navbar from '../components/Navbar';
