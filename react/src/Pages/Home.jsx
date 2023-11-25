@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { Link, useOutletContext } from 'react-router-dom'
-
+import Posts from '../components/Posts'
 
 const UserFeed =  () => {
     return (
@@ -13,27 +13,13 @@ const UserFeed =  () => {
                     </svg>
                     <h3>Home</h3>
                 </div>
-
-                <div className="card">
-                    <div className="post-header">
-                        <div className="left">
-                            <img className='post-image' src="/kafka.jpg" alt="" />
-                            <div className='post-user'>
-                                <h4>Kafka</h4>
-                                <span id='post-time'>2 hours ago</span>
-                            </div>
-                        </div>
-                        <div className="right">
-                            <span>/Singing</span>
-                        </div>
-                    </div>
-                    <div className="post-content">
-                        <img className='post-image'src="/kafkasing.jpg" alt="" />
-                    </div>
-                    <div className="post-footers">
-
-                    </div>
-                </div>
+                {<Posts/>}
+                {<Posts/>}
+                {<Posts/>}
+                {<Posts/>}
+                {<Posts/>}
+                {<Posts/>}
+                
             </div>
             <div className="recommended">
             recommended section
