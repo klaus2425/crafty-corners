@@ -24,7 +24,7 @@ const EditProfile =  () => {
         console.log(storageBaseUrl+currentUser.profile_picture);
 
         if(!imageChange) {
-            const defaultImage = axiosClient.get(storageBaseUrl+currentUser.profile_picture) // http://localhost:8000/storage/users/g8w4a11Q00mog9H
+            const defaultImage = axiosClient.get(storageBaseUrl+currentUser.profile_picture) 
             .then(res => console.log(res))
             .catch(err => console.log(err));
 
