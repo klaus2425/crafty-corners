@@ -471,7 +471,7 @@ $purple: #6339DC;
     margin-bottom: 1rem;
 
   }
-  
+
   .card{
     display: flex;
     flex-direction: column;
@@ -746,6 +746,17 @@ $purple: #6339DC;
       border-radius: 20px;
       max-width: 41.375rem;
       max-height: 21.9375rem;
+    }
+  }
+  
+  .post-footer {
+    .like {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .count {
+      padding-top: 0.25rem;
     }
   }
 }
