@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Route::put('/user/{user}', [UserController::class, 'update']);
 
     Route::apiResource('/users', UserController::class);
+    Route::put('/photo-edit', [UserController::class, 'updatePhoto']);
 });
 
 Route::post('/register', [AuthController::class, 'register']);
