@@ -1,7 +1,7 @@
 const Posts = () => {
     return (
         <div className="post">
-                    <div className="post-header">
+                    <div className="post-header" id="posts">
                         <div className="left">
                             <img className='post-image' src="/kafka.jpg" alt="" />
                             <div className='post-user'>
