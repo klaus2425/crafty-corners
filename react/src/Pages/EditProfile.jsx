@@ -20,8 +20,6 @@ const EditProfile =  () => {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        const reader = new FileReader();
-        console.log(storageBaseUrl+currentUser.profile_picture);
 
         if(!imageChange) {
             const defaultImage = axiosClient.get(storageBaseUrl+currentUser.profile_picture) 
