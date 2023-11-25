@@ -22,28 +22,33 @@ const EditProfile =  () => {
         ev.preventDefault();
 
         if(!imageChange) {
-            const defaultImage = axiosClient.get(storageBaseUrl+currentUser.profile_picture) 
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
+            const formData = new FormData();
+                    
+            formData.append("_method", "PUT");
+            formData.append('first_name', currentUser.first_name);
+            formData.append('middle_name', currentUser.middle_name);
+            formData.append('last_name', currentUser.last_name); 
+            formData.append('email', currentUser.email); 
+            formData.append('password', currentUser.password); 
+            formData.append('birthday', currentUser.birthday); 
+            formData.append('street_address', currentUser.street_address); 
+            formData.append('municipality', currentUser.municipality); 
+            formData.append('province', currentUser.province); 
+            axiosClient.post(`users/${currentUser.id}`, formData)
+                .then((res) => {
+                    console.log(res.data); 
+                    window.location.reload();
+                })
+                .catch(err => {
+                    const response = err.response;
+                    if (response && response.status === 422) {
+                        console.log(response);
+                    }
+                });
 
         }
 
-        const formData = new FormData();
-                
-        formData.append("_method", "PUT");
-        formData.append('first_name', currentUser.first_name)
-          
-        axiosClient.post(`users/${currentUser.id}`, formData)
-            .then((res) => {
-                console.log(res.data); 
-                window.location.reload();
-            })
-            .catch(err => {
-                const response = err.response;
-                if (response && response.status === 422) {
-                    console.log(response);
-                }
-            });
+        
     };
 
 
