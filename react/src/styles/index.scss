@@ -393,7 +393,7 @@ $purple: #6339DC;
 }
 
 .authenticated-container {
-  padding-top: 1.9rem;
+  padding-top: 2.25rem;
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -407,6 +407,7 @@ $purple: #6339DC;
   .sidebar {
     position: fixed;
     left: 0;
+    margin-top: 3rem;
     margin-left: 2rem;
     display: flex;
     flex-direction: column;
@@ -454,11 +455,10 @@ $purple: #6339DC;
 
   .feed {
     display: flex;
-    width: 75%;
+    width: 50%;
     align-items: center;
     flex-direction: column;
-    padding: 0 4rem;
-    margin-left: 20rem;
+    margin-left: 30rem;
   }
 
   .section-header {
@@ -469,8 +469,9 @@ $purple: #6339DC;
     color: #000;
     margin-top: 1.2rem;
     margin-bottom: 1rem;
-  }
 
+  }
+  
   .card{
     display: flex;
     flex-direction: column;
@@ -704,6 +705,7 @@ $purple: #6339DC;
   width: 80%;
   padding: 1rem;
   margin-bottom: 1.5rem;
+  gap: 0.5rem;
   .post-header{
     display: flex;
     justify-content: space-between;
