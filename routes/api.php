@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\UpdateProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\AuthController;
@@ -24,9 +25,9 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     // Route::resource('users', UserController::class);
     // Route::put('/user/{user}', [UserController::class, 'update']);
-
+    Route::put('/photo-edit/{user}', [UpdateProfile::class, 'update']);
     Route::apiResource('/users', UserController::class);
-    Route::put('/photo-edit', [UserController::class, 'updatePhoto']);
+
 });
 
 Route::post('/register', [AuthController::class, 'register']);

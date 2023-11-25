@@ -20,7 +20,6 @@ class UserController extends Controller
             $file = $request->file('profile_picture');
             $file->move(public_path() . '/storage/users/', $file->getClientOriginalName());
             $data['profile_picture'] = $file->getClientOriginalName();
-
         }
         //
         // if ($request->hasFile('profile_picture')) {
@@ -29,7 +28,6 @@ class UserController extends Controller
         //     $data['profile_picture'] = $path;
         // }
         $user->update($data);
-
 
         return new UserResource($user);
     }
