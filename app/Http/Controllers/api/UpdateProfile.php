@@ -1,16 +1,21 @@
 <?php
 
-// UserController.php
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\Log;
+use App\Http\Requests\UserRequest;
 
-class UserController extends Controller
+class UpdateProfile extends Controller
 {
+
+
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(UserRequest $request, User $user)
     {
         // Validate the request
@@ -31,5 +36,12 @@ class UserController extends Controller
 
         return new UserResource($user);
     }
-}
 
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(User $user)
+    {
+        //
+    }
+}
