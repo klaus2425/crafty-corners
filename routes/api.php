@@ -25,7 +25,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     // Route::resource('users', UserController::class);
     // Route::put('/user/{user}', [UserController::class, 'update']);
-    Route::put('/photo-edit/{user}', [UpdateProfile::class, 'update']);
     Route::apiResource('/users', UserController::class);
 
 });
