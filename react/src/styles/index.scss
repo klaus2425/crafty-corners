@@ -565,6 +565,8 @@ $purple: #6339DC;
           }
         }
       }
+
+      
     }
 
     .edit-card{
@@ -659,8 +661,49 @@ $purple: #6339DC;
     
   }
 
+  .post-header{
+    display: flex;
+    justify-content: space-between;
+    .left {
+      display: flex;
+      gap: 0.5rem;
+      .post-image {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 10000px;
+        object-fit: cover;
+      }
 
+      .post-user {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
 
+        #post-time {
+          margin-top: -0.5rem;
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    .right {
+      color: #6339DC;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    
+
+  }
+
+  .post-content{
+
+    .post-image {
+      
+    }
+  }
+  
 
 }
 
