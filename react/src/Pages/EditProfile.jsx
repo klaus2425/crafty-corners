@@ -171,7 +171,6 @@ const EditProfile =  () => {
             </div>
             
             <div className="recommended">
-                 section
             </div>
         </div>
     )

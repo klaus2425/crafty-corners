@@ -14,7 +14,10 @@ const UserFeed =  () => {
                         </svg>
                         <h3>Notifications</h3>
                 </div>
-                    <UserNotifications notificationType='like' notifier='Kafka' community='Gaming'/>
+                    <UserNotifications notificationType='like' notifier='Kafka' notifierImage='/kafka.jpg' community='Gaming'/>
+                    <UserNotifications notificationType='like' notifier='Kafka' notifierImage='/kafka.jpg' community='Gaming'/>
+                    <UserNotifications notificationType='like' notifier='Kafka' notifierImage='/kafka.jpg' community='Gaming'/>
+
             </div>
             <div className="recommended">
             </div>

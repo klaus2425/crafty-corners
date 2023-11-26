@@ -47,9 +47,14 @@ const UserFeed =  () => {
                         </div>
                     </div>
                 </div>
+                <div className="user-posts">
+                    <div className="section-header">
+                        <img src='/address-card-solid.svg'/>
+                        <h3>Posts</h3>
+                    </div>
+                </div>
             </div>
             <div className="recommended">
-                recommended section
             </div>
         </div>
     )

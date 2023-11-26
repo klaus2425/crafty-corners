@@ -27,10 +27,10 @@ const UserFeed =  () => {
             <div className="card">
                 <h3>Recommended Communities</h3>
                 <RecommendedCommunities communityName='Gaming' communityMemberCount='140' communityId='1' communityIcon='/gamepad-solid.svg' rank='1' />
-                <RecommendedCommunities communityName='Singing' communityMemberCount='40' communityId='2' communityIcon='' rank='2'/>
-                <RecommendedCommunities communityName='Painting' communityMemberCount='340' communityId='3' communityIcon='' rank='3'/>
-                <RecommendedCommunities communityName='Knitting' communityMemberCount='60' communityId='4' communityIcon='' rank='4'/>
-                <RecommendedCommunities communityName='Dancing' communityMemberCount='180' communityId='5' communityIcon='' rank='5'/>
+                <RecommendedCommunities communityName='Singing' communityMemberCount='40' communityId='2' communityIcon='/music-solid.svg' rank='2'/>
+                <RecommendedCommunities communityName='Painting' communityMemberCount='340' communityId='3' communityIcon='/paintbrush-solid.svg' rank='3'/>
+                <RecommendedCommunities communityName='Knitting' communityMemberCount='60' communityId='4' communityIcon='/mitten-solid.svg' rank='4'/>
+                <RecommendedCommunities communityName='Dancing' communityMemberCount='180' communityId='5' communityIcon='/dance.png' rank='5'/>
         
             </div>
                 
