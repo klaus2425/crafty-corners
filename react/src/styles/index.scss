@@ -1,5 +1,7 @@
 $font_grey: #677186;
 $purple: #6339DC;
+$light_grey: #D8DCE3;
+
 :root {
   font-family: Helvetica, system-ui, Avenir, Arial, sans-serif;
   line-height: 1.5;
@@ -407,7 +409,41 @@ $purple: #6339DC;
   max-height: 1080px;
   
   .recommended{
+    margin-top: 4.5rem;
     width: 25%;
+    .card {
+      width: 65%;
+      
+
+      .rec-community-item {
+        display: flex;
+        border-top: 2px solid $light_grey;
+        gap: 1rem;
+        padding-top: 0.125rem;
+        #rank {
+          font-size: 1.6rem;
+          font-weight: bold;
+          color: #000;
+          margin-left: 1rem;
+        }
+        h4 {
+          color: $purple;
+        }
+
+        img {
+          max-width: 1.8rem;
+        }
+
+        .com-count {
+          display: flex;
+          flex-direction: column;
+          .top {
+            display: flex;
+            gap: 0.5rem;
+          }
+        }
+      }
+    }
   }
 
   .sidebar {
