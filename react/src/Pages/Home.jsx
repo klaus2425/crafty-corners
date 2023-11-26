@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { Link, useOutletContext } from 'react-router-dom'
 import Posts from '../components/Posts'
+import RecommendedCommunities from '../components/RecommendedCommunities'
 
 const UserFeed =  () => {
     return (
@@ -12,7 +13,7 @@ const UserFeed =  () => {
                         <path d="M24.1667 35V26.6667C24.1667 25.7462 23.4205 25 22.5 25H17.5C16.5796 25 15.8334 25.7462 15.8334 26.6667V35" stroke="#677186" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <h3>Home</h3>
-                </div>
+            </div>
                 {<Posts/>}
                 {<Posts/>}
                 {<Posts/>}
@@ -22,7 +23,18 @@ const UserFeed =  () => {
                 
             </div>
             <div className="recommended">
-            recommended section
+
+            <div className="card">
+                <h3>Recommended Communities</h3>
+                <RecommendedCommunities communityName='Gaming' communityMemberCount='140' communityId='1' communityIcon='/gamepad-solid.svg' rank='1' />
+                <RecommendedCommunities communityName='Singing' communityMemberCount='40' communityId='2' communityIcon='' rank='2'/>
+                <RecommendedCommunities communityName='Painting' communityMemberCount='340' communityId='3' communityIcon='' rank='3'/>
+                <RecommendedCommunities communityName='Knitting' communityMemberCount='60' communityId='4' communityIcon='' rank='4'/>
+                <RecommendedCommunities communityName='Dancing' communityMemberCount='180' communityId='5' communityIcon='' rank='5'/>
+        
+            </div>
+                
+
             </div>
         </div>
     )
