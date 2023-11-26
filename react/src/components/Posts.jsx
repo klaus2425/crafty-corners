@@ -1,4 +1,5 @@
-const Posts = () => {
+const Posts = (props) => {
+
     return (
         <div className="post">
                     <div className="post-header" id="posts">
