@@ -33,7 +33,7 @@ class RegisterRequest extends FormRequest
             'province' => 'nullable|string',
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => [
-                // 'confirmed',
+                'confirmed',
                 'required',
                 Password::min(8)
                     ->letters()
