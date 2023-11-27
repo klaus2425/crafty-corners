@@ -72,6 +72,8 @@ $green: #6DD871;
     border-radius: 10px;
     padding: 0.4rem;
     text-align: center;
+    cursor: pointer;
+
   }
   label:active {
     background-color: #4627a1;
@@ -881,7 +883,7 @@ $green: #6DD871;
       display: flex;
       flex-direction: column;
       background-color: $purple;
-      padding: 3rem;
+      padding: 2rem;
       width: 15%;
       border-bottom-left-radius: 20px;
       border-top-left-radius: 20px;
@@ -906,6 +908,7 @@ $green: #6DD871;
 
         table {
           border-collapse: collapse;
+          width: 95%;
         }
         td {
           padding: 0.2rem;
