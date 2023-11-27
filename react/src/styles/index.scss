@@ -870,7 +870,7 @@ $light_grey: #D8DCE3;
 
   .admin-container {
     display: flex;
-    justify-content: center;
+    margin-top: 1rem;
     width: 80%;
     border-radius: 20px;
     color: white;
@@ -878,8 +878,8 @@ $light_grey: #D8DCE3;
       display: flex;
       flex-direction: column;
       background-color: $purple;
-      padding: 4rem;
-      width: 25%;
+      padding: 3rem;
+      width: 15%;
       border-bottom-left-radius: 20px;
       border-top-left-radius: 20px;
       gap: 4rem;
@@ -892,11 +892,11 @@ $light_grey: #D8DCE3;
     }
 
     .right {
-      width: 75%;
+      width: 85%;
       background-color: #FFF;
       .users-table{
         color: $font_grey;
-        
+        padding: 2rem;
         table, th, td {
           border: 1px solid black;
         }
