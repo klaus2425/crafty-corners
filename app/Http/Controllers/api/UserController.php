@@ -19,6 +19,12 @@ class UserController extends Controller
         $users = User::all();
         return UserResource::collection($users);
     }
+
+    public function show(User $user)
+    {
+        return new UserResource($user);
+    }
+
     public function update(UserRequest $request, User $user)
     {
         // Validate the request
