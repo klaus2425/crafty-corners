@@ -32,6 +32,8 @@ class RegisterRequest extends FormRequest
             'municipality' => 'nullable|string',
             'province' => 'nullable|string',
             'email' => ['required', 'email', 'unique:users,email'],
+            'gender' => 'nullable|string',
+            'phone_number' => 'nullable|string',
             'password' => [
                 'confirmed',
                 'required',
