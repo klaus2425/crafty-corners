@@ -55,10 +55,25 @@ class AuthController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
         $token = $user->createToken('UserToken')->plainTextToken;
-        return response()->json([
+        $responseData = [
+            'message' => 'Login successful',
             'user' => $user,
-            'token' => $token
-        ]);
+            'token' => $token,
+            'roles' => $user->type
+        ];
+        if($user->type == 'admin'){
+            $totalUsers = User::count();
+            $responseData['permissions'] = [
+                'create' => true,
+                'read' => true,
+                'update' => true,
+                'delete' => true
+
+            ];
+            $responseData['totalUsers'] = $totalUsers;
+        }
+
+        return response()->json($responseData);
 
     }
     public function logout(Request $request){
