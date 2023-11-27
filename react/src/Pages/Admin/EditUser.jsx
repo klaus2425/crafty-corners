@@ -19,7 +19,7 @@ const EditUser = () => {
                   })
                   .catch(() => {
                   })
-        });
+        }, []);
     }
 
     const handleChange = (ev) => {
@@ -87,11 +87,35 @@ const EditUser = () => {
     return (
         <div className="edit-user-container">
             <form enctype="multipart/form-data" onSubmit={onSubmit}>
-                <div className="left">
+                <div className="edit-left">
+                    <div className="edit-labels">
+                        <label>Username</label>
+                        <label>First Name</label>
+                        <label>Middle Name</label>
+                        <label>Last Name</label>
+                        <label>Email Address</label>
+                        <label>Birthday</label>
+                        <label>Gender</label>
+                        <label>Street Address</label>
+                        <label>Municipality</label>
+                        <label>Province</label>
 
+                    </div>
+                    <div className="edit-inputs">
+                        <input />
+                        <input />
+                        <input />
+                        <input />
+                        <input />
+                        <input />
+                        <input />
+                        <input />
+                        <input />
+                        <input />
+                    </div>
                 </div>
-                <div>
-                        
+                <div className="edit-right">
+                    
                 </div>   
             </form>
                             
