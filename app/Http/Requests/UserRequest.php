@@ -24,7 +24,7 @@ class UserRequest extends FormRequest
         return [
             'first_name' => 'nullable|string|max:255',
             'last_name' => 'nullable|string|max:255',
-            'username' => 'nullable|string|max:255',
+            'user_name' => 'nullable|string|max:255',
             'middle_name' => 'nullable|string|max:255',
             'street_address' => 'nullable|string|max:255',
             'municipality' => 'nullable|string|max:255',
