@@ -13,11 +13,13 @@ const EditUser = () => {
 
     if(id) {
         useEffect(() => {
+            setLoading(true);
             axiosClient.get(`/users/${id}`)
                   .then(({ data }) => {
                     setUser(data);
-                    console.log(data);
-                   setImage(storageBaseUrl+data.profile_picture)
+                setLoading(false);
+
+                   setImage(storageBaseUrl+data.profile_picture);
                   })
                   .catch(() => {
                   })
@@ -43,7 +45,8 @@ const EditUser = () => {
             formData.append('birthday', user.birthday); 
             formData.append('street_address', user.street_address); 
             formData.append('municipality', user.municipality); 
-            formData.append('province', user.province); 
+            formData.append('province', user.province);
+            formData.append('gender', user.gender);
             axiosClient.post(`users/${id}`, formData)
                 .then((res) => {
                     console.log(res.data); 
@@ -85,8 +88,16 @@ const EditUser = () => {
     };
     
     return (
+        
         <div className="edit-user-container">
-            <form className="edit-form" encType="multipart/form-data" onSubmit={onSubmit}>
+            <h1>User Profile</h1>
+            {loading && (
+                        <div className="loading">
+                            Loading...
+                        </div>
+            )}
+            {!loading && 
+                <form className="edit-form" encType="multipart/form-data" onSubmit={onSubmit}>
                 <div className="edit-left">
                     <div className="edit-labels">
                         <label>Username</label>
@@ -119,9 +130,11 @@ const EditUser = () => {
                                 <img id='update-picture'src={image}/>
                                 <input id='upload-button' type="file" onChange={handleChange} />
                                 <label htmlFor='upload-button'>Upload File</label>
+                                <span className="edit-text">File size: maximum 1 MB</span>
+                                <span className="edit-text">File extension: .JPEG, .PNG, .JPG</span>
                     </div>
                 </div>   
-            </form>
+            </form>}
                             
         </div>
     )

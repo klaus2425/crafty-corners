@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const Users = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
+    const userCount = users.length;
     useEffect(() => {
         getUsers();
     }, [])
