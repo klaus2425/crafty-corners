@@ -962,7 +962,32 @@ $green: #6DD871;
   .edit-user-container {
     padding: 2rem;
     color: $font_grey;
-    
+    .edit-left {
+      width: 70%;
+      display: flex;
+
+      label, input {
+        height: 2rem;
+        margin:0 0 .5rem;
+      }
+      .edit-labels {
+        display: flex;
+        flex-direction: column;
+        color: #000;
+        align-items: end;
+      }
+
+      .edit-inputs {
+        display: flex;
+        margin-left: 1rem;
+        flex-direction: column;
+      }
+    }
+
+    .edit-right {
+      width: 30%;
+      
+    }
 
     
   }
