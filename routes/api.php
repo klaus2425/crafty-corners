@@ -5,6 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\api\CommunityController;
+use App\Http\Controllers\api\PostController;
+use App\Http\Controllers\api\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,11 +26,22 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    // Route::resource('users', UserController::class);
-    // Route::put('/user/{user}', [UserController::class, 'update']);
     Route::apiResource('/users', UserController::class);
+    Route::apiResource('communities', CommunityController::class);
+    Route::apiResource('/posts', PostController::class);
+    Route::apiResource('/comments', CommentController::class);
 
 });
+
+Route::get('/communities', [CommunityController::class, 'index']);
+Route::get('/communities/{id}', [CommunityController::class, 'show']);
+
+Route::get('/posts', [PostController::class, 'index']);
+Route::get('/posts/{id}', [PostController::class, 'show']);
+
+Route::get('/comments', [CommentController::class, 'index']);
+Route::get('/comments/{id}', [CommentController::class, 'show']);
+
 
 Route::post('/register', [AuthController::class, 'register']);
 Route:: post('/login', [AuthController::class, 'login']);
