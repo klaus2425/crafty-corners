@@ -10,6 +10,10 @@ const DefaultLayout = () => {
     if (!token) { // Change to false later
         return <Navigate to='./Landing' />;
     }
+
+    if (user.type === 'admin') {
+        return <Navigate to='/' />
+    }
     
     return (
         <div style = {{height:"100dvh"}}>

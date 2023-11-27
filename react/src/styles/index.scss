@@ -1,5 +1,5 @@
 $font_grey: #677186;
-$purple: #6339DC;
+$purple: #6528F7;
 $light_grey: #D8DCE3;
 
 :root {
@@ -760,13 +760,18 @@ $light_grey: #D8DCE3;
   gap: 0.5rem;
   h3 {
     border-bottom: 2px solid gray;
-    margin-bottom: 1rem;
+    margin-bottom: -0.5rem;
   }
 
   .dropdown-picture {
     height: 7rem;
     width: 7rem;
     border-radius: 10000px;
+  }
+
+  a:hover {
+    transition: 0.2s;
+    color: $purple;
   }
 
 }
@@ -848,3 +853,47 @@ $light_grey: #D8DCE3;
 }
 
 
+.admin-dashboard{
+  padding-top: 6rem;
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .admin-header {
+    color: #677186;
+    font-size: 2.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    width: 100%;
+  }
+
+  .admin-container {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    border-radius: 20px;
+    color: white;
+    .left {
+      display: flex;
+      flex-direction: column;
+      background-color: $purple;
+      padding: 4rem;
+      width: 25%;
+      border-bottom-left-radius: 20px;
+      border-top-left-radius: 20px;
+      gap: 4rem;
+      a {
+        text-decoration: none;
+        color: #FFF;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }      
+    }
+
+    .right {
+      width: 75%;
+      background-color: #FFF;
+    }
+  }
+}
