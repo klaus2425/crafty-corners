@@ -10,7 +10,15 @@ use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
+
+
+
 {
+    public function index()
+    {
+        $users = User::all();
+        return UserResource::collection($users);
+    }
     public function update(UserRequest $request, User $user)
     {
         // Validate the request
