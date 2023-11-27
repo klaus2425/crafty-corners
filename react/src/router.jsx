@@ -17,21 +17,6 @@ import Users from "./Pages/Admin/Users";
 import EditProfile from './Pages/EditProfile';
 
 const router = createBrowserRouter([
-
-    {
-        path: '/',
-        element: <AdminLayout />,
-        children: [
-            {
-                path: '/',
-                element: <Navigate to='/Users'/>
-            },
-            {
-                path: '/Users',
-                element: <Users />
-            }
-        ]
-    },
     {   
         path: '/',
         element: <DefaultLayout />,
@@ -75,6 +60,20 @@ const router = createBrowserRouter([
             },
 
         ],
+    },
+    {
+        path: '/',
+        element: <AdminLayout />,
+        children: [
+            {
+                path: '/',
+                element: <Navigate to='/Users'/>
+            },
+            {
+                path: '/Users',
+                element: <Users />
+            }
+        ]
     },
     {
         path: '/',
