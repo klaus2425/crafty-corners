@@ -13,7 +13,7 @@ import Mentors from './Pages/Mentors';
 import DefaultLayout from './layouts/DefaultLayout';
 import GuestLayout from "./layouts/GuestLayout";
 import AdminLayout from './layouts/AdminLayout';
-import AdminDashboard from "./Pages/Admin/AdminDashboard";
+import Users from "./Pages/Admin/Users";
 import EditProfile from './Pages/EditProfile';
 
 const router = createBrowserRouter([
@@ -24,11 +24,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Navigate to='/AdminDashboard'/>
+                element: <Navigate to='/Users'/>
             },
             {
-                path: '/AdminDashboard',
-                element: <AdminDashboard />
+                path: '/Users',
+                element: <Users />
             }
         ]
     },
