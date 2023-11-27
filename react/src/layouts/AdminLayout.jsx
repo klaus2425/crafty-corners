@@ -20,7 +20,7 @@ const AdminLayout = () => {
                 <span className="admin-header">ADMIN DASHBOARD</span>
                 <div className="admin-container">
                     <div className="left">
-                        <Link to="/AdminDashboard">Users</Link>
+                        <Link to="/Users">Users</Link>
                         <Link to="/Communities">Communities</Link>
 
                     </div>
