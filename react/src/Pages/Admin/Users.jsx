@@ -1,10 +1,23 @@
-
+import { useState } from 'react'
 
 const Users = () => {
 
+    const [loading, setLoading] = useState(false);
+    
     return ( 
-        <div>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id repellendus sunt distinctio, quas est veritatis debitis perferendis consequuntur iste earum eum, natus laboriosam odit molestiae inventore deserunt ut iure reprehenderit.
+        <div className='users-table'>
+            <table>
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Create Date</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          
+        </table>
         </div>
     )
 }
