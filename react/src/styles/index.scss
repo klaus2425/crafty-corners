@@ -1,7 +1,10 @@
 $font_grey: #677186;
 $purple: #6528F7;
 $light_grey: #D8DCE3;
-
+$lighter_grey:#EEF1F5;
+$orange: #F3B664;
+$red: #EA4242;
+$green: #6DD871;
 :root {
   font-family: Helvetica, system-ui, Avenir, Arial, sans-serif;
   line-height: 1.5;
@@ -69,6 +72,8 @@ $light_grey: #D8DCE3;
     border-radius: 10px;
     padding: 0.4rem;
     text-align: center;
+    cursor: pointer;
+
   }
   label:active {
     background-color: #4627a1;
@@ -870,7 +875,7 @@ $light_grey: #D8DCE3;
 
   .admin-container {
     display: flex;
-    justify-content: center;
+    margin-top: 1rem;
     width: 80%;
     border-radius: 20px;
     color: white;
@@ -878,11 +883,12 @@ $light_grey: #D8DCE3;
       display: flex;
       flex-direction: column;
       background-color: $purple;
-      padding: 4rem;
-      width: 25%;
+      padding: 2rem;
+      width: 15%;
       border-bottom-left-radius: 20px;
       border-top-left-radius: 20px;
       gap: 4rem;
+      height: 40rem;
       a {
         text-decoration: none;
         color: #FFF;
@@ -892,15 +898,97 @@ $light_grey: #D8DCE3;
     }
 
     .right {
-      width: 75%;
+      width: 85%;
       background-color: #FFF;
       .users-table{
+        display: flex;
+        justify-content: center;
         color: $font_grey;
-        
-        table, th, td {
-          border: 1px solid black;
+        padding: 2rem;
+
+        table {
+          border-collapse: collapse;
+          width: 95%;
+        }
+        td {
+          padding: 0.2rem;
+          text-align: start;
+        }
+
+        tr:nth-child(odd) {
+          background-color: $light_grey;
+        }
+        tr{
+          background-color: $lighter_grey;
+        }
+        th{
+          background-color: orange;
+          color: white;
+          padding:  0 0.4rem;
+          text-align: start;
+        }
+        th, td {
+          padding-left: 0.5rem;
         }
       }
     }
+  }
+
+  .btn-delete{
+    border: 0;
+    background-color: $red;
+    color: white;
+    width: 4rem;
+    height: 2rem;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+
+  .btn-edit{
+    text-decoration: none;
+    background-color: $green;
+    color: white;
+    display: flex;
+    width: 4rem;
+    height: 2rem;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+  }
+  .table-actions {
+    display: flex;
+  }
+
+  .edit-user-container {
+    padding: 2rem;
+    color: $font_grey;
+    .edit-left {
+      width: 70%;
+      display: flex;
+
+      label, input {
+        height: 2rem;
+        margin:0 0 .5rem;
+      }
+      .edit-labels {
+        display: flex;
+        flex-direction: column;
+        color: #000;
+        align-items: end;
+      }
+
+      .edit-inputs {
+        display: flex;
+        margin-left: 1rem;
+        flex-direction: column;
+      }
+    }
+
+    .edit-right {
+      width: 30%;
+      
+    }
+
+    
   }
 }

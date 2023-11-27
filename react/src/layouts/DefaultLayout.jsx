@@ -12,7 +12,7 @@ const DefaultLayout = () => {
     }
 
     if (user.type === 'admin') {
-        return <Navigate to='/' />
+        return <Navigate to='/Users' />
     }
     
     return (

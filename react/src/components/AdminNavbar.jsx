@@ -33,7 +33,7 @@ const AdminNavbar = () => {
         return (
             <div className='authenticated-navbar'>
                 <div className='navbar title'>
-                    <img src='Logo.png'/>
+                    <img src='/Logo.png'/>
                     <h1>Crafty Corners</h1>
                 </div>
                 

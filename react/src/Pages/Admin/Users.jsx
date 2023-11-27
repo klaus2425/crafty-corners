@@ -9,6 +9,16 @@ const Users = () => {
         getUsers();
     }, [])
 
+    const onDeleteClick = user => {
+        if (!window.confirm("Are you sure you want to delete this user?")) {
+          return
+        }
+        axiosClient.delete(`/users/${user.id}`)
+          .then(() => {
+            getUsers()
+          })
+    }
+
     const getUsers = () => {
         setLoading(true)
         axiosClient.get('/users')
@@ -20,11 +30,10 @@ const Users = () => {
             setLoading(false)
           })
       }
-      console.log(users);
 
     return ( 
         <div className='users-table'>
-            <table>
+        <table>
           <thead>
           <tr>
             <th>ID</th>
@@ -39,12 +48,13 @@ const Users = () => {
           {loading &&
             <tbody>
             <tr>
-              <td colSpan="5" class="text-center">
+              <td >
                 Loading...
               </td>
             </tr>
             </tbody>
           }
+
           {!loading &&
             <tbody>
             {users.map(u => (
@@ -55,7 +65,7 @@ const Users = () => {
                 <td>{u.birthday}</td>
                 <td>{`${u.street_address}, ${u.municipality}, ${u.province}`}</td>
                 <td>{u.created_at}</td>
-                <td>
+                <td className='table-actions'>
                   <Link className="btn-edit" to={'/users/' + u.id}>Edit</Link>
                   &nbsp;
                   <button className="btn-delete" onClick={ev => onDeleteClick(u)}>Delete</button>

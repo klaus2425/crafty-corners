@@ -15,23 +15,9 @@ import GuestLayout from "./layouts/GuestLayout";
 import AdminLayout from './layouts/AdminLayout';
 import Users from "./Pages/Admin/Users";
 import EditProfile from './Pages/EditProfile';
+import EditUser from "./Pages/Admin/EditUser";
 
 const router = createBrowserRouter([
-
-    {
-        path: '/',
-        element: <AdminLayout />,
-        children: [
-            {
-                path: '/',
-                element: <Navigate to='/Users'/>
-            },
-            {
-                path: '/Users',
-                element: <Users />
-            }
-        ]
-    },
     {   
         path: '/',
         element: <DefaultLayout />,
@@ -75,6 +61,24 @@ const router = createBrowserRouter([
             },
 
         ],
+    },
+    {
+        path: '/',
+        element: <AdminLayout />,
+        children: [
+            {
+                path: '/',
+                element: <Navigate to='/Users'/>
+            },
+            {
+                path: '/Users',
+                element: <Users />
+            },
+            {
+                path: '/users/:id',
+                element: <EditUser />
+            }
+        ]
     },
     {
         path: '/',

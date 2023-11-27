@@ -5,13 +5,11 @@ import { Navigate, Outlet, Link } from "react-router-dom";
 const AdminLayout = () => {
     const {user, token} = useStateContext();
 
-    if (!token) { // Change to false later
+    if (!token) {
         return <Navigate to='./Landing' />;
     }
 
-    if (user.type === 'hobbyist') {
-        return <Navigate to='./Home' />;
-    }
+   
 
     return (
         <div>
