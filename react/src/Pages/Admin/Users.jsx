@@ -64,7 +64,7 @@ const Users = () => {
                 <td>{u.birthday}</td>
                 <td>{`${u.street_address}, ${u.municipality}, ${u.province}`}</td>
                 <td>{u.created_at}</td>
-                <td>
+                <td className='table-actions'>
                   <Link className="btn-edit" to={'/users/' + u.id}>Edit</Link>
                   &nbsp;
                   <button className="btn-delete" onClick={ev => onDeleteClick(u)}>Delete</button>
