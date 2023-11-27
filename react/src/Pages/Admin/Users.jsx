@@ -33,7 +33,7 @@ const Users = () => {
 
     return ( 
         <div className='users-table'>
-            <table>
+        <table>
           <thead>
           <tr>
             <th>ID</th>
@@ -48,12 +48,13 @@ const Users = () => {
           {loading &&
             <tbody>
             <tr>
-              <td colSpan="5" className="text-center">
+              <td >
                 Loading...
               </td>
             </tr>
             </tbody>
           }
+
           {!loading &&
             <tbody>
             {users.map(u => (
