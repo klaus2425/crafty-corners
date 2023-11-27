@@ -894,6 +894,13 @@ $light_grey: #D8DCE3;
     .right {
       width: 75%;
       background-color: #FFF;
+      .users-table{
+        color: $font_grey;
+        
+        table, th, td {
+          border: 1px solid black;
+        }
+      }
     }
   }
 }
