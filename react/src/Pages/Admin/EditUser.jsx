@@ -37,6 +37,7 @@ const EditUser = () => {
         if(!imageChange) {
             const formData = new FormData();
             formData.append("_method", "PUT");
+            formData.append('user_name', user.user_name)
             formData.append('first_name', user.first_name);
             formData.append('middle_name', user.middle_name);
             formData.append('last_name', user.last_name); 
@@ -47,6 +48,7 @@ const EditUser = () => {
             formData.append('municipality', user.municipality); 
             formData.append('province', user.province);
             formData.append('gender', user.gender);
+            formData.append('phone_number', user.phone_number);
             axiosClient.post(`users/${id}`, formData)
                 .then((res) => {
                     console.log(res.data); 
@@ -61,13 +63,12 @@ const EditUser = () => {
         } 
         else {
             const formData = new FormData();
-                
             formData.append("_method", "PUT");
             for (const key in user) {
                 formData.append(key, user[key]);
                 console.log(user[key]);
               }
-        
+              
             axiosClient.post(`users/${id}`, formData)
                 .then((res) => {
                     console.log(res.data); 
@@ -105,6 +106,7 @@ const EditUser = () => {
                         <label>Middle Name</label>
                         <label>Last Name</label>
                         <label>Email Address</label>
+                        <label>Phone Number</label>
                         <label>Birthday</label>
                         <label>Gender</label>
                         <label>Street Address</label>
@@ -116,12 +118,14 @@ const EditUser = () => {
                         <input type="text" value={user.first_name} onChange={ev => setUser({...user, first_name: ev.target.value})}/>
                         <input type="text" value={user.middle_name} onChange={ev => setUser({...user, middle_name: ev.target.value})}/>
                         <input type="text" value={user.last_name} onChange={ev => setUser({...user, last_name: ev.target.value})}/>
-                        <input type="text" value={user.email} onChange={ev => setUser({...user, email: ev.target.value})}/>
+                        <input type="email" value={user.email} onChange={ev => setUser({...user, email: ev.target.value})}/>
+                        <input type="number" value={user.phone_number} onChange={ev => setUser({...user, phone_number: ev.target.value})}/>
                         <input type="date" value={user.birthday} onChange={ev => setUser({...user, birthday: ev.target.value})}/>
                         <input type="text" value={user.gender} onChange={ev => setUser({...user, gender: ev.target.value})}/>
                         <input type="text" value={user.street_address} onChange={ev => setUser({...user, street_address: ev.target.value})}/>
                         <input type="text" value={user.municipality} onChange={ev => setUser({...user, municipality: ev.target.value})}/>
                         <input type="text" value={user.province} onChange={ev => setUser({...user, province: ev.target.value})}/>
+                        
                         <button type="submit">Save</button>
                     </div>
                 </div>
