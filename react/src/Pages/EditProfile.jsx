@@ -85,8 +85,6 @@ const EditProfile =  () => {
             setLoading(false);
             setCurrentUser(data);
             setImage(storageBaseUrl+data.profile_picture)
-        
-
         })
         .catch(() =>{
             setLoading(false);
@@ -124,7 +122,7 @@ const EditProfile =  () => {
                             <div className="upload-picture">
                                 <img id='update-picture'src={image}/>
                                 <input id='upload-button' type="file" onChange={handleChange} />
-                                <label for='upload-button'>Upload File</label>
+                                <label htmlFor='upload-button'>Upload File</label>
                             </div>
 
 
