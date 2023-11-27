@@ -9,6 +9,16 @@ const Users = () => {
         getUsers();
     }, [])
 
+    const onDeleteClick = user => {
+        if (!window.confirm("Are you sure you want to delete this user?")) {
+          return
+        }
+        axiosClient.delete(`/users/${user.id}`)
+          .then(() => {
+            getUsers()
+          })
+    }
+
     const getUsers = () => {
         setLoading(true)
         axiosClient.get('/users')
@@ -20,7 +30,6 @@ const Users = () => {
             setLoading(false)
           })
       }
-      console.log(users);
 
     return ( 
         <div className='users-table'>
@@ -39,7 +48,7 @@ const Users = () => {
           {loading &&
             <tbody>
             <tr>
-              <td colSpan="5" class="text-center">
+              <td colSpan="5" className="text-center">
                 Loading...
               </td>
             </tr>
