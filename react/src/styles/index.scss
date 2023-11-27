@@ -871,6 +871,7 @@ $green: #6DD871;
     font-weight: 700;
     line-height: normal;
     width: 100%;
+    padding-left: 10rem;
   }
 
   .admin-container {
@@ -889,10 +890,11 @@ $green: #6DD871;
       border-top-left-radius: 20px;
       gap: 4rem;
       height: 40rem;
+      word-wrap: break-word;
       a {
         text-decoration: none;
         color: #FFF;
-        font-size: 1.5rem;
+        font-size: 1.5em;
         font-weight: bold;
       }      
     }
@@ -960,21 +962,40 @@ $green: #6DD871;
   }
 
   .edit-user-container {
-    padding: 2rem;
+    padding: 6rem 2rem 0 3rem;
     color: $font_grey;
+    .edit-form{
+      display: flex;
+    }
     .edit-left {
-      width: 70%;
+      width: 60%;
+      padding-left: 10rem;
       display: flex;
 
       label, input {
         height: 2rem;
         margin:0 0 .5rem;
       }
+      input {
+        padding-left: 1rem;
+        border: 1px solid $light_grey;
+      }
+      button {
+        width: fit-content;
+        padding: 0.5rem;
+        background-color: $purple;
+        border: 0;
+        color: white;
+        font-weight: 300;
+        border-radius: 5px;
+        cursor: pointer;
+      }
       .edit-labels {
         display: flex;
         flex-direction: column;
-        color: #000;
+        color: $font_grey;
         align-items: end;
+        margin-top: 0.25rem;
       }
 
       .edit-inputs {
@@ -982,6 +1003,8 @@ $green: #6DD871;
         margin-left: 1rem;
         flex-direction: column;
       }
+
+
     }
 
     .edit-right {
