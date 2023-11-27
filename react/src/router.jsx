@@ -15,6 +15,7 @@ import GuestLayout from "./layouts/GuestLayout";
 import AdminLayout from './layouts/AdminLayout';
 import Users from "./Pages/Admin/Users";
 import EditProfile from './Pages/EditProfile';
+import EditUser from "./Pages/Admin/EditUser";
 
 const router = createBrowserRouter([
     {   
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
             {
                 path: '/Users',
                 element: <Users />
+            },
+            {
+                path: '/users/:id',
+                element: <EditUser />
             }
         ]
     },
