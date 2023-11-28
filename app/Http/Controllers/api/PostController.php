@@ -34,7 +34,16 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $validatedData = $request->validated(); // Use validated data from the request
-        $post = Post::create($validatedData);
+
+        if($request->hasFile('image')){ // Check if the request has a file
+            $file = $request->file('image'); // Get the file from the request
+            $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension(); // Generate a UUID as the file name
+            $file->storeAs('public/posts', $fileName); // Use Laravel storage for file storage
+            $validatedData['image'] = $fileName; // Add the file name to the validated data
+        }
+
+        $post = auth()->user()->posts()->create($validatedData); // Create a post using the validated data
+        // $post = Post::create($validatedData);
         return new PostResource($post);
     }
 

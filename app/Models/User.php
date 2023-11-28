@@ -58,4 +58,20 @@ class User extends Authenticatable
     {
         $this->attributes['birthday'] = date('Y-m-d', strtotime($value));
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function communities()
+    {
+        return $this->belongsToMany(Community::class)->withTimestamps();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }
