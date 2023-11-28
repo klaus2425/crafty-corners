@@ -16,6 +16,7 @@ import AdminLayout from './layouts/AdminLayout';
 import Users from "./Pages/Admin/Users";
 import EditProfile from './Pages/EditProfile';
 import EditUser from "./Pages/Admin/EditUser";
+import AdminCommunities from "./Pages/Admin/AdminCommunities";
 
 const router = createBrowserRouter([
     {   
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
             {
                 path: '/users/:id',
                 element: <EditUser />
+            },
+            {
+                path: '/admin-communities',
+                element: <AdminCommunities />
             }
         ]
     },
