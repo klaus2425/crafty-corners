@@ -139,7 +139,10 @@ const EditUser = () => {
                     </div>
                 </div>   
             </form>}
-                            
+            <div className="admin-user-posts">
+                <h1>User Posts</h1>
+                    
+            </div>    
         </div>
     )
 }
