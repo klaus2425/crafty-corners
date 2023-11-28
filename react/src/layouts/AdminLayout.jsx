@@ -19,7 +19,7 @@ const AdminLayout = () => {
                 <div className="admin-container">
                     <div className="left">
                         <Link to="/Users">Users</Link>
-                        <Link to="/Communities">Communities</Link>
+                        <Link to="/admin-communities">Communities</Link>
 
                     </div>
                     <div className="right">
