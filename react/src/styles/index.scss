@@ -908,7 +908,7 @@ input::-webkit-inner-spin-button {
 
     .right {
       width: 60svw;
-      background-color: #FFF;
+      background-color: #F0F2F5;
       .users-table{
         display: flex;
         justify-content: center;
@@ -939,7 +939,7 @@ input::-webkit-inner-spin-button {
           background-color: $light_grey;
         }
         tr{
-          background-color: $lighter_grey;
+          background-color: #EAEEF3;
         }
         th{
           background-color: orange;
@@ -953,7 +953,6 @@ input::-webkit-inner-spin-button {
       }
     }
   }
-
   .btn-delete{
     border: 0;
     background-color: $red;
@@ -978,7 +977,6 @@ input::-webkit-inner-spin-button {
   .table-actions {
     display: flex;
   }
-
   .edit-user-container {
     padding: 2rem 2rem 0 3rem;
     color: $font_grey;
@@ -1019,16 +1017,12 @@ input::-webkit-inner-spin-button {
         align-items: end;
         margin-top: 0.25rem;
       }
-
       .edit-inputs {
         display: flex;
         margin-left: 1rem;
         width: 30%;
         flex-direction: column;
-
       }
-
-
     }
 
     .edit-right {
@@ -1047,4 +1041,19 @@ input::-webkit-inner-spin-button {
 
 .loading {
   text-align: center;
+}
+
+.communities-container {
+
+  .top-section{
+    padding: 2rem;
+    .add-community-button {
+      text-decoration: none;
+      color: white;
+      background-color: $green;
+      padding: 1rem;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+  }
 }
