@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 
@@ -47,6 +48,10 @@ class UserController extends Controller
     }
     public function destroy(User $user)
     {
+        if($user->profile_picture){
+            Storage::delete('/public/users/' . $user->profile_picture);
+        }
+
         $user->delete();
         return response()->json([
             'message' => 'User deleted successfully'
