@@ -34,6 +34,7 @@ const Users = () => {
 
     return ( 
         <div className='users-table'>
+        <div className='user-count'>Current Number of users: {userCount}</div>
         <table>
           <thead>
           <tr>
