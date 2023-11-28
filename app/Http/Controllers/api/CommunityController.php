@@ -20,7 +20,6 @@ class CommunityController extends Controller
         return CommunityResource::collection($communities);
     }
 
-
     /**
      * Store a newly created resource in storage.
      */

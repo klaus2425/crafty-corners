@@ -23,10 +23,13 @@ return new class extends Migration
             $table->string('street_address')->nullable();
             $table->string('municipality')->nullable();
             $table->string('province')->nullable();
+            $table -> string('phone_number') -> nullable();
+            $table ->string('gender') -> nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('profile_picture')->nullable();
+            $table->string('type')->default('hobbyist');
         });
     }
 
