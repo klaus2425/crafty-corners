@@ -11,6 +11,8 @@ $green: #6DD871;
   font-weight: 400;
   color: #677186;
   background: #F9FAFB;
+  
+ 
   box-sizing: border-box;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -865,9 +867,11 @@ input::-webkit-inner-spin-button {
 
 
 .admin-dashboard{
+  height: 100svh;
   padding-top: 6rem;
   padding-left: 2rem;
   display: flex;
+  background-image: url('../../public/cool-background\ .svg');
   flex-direction: column;
   align-items: center;
   .admin-header {
@@ -1022,6 +1026,18 @@ input::-webkit-inner-spin-button {
         margin-left: 1rem;
         width: 30%;
         flex-direction: column;
+        .gender-container {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          input[type=radio] {
+            border: 0px;
+            margin: 0;
+            
+            width: 100%;
+            height:1rem;
+        }
+        }
       }
     }
 
@@ -1056,4 +1072,44 @@ input::-webkit-inner-spin-button {
       font-weight: bold;
     }
   }
+}
+
+.add-community-container{
+  color:$font_grey;
+
+  .community-form{
+    display: flex;
+    margin-top: 5rem;
+    .community-labels {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      width: 25%;
+      margin-bottom: 2rem;
+      margin-right: 2rem;
+    }
+    .community-inputs {
+      display: flex;
+      width: 21%;
+      flex-direction: column;
+
+    }
+
+    label{
+      margin-bottom: 2.1rem;
+    }
+    input {
+      padding-left: 1rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid $light_grey;
+      width: 15rem;
+      height: 2rem;
+      border-radius: 2px;
+    }
+    textarea{
+      padding: 0.5rem;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  }
+
 }
