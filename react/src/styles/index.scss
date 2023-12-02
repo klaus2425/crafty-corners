@@ -5,14 +5,13 @@ $lighter_grey:#EEF1F5;
 $orange: #F3B664;
 $red: #EA4242;
 $green: #6DD871;
+$dark_purple: #2C3373;
 :root {
   font-family: Helvetica, system-ui, Avenir, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: #677186;
   background: #F9FAFB;
-  
- 
   box-sizing: border-box;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -20,6 +19,9 @@ $green: #6DD871;
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  height: 100%;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -240,7 +242,7 @@ input::-webkit-inner-spin-button {
     right: 0;
     bottom: 0;
     background: rgba($color: #000000, $alpha: 0.7);
-    z-index: 10000;
+    z-index: 1000;
   }
 
   @media screen and (max-width: 900px) {
@@ -1124,4 +1126,188 @@ input::-webkit-inner-spin-button {
     }
   }
 
+}
+
+
+.landing-bg {
+  background-image: url('/landing-bg.svg');
+  
+  input {
+    width: clamp(5rem, 10vw + 3rem, 20rem);
+    height: 2.125rem;
+    border-radius: 3.125rem;
+    border: 3px solid #D8DCE3;
+    background: #FFF;
+    color: #677186;
+    font-family: Helvetica;
+    font-size: 1.20rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 1.2rem;
+    transition: 0.5s;
+    
+  }
+
+  input[type]:focus {
+    border-color: #6339DC;
+    outline: 0 none;
+  }
+
+  input:hover{
+    border-color: #6339DC;
+  }
+  
+  .close-login {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    button {
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50%;
+      margin: 0;
+      background-color: transparent;
+      color: #FFF;
+      border: 0;
+    }
+    svg {
+      border-radius: 50%;
+      transition: 0.3s;
+      width: 1.75rem;
+      height: 1.75rem;
+      cursor: pointer;
+    }
+    svg:hover {
+      background-color: #e6e6e6;
+      
+    }
+
+  }
+    
+  
+   
+  
+  .modal {
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFF;
+    z-index: 1000;
+    padding: 1.46rem;
+    width: 50rem;
+  }
+  
+  .overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($color: #000000, $alpha: 0.7);
+    z-index: 1000;
+  }
+  
+  .landing-container {
+    height: 100dvh;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10rem;
+    text-align: center;
+    align-items: center;
+    .landing-title {
+      font-size: clamp(1rem, 5vw, 20rem);
+      color: $dark_purple;
+      font-weight: bold;
+      line-height: clamp(2rem, 4vw + 1rem, 6rem);
+    }
+    .landing-sub {
+      color: black;
+      font-size: clamp(1rem, 3vw, 2rem);
+    }
+  }
+}
+
+.sign-up {
+  border: 0;
+  background-color: $purple;
+  color: white;
+  padding: 1rem;
+  font-size: clamp(0.4rem, 1vw, 3rem);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.signup-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  .left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .gender-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.3rem;
+      input[type=radio] {
+        border: 0px;
+        margin: 0;
+        width: 100%;
+        height:2rem;
+    }
+    }
+  }
+  .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}
+
+.signup-main{
+  display: flex;
+  height: 50rem;
+  h2 {
+    padding-left: 0.3rem;
+    color: black;
+  }
+  hr {
+    margin: 0.5rem 0;
+    border: 0.1rem solid $font_grey;
+    border-radius: 25px;
+
+  }
+  display: flex;
+  flex-direction: column;
+  input {
+    margin-bottom: 0.8rem;
+    width: 20rem;
+    border-width: 2px;
+    padding-left: 2rem;
+    border-radius: 10px;
+  }
+
+  
+}
+.sign-up:hover {
+  background-color: $dark_purple;
+}
+
+
+.swal2-container {
+  z-index:2000;
+}
+
+.sign-up-button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10rem;
 }

@@ -1,9 +1,7 @@
+import Swal from 'sweetalert2';
 import React, { useRef, useState } from 'react';
 import axiosClient from '../axios-client';
 import { useStateContext } from '../context/ContextProvider';
-
-
-
 export default function SignUpModal(props) {
 
     const [image, setImage] = useState();
@@ -11,6 +9,15 @@ export default function SignUpModal(props) {
     const handleChange = (e) => {
         setImage(URL.createObjectURL(e.target.files[0]));
     };
+
+    const handleError = () => {
+        Swal.fire({
+            title: "Error",
+            text: `${Object.values(errors)[0]}`,
+            icon: "warning"
+          });
+          
+    }
 
     const firstNameRef = useRef();
     const lastNameRef = useRef();
@@ -23,17 +30,19 @@ export default function SignUpModal(props) {
     const streetAddressRef = useRef();
     const municipalityRef = useRef();
     const provinceRef = useRef();
+    const [gender, setGender] = useState('');
+    const numberRef = useRef();
     const profilePictureRef = useRef();
     const [errors, setError] = useState(null)
     const {setUser, setToken} = useStateContext();
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-    
+        errors && handleError();
         const formData = new FormData();
         formData.append('first_name', firstNameRef.current.value);
-        formData.append('last_name', middleNameRef.current.value);
-        formData.append('middle_name', lastNameRef.current.value);
+        formData.append('middle_name', middleNameRef.current.value);
+        formData.append('last_name', lastNameRef.current.value);
         formData.append('user_name', userNameRef.current.value);
         formData.append('email', emailRef.current.value);
         formData.append('password', passwordRef.current.value);
@@ -43,7 +52,8 @@ export default function SignUpModal(props) {
         formData.append('municipality', municipalityRef.current.value);
         formData.append('province', provinceRef.current.value);
         formData.append('profile_picture', profilePictureRef.current.files[0]);
-    
+        formData.append('phone_number', numberRef.current.value);
+        formData.append('gender', gender);
         axiosClient.post('/register', formData)
             .then(({ data }) => {
                 setUser(data.user);
@@ -72,33 +82,57 @@ export default function SignUpModal(props) {
                         </button>
                     </div>
                     <form enctype="multipart/form-data" onSubmit={onSubmit}>
-                        <div className='login-main'>
+                        <div className='signup-main'>
                             <h2>Sign Up</h2>
-                            {errors && <div className='alert'>
-                                {Object.keys(errors).map(key => (
-                                    <p key={key}>{errors[key][0]}</p>
-                                ))}    
-                            </div>}
                             <hr />
                             <div className="upload-picture">
                                 <img id='update-picture'src={image}/>
                                 <input ref={profilePictureRef} id='upload-button' type="file" onChange={handleChange} />
                                 <label for='upload-button'>Upload File</label>
+                                Maximum file size: 2MB
                             </div>
-                            <input ref={firstNameRef} placeholder='First Name'></input>
-                            <input ref={middleNameRef} placeholder='Middle Name'></input>
-                            <input ref={lastNameRef} placeholder='Last Name'></input>
-                            <input ref={userNameRef} placeholder='Username'></input>
-                            <input ref={emailRef} type='email' placeholder='Email Address'></input>
-                            <input ref={passwordRef} type='password' placeholder='Password'></input>
-                            <input ref={passwordConfirmationRef} type='password' placeholder='Password Confirmation'></input>
-                            <input ref={birthdayRef} type='date'placeholder='Birthday'></input>
-                            <input ref={streetAddressRef} placeholder='Street Address'></input>
-                            <input ref={municipalityRef} placeholder='Municipality'></input>
-                            <input ref={provinceRef} placeholder='Province'></input>
+                            <div className="signup-inputs">
+                                <div className="left">
+                                    <label>First Name:</label>
+                                    <input ref={firstNameRef} ></input>
+                                    <label>Middle Name:</label>
+                                    <input ref={middleNameRef} ></input>
+                                    <label>Last Name:</label>
+                                    <input ref={lastNameRef} ></input>
+                                    <label>Username:</label>
+                                    <input ref={userNameRef} ></input>
+                                    <label>Birthday:</label>
+                                    <input ref={birthdayRef} type='date'placeholder='Birthday' required></input>
+                                    <label>Gender:</label>
+                                    <div className="gender-container">
+                                        <input type="radio" name="gender" value="Male"  onChange={ev => (setGender(ev.target.value))}/> Male
+                                        <input type="radio" name="gender" value="Female" onChange={ev => (setGender(ev.target.value))}/> Female
+                                        <input type="radio" name="gender" value="Other" onChange={ev => (setGender(ev.target.value))}/> Other
+                                    </div>
+                                    <label>Phone Number:</label>
+                                    <input type="number" ref={numberRef} required />
+                                </div>
+                                <div className="right">
+                                    
+                                    <label>Email Address:</label>
+                                    <input ref={emailRef} type='email' ></input>
+                                    <label>Password:</label>
+                                    <input ref={passwordRef} type='password' ></input>
+                                    <label>Confirm Password:</label>
+                                    <input ref={passwordConfirmationRef} type='password' ></input>
+                                    <label>Street Address:</label>
+                                    <input ref={streetAddressRef} ></input>
+                                    <label>Municipality:</label>
+                                    <input ref={municipalityRef}  required></input>
+                                    <label>Province:</label>
+                                    <input ref={provinceRef} ></input>
+                                </div>
+                            </div>
+                            
+                            
                         </div>
-                        <div className="login-button">
-                            <button>Sign Up</button>
+                        <div className="sign-up-button-container">
+                            <button className='sign-up'>Sign Up</button>
                         </div>   
                     </form>                 
                 </div>
