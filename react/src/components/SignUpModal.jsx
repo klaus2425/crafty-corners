@@ -16,7 +16,6 @@ export default function SignUpModal(props) {
             text: `${Object.values(errors)[0]}`,
             icon: "warning"
           });
-          
     }
 
     const firstNameRef = useRef();
