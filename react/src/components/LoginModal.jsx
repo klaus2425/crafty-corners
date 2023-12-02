@@ -44,8 +44,12 @@ export default function LoginModal(props) {
               timer: 2500
             });
           } else {
-            setError({
-              email: [response.data.message],
+            Swal.fire({
+              position: "top-end",
+              icon: "warning",
+              title: `${response.data.messages}`,
+              showConfirmButton: false,
+              timer: 2500
             });
             handleError();
           }
