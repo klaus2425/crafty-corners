@@ -1111,6 +1111,9 @@ input::-webkit-inner-spin-button {
     .community-inputs {
       display: flex;
       flex-direction: column;
+      input {
+        padding-left: 1rem;
+      }
     }
 
     label{
@@ -1338,4 +1341,23 @@ input::-webkit-inner-spin-button {
     width: 100%;
     height:1rem;
 }
+}
+
+.button {
+  border: 0;
+  width: 8.125rem;
+  height: 2.5625rem;
+  border-radius: 3.125rem;
+  background: #6339DC;
+  color: #FFF;
+  font-family: Helvetica;
+  font-size: 1.41194rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-right: 1rem;
+}
+.button:hover {
+  background-color: #6d697c;
+  transition: 0.4s;
 }
