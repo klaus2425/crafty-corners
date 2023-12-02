@@ -62,11 +62,9 @@ const Navbar = () => {
                     <img src='Logo.png'/>
                     <h1>Crafty Corners</h1>
                 </div>
-                <input type='text' placeholder="Search for Discussions or Topics" className="search-post"/>
                 <div className="guest-buttons">
                     <button onClick={() => setIsOpen(true)}>Log In</button>
-                    <button onClick={() => setIsSignUpOpen(true)}>Sign Up</button>
-                    <SignUpModal isOpen={isSignUpOpen} setIsOpen={setIsSignUpOpen}/>
+                    
                     <LoginModal isOpen={isOpen} setIsOpen={setIsOpen}/>
                 </div>
 

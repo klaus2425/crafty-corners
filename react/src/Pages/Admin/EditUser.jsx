@@ -121,7 +121,11 @@ const EditUser = () => {
                         <input type="email" value={user.email} onChange={ev => setUser({...user, email: ev.target.value})}/>
                         <input type="number" value={user.phone_number} onChange={ev => setUser({...user, phone_number: ev.target.value})}/>
                         <input type="date" value={user.birthday} onChange={ev => setUser({...user, birthday: ev.target.value})}/>
-                        <input type="text" value={user.gender} onChange={ev => setUser({...user, gender: ev.target.value})}/>
+                        <div className="gender-container">
+                            <input type="radio" name="gender" value="Male" checked={user.gender === 'Male'} onChange={ev => setUser({...user, gender: ev.target.value})} required/> Male
+                            <input type="radio" name="gender" value="Female" checked={user.gender === 'Female'} onChange={ev => setUser({...user, gender: ev.target.value})}/> Female
+                            <input type="radio" name="gender" value="Other" checked={user.gender === 'Other'} onChange={ev => setUser({...user, gender: ev.target.value})}/> Other
+                        </div>
                         <input type="text" value={user.street_address} onChange={ev => setUser({...user, street_address: ev.target.value})}/>
                         <input type="text" value={user.municipality} onChange={ev => setUser({...user, municipality: ev.target.value})}/>
                         <input type="text" value={user.province} onChange={ev => setUser({...user, province: ev.target.value})}/>

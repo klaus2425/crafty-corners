@@ -33,7 +33,8 @@ const EditProfile =  () => {
             formData.append('birthday', currentUser.birthday); 
             formData.append('street_address', currentUser.street_address); 
             formData.append('municipality', currentUser.municipality); 
-            formData.append('province', currentUser.province); 
+            formData.append('province', currentUser.province);
+            formData.append('gender', currentUser.gender); 
             axiosClient.post(`users/${currentUser.id}`, formData)
                 .then((res) => {
                     console.log(res.data); 
@@ -124,9 +125,8 @@ const EditProfile =  () => {
                                 <input id='upload-button' type="file" onChange={handleChange} />
                                 <label htmlFor='upload-button'>Upload File</label>
                             </div>
-
-
-                                <div className="input-row-container"> 
+                            <div className='input-container'>
+                                <div className="input-col-container"> 
                                     <div className="field-holder">
                                         <input type="text" value={currentUser.first_name}  onChange={ev => setCurrentUser({...currentUser, first_name: ev.target.value})} required/>
                                         <label>First Name</label>
@@ -139,16 +139,26 @@ const EditProfile =  () => {
                                         <input  type="text" value={currentUser.last_name} onChange={ev => setCurrentUser({...currentUser, last_name: ev.target.value})} required/>
                                         <label>Last Name</label>
                                     </div>
-                                </div>
-                                <div className="field-holder">
+                                    <div className="field-holder">
                                         <input id='input-birthday' type="date" value={currentUser.birthday} onChange={ev => setCurrentUser({...currentUser, birthday: ev.target.value})} />
                                         <label>Birthday</label>
                                 </div>
                                 <div className="field-holder">
-                                        <input id="street-address" type="text" value={currentUser.street_address} onChange={ev => setCurrentUser({...currentUser, street_address: ev.target.value})} required/>
-                                        <label>Street Address</label>
+                                    <label>Gender</label>
+                                    <div className="gender-container">
+                                        <input type="radio" name="gender" value="Male" checked={currentUser.gender === 'Male'} onChange={ev => setCurrentUser({...currentUser, gender: ev.target.value})} required/> Male 
+                                        <input type="radio" name="gender" value="Female" checked={currentUser.gender === 'Female'} onChange={ev => setCurrentUser({...currentUser, gender: ev.target.value})}/> Female
+                                        <input type="radio" name="gender" value="Other" checked={currentUser.gender === 'Other'} onChange={ev => setCurrentUser({...currentUser, gender: ev.target.value})}/> Other
+                                    </div>
                                 </div>
-                                <div className="input-row-container">
+                                </div>
+                                
+                                
+                                <div className="input-col-container">
+                                    <div className="field-holder">
+                                            <input id="street-address" type="text" value={currentUser.street_address} onChange={ev => setCurrentUser({...currentUser, street_address: ev.target.value})} required/>
+                                            <label>Street Address</label>
+                                    </div>
                                     <div className="field-holder">
                                             <input type="text" value={currentUser.municipality} onChange={ev => setCurrentUser({...currentUser, municipality: ev.target.value})} required/>
                                             <label>Municipality</label>
@@ -157,6 +167,7 @@ const EditProfile =  () => {
                                             <input type="text" value={currentUser.province} onChange={ev => setCurrentUser({...currentUser, province: ev.target.value})}required/>
                                             <label>Province</label>
                                     </div>
+                                </div>
                                 </div>
                         </div>
                         <div className="button-section">

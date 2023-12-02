@@ -17,6 +17,7 @@ import Users from "./Pages/Admin/Users";
 import EditProfile from './Pages/EditProfile';
 import EditUser from "./Pages/Admin/EditUser";
 import AdminCommunities from "./Pages/Admin/AdminCommunities";
+import AddCommunities from "./Pages/Admin/AddCommunities";
 
 const router = createBrowserRouter([
     {   
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
             {
                 path: '/admin-communities',
                 element: <AdminCommunities />
+            },
+            {
+                path: '/add-communities',
+                element: <AddCommunities/>
             }
         ]
     },

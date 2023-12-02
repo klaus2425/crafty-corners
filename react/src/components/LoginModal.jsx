@@ -1,19 +1,31 @@
 import React, { useRef, useState } from "react";
 import { useStateContext } from "../context/ContextProvider";
 import axiosClient from "../axios-client";
+import Swal from 'sweetalert2';
 
 export default function LoginModal(props) {
   const [errors, setError] = useState(null);
   const { setUser, setToken } = useStateContext();
   const emailRef = useRef();
   const passwordRef = useRef();
+
+  const handleError = () => {
+    Swal.fire({
+      position: "top-end",
+      icon: "warning",
+      title: `${Object.values(errors)[0]}`,
+      showConfirmButton: false,
+      timer: 2500
+    });
+  }
+
   const onSubmit = (ev) => {
     ev.preventDefault();
+    console.log(errors);
     const payload = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
-    setError(null);
     axiosClient
       .post("/login", payload)
       .then(({ data }) => {
@@ -24,11 +36,22 @@ export default function LoginModal(props) {
         const response = err.response;
         if (response && response.status === 422) {
           if (response.data.errors) {
-            setError(response.data.errors);
-          } else {
-            setError({
-              email: [response.data.message],
+            Swal.fire({
+              position: "top-end",
+              icon: "warning",
+              title: `${Object.values(response.data.errors)[0]}`,
+              showConfirmButton: false,
+              timer: 2500
             });
+          } else {
+            Swal.fire({
+              position: "top-end",
+              icon: "warning",
+              title: `${response.data.messages}`,
+              showConfirmButton: false,
+              timer: 2500
+            });
+            handleError();
           }
         }
       });
@@ -61,13 +84,6 @@ export default function LoginModal(props) {
           <form>
             <div className="login-main">
               <h2>Log In</h2>
-              {errors && (
-                <div className="alert">
-                  {Object.keys(errors).map((key) => (
-                    <p key={key}>{errors[key][0]}</p>
-                  ))}
-                </div>
-              )}
               <input ref={emailRef} placeholder="Email Address"></input>
               <input
                 ref={passwordRef}
