@@ -147,9 +147,9 @@ const EditProfile =  () => {
                                 </div>
                                 <div className="field-holder">
                                 <div className="gender-container">
-                                    <input type="radio" name="gender" value="Male" checked={currentUser.gender === 'Male'} onChange={ev => setUser({...currentUser, gender: ev.target.value})} required/> Male
-                                    <input type="radio" name="gender" value="Female" checked={currentUser.gender === 'Female'} onChange={ev => setUser({...currentUser, gender: ev.target.value})}/> Female
-                                    <input type="radio" name="gender" value="Other" checked={currentUser.gender === 'Other'} onChange={ev => setUser({...currentUser, gender: ev.target.value})}/> Other
+                                    <input type="radio" name="gender" value="Male" checked={currentUser.gender === 'Male'} onChange={ev => setCurrentUser({...currentUser, gender: ev.target.value})} required/> Male
+                                    <input type="radio" name="gender" value="Female" checked={currentUser.gender === 'Female'} onChange={ev => setCurrentUser({...currentUser, gender: ev.target.value})}/> Female
+                                    <input type="radio" name="gender" value="Other" checked={currentUser.gender === 'Other'} onChange={ev => setCurrentUser({...currentUser, gender: ev.target.value})}/> Other
                                 </div>
                                 </div>
                                 <div className="field-holder">
