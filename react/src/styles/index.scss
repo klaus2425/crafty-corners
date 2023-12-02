@@ -72,7 +72,7 @@ input::-webkit-inner-spin-button {
   flex-direction: column;
   gap: 0.5rem;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   input[type='file'] {
     display: none;
   }
@@ -645,12 +645,30 @@ input::-webkit-inner-spin-button {
         margin-bottom: 1.3rem;
       }
 
-      
-      .input-row-container {
+      .input-container {
         display: flex;
+      }
+      .input-col-container {
+        display: flex;
+        flex-direction: column;
         flex-wrap: wrap;
         min-width: 0;
+        width: 50%;
         gap: 1rem;
+
+        .gender-container {
+          display: flex;
+          width: 100%;
+          margin-bottom: 1rem;
+          input[type=radio] {
+            border: 0px;
+            margin: 0;
+            margin-right: -5rem;
+            width: 1rem;
+            height:1rem;
+        }
+        }
+
       }
 
       .field-holder {
@@ -669,8 +687,8 @@ input::-webkit-inner-spin-button {
           margin-bottom: 1rem;
           height: 2rem;
           padding-left: 0.75rem;
-          width: 100%;
           min-width: 14rem;
+          width: 50%;
         }
 
         label {
@@ -686,9 +704,7 @@ input::-webkit-inner-spin-button {
           align-items: center;
         }
 
-        #street-address {
-          width: 100%;
-        }
+     
         
         input:focus ~ label,
         input:valid ~ label
