@@ -26,7 +26,18 @@ class CommunityController extends Controller
     public function store(CommunityRequest $request)
     {
         $community = Community::create($request->validated());
+
+        if($request->hasFile('community_photo')){
+            $file = $request->file('community_photo');
+            $fileName = $community->id . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/communities', $fileName);
+            $community->community_photo = $fileName;
+            $community->save();
+        }
+
         return new CommunityResource($community);
+
+
     }
 
     /**
@@ -42,6 +53,14 @@ class CommunityController extends Controller
     public function update(CommunityRequest $request, string $id)
     {
         $community = Community::findOrFail($id);
+        if($request->hasFile('community_photo')){
+            $file = $request->file('community_photo');
+            $fileName = $community->id . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/communities', $fileName);
+            $community->community_photo = $fileName;
+            $community->save();
+        }
+
         $community->update($request->validated());
         return new CommunityResource($community);
     }

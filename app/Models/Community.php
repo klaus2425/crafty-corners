@@ -12,6 +12,7 @@ class Community extends Model
     protected $fillable = [
         'name',
         'description',
+        'community_photo'
     ];
 
     public function users()
