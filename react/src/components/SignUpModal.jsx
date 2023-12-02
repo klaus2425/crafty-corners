@@ -80,7 +80,7 @@ export default function SignUpModal(props) {
                             </svg>
                         </button>
                     </div>
-                    <form enctype="multipart/form-data" onSubmit={onSubmit}>
+                    <form encType="multipart/form-data" onSubmit={onSubmit}>
                         <div className='signup-main'>
                             <h2>Sign Up</h2>
                             <hr />
