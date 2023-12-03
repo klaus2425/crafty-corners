@@ -906,20 +906,17 @@ input::-webkit-inner-spin-button {
     display: flex;
     margin-top: 1rem;
     width: 80%;
-    border-radius: 20px;
+    flex-direction: column;
     color: white;
     justify-content: center;
-    .left {
+    .top {
       display: flex;
-      flex-direction: column;
       background-color: $purple;
       padding: 2rem;
-      width: 15%;
-      border-bottom-left-radius: 20px;
-      border-top-left-radius: 20px;
       gap: 4rem;
-      height: 40rem;
       word-wrap: break-word;
+      border-top-right-radius: 20px;
+      border-top-left-radius: 20px;
       a {
         text-decoration: none;
         color: #FFF;
@@ -928,9 +925,10 @@ input::-webkit-inner-spin-button {
       }      
     }
 
-    .right {
-      width: 60svw;
+    .bottom {
       background-color: #F0F2F5;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
       .users-table{
         display: flex;
         justify-content: center;
@@ -950,7 +948,6 @@ input::-webkit-inner-spin-button {
 
         table {
           border-collapse: collapse;
-          width: 95%;
         }
         td {
           padding: 0.2rem;
