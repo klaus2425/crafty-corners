@@ -17,12 +17,12 @@ const AdminLayout = () => {
             <div className="admin-dashboard">
                 <span className="admin-header">ADMIN DASHBOARD</span>
                 <div className="admin-container">
-                    <div className="left">
+                    <div className="top">
                         <Link to="/Users">Users</Link>
                         <Link to="/admin-communities">Communities</Link>
                         
                     </div>
-                    <div className="right">
+                    <div className="bottom">
                         <Outlet />
                     </div>
                 </div>
