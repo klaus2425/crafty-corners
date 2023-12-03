@@ -24,6 +24,7 @@ class CommunityRequest extends FormRequest
         return [
             'name' => 'required|string',
             'description' => 'nullable|string',
+            'community_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }
