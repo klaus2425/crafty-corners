@@ -905,7 +905,7 @@ input::-webkit-inner-spin-button {
   .admin-container {
     display: flex;
     margin-top: 1rem;
-    width: 80%;
+    width: 60%;
     flex-direction: column;
     color: white;
     justify-content: center;
@@ -929,6 +929,9 @@ input::-webkit-inner-spin-button {
       background-color: #F0F2F5;
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
+      padding-bottom: 2rem;
+      display: flex;
+      justify-content: center;
       .users-table{
         display: flex;
         justify-content: center;
@@ -1093,6 +1096,7 @@ input::-webkit-inner-spin-button {
   color:$font_grey;
   margin-top: 2rem;
   margin-left: 2rem;
+  text-align: center;
   .community-form{
     display: flex;
     margin-top: 2rem;
@@ -1112,7 +1116,7 @@ input::-webkit-inner-spin-button {
         padding-left: 1rem;
       }
     }
-
+    
     label{
       margin-bottom: 2.1rem;
     }
@@ -1351,6 +1355,7 @@ input::-webkit-inner-spin-button {
   font-size: 1.41194rem;
   font-style: normal;
   font-weight: 700;
+  cursor: pointer;
   line-height: normal;
   margin-right: 1rem;
 }
