@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import axiosClient from "../../axios-client";
 
 const AddCommunities = () => {
     const [image, setImage] = useState();
@@ -18,6 +19,16 @@ const AddCommunities = () => {
         formData.append('description', communityDescriptionRef);
         formData.append('image', communityImageRef)
 
+        axiosClient.post('/communities', formData)
+        .then(({data}) => {
+            console.log(data);
+        })
+        .catch(err => {
+            const response = err.response;
+            if (response && response.status === 422) {
+                console.log(err);
+            }
+        });
     }
 
     return (
