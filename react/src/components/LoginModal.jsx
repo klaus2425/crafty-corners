@@ -9,15 +9,7 @@ export default function LoginModal(props) {
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const handleError = () => {
-    Swal.fire({
-      position: "top-end",
-      icon: "warning",
-      title: `${Object.values(errors)[0]}`,
-      showConfirmButton: false,
-      timer: 2500
-    });
-  }
+
 
   const onSubmit = (ev) => {
     ev.preventDefault();
@@ -43,6 +35,7 @@ export default function LoginModal(props) {
               showConfirmButton: false,
               timer: 2500
             });
+            setError(Object.values(response.data.errors)[0]);
           } else {
             Swal.fire({
               position: "top-end",
@@ -51,7 +44,8 @@ export default function LoginModal(props) {
               showConfirmButton: false,
               timer: 2500
             });
-            handleError();
+            setError(Object.values(response.data.errors)[0]);
+
           }
         }
       });
