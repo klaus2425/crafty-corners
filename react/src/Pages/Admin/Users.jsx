@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import axiosClient from "../../axios-client";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -11,6 +12,7 @@ const Users = () => {
     }, [])
 
     const onDeleteClick = user => {
+
         if (!window.confirm("Are you sure you want to delete this user?")) {
           return
         }
