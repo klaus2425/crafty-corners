@@ -53,9 +53,9 @@ const AdminCommunities = () => {
                         <div><img src={storageBaseUrl+u.community_photo} alt="" /></div>
                         <div className="community-item-details" >
                             <div className="community-details-top">
-                                <span><strong>Community Name: </strong>{u.name}</span>
-                                <span><strong>Description: </strong>{u.description}</span>
-                                <span><strong>Members: </strong></span>
+                                <span><strong>Community Name: <br/> </strong>{u.name}</span>
+                                <span><strong>Description: <br/></strong>{u.description}</span>
+                                <span><strong>Members: <br/></strong></span>
                             </div>
                             <div className="buttons-community">
                                 <button className="orange-button">Edit Community</button>
