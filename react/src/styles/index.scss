@@ -923,15 +923,20 @@ input::-webkit-inner-spin-button {
         font-size: 1.5em;
         font-weight: bold;
       }      
+      a:hover {
+        color: $green;
+      }
     }
 
     .bottom {
-      background-color: #F0F2F5;
+      overflow: scroll;
+      background-color: #FFF;
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
       padding-bottom: 2rem;
       display: flex;
       justify-content: center;
+ 
       .users-table{
         display: flex;
         justify-content: center;
@@ -953,7 +958,7 @@ input::-webkit-inner-spin-button {
           border-collapse: collapse;
         }
         td {
-          padding: 0.2rem;
+          padding: 0.5rem;
           text-align: start;
         }
 
@@ -974,6 +979,8 @@ input::-webkit-inner-spin-button {
         }
       }
     }
+
+
   }
   .btn-delete{
     border: 0;
@@ -1077,6 +1084,10 @@ input::-webkit-inner-spin-button {
   text-align: center;
 }
 
+.loading-admin {
+  font-size: clamp(1rem, 5vw, 4rem);
+  font-weight: bold;
+}
 .communities-container {
 
   .top-section{
