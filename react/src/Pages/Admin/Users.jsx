@@ -39,7 +39,7 @@ const Users = () => {
         
 
           {loading &&
-            <div className="loading-admin">Loading</div>
+            <div className="loading-admin">Loading...</div>
           }
 
           {!loading &&

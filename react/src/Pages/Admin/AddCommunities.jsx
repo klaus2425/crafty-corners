@@ -35,15 +35,16 @@ const AddCommunities = () => {
             <div className="add-community-container">
                 <h1>Add a New Community</h1>
                 <div className="community-form">
-                    <div className="community-labels">
-                        <label htmlFor="community-name">Community Name</label>
-                        <label htmlFor="community-name">Community Description</label>
+                    <div className="community-input-label">
+                        <div className="community-labels">
+                            <label htmlFor="community-name">Community Name</label>
+                            <label htmlFor="community-name">Community Description</label>
+                        </div>
+                        <div className="community-inputs">
+                            <input ref={communityNameRef} type="text" name="community-name" id="community-name" />
+                            <textarea ref={communityDescriptionRef}  name="community-name" rows={6} cols={20} />
+                        </div>
                     </div>
-                    <div className="community-inputs">
-                        <input ref={communityNameRef} type="text" name="community-name" id="community-name" />
-                        <textarea ref={communityDescriptionRef}  name="community-name" rows={6} cols={20} />
-                    </div>
-
                     <div>
                     <div className="community-right">
                         <div className="upload-picture">

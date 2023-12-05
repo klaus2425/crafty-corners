@@ -114,11 +114,10 @@ const AccountSettings =  () => {
 
                     {!loading && (
                     <form enctype="multipart/form-data" onSubmit={onSubmit}>
-                        
                         <div className="edit-card">
                             <div className='edit-header'>
                                 <FontAwesomeIcon icon={faPencil} />
-                                <h1>Change Account Settings</h1>
+                                <h1> Account Settings</h1>
                             </div>
 
                             <div className='input-container'>
@@ -137,16 +136,15 @@ const AccountSettings =  () => {
                                 <span className='change-text'>Change Password</span>
                                     <div className="field-holder">
                                         <input  type="Password" value={currentUser.password} onChange={ev => setCurrentUser({...currentUser, middle_name: ev.target.value})} required/>
-                                        <label>Old Password </label>
+                                        <label>Current Password</label>
+
                                     </div>
                                     <div className="field-holder">
-                                            <input type="text" value={currentUser.municipality} onChange={ev => setCurrentUser({...currentUser, municipality: ev.target.value})} required/>
-                                            <label>Municipality</label>
+                                        <input  type="Password" value={currentUser.password} onChange={ev => setCurrentUser({...currentUser, middle_name: ev.target.value})} required/>
+                                        <label>New Password</label>
                                     </div>
-                                    <div className="field-holder">
-                                            <input type="text" value={currentUser.province} onChange={ev => setCurrentUser({...currentUser, province: ev.target.value})}required/>
-                                            <label>Province</label>
-                                    </div>
+                                <button>Submit</button>
+
                                 </div>
                                 </div>
                         </div>

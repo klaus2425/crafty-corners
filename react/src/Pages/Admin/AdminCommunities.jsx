@@ -6,11 +6,24 @@ import axiosClient from "../../axios-client";
 
 
 const AdminCommunities = () => {
+    const storageBaseUrl = import.meta.env.VITE_API_COMMUNITIES_URL;
     const [loading, setLoading] = useState(false);
     const [communities, setCommunities] = useState([]);
+    const [image, setImage] = useState();
+
     useEffect(() => {
         getCommunities();
     }, [])
+
+    const onDeleteClick = community => {
+        if (!window.confirm("Are you sure you want to delete this community?")) {
+          return
+        }
+        axiosClient.delete(`/communities/${community.id}`)
+          .then(() => {
+            getCommunities();
+        })
+    }
 
     const getCommunities = () => {
         setLoading(true);
@@ -28,33 +41,33 @@ const AdminCommunities = () => {
             <div className='users-table'>
             
             {loading &&
-                <tbody>
-                <tr>
-                <td >
-                    Loading...
-                </td>
-                </tr>
-                </tbody>
+                <div className="loading-admin">Loading...</div>
+
             }
 
             {!loading &&
-            <table>
-            <thead>
-            <tr>
-                <th>Community Name</th>
-                <th>Community Description</th>
-                <th>Image</th>
+                
+                 communities.map(u => (
+                    
+                    <div key={u.id} className="community-item">
+                        <div><img src={storageBaseUrl+u.community_photo} alt="" /></div>
+                        <div className="community-item-details" >
+                            <div className="community-details-top">
+                                <span><strong>Community Name: </strong>{u.name}</span>
+                                <span><strong>Description: </strong>{u.description}</span>
+                                <span><strong>Members: </strong></span>
+                            </div>
+                            <div className="buttons-community">
+                                <button className="orange-button">Edit Community</button>
+                                <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete Community</button>
+                            </div>
+                            
 
-            </tr>
-            </thead>
-                <tbody>
-                {communities.map(u => (
-                <tr key={u.id}>
-                    asdasd
-                </tr>
-                ))}
-                </tbody>
-            </table>
+                        </div>
+                    </div>
+                ))
+                
+
             }
             
             </div>
