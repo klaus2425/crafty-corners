@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class ChangePassword extends FormRequest
 {
@@ -30,6 +31,7 @@ class ChangePassword extends FormRequest
                     ->symbols()
                     ->numbers()
             ],
+
         ];
     }
 }

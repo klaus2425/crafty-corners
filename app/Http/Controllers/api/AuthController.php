@@ -7,6 +7,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ChangePassword;
 
 class AuthController extends Controller
 {
@@ -82,23 +83,23 @@ class AuthController extends Controller
 
     public function changePassword(ChangePassword $request){
         $user = auth()->user();
-        
-        $password= $request->validated();
 
-        if(!password_verify($password, $user->password)){
+        $validatedData = $request->validated();
+
+        if(!password_verify($validatedData['current_password'], $user->password)){
             return response()->json([
-                'message' => 'Invalid credentials'
+                'message' => 'Invalid old password'
             ], 422);
-
         }
 
         $user->update([
-            'password' => bcrypt($request->new_password)
+            'password' => bcrypt($validatedData['new_password'])
         ]);
 
         return response()->json([
             'message' => 'Password changed successfully'
         ]);
+
     }
 
     public function logout(Request $request){
