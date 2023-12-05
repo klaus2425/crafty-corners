@@ -52,7 +52,8 @@ class CommunityController extends Controller
      */
     public function show(string $id)
     {
-       $community = Community::with('user')->findOrFail($id);
+       $community = Community::where('communities.id', $id);
+       $post = $community->posts()->get();
          return response()->json([
             'community' => $community,
             'posts' => $post
