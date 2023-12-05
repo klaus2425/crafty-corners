@@ -122,22 +122,22 @@ const AccountSettings =  () => {
                             </div>
 
                             <div className='input-container'>
+                                
                                 <div className="input-col-container"> 
+                                <span className='change-text'>Change Email Address</span>
                                     <div className="field-holder">
                                         <input type="email" value={currentUser.email}  onChange={ev => setCurrentUser({...currentUser, email: ev.target.value})} required/>
                                         <label>Email Address</label>
                                     </div>
-                                    <div className="field-holder">
-                                        <input  type="Password" value={currentUser.password} onChange={ev => setCurrentUser({...currentUser, middle_name: ev.target.value})} required/>
-                                        <label>Old Password </label>
-                                    </div>
+
                                 </div>
                                 
                                 
                                 <div className="input-col-container">
+                                <span className='change-text'>Change Password</span>
                                     <div className="field-holder">
-                                            <input id="street-address" type="text" value={currentUser.street_address} onChange={ev => setCurrentUser({...currentUser, street_address: ev.target.value})} required/>
-                                            <label>Street Address</label>
+                                        <input  type="Password" value={currentUser.password} onChange={ev => setCurrentUser({...currentUser, middle_name: ev.target.value})} required/>
+                                        <label>Old Password </label>
                                     </div>
                                     <div className="field-holder">
                                             <input type="text" value={currentUser.municipality} onChange={ev => setCurrentUser({...currentUser, municipality: ev.target.value})} required/>
@@ -150,10 +150,6 @@ const AccountSettings =  () => {
                                 </div>
                                 </div>
                         </div>
-                        <div className="button-section">
-                            <button type='submit'>Update</button>
-                        </div>
-                       
                     </form>
                     )}
                 </div>
