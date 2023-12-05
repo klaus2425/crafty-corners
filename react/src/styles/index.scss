@@ -245,12 +245,7 @@ input::-webkit-inner-spin-button {
     z-index: 1000;
   }
 
-  @media screen and (max-width: 900px) {
-    .guest-buttons {
-      display: none;
-    } 
-    
-  }
+
 
 
 
@@ -647,6 +642,7 @@ input::-webkit-inner-spin-button {
       padding: 3rem 4rem 0 4rem;
       flex-direction: column;
       flex-wrap: wrap;
+      width: 100%;
       min-width: 0;
       .edit-header {
         display: flex;
@@ -656,6 +652,8 @@ input::-webkit-inner-spin-button {
 
       .input-container {
         display: flex;
+        width: 100%;
+        gap: 1rem;
       }
       .input-col-container {
         display: flex;
@@ -1429,5 +1427,19 @@ input::-webkit-inner-spin-button {
     background-color: $green;
     padding: 0.3rem 0.5rem;
     border-radius: 5px;
+  }
+}
+
+
+@media screen and (max-width: 900px) {
+  .guest-buttons {
+    display: none;
+  } 
+  
+} 
+
+@media screen and (max-width: 1200px) {
+  .input-container {
+    flex-direction: column;
   }
 }
