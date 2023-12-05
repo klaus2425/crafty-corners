@@ -245,12 +245,7 @@ input::-webkit-inner-spin-button {
     z-index: 1000;
   }
 
-  @media screen and (max-width: 900px) {
-    .guest-buttons {
-      display: none;
-    } 
-    
-  }
+
 
 
 
@@ -427,12 +422,20 @@ input::-webkit-inner-spin-button {
     margin-top: 4.5rem;
     width: 25%;
     .card {
-      width: 65%;
+      display: flex;
+      justify-content: center;
+      width: 50%;
+      h3 {
+        font-size: clamp(0.5rem, 1vw, 3rem);
+      }
       .rec-community-item {
         display: flex;
         border-top: 2px solid $light_grey;
+        width: 100%;
         gap: 1rem;
+        font-size: clamp(0.5rem, 1vw, 2rem);
         padding-top: 0.125rem;
+        
         #rank {
           font-size: 1.6rem;
           font-weight: bold;
@@ -452,6 +455,7 @@ input::-webkit-inner-spin-button {
         .com-count {
           display: flex;
           flex-direction: column;
+          width: 80%;
           .top {
             display: flex;
             gap: 0.5rem;
@@ -515,7 +519,7 @@ input::-webkit-inner-spin-button {
     width: 50%;
     align-items: center;
     flex-direction: column;
-    margin-left: 30rem;
+    margin-left: clamp(20rem, 30vw, 30rem);
   }
 
   .section-header {
@@ -638,6 +642,7 @@ input::-webkit-inner-spin-button {
       padding: 3rem 4rem 0 4rem;
       flex-direction: column;
       flex-wrap: wrap;
+      width: 100%;
       min-width: 0;
       .edit-header {
         display: flex;
@@ -647,6 +652,8 @@ input::-webkit-inner-spin-button {
 
       .input-container {
         display: flex;
+        width: 100%;
+        gap: 1rem;
       }
       .input-col-container {
         display: flex;
@@ -865,6 +872,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     padding-left: 2rem;
     justify-content: flex-start;
+    width: 100%;
     gap: 0.5rem;
     .footer-item {
       cursor: pointer;
@@ -923,15 +931,20 @@ input::-webkit-inner-spin-button {
         font-size: 1.5em;
         font-weight: bold;
       }      
+      a:hover {
+        color: $green;
+      }
     }
 
     .bottom {
-      background-color: #F0F2F5;
+      overflow: scroll;
+      background-color: #FFF;
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
       padding-bottom: 2rem;
       display: flex;
       justify-content: center;
+ 
       .users-table{
         display: flex;
         justify-content: center;
@@ -953,7 +966,7 @@ input::-webkit-inner-spin-button {
           border-collapse: collapse;
         }
         td {
-          padding: 0.2rem;
+          padding: 0.5rem;
           text-align: start;
         }
 
@@ -974,6 +987,8 @@ input::-webkit-inner-spin-button {
         }
       }
     }
+
+
   }
   .btn-delete{
     border: 0;
@@ -1077,6 +1092,10 @@ input::-webkit-inner-spin-button {
   text-align: center;
 }
 
+.loading-admin {
+  font-size: clamp(1rem, 5vw, 4rem);
+  font-weight: bold;
+}
 .communities-container {
 
   .top-section{
@@ -1362,4 +1381,65 @@ input::-webkit-inner-spin-button {
 .button:hover {
   background-color: #6d697c;
   transition: 0.4s;
+}
+
+.schedule-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  h2 {
+    font: $font_grey;
+  }
+  .schedules {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    flex-direction: column;
+  }
+  .weekday {
+    padding-left: 1rem;
+    color: #000;
+    font-weight: bolder;
+    font-size: clamp(1rem, 2vw, 2rem);
+
+    .schedule {
+      background-color: $font_grey;
+      padding-left: 2rem;
+      color: #FFF;
+      border-radius: 10px;
+      font-weight: normal;
+      padding: 0.5rem 0.8rem;
+      font-size: clamp(1rem, 1vw, 2rem);
+      .time {
+        color: #FFF;
+        font-weight: bolder;
+      }
+    }
+  }
+}
+
+.schedule-header {
+  display: flex;
+  justify-content: space-between;
+  .edit-schedule {
+    text-decoration: none;
+    color: white;
+    background-color: $green;
+    padding: 0.3rem 0.5rem;
+    border-radius: 5px;
+  }
+}
+
+
+@media screen and (max-width: 900px) {
+  .guest-buttons {
+    display: none;
+  } 
+  
+} 
+
+@media screen and (max-width: 1200px) {
+  .input-container {
+    flex-direction: column;
+  }
 }
