@@ -18,6 +18,8 @@ import EditProfile from './Pages/EditProfile';
 import EditUser from "./Pages/Admin/EditUser";
 import AdminCommunities from "./Pages/Admin/AdminCommunities";
 import AddCommunities from "./Pages/Admin/AddCommunities";
+import Schedule from "./Pages/Schedule";
+import AccountSettings from "./Pages/AccountSettings";
 
 const router = createBrowserRouter([
     {   
@@ -61,6 +63,15 @@ const router = createBrowserRouter([
                 path: '/EditProfile',
                 element: <EditProfile />
             },
+            {
+                path: '/schedule',
+                element: <Schedule />
+            },
+            {
+                path: '/account-settings',
+                element: <AccountSettings />
+            }
+        
 
         ],
     },
