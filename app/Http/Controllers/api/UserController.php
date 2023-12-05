@@ -70,5 +70,38 @@ class UserController extends Controller
             'message' => 'User deleted successfully'
         ]);
     }
+    
+    public function joinCommunity(Request $request, $communityId)
+    {
+        $user = auth()->user();
+
+        if($user->joinCommunity($communityId)){
+            return response()->json([
+                'message' => 'You have joined the community'
+            ]);
+        }
+
+        else {
+            return response()->json([
+                'message' => 'You are already a member of this community'
+            ], 400);
+        }
+    }
+    public function joinCommunity(Request $request, $communityId)
+    {
+        $user = auth()->user();
+
+        if($user->joinCommunity($communityId)){
+            return response()->json([
+                'message' => 'You have joined the community'
+            ]);
+        }
+
+        else {
+            return response()->json([
+                'message' => 'You are already a member of this community'
+            ], 400);
+        }
+    }
 }
 

@@ -9,7 +9,9 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'community_id', 'content', 'image', 'video', 'link', 'likes', 'shares', 'comments'];
+    // protected $with = ['user:id,first_name,last_name,middle_name,user_name,profile_picture', 'community:id,name,community_photo', 'comments.user:id'];
+
+    protected $fillable = ['user_id', 'community_id','title' ,'content', 'image', 'video', 'link', 'likes', 'shares', 'comments'];
 
     public function community()
     {
@@ -24,6 +26,16 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function postLikes()
+    {
+        return $this->belongsToMany(User::class, 'post_likes')->withTimestamps();
+    }
+
+    public function postShares()
+    {
+        return $this->hasMany(PostShare::class);
     }
 
     public function getPhotoUrlAttribute()

@@ -10,17 +10,25 @@ class Community extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'description',
-        'community_photo'
+        'community_photo',
     ];
-
-    public function users()
-    {
-        return $this->belongsToMany(User::class)->withTimestamps();
-    }
+    
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withTimestamps();
+    }
+    
+    public function users(){
+        return $this->belongsToMany(User::class, 'community_members')->withTimestamps();
+    }
 }
+
+
