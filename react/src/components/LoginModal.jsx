@@ -4,16 +4,14 @@ import axiosClient from "../axios-client";
 import Swal from 'sweetalert2';
 
 export default function LoginModal(props) {
-  const [errors, setError] = useState(null);
+  //const [errors, setError] = useState(null);
   const { setUser, setToken } = useStateContext();
   const emailRef = useRef();
   const passwordRef = useRef();
 
 
-
   const onSubmit = (ev) => {
     ev.preventDefault();
-    console.log(errors);
     const payload = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
@@ -35,16 +33,14 @@ export default function LoginModal(props) {
               showConfirmButton: false,
               timer: 2500
             });
-            setError(Object.values(response.data.errors)[0]);
           } else {
             Swal.fire({
               position: "top-end",
               icon: "warning",
-              title: `${response.data.messages}`,
+              title: `Invalid Credentials`,
               showConfirmButton: false,
               timer: 2500
             });
-            setError(Object.values(response.data.errors)[0]);
 
           }
         }
