@@ -427,12 +427,20 @@ input::-webkit-inner-spin-button {
     margin-top: 4.5rem;
     width: 25%;
     .card {
-      width: 65%;
+      display: flex;
+      justify-content: center;
+      width: 50%;
+      h3 {
+        font-size: clamp(0.5rem, 1vw, 3rem);
+      }
       .rec-community-item {
         display: flex;
         border-top: 2px solid $light_grey;
+        width: 100%;
         gap: 1rem;
+        font-size: clamp(0.5rem, 1vw, 2rem);
         padding-top: 0.125rem;
+        
         #rank {
           font-size: 1.6rem;
           font-weight: bold;
@@ -452,6 +460,7 @@ input::-webkit-inner-spin-button {
         .com-count {
           display: flex;
           flex-direction: column;
+          width: 80%;
           .top {
             display: flex;
             gap: 0.5rem;
@@ -515,7 +524,7 @@ input::-webkit-inner-spin-button {
     width: 50%;
     align-items: center;
     flex-direction: column;
-    margin-left: 30rem;
+    margin-left: clamp(20rem, 30vw, 30rem);
   }
 
   .section-header {
@@ -865,6 +874,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     padding-left: 2rem;
     justify-content: flex-start;
+    width: 100%;
     gap: 0.5rem;
     .footer-item {
       cursor: pointer;
@@ -1373,4 +1383,51 @@ input::-webkit-inner-spin-button {
 .button:hover {
   background-color: #6d697c;
   transition: 0.4s;
+}
+
+.schedule-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  h2 {
+    font: $font_grey;
+  }
+  .schedules {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    flex-direction: column;
+  }
+  .weekday {
+    padding-left: 1rem;
+    color: #000;
+    font-weight: bolder;
+    font-size: clamp(1rem, 2vw, 2rem);
+
+    .schedule {
+      background-color: $font_grey;
+      padding-left: 2rem;
+      color: #FFF;
+      border-radius: 10px;
+      font-weight: normal;
+      padding: 0.5rem 0.8rem;
+      font-size: clamp(1rem, 1vw, 2rem);
+      .time {
+        color: #FFF;
+        font-weight: bolder;
+      }
+    }
+  }
+}
+
+.schedule-header {
+  display: flex;
+  justify-content: space-between;
+  .edit-schedule {
+    text-decoration: none;
+    color: white;
+    background-color: $green;
+    padding: 0.3rem 0.5rem;
+    border-radius: 5px;
+  }
 }
