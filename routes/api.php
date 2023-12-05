@@ -30,8 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('communities', CommunityController::class);
     Route::apiResource('/posts', PostController::class);
     Route::apiResource('/comments', CommentController::class);
-    Route::post('/users/{user}/join-community/{community}', [UserController::class, 'joinCommunity'])
-    ->name('users.joinCommunity');
+    Route::post('/change-password', [AuthController::class, 'changePassword']);
 
 });
 

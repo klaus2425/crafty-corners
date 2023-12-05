@@ -79,6 +79,28 @@ class AuthController extends Controller
         return response()->json($responseData);
 
     }
+
+    public function changePassword(ChangePassword $request){
+        $user = auth()->user();
+        
+        $password= $request->validated();
+
+        if(!password_verify($password, $user->password)){
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ], 422);
+
+        }
+
+        $user->update([
+            'password' => bcrypt($request->new_password)
+        ]);
+
+        return response()->json([
+            'message' => 'Password changed successfully'
+        ]);
+    }
+
     public function logout(Request $request){
         auth()->user()->currentAccessToken()->delete();
         return response()->json([
