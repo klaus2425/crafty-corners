@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('community_id')->constrained()->onDelete('cascade');
-            $table->text('content');
+            $table->string('title');
+            $table->text('description');
             $table->string('image')->nullable();
             $table->string('video')->nullable();
             $table->string('link')->nullable();

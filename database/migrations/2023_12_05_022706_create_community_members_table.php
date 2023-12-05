@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('communities', function (Blueprint $table) {
+        Schema::create('community_members', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete(); // Add this line
-            $table->string('name')->unique();
-            $table->string('community_photo')->nullable();
-            $table->text('description');
+            $table->foreignId('community_id')->constrained('communities'); // 'communities' is the table name of 'Community
+            $table->foreignId('user_id')->constrained('users'); // 'users' is the table name of 'User
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('communities');
+        Schema::dropIfExists('community_members');
     }
 };
