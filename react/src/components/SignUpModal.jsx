@@ -53,6 +53,7 @@ export default function SignUpModal(props) {
         formData.append('profile_picture', profilePictureRef.current.files[0]);
         formData.append('phone_number', numberRef.current.value);
         formData.append('gender', gender);
+
         axiosClient.post('/register', formData)
             .then(({ data }) => {
                 setUser(data.user);

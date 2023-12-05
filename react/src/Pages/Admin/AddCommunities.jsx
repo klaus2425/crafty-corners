@@ -15,10 +15,9 @@ const AddCommunities = () => {
         ev.preventDefault();
 
         const formData = new FormData();
-        formData.append('name', communityNameRef);
-        formData.append('description', communityDescriptionRef);
-        formData.append('image', communityImageRef)
-
+        formData.append('name', communityNameRef.current.value);
+        formData.append('description', communityDescriptionRef.current.value);
+        formData.append('community_photo', communityImageRef.current.files[0]);
         axiosClient.post('/communities', formData)
         .then(({data}) => {
             console.log(data);
@@ -32,7 +31,7 @@ const AddCommunities = () => {
     }
 
     return (
-        <form encType="multipart/form-data" onSubmit={onSubmit}>
+        <form enctype="multipart/form-data" onSubmit={onSubmit}>
             <div className="add-community-container">
                 <h1>Add a New Community</h1>
                 <div className="community-form">
