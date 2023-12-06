@@ -20,6 +20,7 @@ import AdminCommunities from "./Pages/Admin/AdminCommunities";
 import AddCommunities from "./Pages/Admin/AddCommunities";
 import Schedule from "./Pages/Schedule";
 import AccountSettings from "./Pages/AccountSettings";
+import EditCommunity from "./Pages/Admin/EditCommunity";
 
 const router = createBrowserRouter([
     {   
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
             {
                 path: '/add-communities',
                 element: <AddCommunities/>
+            },
+            {
+                path: 'edit-community',
+                element: <EditCommunity/>
             }
         ]
     },
