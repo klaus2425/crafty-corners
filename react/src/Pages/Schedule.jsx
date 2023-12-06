@@ -23,7 +23,7 @@ const Schedule = () => {
                             <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Monday</span>
-                                    <FontAwesomeIcon icon={faPlus} />
+                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} />
                                 </div>
                                 <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
                             </div>
