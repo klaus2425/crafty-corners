@@ -21,9 +21,7 @@ $dark_purple: #2C3373;
 a {
   text-decoration: none;
 }
-html {
-  height: 100%;
-}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -55,6 +53,7 @@ input::-webkit-inner-spin-button {
   padding: 0.5rem;
   height: fit-content;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .green-button {
@@ -243,10 +242,11 @@ input::-webkit-inner-spin-button {
 
     }
 
-    .login-main{
+    .login-main{ 
       h2 {
         padding-left: 0.3rem;
         color: black;
+        margin-bottom: 0.456rem;
       }
       hr {
         margin: 0.5rem 0;
@@ -263,6 +263,7 @@ input::-webkit-inner-spin-button {
         padding-left: 2rem;
         border-radius: 10px;
       }
+      
 
       
     }
@@ -270,6 +271,10 @@ input::-webkit-inner-spin-button {
       display: flex;
       justify-content: center;
       margin: 0.125rem;
+      .purple-button {
+        font-size: 1.24rem;
+        width: (1.24rem, 3vw, 5rem);
+      }
     }
   }
 
@@ -1281,20 +1286,18 @@ input::-webkit-inner-spin-button {
   }
   
   .close-login {
-    display: flex;
     width: 100%;
     justify-content: flex-end;
     button {
-      width: 1.75rem;
-      height: 1.75rem;
-      border-radius: 50%;
+      border-radius: 100%;
+      padding: 0;
       margin: 0;
       background-color: transparent;
       color: #FFF;
       border: 0;
     }
     svg {
-      border-radius: 50%;
+      border-radius: 100%;
       transition: 0.3s;
       width: 1.75rem;
       height: 1.75rem;
@@ -1335,11 +1338,11 @@ input::-webkit-inner-spin-button {
   }
   
   .landing-container {
-    height: 100dvh;
+    min-height: calc(100vh - 4.5rem);;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
-    padding-top: 10rem;
+    padding-top: 14.5rem;
     text-align: center;
     align-items: center;
     .landing-title {
@@ -1485,10 +1488,10 @@ input::-webkit-inner-spin-button {
 
     .schedule {
       background-color: $font_grey;
-      padding-left: 2rem;
       color: #FFF;
       border-radius: 10px;
       font-weight: normal;
+      width: clamp(10rem, 47vw, 90rem);
       padding: 0.5rem 0.8rem;
       font-size: clamp(1rem, 1vw, 2rem);
       .time {
@@ -1564,10 +1567,13 @@ input::-webkit-inner-spin-button {
   padding: 0.5rem 1rem;
   font-size: 1.245rem;
   margin-right: 2rem;
-  width: clamp(2rem, 5vw, 8rem);
-  white-space: nowrap;
+  width: clamp(5rem, 4vw + 2rem, 10rem);
 }
 
+.weekday-title {
+  display: flex;
+  justify-content: space-between;
+}
 
 @media screen and (max-width: 900px) {
   .guest-buttons {
