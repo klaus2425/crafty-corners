@@ -67,8 +67,8 @@ const AccountSettings =  () => {
                 
         formData.append('new_password', currentUser.password);
         formData.append('current_password', currentUser.current_pasword) 
-
-        axiosClient.post(`users/${currentUser.id}`, formData)
+        console.log(currentUser.password);
+        axiosClient.post(`change-password/`, formData)
             .then((res) => {
                 console.log(res.data); 
                 window.location.reload();
@@ -76,7 +76,7 @@ const AccountSettings =  () => {
             .catch(err => {
                 const response = err.response;
                 if (response && response.status === 422) {
-                    console.log(response);
+                    console.log(response.data.message);
                 }
             });
     };
