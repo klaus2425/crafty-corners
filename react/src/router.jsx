@@ -101,7 +101,7 @@ const router = createBrowserRouter([
                 element: <AddCommunities/>
             },
             {
-                path: 'edit-community',
+                path: '/edit-community/:id',
                 element: <EditCommunity/>
             }
         ]
