@@ -6,6 +6,11 @@ $orange: #F3B664;
 $red: #EA4242;
 $green: #6DD871;
 $dark_purple: #2C3373;
+@font-face {
+  font-family: Archivo;
+  src: url('../fonts/ArchivoBlack-Regular.ttf');
+}
+
 :root {
   font-family: Helvetica, system-ui, Avenir, Arial, sans-serif;
   line-height: 1.5;
@@ -145,7 +150,7 @@ input::-webkit-inner-spin-button {
   justify-content: space-between;
   h1 {
     color: #000;
-    font-family: Helvetica;
+    font-family: Archivo;
     font-size: max(1.8vw, 1.2rem); 
     font-style: normal;
     font-weight: 700;
@@ -1350,6 +1355,7 @@ input::-webkit-inner-spin-button {
       color: $dark_purple;
       font-weight: bold;
       line-height: clamp(2rem, 4vw + 1rem, 6rem);
+      font-family: Archivo;
     }
     .landing-sub {
       color: black;
