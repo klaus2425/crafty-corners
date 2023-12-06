@@ -18,61 +18,67 @@ const AccountSettings =  () => {
     };
 
 
-    const onSubmit = (ev) => {
+    const onEmailSubmit = (ev) => {
         ev.preventDefault();
 
-        if(!imageChange) {
-            const formData = new FormData();
-                    
-            formData.append("_method", "PUT");
-            formData.append('first_name', currentUser.first_name);
-            formData.append('middle_name', currentUser.middle_name);
-            formData.append('last_name', currentUser.last_name); 
-            formData.append('email', currentUser.email); 
-            formData.append('password', currentUser.password); 
-            formData.append('birthday', currentUser.birthday); 
-            formData.append('street_address', currentUser.street_address); 
-            formData.append('municipality', currentUser.municipality); 
-            formData.append('province', currentUser.province);
-            formData.append('gender', currentUser.gender); 
-            axiosClient.post(`users/${currentUser.id}`, formData)
-                .then((res) => {
-                    console.log(res.data); 
-                    window.location.reload();
-                })
-                .catch(err => {
-                    const response = err.response;
-                    if (response && response.status === 422) {
-                        console.log(response);
-                    }
-                });
-        } 
-        else {
-            const formData = new FormData();
+        const formData = new FormData();
                 
-            formData.append("_method", "PUT");
-            for (const key in currentUser) {
-                formData.append(key, currentUser[key]);
-                console.log(currentUser[key]);
-              }
+        formData.append("_method", "PUT");
+        formData.append('email', currentUser.email); 
         
-            axiosClient.post(`users/${currentUser.id}`, formData)
-                .then((res) => {
-                    console.log(res.data); 
-                    window.location.reload();
-                })
-                .catch(err => {
-                const response = err.response;
-                setLoading(false);
-                setCurrentUser(data);
-                setImage(storageBaseUrl+data.profile_picture)
+        axiosClient.post(`users/${currentUser.id}`, formData)
+            .then((res) => {
+                console.log(res.data); 
             })
-            .catch(() =>{
-                setLoading(false);
+            .catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    console.log(response);
+                    }
             });
-        }
+    };
 
-        
+    const onPhoneSubmit = (ev) => {
+        ev.preventDefault();
+
+        const formData = new FormData();
+                
+        formData.append("_method", "PUT");
+        formData.append('phone_number', currentUser.phone_number); 
+
+        axiosClient.post(`users/${currentUser.id}`, formData)
+            .then((res) => {
+                console.log(res.data); 
+                window.location.reload();
+            })
+            .catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    console.log(response);
+                }
+            });
+    };
+
+    
+    const onPasswordSubmit = (ev) => {
+        ev.preventDefault();
+
+        const formData = new FormData();
+                
+        formData.append('new_password', currentUser.password);
+        formData.append('current_password', currentUser.current_pasword) 
+
+        axiosClient.post(`users/${currentUser.id}`, formData)
+            .then((res) => {
+                console.log(res.data); 
+                window.location.reload();
+            })
+            .catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    console.log(response);
+                }
+            });
     };
 
 
@@ -97,7 +103,7 @@ const AccountSettings =  () => {
 
     return (
         <div className="authenticated-container">
-            <div className="feed">
+            <div className="acc-settings-feed">
             <div className='section-header'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
                         <path d="M28.7693 29.8187C28.1046 27.9581 26.6399 26.3141 24.6024 25.1415C22.5649 23.9689 20.0684 23.3333 17.5002 23.3333C14.9319 23.3333 12.4355 23.9689 10.3979 25.1415C8.36043 26.3141 6.89574 27.9581 6.23103 29.8187" stroke="#677186" stroke-width="2.91667" stroke-linecap="round"/>
@@ -113,42 +119,48 @@ const AccountSettings =  () => {
                     )}
 
                     {!loading && (
-                    <form enctype="multipart/form-data" onSubmit={onSubmit}>
-                        <div className="edit-card">
-                            <div className='edit-header'>
-                                <FontAwesomeIcon icon={faPencil} />
-                                <h1> Account Settings</h1>
+                    <div>
+                            <div className="edit-card">
+                                <div className='edit-header'>
+                                    <FontAwesomeIcon icon={faPencil} />
+                                    <h1> Account Settings</h1>
+                                </div>
+                                <div className='input-container'>
+                                    <div className="input-col-container"> 
+                                        <form onSubmit={onEmailSubmit}>
+                                            <span className='change-text'>Change Email Address</span>
+                                            <div className="field-holder">
+                                                <input type="email" value={currentUser.email}  onChange={ev => setCurrentUser({...currentUser, email: ev.target.value})} required/>
+                                                <label>Email Address</label>
+                                            </div>
+      
+                                        <button className='purple-button'>Change Email</button>
+                                        </form>
+                                        <form onSubmit={onPhoneSubmit}>
+                                            <div className="field-holder">
+                                                    <input type="number" value={currentUser.phone_number}  onChange={ev => setCurrentUser({...currentUser, phone_number: ev.target.value})} required/>
+                                                    <label>Phone Number</label>
+                                            </div>
+                                            <button className='purple-button'>Change Phone Number</button>
+                                        </form>
+                                    </div>
+                                    <div className="input-col-container">
+                                        <form onSubmit={onPasswordSubmit}>
+                                            <span className='change-text'>Change Password</span>
+                                            <div className="field-holder">
+                                                <input  type="Password" onChange={ev => setCurrentUser({...currentUser, password: ev.target.value})} required/>
+                                                <label>Current Password</label>
+                                            </div>
+                                            <div className="field-holder">
+                                                <input  type="Password" onChange={ev => setCurrentUser({...currentUser, current_password: ev.target.value})} required/>
+                                                <label>New Password</label>
+                                            </div>
+                                            <button className='purple-button'>Change Password</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div className='input-container'>
-                                
-                                <div className="input-col-container"> 
-                                <span className='change-text'>Change Email Address</span>
-                                    <div className="field-holder">
-                                        <input type="email" value={currentUser.email}  onChange={ev => setCurrentUser({...currentUser, email: ev.target.value})} required/>
-                                        <label>Email Address</label>
-                                    </div>
-
-                                </div>
-                                
-                                
-                                <div className="input-col-container">
-                                <span className='change-text'>Change Password</span>
-                                    <div className="field-holder">
-                                        <input  type="Password" value={currentUser.password} onChange={ev => setCurrentUser({...currentUser, middle_name: ev.target.value})} required/>
-                                        <label>Current Password</label>
-
-                                    </div>
-                                    <div className="field-holder">
-                                        <input  type="Password" value={currentUser.password} onChange={ev => setCurrentUser({...currentUser, middle_name: ev.target.value})} required/>
-                                        <label>New Password</label>
-                                    </div>
-                                <button>Submit</button>
-
-                                </div>
-                                </div>
-                        </div>
-                    </form>
+                    </div>
                     )}
                 </div>
             </div>
