@@ -1,11 +1,14 @@
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axiosClient from "../axios-client";
-import { useState, useEffect, useRef, } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 
 const AccountSettings =  () => {
     
+    const passwordRef = useRef();
+    const currentPasswordRef = useRef();
+
     const [image, setImage] = useState();
     const [imageChange, setImageChange] = useState(false);
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
@@ -65,9 +68,12 @@ const AccountSettings =  () => {
 
         const formData = new FormData();
                 
-        formData.append('new_password', currentUser.password);
-        formData.append('current_password', currentUser.current_pasword) 
-        console.log(currentUser.password);
+        formData.append('current_password', currentPasswordRef.current.value);
+        formData.append('new_password', passwordRef.current.value);
+
+        for (const value of formData.values()) {
+            console.log(value);
+        }
         axiosClient.post(`change-password/`, formData)
             .then((res) => {
                 console.log(res.data); 
@@ -148,11 +154,11 @@ const AccountSettings =  () => {
                                         <form onSubmit={onPasswordSubmit}>
                                             <span className='change-text'>Change Password</span>
                                             <div className="field-holder">
-                                                <input  type="Password" onChange={ev => setCurrentUser({...currentUser, password: ev.target.value})} required/>
+                                                <input  type="Password"ref={currentPasswordRef}required/>
                                                 <label>Current Password</label>
                                             </div>
                                             <div className="field-holder">
-                                                <input  type="Password" onChange={ev => setCurrentUser({...currentUser, current_password: ev.target.value})} required/>
+                                                <input  type="Password" ref={passwordRef}  required/>
                                                 <label>New Password</label>
                                             </div>
                                             <button className='purple-button'>Change Password</button>
