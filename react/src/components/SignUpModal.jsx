@@ -62,7 +62,11 @@ export default function SignUpModal(props) {
             .catch(err => {
                 const response = err.response;
                 if (response && response.status === 422) {
-                    setError(response.data.errors);
+                    Swal.fire({
+                        title: "Error",
+                        text: `${Object.values(response.data.errors)[0]}`,
+                        icon: "warning"
+                      });
                 }
             });
     };
@@ -103,11 +107,27 @@ export default function SignUpModal(props) {
                                     <input ref={userNameRef} ></input>
                                     <label>Birthday:</label>
                                     <input ref={birthdayRef} type='date'placeholder='Birthday' required></input>
-                                    <label>Gender:</label>
-                                    <div className="gender-container">
-                                        <input type="radio" name="gender" value="Male"  onChange={ev => (setGender(ev.target.value))}/> Male
-                                        <input type="radio" name="gender" value="Female" onChange={ev => (setGender(ev.target.value))}/> Female
-                                        <input type="radio" name="gender" value="Other" onChange={ev => (setGender(ev.target.value))}/> Other
+                                    <div className="gender-label">
+                                            Gender
+                                        </div>
+                                    <div className="gender-field-holder">
+                                        
+                                        <div className="gender-inputs">
+                                            <div className="gender-container">
+                                                <div className='gender-radio'>
+                                                    <input type="radio" name="gender" value="Male"  onChange={ev => setGender(ev.target.value)} required/> 
+                                                    <span>Male</span>
+                                                </div>
+                                                <div className='gender-radio'>
+                                                    <input type="radio" name="gender" value="Female"  onChange={ev => setGender(ev.target.value)}/> 
+                                                    <span>Female</span>
+                                                </div>
+                                                <div className='gender-radio'>
+                                                    <input type="radio" name="gender" value="Other" onChange={ev => setGender(ev.target.value) }/> 
+                                                    <span>Other</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <label>Phone Number:</label>
                                     <input type="number" ref={numberRef} required />
