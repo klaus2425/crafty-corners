@@ -18,7 +18,9 @@ $dark_purple: #2C3373;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+a {
+  text-decoration: none;
+}
 html {
   height: 100%;
 }
@@ -1490,6 +1492,11 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     width: 100%;
     gap: 0.75rem;
+    a {
+      padding: 0.25rem 0.5rem;
+      font-weight: normal;
+      font-size: 0.95rem;
+    }
   }
 }
 
@@ -1509,7 +1516,6 @@ input::-webkit-inner-spin-button {
   display: flex;
   justify-content: space-between;
   width: 100%;
-
 }
 
 
