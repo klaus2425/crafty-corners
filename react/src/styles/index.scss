@@ -1559,6 +1559,15 @@ input::-webkit-inner-spin-button {
   width: 100%;
 }
 
+.guest-login {
+  font-weight: bolder;
+  padding: 0.5rem 1rem;
+  font-size: 1.245rem;
+  margin-right: 2rem;
+  width: clamp(2rem, 5vw, 8rem);
+  white-space: nowrap;
+}
+
 
 @media screen and (max-width: 900px) {
   .guest-buttons {
