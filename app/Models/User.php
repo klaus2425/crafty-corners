@@ -54,6 +54,12 @@ class User extends Authenticatable
         'password' => 'hashed',
         'birthday' => 'date:Y-m-d',
     ];
+
+    public function schedule()
+    {
+        return $this->hasOne(Schedule::class);
+    }
+    
     public function setBirthdayAttribute($value)
     {
         $this->attributes['birthday'] = date('Y-m-d', strtotime($value));
@@ -74,26 +80,16 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    public function postLikes()
-    {
-        return $this->belongsToMany(Post::class, 'post_likes')->withTimestamps();
-    }
+    // public function postLikes()
+    // {
+    //     return $this->belongsToMany(Post::class, 'post_likes')->withTimestamps();
+    // }
     
-    public function postShares()
-    {
-        return $this->hasMany(PostShare::class);
-    }
+    // public function postShares()
+    // {
+    //     return $this->hasMany(Post::class);
+    // }
+    
 
-    public function joinCommunity($id)
-    {
-        $community = Community::findOrFail($id);
 
-        if ($this->communities->contains($community)) {
-            return false;
-        }
-
-        $this->communities()->attach($community);
-
-        return true;
-    }
 }

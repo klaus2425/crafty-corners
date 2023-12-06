@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\api;
+use App\Http\Requests\ChangeEmail;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
@@ -100,6 +101,20 @@ class AuthController extends Controller
             'message' => 'Password changed successfully'
         ]);
 
+    }
+
+    public function ChangeEmail(ChangeEmail $request){
+        $user = auth()->user();
+
+        $validatedData = $request->validated();
+
+        $user->update([
+            'email' => $validatedData['email']
+        ]);
+
+        return response()->json([
+            'message' => 'Email changed successfully'
+        ]);
     }
 
     public function logout(Request $request){

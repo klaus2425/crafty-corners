@@ -8,6 +8,7 @@ use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\CommunityController;
 use App\Http\Controllers\api\PostController;
 use App\Http\Controllers\api\CommentController;
+use App\Http\Controllers\api\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/comments', CommentController::class);
     
     Route::post('/change-password', [AuthController::class, 'changePassword']);
+    Route::post('/change-email', [AuthController::class, 'changeEmail']);
+    Route::apiResource('/schedule', ScheduleController::class);
 
 });
 
