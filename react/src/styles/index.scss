@@ -47,6 +47,16 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
 }
 
+.purple-button {
+  border: none;
+  border-radius: 10px;
+  background-color: $purple;
+  color: white;
+  padding: 0.5rem;
+  height: fit-content;
+  cursor: pointer;
+}
+
 .green-button {
   border: none;
   border-radius: 10px;
@@ -87,9 +97,10 @@ input::-webkit-inner-spin-button {
   align-items: center;
   height: 2.5rem;
   width: 6rem;
+  margin-top: 1rem;
   background-color: $purple;
   border: none;
-  border-radius: 20px;
+  border-radius: 10px;
   transition: 0.3s;
 }
 #logout_button:hover {
@@ -176,18 +187,13 @@ input::-webkit-inner-spin-button {
   }
 
   button {
-    border: 0;
-    width: 8.125rem;
-    height: 2.5625rem;
-    border-radius: 3.125rem;
-    background: #6339DC;
-    color: #FFF;
-    font-family: Helvetica;
-    font-size: 1.41194rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin-right: 1rem;
+    border: none;
+    border-radius: 10px;
+    background-color: $purple;
+    color: white;
+    padding: 0.5rem;
+    height: fit-content;
+    cursor: pointer;
   }
   button:hover {
     background-color: #6d697c;
@@ -554,6 +560,30 @@ input::-webkit-inner-spin-button {
     margin-left: clamp(20rem, 30vw, 30rem);
   }
 
+  .acc-settings-feed {
+    display: flex;
+    width: 40%;
+    align-items: center;
+    flex-direction: column;
+    margin-left: clamp(20rem, 30vw, 30rem);
+
+
+    .purple-button {
+      border: none;
+      border-radius: 10px;
+      background-color: $purple;
+      color: white;
+      padding: 0.5rem;
+      height: fit-content;
+      width: fit-content;
+      font-size: 0.86rem;
+      cursor: pointer;
+      white-space: nowrap;
+      margin: 0;
+    }
+
+  }
+
   .section-header {
     width: 100%;
     display: flex;
@@ -671,7 +701,7 @@ input::-webkit-inner-spin-button {
 
     .edit-card{
       display: flex;
-      padding: 3rem 4rem 0 4rem;
+      padding: 1rem 4rem 0 4rem;
       flex-direction: column;
       flex-wrap: wrap;
       width: 100%;
@@ -697,27 +727,41 @@ input::-webkit-inner-spin-button {
 
         .gender-container {
           display: flex;
-          width: 100%;
           margin-bottom: 1rem;
-          input[type=radio] {
-            border: 0px;
-            margin: 0;
-            margin-right: -5rem;
-            width: 1rem;
-            height:1rem;
+          flex-direction: column;
+          width: clamp(4rem, 6vw, 8rem);
+          justify-content: center;
+          align-items: flex-start;
         }
+        .change-text {
+          font-weight: bold;
         }
-
       }
 
+      .gender-field-holder {
+        display: flex;
+        gap: 1.25rem;
+        height: 4.256rem;
+        .gender-radio {
+          display: flex;
+          gap: 1rem;
+          input[type=radio] {
+            border: 0px;
+            height:1rem;
+            min-width: 0;
+          }
+        }
+      }
       .field-holder {
         position: relative;
-        margin-bottom: 0.5rem;
+        margin-top: 1.25rem;
         
         #input-birthday {
           max-width: 7rem;
         }
+
         
+
         input {
           border-radius: 10px;
           border: 2px solid #D8DCE3;
@@ -758,18 +802,16 @@ input::-webkit-inner-spin-button {
       justify-content: center;
     }
     button {
-      width: 8.0625rem;
-      height: 2.2rem;
-      margin-top: 0.8rem;
-      margin-right: 0.8rem;
-      border-radius: 2.75881rem;
-      border: 0.883px solid #6339DC;
-      background: #FFF;
-      font-size: 1.1035rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.2rem;
+      border: none;
+      border-radius: 10px;
+      background-color: $purple;
+      color: white;
+      padding: 0.5rem 1rem;
+      height: fit-content;
+      font-size: 1rem;
+      font-family: Helvetica, Arial;
+      cursor: pointer;
+      font-weight: bold;
     }
     
     button:hover {
@@ -837,8 +879,11 @@ input::-webkit-inner-spin-button {
     height: 7rem;
     width: 7rem;
     border-radius: 10000px;
+    margin: 0;
   }
-
+  a {
+    margin-left: 0.5rem;
+  }
   a:hover {
     transition: 0.2s;
     color: $purple;
@@ -1094,6 +1139,7 @@ input::-webkit-inner-spin-button {
         .gender-container {
           display: flex;
           align-items: center;
+          justify-content: center;
           gap: 0.5rem;
           input[type=radio] {
             border: 0px;
@@ -1335,7 +1381,6 @@ input::-webkit-inner-spin-button {
       input[type=radio] {
         border: 0px;
         margin: 0;
-        width: 100%;
         height:2rem;
     }
     }
@@ -1395,7 +1440,6 @@ input::-webkit-inner-spin-button {
     border: 0px;
     margin: 0;
     
-    width: 100%;
     height:1rem;
 }
 }
@@ -1467,10 +1511,7 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.change-text {
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
+
 
 .community-item {
   background-color: #FFF;
