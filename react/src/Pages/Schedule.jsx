@@ -1,3 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+
+
 
 const Schedule = () => {
     
@@ -16,8 +20,12 @@ const Schedule = () => {
                             <h1>Your schedule for this week</h1>
                         </div>
                         <div className="schedules">
-                            <div className='weekday'>Monday
-                            <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
+                            <div className='weekday'>
+                                <div className="weekday-title">
+                                    <span>Monday</span>
+                                    <FontAwesomeIcon icon={faPlus} />
+                                </div>
+                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
                             </div>
                                 
                             <div className='weekday'>Tuesday</div>
