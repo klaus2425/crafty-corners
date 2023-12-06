@@ -58,7 +58,7 @@ const AdminCommunities = () => {
                                 <span><strong>Members: <br/></strong></span>
                             </div>
                             <div className="buttons-community">
-                                <button className="orange-button">Edit Community</button>
+                                <Link className="orange-button">Edit Community</Link>
                                 <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete Community</button>
                             </div>
                             
