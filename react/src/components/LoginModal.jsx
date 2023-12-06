@@ -80,7 +80,7 @@ export default function LoginModal(props) {
                 type="password"
                 placeholder="Password"
               ></input>
-              Forgot your password?
+              <span>Forgot your password?</span>
             </div>
             <div className="login-button">
               <button className="purple-button" onClick={onSubmit}>Log In</button>
