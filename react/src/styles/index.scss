@@ -81,6 +81,12 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
 }
 
+#add-schedule {
+  opacity: 0;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
 #update-picture {
   border-radius: 10000px;
   max-width: 10.125rem;
@@ -1570,6 +1576,7 @@ input::-webkit-inner-spin-button {
 }
 
 
+
 .buttons-community {
   display: flex;
   gap: 1rem;
@@ -1598,6 +1605,12 @@ input::-webkit-inner-spin-button {
 .weekday-title {
   display: flex;
   justify-content: space-between;
+}
+
+.weekday-title:hover {
+  #add-schedule{
+    opacity: 1;
+  }
 }
 
 @media screen and (max-width: 900px) {
