@@ -1576,3 +1576,11 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
   }
 }
+
+@media screen and (max-width: 1540px) {
+
+.input-container {
+  flex-direction: column;
+}
+
+}
