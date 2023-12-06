@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Schedule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ScheduleRequest extends FormRequest
+class UpdateScheduleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,11 @@ class ScheduleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'schedule_name' => 'required|string|max:255',
-            'schedule_description' => 'required|string|max:255',
-            'schedule_day' => 'required|string|max:255',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i',
+            'schedule_name' => 'string|max:255',
+            'schedule_description' => 'string|max:255',
+            'schedule_day' => 'string|max:255',
+            'start_time' => 'date_format:H:i',
+            'end_time' => 'date_format:H:i',
         ];
     }
 }

@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 use App\Http\Resources\ScheduleResource;
-use App\Http\Requests\ScheduleRequest;
+use App\Http\Requests\Schedule\StoreScheduleRequest;
+use App\Http\Requests\Schedule\UpdateScheduleRequest;
 class ScheduleController extends Controller
 {
     /**
@@ -26,7 +27,7 @@ class ScheduleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ScheduleRequest $request)
+    public function store(StoreScheduleRequest $request)
     {
             
             $schedule = auth()->user()->schedule()->create($request->validated());
@@ -49,7 +50,7 @@ class ScheduleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ScheduleRequest $request, Schedule $schedule)
+    public function update(UpdateScheduleRequest $request, Schedule $schedule)
     {
         $schedule->update($request->validated());
         return new ScheduleResource($schedule);

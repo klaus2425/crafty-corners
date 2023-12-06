@@ -57,9 +57,9 @@ class User extends Authenticatable
 
     public function schedule()
     {
-        return $this->hasOne(Schedule::class);
+        return $this->hasMany(Schedule::class);
     }
-    
+
     public function setBirthdayAttribute($value)
     {
         $this->attributes['birthday'] = date('Y-m-d', strtotime($value));

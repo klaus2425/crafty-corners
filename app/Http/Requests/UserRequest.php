@@ -33,7 +33,6 @@ class UserRequest extends FormRequest
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'phone_number' => 'nullable|string',
             'gender' => 'nullable|string',
-
         ];
     }
 }
