@@ -53,8 +53,8 @@ export default function LoginModal(props) {
       <div className="overlay">
         <div className="modal">
           <div className="close-login">
-            <button onClick={() => props.setIsOpen(false)}>
-              <svg
+            
+              <svg onClick={() => props.setIsOpen(false)}
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
                 height="30"
@@ -69,7 +69,7 @@ export default function LoginModal(props) {
                 <path d="M9 9L15 15" stroke="#222222" strokeLinecap="round" />
                 <path d="M15 9L9 15" stroke="#222222" strokeLinecap="round" />
               </svg>
-            </button>
+            
           </div>
           <form>
             <div className="login-main">
@@ -83,7 +83,7 @@ export default function LoginModal(props) {
               Forgot your password?
             </div>
             <div className="login-button">
-              <button onClick={onSubmit}>Log In</button>
+              <button className="purple-button" onClick={onSubmit}>Log In</button>
             </div>
           </form>
         </div>
