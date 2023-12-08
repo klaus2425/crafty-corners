@@ -41,7 +41,6 @@ class CommunityController extends Controller {
 
         return new CommunityResource($community);
 
-
     }
 
     /**
@@ -55,7 +54,6 @@ class CommunityController extends Controller {
         //     'community' => $community,
         //     'posts' => $post
         // ]);
-      
     }
     
 
@@ -76,15 +74,12 @@ class CommunityController extends Controller {
         $community->update($request->validated());
         return new CommunityResource($community);
     }
-    public function destroy(string $id) {
-        $community = Community::findOrFail($id);
+    public function destroy(Community $community){
         if(auth()->user()->id != $community->user_id) {
             return response()->json([
                 'message' => 'You are not authorized to delete this community'
             ], 403);
         }
-
-
         $community->delete();
         return response()->json([
             'message' => 'Community deleted successfully'

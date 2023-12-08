@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\api;
+
 use App\Http\Requests\ChangeEmail;
 use App\Models\User;
 use App\Http\Controllers\Controller;
@@ -10,9 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ChangePassword;
 
-class AuthController extends Controller
-{
-    public function register(RegisterRequest $request){
+class AuthController extends Controller {
+    public function register(RegisterRequest $request) {
         $user = User::create([
             'email' => $request->email,
             'first_name' => $request->first_name,
@@ -24,14 +24,14 @@ class AuthController extends Controller
             'municipality' => $request->municipality,
             'province' => $request->province,
             'password' => bcrypt($request->password),
-            'gender'=> $request->gender,
+            'gender' => $request->gender,
             'phone_number' => $request->phone_number,
 
         ]);
 
-        if($request->hasFile('profile_picture')){
+        if($request->hasFile('profile_picture')) {
             $profile_picture = $request->file('profile_picture');
-            $profile_picture->move(public_path() . '/storage/users/', $profile_picture->getClientOriginalName());
+            $profile_picture->move(public_path().'/storage/users/', $profile_picture->getClientOriginalName());
             $user->profile_picture = $profile_picture->getClientOriginalName();
             $user->save();
         }
@@ -41,7 +41,7 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token
         ]);
-             // if($request->hasFile('profile_picture')){
+        // if($request->hasFile('profile_picture')){
         //     $profile_picture = $request->file('profile_picture');
         //     $path = $profile_picture->store('users', 'public');
         //     $user->update([
@@ -49,9 +49,9 @@ class AuthController extends Controller
         //     ]);
         // }
     }
-    public function login(LoginRequest $request){
+    public function login(LoginRequest $request) {
         $credentials = $request->validated();
-        if(!Auth::attempt($credentials)){
+        if(!Auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Invalid credentials'
             ], 422);
@@ -66,7 +66,7 @@ class AuthController extends Controller
             'token' => $token,
             'roles' => $user->type
         ];
-        if($user->type == 'admin'){
+        if($user->type == 'admin') {
             $totalUsers = User::count();
             $responseData['permissions'] = [
                 'create' => true,
@@ -82,12 +82,12 @@ class AuthController extends Controller
 
     }
 
-    public function changePassword(ChangePassword $request){
+    public function changePassword(ChangePassword $request) {
         $user = auth()->user();
 
         $validatedData = $request->validated();
 
-        if(!password_verify($validatedData['current_password'], $user->password)){
+        if(!password_verify($validatedData['current_password'], $user->password)) {
             return response()->json([
                 'message' => 'Invalid old password'
             ], 422);
@@ -103,7 +103,7 @@ class AuthController extends Controller
 
     }
 
-    public function ChangeEmail(ChangeEmail $request){
+    public function ChangeEmail(ChangeEmail $request) {
         $user = auth()->user();
 
         $validatedData = $request->validated();
@@ -117,7 +117,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request) {
         auth()->user()->currentAccessToken()->delete();
         return response()->json([
             'message' => 'Logged out'

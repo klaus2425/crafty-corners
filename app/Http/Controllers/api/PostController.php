@@ -9,13 +9,11 @@ use App\Http\Resources\PostResource;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Str;
 
-class PostController extends Controller
-{
+class PostController extends Controller {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index() {
         $posts = Post::all();
         return PostResource::collection($posts);
     }
@@ -23,21 +21,19 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PostRequest $request)
-    {
+    public function store(PostRequest $request) {
         $validatedData = $request->validated(); // Use validated data from the request
 
-        if($request->hasFile('image')){ // Check if the request has a file
+        if($request->hasFile('image')) { // Check if the request has a file
             $file = $request->file('image'); // Get the file from the request
-            $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension(); // Generate a UUID as the file name
+            $fileName = Str::uuid().'.'.$file->getClientOriginalExtension(); // Generate a UUID as the file name
             $file->storeAs('public/posts', $fileName); // Use Laravel storage for file storage
             $validatedData['image'] = $fileName; // Add the file name to the validated data
         }
@@ -50,24 +46,22 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $post = Post::findOrFail($id);
         return new PostResource($post);
     }
 
 
-    public function update(PostRequest $request, string $id)
-    {
+    public function update(PostRequest $request, string $id) {
         $post = Post::findOrFail($id);
 
         // Validate the request
         $validatedData = $request->validated();
 
         // Move the file if present in the request
-        if ($request->hasFile('image')) {
+        if($request->hasFile('image')) {
             $file = $request->file('image');
-            $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension(); // Generate a UUID as the file name
+            $fileName = Str::uuid().'.'.$file->getClientOriginalExtension(); // Generate a UUID as the file name
             $file->storeAs('public/posts', $fileName); // Use Laravel storage for file storage
             $post->image = $fileName;
         }
@@ -81,8 +75,7 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
+    public function destroy(string $id) {
         $post = Post::findOrFail($id);
         $post->delete();
         return response()->json([
