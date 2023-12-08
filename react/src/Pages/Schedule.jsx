@@ -55,15 +55,16 @@ const Schedule = () => {
                                     {
                                         schedule && 
                                         schedule.filter((sched) => {
-                                            return sched.schedule_day.includes('Monday'); 
-                                        }).map((sched) => (
-                                            <div className='schedule'>
-                                                    <div className='schedule-top'>
-                                                        {sched.schedule_name} <span className='time'> {sched.start_time} to {sched.end_time}</span>
-                                                    </div>
-                                                    <div className='schedule-bottom'>{sched.schedule_description}</div>
-                                            </div>
-                                        )
+                                            return sched.schedule_day.includes('Monday')})
+                                            .map((sched) => (
+                                                <div key={sched.id} className='schedule'>
+                                                        <div className='schedule-top'>
+                                                            <strong className='grey'>{sched.schedule_name}</strong> <span className='time'> 
+                                                            {sched.start_time} to {sched.end_time}</span>
+                                                        </div>
+                                                        <div className='schedule-bottom'>{sched.schedule_description}</div>
+                                                </div>
+                                            )
                                         )
                                     }
                             </div>
@@ -72,40 +73,124 @@ const Schedule = () => {
                                     <span>Tuesday</span>
                                     <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Tuesday')} />
                                 </div>
-                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
+                                {
+                                        schedule && 
+                                        schedule.filter((sched) => {
+                                            return sched.schedule_day.includes('Tuesday')})
+                                            .map((sched) => (
+                                                <div key={sched.id} className='schedule'>
+                                                        <div className='schedule-top'>
+                                                            <strong className='grey'>{sched.schedule_name}</strong> <span className='time'> 
+                                                            {sched.start_time} to {sched.end_time}</span>
+                                                        </div>
+                                                        <div className='schedule-bottom'>{sched.schedule_description}</div>
+                                                </div>
+                                            )
+                                        )
+                                    }
                             </div>                            
                             <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Wednesday</span>
                                     <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Wednesday')} />
                                 </div>
-                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
+                                {
+                                        schedule && 
+                                        schedule.filter((sched) => {
+                                            return sched.schedule_day.includes('Wednesday')})
+                                            .map((sched) => (
+                                                <div key={sched.id} className='schedule'>
+                                                        <div className='schedule-top'>
+                                                            <strong className='grey'>{sched.schedule_name}</strong> <span className='time'> 
+                                                            {sched.start_time} to {sched.end_time}</span>
+                                                        </div>
+                                                        <div className='schedule-bottom'>{sched.schedule_description}</div>
+                                                </div>
+                                            )
+                                        )
+                                    }
                             </div>                            
                             <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Thursday</span>
                                     <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Thursday')} />
                                 </div>
-                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
+                                {
+                                        schedule && 
+                                        schedule.filter((sched) => {
+                                            return sched.schedule_day.includes('Thursday')})
+                                            .map((sched) => (
+                                                <div key={sched.id} className='schedule'>
+                                                        <div className='schedule-top'>
+                                                            <strong className='grey'>{sched.schedule_name}</strong> <span className='time'> 
+                                                            {sched.start_time} to {sched.end_time}</span>
+                                                        </div>
+                                                        <div className='schedule-bottom'>{sched.schedule_description}</div>
+                                                </div>
+                                            )
+                                        )
+                                    }
                             </div>                            <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Friday</span>
                                     <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Friday')} />
                                 </div>
-                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
+                                {
+                                        schedule && 
+                                        schedule.filter((sched) => {
+                                            return sched.schedule_day.includes('Friday')})
+                                            .map((sched) => (
+                                                <div key={sched.id} className='schedule'>
+                                                        <div className='schedule-top'>
+                                                            <strong className='grey'>{sched.schedule_name}</strong> <span className='time'> 
+                                                            {sched.start_time} to {sched.end_time}</span>
+                                                        </div>
+                                                        <div className='schedule-bottom'>{sched.schedule_description}</div>
+                                                </div>
+                                            )
+                                        )
+                                    }
                             </div>                            <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Saturday</span>
                                     <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Saturday')} />
                                 </div>
-                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
-                            </div>                            <div className='weekday'>
+                                {
+                                        schedule && 
+                                        schedule.filter((sched) => {
+                                            return sched.schedule_day.includes('Saturday')})
+                                            .map((sched) => (
+                                                <div key={sched.id} className='schedule'>
+                                                        <div className='schedule-top'>
+                                                            <strong className='grey'>{sched.schedule_name}</strong> <span className='time'> 
+                                                            {sched.start_time} to {sched.end_time}</span>
+                                                        </div>
+                                                        <div className='schedule-bottom'>{sched.schedule_description}</div>
+                                                </div>
+                                            )
+                                        )
+                                    }
+                            </div>                            
+                            <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Sunday</span>
                                     <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Sunday')} />
                                 </div>
-                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
-                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
+                                {
+                                        schedule && 
+                                        schedule.filter((sched) => {
+                                            return sched.schedule_day.includes('Sunday')})
+                                            .map((sched) => (
+                                                <div key={sched.id} className='schedule'>
+                                                        <div className='schedule-top'>
+                                                            <strong className='grey'>{sched.schedule_name}</strong> <span className='time'> 
+                                                            {sched.start_time} to {sched.end_time}</span>
+                                                        </div>
+                                                        <div className='schedule-bottom'>{sched.schedule_description}</div>
+                                                </div>
+                                            )
+                                        )
+                                    }
                             </div>
   
                         </div>
