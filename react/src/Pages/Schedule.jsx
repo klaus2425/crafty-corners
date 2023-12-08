@@ -14,7 +14,7 @@ const Schedule = () => {
                     </svg>
                     <h3>Schedule</h3>
                 </div>
-                <div className="card">
+                <div className="card" id='schedule-card'>
                     <div className="schedule-container">
                         <div className='schedule-header'>
                             <h1>Your schedule for this week</h1>
@@ -27,13 +27,45 @@ const Schedule = () => {
                                 </div>
                                 <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
                             </div>
-                                
-                            <div className='weekday'>Tuesday</div>
-                            <div className='weekday'>Wednesday</div>
-                            <div className="weekday">Thursday</div>
-                            <div className="weekday">Friday</div>
-                            <div className="weekday">Saturday</div>
-                            <div className="weekday">Sunday</div>
+                            <div className='weekday'>
+                                <div className="weekday-title">
+                                    <span>Tuesday</span>
+                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} />
+                                </div>
+                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
+                            </div>                            <div className='weekday'>
+                                <div className="weekday-title">
+                                    <span>Wednesday</span>
+                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} />
+                                </div>
+                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
+                            </div>                            <div className='weekday'>
+                                <div className="weekday-title">
+                                    <span>Thursday</span>
+                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} />
+                                </div>
+                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
+                            </div>                            <div className='weekday'>
+                                <div className="weekday-title">
+                                    <span>Friday</span>
+                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} />
+                                </div>
+                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
+                            </div>                            <div className='weekday'>
+                                <div className="weekday-title">
+                                    <span>Saturday</span>
+                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} />
+                                </div>
+                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
+                            </div>                            <div className='weekday'>
+                                <div className="weekday-title">
+                                    <span>Sunday</span>
+                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} />
+                                </div>
+                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
+                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
+                            </div>
+  
                         </div>
                     </div>
                     
