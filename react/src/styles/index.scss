@@ -329,6 +329,8 @@ input::-webkit-inner-spin-button {
   align-items: center;
   justify-content: space-between;
 
+  
+
   h1 {
     color: #000;
     font-family: Helvetica;
@@ -472,6 +474,81 @@ input::-webkit-inner-spin-button {
   height: 100%;
   max-height: 1080px;
   
+  .overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($color: #000000, $alpha: 0.7);
+    z-index: 1000;
+  }
+
+  .modal {
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFF;
+    z-index: 1000;
+    padding: 1.46rem;
+    width: clamp(20rem, 30vw + 2rem, 25rem);
+    .close {
+      display: flex;
+      justify-content: flex-end;
+
+      svg {
+        border-radius: 50%;
+        transition: 0.3s;
+        cursor: pointer;
+      }
+
+      svg:hover {
+        background-color: #e6e6e6;
+        
+      }
+    }
+
+    h2 {
+      color: black;
+    }
+    
+    .schedule-input {
+      display: flex;
+      flex-direction: column;
+      margin: 0.726rem;
+      input {
+        width: 100%;
+        height: 1rem;
+        border-radius: 3.125rem;
+        border: 2px solid #D8DCE3;
+        background: #FFF;
+        color: #677186;
+        font-family: Helvetica;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 400;
+        padding: 1rem;
+        transition: 0.4s;
+        outline: none;
+      }
+      
+    }
+
+    .add-sched-btn {
+      display: flex;
+      justify-content: center;
+    }
+  
+
+
+  }
+
+
+
   .recommended{
     margin-top: 4.5rem;
     width: 25%;
@@ -1273,8 +1350,8 @@ input::-webkit-inner-spin-button {
   input {
     width: clamp(5rem, 10vw + 3rem, 20rem);
     height: 2.125rem;
-    border-radius: 3.125rem;
-    border: 3px solid #D8DCE3;
+    border-radius: 10px;
+    border: 2px solid #D8DCE3;
     background: #FFF;
     color: #677186;
     font-family: Helvetica;
