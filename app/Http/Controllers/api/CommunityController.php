@@ -47,25 +47,25 @@ class CommunityController extends Controller {
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {
-        $community = Community::where('communities.id', $id);
-        $post = $community->posts()->get();
-        return response()->json([
-            'community' => $community,
-            'posts' => $post
-        ]);
+    public function show(Community $community) {
+        return new CommunityResource($community);
+        // $community = Community::where('communities.id', $id);
+        // $post = $community->posts()->get();
+        // return response()->json([
+        //     'community' => $community,
+        //     'posts' => $post
+        // ]);
+      
     }
+    
 
 
-    public function update(CommunityRequest $request, string $id) {
-        $community = Community::findOrFail($id);
-
+    public function update(CommunityRequest $request, Community $community) {
         if(auth()->user()->id != $community->user_id) {
             return response()->json([
                 'message' => 'You are not authorized to update this community'
             ], 403);
         }
-
         if($request->hasFile('community_photo')) {
             $file = $request->file('community_photo');
             $fileName = $community->id.'.'.$file->getClientOriginalExtension();
@@ -73,11 +73,7 @@ class CommunityController extends Controller {
             $community->community_photo = $fileName;
             $community->save();
         }
-        $validatedData = $request->validated();
-        unset($validatedData['user_id']);
-
-        $community->update($validatedData);
-
+        $community->update($request->validated());
         return new CommunityResource($community);
     }
     public function destroy(string $id) {
