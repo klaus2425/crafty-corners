@@ -124,9 +124,8 @@ input::-webkit-inner-spin-button {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   input[type='file'] {
     display: none;
   }
@@ -333,7 +332,7 @@ input::-webkit-inner-spin-button {
 
   h1 {
     color: #000;
-    font-family: Helvetica;
+    font-family: Archivo;
     font-size: 2.21763rem;
     font-style: normal;
     font-weight: 700;
@@ -523,7 +522,7 @@ input::-webkit-inner-spin-button {
       input {
         width: 100%;
         height: 1rem;
-        border-radius: 3.125rem;
+        border-radius: 3.125rem;font-size: 2rem;
         border: 2px solid #D8DCE3;
         background: #FFF;
         color: #677186;
@@ -534,6 +533,11 @@ input::-webkit-inner-spin-button {
         padding: 1rem;
         transition: 0.4s;
         outline: none;
+      }
+
+      .color-picker {
+        height: 2rem !important;
+        padding: 0.25rem;
       }
       
     }
@@ -633,6 +637,7 @@ input::-webkit-inner-spin-button {
     justify-content: start;
     margin-bottom: 1rem;
     border-radius: 10px;
+    cursor: pointer;
     svg {
       margin-bottom: 0.3rem;
       width: 2.81838rem;
@@ -1595,6 +1600,8 @@ input::-webkit-inner-spin-button {
     font-size: clamp(1rem, 2vw, 2rem);
 
     .schedule {
+      display: flex;
+      justify-content: space-between;
       background-color: $font_grey;
       color: #FFF;
       border-radius: 10px;
