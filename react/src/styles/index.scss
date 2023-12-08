@@ -2,9 +2,9 @@ $font_grey: #677186;
 $purple: #6528F7;
 $light_grey: #D8DCE3;
 $lighter_grey:#EEF1F5;
-$orange: #F3B664;
+$orange: #e97100;
 $red: #EA4242;
-$green: #6dd871;
+$green: #3fcc44;
 $dark_purple: #2C3373;
 @font-face {
   font-family: Archivo;
@@ -548,7 +548,6 @@ input::-webkit-inner-spin-button {
       }
       .sched-radio {
         width: 2rem;
-        accent-color: $green;
       }
 
     
@@ -1723,6 +1722,9 @@ input::-webkit-inner-spin-button {
   }
 }
 
+.color-flex {
+  display: flex;
+}
 
 
 @media screen and (max-width: 900px) {
