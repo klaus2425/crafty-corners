@@ -16,8 +16,9 @@ const EditCommunity = () => {
             setLoading(true);
             axiosClient.get(`/communities/${id}`)
                   .then(({ data }) => {
-                    setCommunity(data);
+                    setCommunity(data.data);
                     setLoading(false);
+                    console.log(data);
                   })
                   .catch((err) => {
                     setLoading(false);
@@ -28,7 +29,7 @@ const EditCommunity = () => {
 
 
     return (
-        <div></div>
+        <div>Display{community.name}</div>
     )
 }
 
