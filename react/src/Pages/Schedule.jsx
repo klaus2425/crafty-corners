@@ -17,6 +17,7 @@ const Schedule = () => {
         axiosClient.get('/schedule')
         .then(({data}) => {
             setSchedule(data.data);
+            console.log(data.data);
         })
     }
 
@@ -72,7 +73,7 @@ const Schedule = () => {
                                     schedule.filter((sched) => {
                                         return sched.schedule_day.includes('Monday')})
                                         .map((sched, index) => (
-                                            <div style={index % 2 ? {backgroundColor: '#F3B664'} : {backgroundColor: '#56c95a'}} key={sched.id} className='schedule'>
+                                            <div style={{backgroundColor: sched.schedule_color}} key={sched.id} className='schedule'>
                                                     <div className='schedule-top'>
                                                         <strong>{sched.schedule_name}</strong> <span className='time'> 
                                                         {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
