@@ -1,12 +1,21 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import axiosClient from '../axios-client';
+import { useState, useEffect } from 'react'
 import AddScheduleModal from '../components/AddScheduleModal';
 
 
 const Schedule = () => {
     const [open, setOpen] = useState(false);
     const [day, setDay] = useState('');
+    const [schedule, setSchedule] = useState([]);
+    let monday = {};
+    const getSchedule = () => {
+        axiosClient.get('/schedule')
+        .then(({data}) => {
+            setSchedule(data.data);
+        })
+    }
 
     const addSchedule = (weekday) => {
         setDay(weekday);
@@ -14,8 +23,16 @@ const Schedule = () => {
     }
 
 
+    useEffect(() => {
+        getSchedule();
+
+    },[])
+
+    
     return(
         <div className="authenticated-container">
+  
+           
             <div className="feed">
                 <div className='section-header'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -35,7 +52,15 @@ const Schedule = () => {
                                     <span>Monday</span>
                                     <FontAwesomeIcon id='add-schedule' onClick={() => addSchedule('Monday')} icon={faPlus} />
                                 </div>
-                                <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
+                                    {
+                                        schedule && 
+                                        schedule.filter((sched) => {
+                                            return sched.schedule_day.includes('Thursday'); 
+                                        }).map((sched) => (
+                                            <div className='schedule'>{sched.schedule_name} <span className='time'> {sched.start_time} to {sched.end_time}</span></div>
+                                        )
+                                        )
+                                    }
                             </div>
                             <div className='weekday'>
                                 <div className="weekday-title">
@@ -43,13 +68,15 @@ const Schedule = () => {
                                     <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Tuesday')} />
                                 </div>
                                 <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
-                            </div>                            <div className='weekday'>
+                            </div>                            
+                            <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Wednesday</span>
                                     <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Wednesday')} />
                                 </div>
                                 <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
-                            </div>                            <div className='weekday'>
+                            </div>                            
+                            <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Thursday</span>
                                     <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Thursday')} />
