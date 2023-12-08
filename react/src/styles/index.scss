@@ -1522,9 +1522,10 @@ input::-webkit-inner-spin-button {
       color: #FFF;
       border-radius: 10px;
       font-weight: normal;
-      width: clamp(10rem, 47vw, 90rem);
+      width: clamp(10rem, 47vw - 1.25rem, 90rem);
       padding: 0.5rem 0.8rem;
       font-size: clamp(1rem, 1vw, 2rem);
+      margin-bottom: 0.325rem;
       .time {
         color: #FFF;
         font-weight: bolder;
