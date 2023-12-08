@@ -20,14 +20,14 @@ const AddScheduleModal = (props) => {
         formData.append('start_time', startingTimeRef.current.value);
         formData.append('end_time', endTimeRef.current.value);
         formData.append('schedule_day', props.day);
-        formData.append('color', color);
+        formData.append('schedule_color', color);
         for (const value of formData.values()) {
             console.log(value);
           }
 
         axiosClient.post('/schedule', formData)
-        .then(() => {
-            window.location.reload()
+        .then(({data}) => {
+            console.log(data);
         })
         .catch(err => {
             const response = err.response;
@@ -75,8 +75,18 @@ const AddScheduleModal = (props) => {
                         <input ref={endTimeRef} type="time" required />
                     </div>
                     <div className="schedule-input">
-                        <label>End Time:</label>
-                        <div className='radio-input'><input className='sched-radio' type="radio" required /> Green</div>
+                        <label>Background Color:</label>
+                        <div className="color-flex">
+                            <div className="left">
+                                <div  className='radio-input'><input style={{accentColor: "#0aaa3f"}} onChange={ev => setColor(ev.target.value)} name='color' className='sched-radio' type="radio" value='#0aaa3f' required /> Green</div>
+                                <div className='radio-input'><input style={{accentColor: "#e97100"}} onChange={ev => setColor(ev.target.value)} name='color' className='sched-radio' type="radio" value='#e97100' required /> Orange</div>
+                            </div>
+                            <div className="right">
+                                <div  className='radio-input'><input style={{accentColor: "#6528F7"}} onChange={ev => setColor(ev.target.value)} name='color' className='sched-radio' value='#6528F7' type="radio" required /> Purple</div>
+                                <div className='radio-input'><input style={{accentColor: "#677186"}} onChange={ev => setColor(ev.target.value)} name='color' className='sched-radio' value='#677186' type="radio" required /> Gray</div>
+                            </div>
+                        </div>
+        
                         
                     </div>
                     <div className="add-sched-btn">
