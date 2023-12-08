@@ -1601,8 +1601,8 @@ input::-webkit-inner-spin-button {
 
     .schedule {
       display: flex;
-      justify-content: space-between;
-      background-color: $font_grey;
+      flex-direction: column;
+      background-color: $orange;
       color: #FFF;
       border-radius: 10px;
       font-weight: normal;
@@ -1614,6 +1614,15 @@ input::-webkit-inner-spin-button {
         color: #FFF;
         font-weight: bolder;
       }
+      .schedule-top {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .schedule-bottom {
+
+      }
+
     }
   }
 }

@@ -55,9 +55,14 @@ const Schedule = () => {
                                     {
                                         schedule && 
                                         schedule.filter((sched) => {
-                                            return sched.schedule_day.includes('Thursday'); 
+                                            return sched.schedule_day.includes('Monday'); 
                                         }).map((sched) => (
-                                            <div className='schedule'>{sched.schedule_name} <span className='time'> {sched.start_time} to {sched.end_time}</span></div>
+                                            <div className='schedule'>
+                                                    <div className='schedule-top'>
+                                                        {sched.schedule_name} <span className='time'> {sched.start_time} to {sched.end_time}</span>
+                                                    </div>
+                                                    <div className='schedule-bottom'>{sched.schedule_description}</div>
+                                            </div>
                                         )
                                         )
                                     }
