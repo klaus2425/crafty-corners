@@ -4,7 +4,6 @@ import axiosClient from "../axios-client";
 import Swal from 'sweetalert2';
 
 export default function LoginModal(props) {
-  //const [errors, setError] = useState(null);
   const { setUser, setToken } = useStateContext();
   const emailRef = useRef();
   const passwordRef = useRef();

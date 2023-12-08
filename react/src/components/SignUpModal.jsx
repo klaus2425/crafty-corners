@@ -10,13 +10,7 @@ export default function SignUpModal(props) {
         setImage(URL.createObjectURL(e.target.files[0]));
     };
 
-    const handleError = () => {
-        Swal.fire({
-            title: "Error",
-            text: `${Object.values(errors)[0]}`,
-            icon: "warning"
-          });
-    }
+ 
 
     const firstNameRef = useRef();
     const lastNameRef = useRef();
@@ -32,12 +26,10 @@ export default function SignUpModal(props) {
     const [gender, setGender] = useState('');
     const numberRef = useRef();
     const profilePictureRef = useRef();
-    const [errors, setError] = useState(null)
     const {setUser, setToken} = useStateContext();
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        errors && handleError();
         const formData = new FormData();
         formData.append('first_name', firstNameRef.current.value);
         formData.append('middle_name', middleNameRef.current.value);
