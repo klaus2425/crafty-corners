@@ -21,13 +21,11 @@ const AddScheduleModal = (props) => {
         formData.append('end_time', endTimeRef.current.value);
         formData.append('schedule_day', props.day);
         formData.append('schedule_color', color);
-        for (const value of formData.values()) {
-            console.log(value);
-          }
 
         axiosClient.post('/schedule', formData)
         .then(({data}) => {
             console.log(data);
+            window.location.reload();
         })
         .catch(err => {
             const response = err.response;
