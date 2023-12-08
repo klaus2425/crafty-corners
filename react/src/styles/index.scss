@@ -4,7 +4,7 @@ $light_grey: #D8DCE3;
 $lighter_grey:#EEF1F5;
 $orange: #F3B664;
 $red: #EA4242;
-$green: #6DD871;
+$green: #6dd871;
 $dark_purple: #2C3373;
 @font-face {
   font-family: Archivo;
@@ -16,13 +16,16 @@ $dark_purple: #2C3373;
   line-height: 1.5;
   font-weight: 400;
   color: #677186;
-  background: #F9FAFB;
+  background: #f7f7f7;
   box-sizing: border-box;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
+
+
 
 .grey {
   color: #1b1b1b;
@@ -1606,7 +1609,6 @@ input::-webkit-inner-spin-button {
     .schedule {
       display: flex;
       flex-direction: column;
-      background-color: $orange;
       color: #FFF;
       border-radius: 10px;
       font-weight: normal;
