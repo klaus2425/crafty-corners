@@ -27,6 +27,7 @@ class StoreScheduleRequest extends FormRequest
             'schedule_day' => 'required|string|max:255',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i',
+            'schedule_color' => 'required|string|max:255'
         ];
     }
 }

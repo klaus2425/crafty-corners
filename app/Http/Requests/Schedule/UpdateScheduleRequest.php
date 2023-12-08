@@ -27,6 +27,7 @@ class UpdateScheduleRequest extends FormRequest
             'schedule_day' => 'string|max:255',
             'start_time' => 'date_format:H:i',
             'end_time' => 'date_format:H:i',
+            'schedule_color' => 'string|max:255'
         ];
     }
 }
