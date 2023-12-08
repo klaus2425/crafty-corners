@@ -19,6 +19,7 @@ class ScheduleResource extends JsonResource
             'schedule_day' => $this->schedule_day,
             'schedule_name' => $this->schedule_name,
             'schedule_description' => $this->schedule_description,
+            'schedule_color' => $this->schedule_color,
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
             'created_at' => $this->created_at,
