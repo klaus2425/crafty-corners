@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users'); // 'users' is the table name of 'User
             $table->string('schedule_name');
             $table->string('schedule_description');
+            $table -> string('schedule_color') -> nullable();
             $table->string('schedule_day');
             $table->time('start_time');
             $table->time('end_time');
