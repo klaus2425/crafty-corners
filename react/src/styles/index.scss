@@ -362,7 +362,7 @@ input::-webkit-inner-spin-button {
       width: 100%;
       height: 2.125rem;
       border-radius: 3.125rem;
-      border: 3px solid #D8DCE3;
+      border: 2px solid #D8DCE3;
       background: #FFF;
       color: #677186;
       font-family: Helvetica;
@@ -546,7 +546,18 @@ input::-webkit-inner-spin-button {
         height: 2rem !important;
         padding: 0.25rem;
       }
-      
+      .sched-radio {
+        width: 2rem;
+        accent-color: $green;
+      }
+
+    
+
+      .radio-input{
+        display: flex;
+        gap: 0.4rem;
+        align-items: center;
+      }
     }
 
     .add-sched-btn {
@@ -1245,13 +1256,12 @@ input::-webkit-inner-spin-button {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 0.5rem;
+          gap: 0.3rem;
+          margin-left: 5.5rem;
           input[type=radio] {
-            border: 0px;
             margin: 0;
-            
-            width: 100%;
-            height:1rem;
+            width: 2rem;
+            height:2rem;
         }
         }
       }
@@ -1713,6 +1723,8 @@ input::-webkit-inner-spin-button {
   }
 }
 
+
+
 @media screen and (max-width: 900px) {
   .guest-buttons {
     display: none;
@@ -1737,3 +1749,4 @@ input::-webkit-inner-spin-button {
 }
 
 }
+
