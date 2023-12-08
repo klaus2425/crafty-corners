@@ -9,13 +9,11 @@ use App\Http\Resources\CommunityResource;
 use App\Http\Requests\CommunityRequest;
 
 
-class CommunityController extends Controller
-{
+class CommunityController extends Controller {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index() {
         $communities = Community::all();
         return CommunityResource::collection($communities);
     }
@@ -23,9 +21,8 @@ class CommunityController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CommunityRequest $request)
-    {
-        if(auth()->user()->type != 'admin'){
+    public function store(CommunityRequest $request) {
+        if(auth()->user()->type != 'admin') {
             return response()->json([
                 'message' => 'You are not authorized to create a community'
             ], 403);
@@ -34,15 +31,15 @@ class CommunityController extends Controller
         $commmunity['user_id'] = auth()->user()->id;
         $community = Community::create($commmunity);
 
-        if($request->hasFile('community_photo')){
+        if($request->hasFile('community_photo')) {
             $file = $request->file('community_photo');
-            $fileName = $community->id . '.' . $file->getClientOriginalExtension();
+            $fileName = $community->id.'.'.$file->getClientOriginalExtension();
             $file->storeAs('public/communities', $fileName);
             $community->community_photo = $fileName;
             $community->save();
         }
 
-       return new CommunityResource($community);
+        return new CommunityResource($community);
 
 
     }
@@ -50,30 +47,28 @@ class CommunityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-       $community = Community::where('communities.id', $id);
-       $post = $community->posts()->get();
-         return response()->json([
+    public function show(string $id) {
+        $community = Community::where('communities.id', $id);
+        $post = $community->posts()->get();
+        return response()->json([
             'community' => $community,
             'posts' => $post
-         ]);
+        ]);
     }
 
 
-    public function update(CommunityRequest $request, string $id)
-    {
+    public function update(CommunityRequest $request, string $id) {
         $community = Community::findOrFail($id);
 
-        if(auth()->user()->id != $community->user_id){
+        if(auth()->user()->id != $community->user_id) {
             return response()->json([
                 'message' => 'You are not authorized to update this community'
             ], 403);
         }
 
-        if($request->hasFile('community_photo')){
+        if($request->hasFile('community_photo')) {
             $file = $request->file('community_photo');
-            $fileName = $community->id . '.' . $file->getClientOriginalExtension();
+            $fileName = $community->id.'.'.$file->getClientOriginalExtension();
             $file->storeAs('public/communities', $fileName);
             $community->community_photo = $fileName;
             $community->save();
@@ -85,10 +80,9 @@ class CommunityController extends Controller
 
         return new CommunityResource($community);
     }
-    public function destroy(string $id)
-    {
+    public function destroy(string $id) {
         $community = Community::findOrFail($id);
-        if(auth()->user()->id != $community->user_id){
+        if(auth()->user()->id != $community->user_id) {
             return response()->json([
                 'message' => 'You are not authorized to delete this community'
             ], 403);
