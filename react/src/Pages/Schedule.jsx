@@ -1,10 +1,19 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-
+import { useState } from 'react'
+import AddScheduleModal from '../components/AddScheduleModal';
 
 
 const Schedule = () => {
-    
+    const [open, setOpen] = useState(false);
+    const [day, setDay] = useState('');
+
+    const addSchedule = (weekday) => {
+        setDay(weekday);
+        setOpen(!open);
+    }
+
+
     return(
         <div className="authenticated-container">
             <div className="feed">
@@ -19,48 +28,49 @@ const Schedule = () => {
                         <div className='schedule-header'>
                             <h1>Your schedule for this week</h1>
                         </div>
+                        <AddScheduleModal isOpen={open} day={day} setOpen={setOpen} />
                         <div className="schedules">
                             <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Monday</span>
-                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} />
+                                    <FontAwesomeIcon id='add-schedule' onClick={() => addSchedule('Monday')} icon={faPlus} />
                                 </div>
                                 <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
                             </div>
                             <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Tuesday</span>
-                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} />
+                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Tuesday')} />
                                 </div>
                                 <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
                             </div>                            <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Wednesday</span>
-                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} />
+                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Wednesday')} />
                                 </div>
                                 <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
                             </div>                            <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Thursday</span>
-                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} />
+                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Thursday')} />
                                 </div>
                                 <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
                             </div>                            <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Friday</span>
-                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} />
+                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Friday')} />
                                 </div>
                                 <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
                             </div>                            <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Saturday</span>
-                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} />
+                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Saturday')} />
                                 </div>
                                 <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
                             </div>                            <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Sunday</span>
-                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} />
+                                    <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Sunday')} />
                                 </div>
                                 <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
                                 <div className="schedule">Seminar on Advance Topics - <span className='time'>3:00 PM to 5:00 PM</span> </div>
