@@ -1,10 +1,48 @@
+import Swal from 'sweetalert2';
+import axiosClient from '../axios-client';
+import { useRef } from 'react';
 
 
 const AddScheduleModal = (props) => {
+
+    const scheduleNameRef = useRef();
+    const scheduleDescriptionRef = useRef();
+    const startingTimeRef = useRef();
+    const endTimeRef = useRef();
+
+
+
     const onSubmit = (ev) => {
         ev.preventDefault();
 
+        const formData = new FormData();
+        formData.append('schedule_name', scheduleNameRef.current.value);
+        formData.append('schedule_description', scheduleDescriptionRef.current.value);
+        formData.append('start_time', startingTimeRef.current.value);
+        formData.append('end_time', endTimeRef.current.value);
+        formData.append('schedule_day', props.day);
+        
+        for (const value of formData.values()) {
+            console.log(value);
+          }
+
+        axiosClient.post('/schedule', formData)
+        .then(({data}) => {
+            console.log(data);
+        })
+        .catch(err => {
+            const response = err.response;
+            if (response && response.status === 422) {
+                Swal.fire({
+                    title: "Error",
+                    text: `${Object.values(response.data.errors)[0]}`,
+                    icon: "warning"
+                  });
+            }
+        })
     }
+
+
 
     if(!props.isOpen) return null;
 
@@ -23,19 +61,19 @@ const AddScheduleModal = (props) => {
                 <form onSubmit={onSubmit}>
                     <div className="schedule-input">
                         <label>Schedule Name:</label>
-                        <input type="text" required />
+                        <input ref={scheduleNameRef} type="text" required />
                     </div>
                     <div className="schedule-input">
                         <label>Schedule Description:</label>
-                        <input type="text" />
+                        <input ref={scheduleDescriptionRef}  type="text" />
                     </div>
                     <div className="schedule-input">
                         <label>Starting time:</label>
-                        <input type="time" required />
+                        <input ref={startingTimeRef} type="time" required />
                     </div>
                     <div className="schedule-input">
                         <label>End Time:</label>
-                        <input type="time" required />
+                        <input ref={endTimeRef} type="time" required />
                     </div>
                     <div className="add-sched-btn">
                         <button type="submit">Add Schedule</button>
