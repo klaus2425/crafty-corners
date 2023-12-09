@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
-
-
-
 {
     public function index()
     {
@@ -44,7 +41,7 @@ class UserController extends Controller
     }
     public function destroy(User $user)
     {
-        if($user->profile_picture){
+        if ($user->profile_picture) {
             Storage::delete('/public/users/' . $user->profile_picture);
         }
 
@@ -53,7 +50,7 @@ class UserController extends Controller
             'message' => 'User deleted successfully'
         ]);
     }
-    
+
     // public function joinCommunity(Request $request, $communityId)
     // {
     //     $user = auth()->user();
