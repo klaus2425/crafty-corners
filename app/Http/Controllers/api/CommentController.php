@@ -8,13 +8,11 @@ use App\Models\Comment;
 use App\Http\Resources\CommentResource;
 use App\Http\Requests\CommentRequest;
 
-class CommentController extends Controller
-{
+class CommentController extends Controller {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index() {
         $comments = Comment::all();
         return CommentResource::collection($comments);
     }
@@ -22,8 +20,7 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CommentRequest $request,$postId)
-    {
+    public function store(CommentRequest $request, $postId) {
         $validatedData = $request->validated();
         $user = auth()->user();
         $comment = $user->comments()->create($validatedData + ['post_id' => $postId]);
@@ -33,8 +30,7 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $comment = Comment::findOrFail($id);
         return new CommentResource($comment);
     }
@@ -42,8 +38,7 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CommentRequest $request, string $id)
-    {
+    public function update(CommentRequest $request, string $id) {
         $comment = Comment::findOrFail($id);
         $comment->update($request->validated());
         return new CommentResource($comment);
@@ -52,8 +47,7 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
+    public function destroy(string $id) {
         $comment = Comment::findOrFail($id);
         $comment->delete();
         return response()->json([
