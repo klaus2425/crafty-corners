@@ -25,7 +25,8 @@ const AddScheduleModal = (props) => {
         axiosClient.post('/schedule', formData)
         .then(({data}) => {
             console.log(data);
-            window.location.reload();
+            props.getAllSched();
+            props.setOpen(false);
         })
         .catch(err => {
             const response = err.response;
