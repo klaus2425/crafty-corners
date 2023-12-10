@@ -17,6 +17,18 @@ const EditProfile =  () => {
         setCurrentUser({...currentUser, profile_picture: ev.target.files[0]})
     };
 
+    const getUser = () => {
+        setLoading(true);
+        axiosClient.get('/user')
+        .then(({data}) => {
+            setLoading(false);
+            setCurrentUser(data);
+            setImage(storageBaseUrl+data.profile_picture)
+        })
+        .catch(() =>{
+            setLoading(false);
+        });
+    }
 
     const onSubmit = (ev) => {
         ev.preventDefault();
@@ -38,7 +50,7 @@ const EditProfile =  () => {
             axiosClient.post(`users/${currentUser.id}`, formData)
                 .then((res) => {
                     console.log(res.data); 
-                    window.location.reload();
+                    getUser()
                 })
                 .catch(err => {
                     const response = err.response;
@@ -58,14 +70,15 @@ const EditProfile =  () => {
             axiosClient.post(`users/${currentUser.id}`, formData)
                 .then((res) => {
                     console.log(res.data); 
-                    window.location.reload();
                 })
                 .catch(err => {
-                const response = err.response;
-                setLoading(false);
-                setCurrentUser(data);
-                setImage(storageBaseUrl+data.profile_picture)
-            })
+                    const response = err.response;
+                    setLoading(false);
+                    setCurrentUser(data);
+                    setImage(storageBaseUrl+data.profile_picture)
+                    getUser();
+
+                })
             .catch(() =>{
                 setLoading(false);
             });
@@ -79,16 +92,7 @@ const EditProfile =  () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setLoading(true);
-        axiosClient.get('/user')
-        .then(({data}) => {
-            setLoading(false);
-            setCurrentUser(data);
-            setImage(storageBaseUrl+data.profile_picture)
-        })
-        .catch(() =>{
-            setLoading(false);
-        });
+        getUser();
     }, []);
 
 
