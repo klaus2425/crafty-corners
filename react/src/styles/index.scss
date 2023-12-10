@@ -180,7 +180,7 @@ input::-webkit-inner-spin-button {
     width: 42rem;
     height: 2.125rem;
     border-radius: 3.125rem;
-    border: 3px solid #D8DCE3;
+    border: 2px solid #D8DCE3;
     background: #FFF;
     color: #677186;
     font-family: Helvetica;
@@ -194,9 +194,8 @@ input::-webkit-inner-spin-button {
     
   }
 
-  input[type]:focus {
-    border-color: #6339DC;
-    outline: 0 none;
+  input:focus {
+    border-color: $purple;
   }
 
   input:hover{
@@ -278,11 +277,18 @@ input::-webkit-inner-spin-button {
       input {
         margin-bottom: 0.8rem;
         width: 20rem;
-        border-width: 2px;
+        border-width: 1.5px;
+        color: $font_grey;
         padding-left: 2rem;
-        border-radius: 10px;
+        border-radius: 5px;
       }
-      
+      input:focus {
+        border-color: $purple;
+        outline: none !important;
+      }
+      span {
+        margin-left: 1rem;
+      }
 
       
     }
