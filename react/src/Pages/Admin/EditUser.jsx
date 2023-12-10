@@ -17,7 +17,7 @@ const EditUser = () => {
             axiosClient.get(`/users/${id}`)
                   .then(({ data }) => {
                     setUser(data);
-                setLoading(false);
+                    setLoading(false);
 
                    setImage(storageBaseUrl+data.profile_picture);
                   })
