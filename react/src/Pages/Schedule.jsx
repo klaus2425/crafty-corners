@@ -3,21 +3,21 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import axiosClient from '../axios-client';
 import { useState, useEffect } from 'react'
 import AddScheduleModal from '../components/AddScheduleModal';
+import EditSchedule from '../components/EditSchedule';
 
 
 const Schedule = () => {
 
-    
-
+    const [editOpen, setEditOpen] = useState(false);
+    const [schedID, setSchedID] = useState('');
     const [open, setOpen] = useState(false);
     const [day, setDay] = useState('');
     const [schedule, setSchedule] = useState([]);
-    let monday = {};
+
     const getSchedule = () => {
         axiosClient.get('/schedule')
         .then(({data}) => {
             setSchedule(data.data);
-            console.log(data.data);
         })
     }
 
@@ -26,10 +26,14 @@ const Schedule = () => {
         setOpen(!open);
     }
 
+    const editSchedule = (id) => {
+        setEditOpen(!editOpen);
+        setSchedID(id);
+    }
+
 
     useEffect(() => {
         getSchedule();
-
     },[])
 
     const convertTime = (time24h) => {
@@ -61,7 +65,8 @@ const Schedule = () => {
                         <div className='schedule-header'>
                             <h1>Your schedule for this week</h1>
                         </div>
-                        <AddScheduleModal isOpen={open} day={day} setOpen={setOpen} />
+                        <AddScheduleModal isOpen={open} getAllSched={getSchedule} day={day} setOpen={setOpen} />
+                        <EditSchedule isOpen={editOpen} setOpen={setEditOpen} id={schedID} getAllSched={getSchedule} />
                         <div className="schedules">
                             <div className='weekday'>
                                 <div className="weekday-title">
@@ -73,7 +78,7 @@ const Schedule = () => {
                                     schedule.filter((sched) => {
                                         return sched.schedule_day.includes('Monday')})
                                         .map((sched, index) => (
-                                            <div style={{backgroundColor: sched.schedule_color}} key={sched.id} className='schedule'>
+                                            <div style={{backgroundColor: sched.schedule_color}} onClick={() => editSchedule(sched.id)} className='schedule'>
                                                     <div className='schedule-top'>
                                                         <strong>{sched.schedule_name}</strong> <span className='time'> 
                                                         {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
@@ -94,7 +99,7 @@ const Schedule = () => {
                                     schedule.filter((sched) => {
                                         return sched.schedule_day.includes('Tuesday')})
                                         .map((sched, index) => (
-                                            <div style={{backgroundColor: sched.schedule_color}} key={sched.id} className='schedule'>
+                                            <div style={{backgroundColor: sched.schedule_color}} onClick={() => editSchedule(sched.id)} className='schedule'>
                                                     <div className='schedule-top'>
                                                         <strong>{sched.schedule_name}</strong> <span className='time'> 
                                                         {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
@@ -115,7 +120,7 @@ const Schedule = () => {
                                     schedule.filter((sched) => {
                                         return sched.schedule_day.includes('Wednesday')})
                                         .map((sched, index) => (
-                                            <div style={{backgroundColor: sched.schedule_color}} key={sched.id} className='schedule'>
+                                            <div style={{backgroundColor: sched.schedule_color}} onClick={() => editSchedule(sched.id)} className='schedule'>
                                                     <div className='schedule-top'>
                                                         <strong>{sched.schedule_name}</strong> <span className='time'> 
                                                         {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
@@ -136,7 +141,7 @@ const Schedule = () => {
                                     schedule.filter((sched) => {
                                         return sched.schedule_day.includes('Thursday')})
                                         .map((sched, index) => (
-                                            <div style={{backgroundColor: sched.schedule_color}} key={sched.id} className='schedule'>
+                                            <div style={{backgroundColor: sched.schedule_color}} onClick={() => editSchedule(sched.id)} className='schedule'>
                                                     <div className='schedule-top'>
                                                         <strong>{sched.schedule_name}</strong> <span className='time'> 
                                                         {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
@@ -156,7 +161,7 @@ const Schedule = () => {
                                     schedule.filter((sched) => {
                                         return sched.schedule_day.includes('Friday')})
                                         .map((sched, index) => (
-                                            <div style={{backgroundColor: sched.schedule_color}} key={sched.id} className='schedule'>
+                                            <div style={{backgroundColor: sched.schedule_color}} onClick={() => editSchedule(sched.id)} className='schedule'>
                                                     <div className='schedule-top'>
                                                         <strong>{sched.schedule_name}</strong> <span className='time'> 
                                                         {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
@@ -176,7 +181,7 @@ const Schedule = () => {
                                     schedule.filter((sched) => {
                                         return sched.schedule_day.includes('Saturday')})
                                         .map((sched, index) => (
-                                            <div style={{backgroundColor: sched.schedule_color}} key={sched.id} className='schedule'>
+                                            <div style={{backgroundColor: sched.schedule_color}} onClick={() => editSchedule(sched.id)} className='schedule'>
                                                     <div className='schedule-top'>
                                                         <strong>{sched.schedule_name}</strong> <span className='time'> 
                                                         {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
@@ -192,22 +197,22 @@ const Schedule = () => {
                                     <span>Sunday</span>
                                     <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Sunday')} />
                                 </div>
-                                {
-                                    schedule && 
-                                    schedule.filter((sched) => {
-                                        return sched.schedule_day.includes('Sunday')})
-                                        .map((sched, index) => (
-                                            <div style={{backgroundColor: sched.schedule_color}} key={sched.id} className='schedule'>
-                                                    <div className='schedule-top'>
-                                                        <strong>{sched.schedule_name}</strong> <span className='time'> 
-                                                        {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
-                                                    </div>
-                                                    <div className='schedule-bottom'>{sched.schedule_description}</div>
-                                            </div>
+                                    {
+                                        schedule && 
+                                        schedule.filter((sched) => {
+                                            return sched.schedule_day.includes('Sunday')})
+                                            .map((sched, index) => (
+                                                <div style={{backgroundColor: sched.schedule_color}} onClick={() => editSchedule(sched.id)} className='schedule'>
+                                                        <div className='schedule-top'>
+                                                            <strong>{sched.schedule_name}</strong> <span className='time'> 
+                                                            {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
+                                                        </div>
+                                                        <div className='schedule-bottom'>{sched.schedule_description}</div>
+                                                </div>
+                                            )
                                         )
-                                    )
-                                }
-                                    </div>
+                                    }
+                                </div>
                             </div>
                         </div>
                         </div>

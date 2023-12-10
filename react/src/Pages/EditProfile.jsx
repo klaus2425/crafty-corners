@@ -1,7 +1,8 @@
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axiosClient from "../axios-client";
-import { useState, useEffect, useRef, } from 'react';
+import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 
 const EditProfile =  () => {
@@ -17,6 +18,18 @@ const EditProfile =  () => {
         setCurrentUser({...currentUser, profile_picture: ev.target.files[0]})
     };
 
+    const getUser = () => {
+        setLoading(true);
+        axiosClient.get('/user')
+        .then(({data}) => {
+            setLoading(false);
+            setCurrentUser(data);
+            setImage(storageBaseUrl+data.profile_picture)
+        })
+        .catch(() =>{
+            setLoading(false);
+        });
+    }
 
     const onSubmit = (ev) => {
         ev.preventDefault();
@@ -53,23 +66,27 @@ const EditProfile =  () => {
             formData.append("_method", "PUT");
             for (const key in currentUser) {
                 formData.append(key, currentUser[key]);
-                console.log(currentUser[key]);
-              }
+            }
         
             axiosClient.post(`users/${currentUser.id}`, formData)
                 .then((res) => {
                     console.log(res.data); 
                     window.location.reload();
+
                 })
                 .catch(err => {
-                const response = err.response;
-                setLoading(false);
-                setCurrentUser(data);
-                setImage(storageBaseUrl+data.profile_picture)
-            })
-            .catch(() =>{
-                setLoading(false);
-            });
+                    const response = err.response;
+                    Swal.fire({
+                        title: "Error",
+                        text: `${Object.values(response.data.errors)[0]}`,
+                        icon: "warning"
+                      });
+                    setLoading(false);
+                    setImage(storageBaseUrl+data.profile_picture)
+                    getUser();
+                 
+                })
+     
         }
 
         
@@ -80,16 +97,7 @@ const EditProfile =  () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setLoading(true);
-        axiosClient.get('/user')
-        .then(({data}) => {
-            setLoading(false);
-            setCurrentUser(data);
-            setImage(storageBaseUrl+data.profile_picture)
-        })
-        .catch(() =>{
-            setLoading(false);
-        });
+        getUser();
     }, []);
 
 
