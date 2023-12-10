@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Requests\UserDetails\ChangeEmail;
+
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UserDetails\ChangeEmail;
 use App\Http\Requests\UserDetails\ChangePassword;
 use App\Http\Requests\UserDetails\ResetPasswordRequest;
 use App\Http\Requests\UserDetails\SendResetLinkRequest;
