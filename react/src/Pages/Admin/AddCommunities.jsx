@@ -41,8 +41,8 @@ const AddCommunities = () => {
                             <label htmlFor="community-name">Community Description</label>
                         </div>
                         <div className="community-inputs">
-                            <input ref={communityNameRef} type="text" name="community-name" id="community-name" />
-                            <textarea ref={communityDescriptionRef}  name="community-name" rows={6} cols={20} />
+                            <input ref={communityNameRef} type="text" name="community-name" id="community-name" required/>
+                            <textarea ref={communityDescriptionRef}  name="community-name" rows={6} cols={20} required/>
                         </div>
                     </div>
                     <div>
