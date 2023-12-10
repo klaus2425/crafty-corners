@@ -1,7 +1,39 @@
+import { useEffect, useState } from "react";
+import axiosClient from '../axios-client';
+
 const EditSchedule = (props) => {
+    const [schedule, setSchedule] = useState({});
+    const [loading, setLoading] = useState(false);
+
+
+    const onSubmit = (ev) => {
+        ev.preventDefault();
+        const formData = new FormData();
+        formData.append("_method", "PUT");
+        for (const key in schedule) {
+            formData.append(key, schedule[key]);
+        }
+
+        axiosClient.post(`/schedule/`, formData)
+        .then(({data}) => {
+            console.log(data);
+        })
+        .catch(err => {
+            const response = err.response;
+            if (response && response.status === 422) {
+                Swal.fire({
+                    title: "Error",
+                    text: `${Object.values(response.data.errors)[0]}`,
+                    icon: "warning"
+                  });
+            }
+        })
+    }
+
 
     if(!props.isOpen) return null;
     return (
+        
        <div className="overlay">
         <div className="modal">
             <div className='close'>
@@ -11,6 +43,44 @@ const EditSchedule = (props) => {
                         <path d="M15 9L9 15" stroke="#222222" strokeLinecap="round"/>
                     </svg>
             </div>
+       
+            <div><h2>Edit Schedule</h2></div>
+            {!loading && 
+                <form onSubmit={onSubmit}>
+                    <div className="schedule-input">
+                        <label>Schedule Name:</label>
+                        <input value={props.schedule.schedule_name} onChange={ev => setSchedule({...props.schedule, schedule_name: ev.target.value})} type="text" required />
+                    </div>
+                    <div className="schedule-input">
+                        <label>Schedule Description:</label>
+                        <input value={props.schedule.schedule_description} onChange={ev => setSchedule({...schedule, schedule_description: ev.target.value})}  type="text" />
+                    </div>
+                    <div className="schedule-input">
+                        <label>Starting time:</label>
+                        <input value={props.schedule.start_time} onChange={ev => setSchedule({...schedule, start_time: ev.target.value})} type="time" required />
+                    </div>
+                    <div className="schedule-input">
+                        <label>End Time:</label>
+                        <input value={props.schedule.end_time} onChange={ev => setSchedule({...schedule, end_time: ev.target.value})} type="time" required />
+                    </div>
+                    <div className="schedule-input">
+                        <label>Background Color:</label>
+                        <div className="color-flex">
+                            <div className="left">
+                                <div  className='radio-input'><input style={{accentColor: "#0aaa3f"}} checked={props.schedule.schedule_color === '#0aaa3f'} onChange={ev => setSchedule({...schedule, schedule_color: ev.target.value})} name='color' className='sched-radio' type="radio" value='#0aaa3f' required /> Green</div>
+                                <div className='radio-input'><input style={{accentColor: "#e97100"}} checked={props.schedule.schedule_color === '#e97100'} onChange={ev => setSchedule({...schedule, schedule_color: ev.target.value})} name='color' className='sched-radio' type="radio" value='#e97100' required /> Orange</div>
+                            </div>
+                            <div className="right">
+                                <div  className='radio-input'><input style={{accentColor: "#6528F7"}} checked={props.schedule.schedule_color === '#6528F7'} onChange={ev => setSchedule({...schedule, schedule_color: ev.target.value})} name='color' className='sched-radio' value='#6528F7' type="radio" required /> Purple</div>
+                                <div className='radio-input'><input style={{accentColor: "#677186"}}  checked={props.schedule.schedule_color === '#677186'} onChange={ev => setSchedule({...schedule, schedule_color: ev.target.value})} name='color' className='sched-radio' value='#677186' type="radio" required /> Gray</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="add-sched-btn">
+                        <button type="submit">Apply Changes</button>
+                    </div>
+                </form>
+                }
         </div>
        </div>
     )

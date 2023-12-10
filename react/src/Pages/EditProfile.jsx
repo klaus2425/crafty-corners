@@ -53,8 +53,7 @@ const EditProfile =  () => {
             formData.append("_method", "PUT");
             for (const key in currentUser) {
                 formData.append(key, currentUser[key]);
-                console.log(currentUser[key]);
-              }
+            }
         
             axiosClient.post(`users/${currentUser.id}`, formData)
                 .then((res) => {
