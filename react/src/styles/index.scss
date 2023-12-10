@@ -259,6 +259,8 @@ input::-webkit-inner-spin-button {
 
     }
 
+  
+
     .login-main{ 
       h2 {
         padding-left: 0.3rem;
@@ -506,6 +508,7 @@ input::-webkit-inner-spin-button {
       display: flex;
       justify-content: flex-end;
 
+
       svg {
         border-radius: 50%;
         transition: 0.3s;
@@ -517,6 +520,7 @@ input::-webkit-inner-spin-button {
         
       }
     }
+    
 
     h2 {
       color: black;
@@ -562,6 +566,13 @@ input::-webkit-inner-spin-button {
     .add-sched-btn {
       display: flex;
       justify-content: center;
+      gap: 2rem;
+      .red-button {
+        background-color: $red;
+      }
+      .red-button:focus {
+        background-color: $red;
+      }
     }
   
 
