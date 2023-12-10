@@ -1635,9 +1635,16 @@ input::-webkit-inner-spin-button {
       }
 
       .schedule-bottom {
-
+        display: flex;
+        width: 100%;
       }
 
+
+
+
+    }
+    .schedule:hover {
+      cursor: pointer;
     }
   }
 }
