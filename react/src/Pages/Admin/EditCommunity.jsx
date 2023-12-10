@@ -12,7 +12,7 @@ const EditCommunity = () => {
     const [loading, setLoading] = useState(false);
     const [image, setImage] = useState();
     const [communityName, setCommunityName] = useState();
-
+    const [communityDescription, setCommunityDescription] = useState();
     const handleChange = (ev) => {
       setImage(URL.createObjectURL(ev.target.files[0]));
       setImageChange(true);
@@ -25,12 +25,17 @@ const EditCommunity = () => {
       .then(({ data }) => {
         setCommunity(data.data);
         setLoading(false);
-        setImage(storageBaseUrl+data.data.community_photo)
-        setCommunityName(data.data.name)
+        setImage(storageBaseUrl+data.data.community_photo);
+        setCommunityName(data.data.name);
+        setCommunityDescription(data.data.description);
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err.message);
+        Swal.fire({
+          title: "Error",
+          text: `${Object.values(err.response.data.errors)[0]}`,
+          icon: "warning"
+        });
       })
     }
     if(id) {
@@ -44,13 +49,19 @@ const EditCommunity = () => {
 
       if(!imageChange && community.name !== communityName) {
           const formData = new FormData();
-          console.log('image || Cname');
           formData.append("_method", "PUT");
           formData.append('name', community.name);
           formData.append('description', community.description);
           axiosClient.post(`communities/${id}`, formData)
           .then(() => {
               getCommunity();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Changes applied",
+                showConfirmButton: false,
+                timer: 1500
+              });
           })
           .catch(err => {
               const response = err.response;
@@ -64,7 +75,6 @@ const EditCommunity = () => {
           });
       } 
       else if(imageChange && community.name === communityName) {
-        console.log('Cimage || name');
 
         const formData = new FormData();
         formData.append("_method", "PUT");
@@ -75,7 +85,13 @@ const EditCommunity = () => {
         .then(() => {
             getCommunity();
             setImageChange(false);
-
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Changes applied",
+              showConfirmButton: false,
+              timer: 1500
+            });
         })
         .catch(err => {
             const response = err.response;
@@ -89,18 +105,22 @@ const EditCommunity = () => {
         });
       } 
       else if (imageChange && community.name !== communityName){
-        console.log('Cimage || Cname');
 
         const formData = new FormData();
         formData.append("_method", "PUT");
         for (const key in community) {
           formData.append(key, community[key]);
         }
-        console.log(community);
         axiosClient.post(`communities/${community.id}`, formData)
         .then((res) => {
-          console.log(res.data);
             getCommunity();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Changes applied",
+              showConfirmButton: false,
+              timer: 1500
+            });
         })
         .catch(err => {
             const response = err.response;
@@ -109,6 +129,33 @@ const EditCommunity = () => {
                 text: `${Object.values(response.data.errors)[0]}`,
                 icon: "warning"
               });
+            setLoading(false);
+            setImage(image);
+        
+        })
+      } else if (community.description !== communityDescription) {
+        const formData = new FormData();
+        formData.append("_method", "PUT");
+        formData.append('description', community.description);
+        
+        axiosClient.post(`communities/${community.id}`, formData)
+        .then(() => {
+            getCommunity();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Changes applied",
+              showConfirmButton: false,
+              timer: 1500
+            });
+        })
+        .catch(err => {
+            const response = err.response;
+            Swal.fire({
+              title: "Error",
+              text: `${Object.values(response.data.errors)[0]}`,
+              icon: "warning"
+            });
             setLoading(false);
             setImage(image);
         
