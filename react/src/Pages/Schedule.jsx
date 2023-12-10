@@ -9,7 +9,7 @@ import EditSchedule from '../components/EditSchedule';
 const Schedule = () => {
 
     const [editOpen, setEditOpen] = useState(false);
-    const [selectSched, setSelectSched] = useState({});
+    const [schedID, setSchedID] = useState('');
     const [open, setOpen] = useState(false);
     const [day, setDay] = useState('');
     const [schedule, setSchedule] = useState([]);
@@ -27,21 +27,8 @@ const Schedule = () => {
     }
 
     const editSchedule = (id) => {
-        axiosClient.get(`/schedule/${id}`)
-        .then(({data}) => {
-            setSelectSched(data.data);
-            setEditOpen(!editOpen);
-        })
-        .catch(err => {
-            const response = err.response;
-            if (response && response.status === 422) {
-                Swal.fire({
-                    title: "Error",
-                    text: `${Object.values(response.data.errors)[0]}`,
-                    icon: "warning"
-                  });
-            }
-        })
+        setEditOpen(!editOpen);
+        setSchedID(id);
     }
 
 
@@ -78,8 +65,8 @@ const Schedule = () => {
                         <div className='schedule-header'>
                             <h1>Your schedule for this week</h1>
                         </div>
-                        <AddScheduleModal isOpen={open} day={day} setOpen={setOpen} />
-                        <EditSchedule isOpen={editOpen} setOpen={setEditOpen} schedule={selectSched} />
+                        <AddScheduleModal isOpen={open} getAllSched={getSchedule} day={day} setOpen={setOpen} />
+                        <EditSchedule isOpen={editOpen} setOpen={setEditOpen} id={schedID} getAllSched={getSchedule} />
                         <div className="schedules">
                             <div className='weekday'>
                                 <div className="weekday-title">
