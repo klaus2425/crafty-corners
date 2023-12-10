@@ -16,6 +16,7 @@ class Community extends Model
         'community_photo',
     ];
     
+   
     public function posts()
     {
         return $this->hasMany(Post::class);

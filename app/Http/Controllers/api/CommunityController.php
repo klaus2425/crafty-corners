@@ -27,9 +27,9 @@ class CommunityController extends Controller {
                 'message' => 'You are not authorized to create a community'
             ], 403);
         }
-        $commmunity = $request->validated();
-        $commmunity['user_id'] = auth()->user()->id;
-        $community = Community::create($commmunity);
+        $community = $request->validated();
+        $community['user_id'] = auth()->user()->id;
+        $community = Community::create($community);
 
         if($request->hasFile('community_photo')) {
             $file = $request->file('community_photo');
@@ -48,23 +48,23 @@ class CommunityController extends Controller {
      */
     public function show(Community $community) {
         return new CommunityResource($community);
-        // $community = Community::where('communities.id', $id);
-        // $post = $community->posts()->get();
-        // return response()->json([
-        //     'community' => $community,
-        //     'posts' => $post
-        // ]);
     }
     
-
-
     public function update(UpdateCommunityRequest $request, Community $community) {
-        if(auth()->user()->id != $community->user_id) {
+
+        if(auth()->user()->type != 'admin') {
             return response()->json([
                 'message' => 'You are not authorized to update this community'
             ], 403);
         }
-        $community->update($request->validated());
+        $data = $request->validated();
+        if($request->hasFile('community_photo')) {
+            $file = $request->file('community_photo');
+            $fileName = $community->id.'.'.$file->getClientOriginalExtension();
+            $file->storeAs('public/communities', $fileName);
+            $data['community_photo'] = $fileName;
+        }
+        $community->update($data);
         return new CommunityResource($community);
     }
     public function destroy(Community $community){
