@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Schedule;
+use App\Models\Post;
+use App\Models\Community;
+use App\Models\Comment;
+use App\Models\PostLike;
+use App\Models\PostShare;
+
 
 class User extends Authenticatable
 {
