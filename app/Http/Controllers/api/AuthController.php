@@ -2,17 +2,27 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Requests\ChangeEmail;
+use App\Http\Requests\UserDetails\ChangeEmail;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\ChangePassword;
+use App\Http\Requests\UserDetails\ChangePassword;
+use App\Http\Requests\UserDetails\ResetPasswordRequest;
+use App\Http\Requests\UserDetails\SendResetLinkRequest;
+use Illuminate\Support\Facades\Password;
+use App\Models\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ResetPasswordMail;
 
-class AuthController extends Controller {
-    public function register(RegisterRequest $request) {
+class AuthController extends Controller
+{
+    //Register
+    public function register(RegisterRequest $request)
+    {
         $user = User::create([
             'email' => $request->email,
             'first_name' => $request->first_name,
@@ -29,10 +39,11 @@ class AuthController extends Controller {
 
         ]);
 
-        if($request->hasFile('profile_picture')) {
+        if ($request->hasFile('profile_picture')) {
             $profile_picture = $request->file('profile_picture');
-            $profile_picture->move(public_path().'/storage/users/', $profile_picture->getClientOriginalName());
-            $user->profile_picture = $profile_picture->getClientOriginalName();
+            $fileName = $user->id . '.' . $profile_picture->getClientOriginalExtension();
+            $profile_picture->storeAs('public/users', $fileName);
+            $user->profile_picture = $fileName;
             $user->save();
         }
 
@@ -41,17 +52,12 @@ class AuthController extends Controller {
             'user' => $user,
             'token' => $token
         ]);
-        // if($request->hasFile('profile_picture')){
-        //     $profile_picture = $request->file('profile_picture');
-        //     $path = $profile_picture->store('users', 'public');
-        //     $user->update([
-        //         'profile_picture' => $path
-        //     ]);
-        // }
     }
-    public function login(LoginRequest $request) {
+    //Login
+    public function login(LoginRequest $request)
+    {
         $credentials = $request->validated();
-        if(!Auth::attempt($credentials)) {
+        if (!Auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Invalid credentials'
             ], 422);
@@ -66,7 +72,7 @@ class AuthController extends Controller {
             'token' => $token,
             'roles' => $user->type
         ];
-        if($user->type == 'admin') {
+        if ($user->type == 'admin') {
             $totalUsers = User::count();
             $responseData['permissions'] = [
                 'create' => true,
@@ -81,13 +87,14 @@ class AuthController extends Controller {
         return response()->json($responseData);
 
     }
-
-    public function changePassword(ChangePassword $request) {
+    //Auth Change Password
+    public function authChangePassword(ChangePassword $request)
+    {
         $user = auth()->user();
 
         $validatedData = $request->validated();
 
-        if(!password_verify($validatedData['current_password'], $user->password)) {
+        if (!password_verify($validatedData['current_password'], $user->password)) {
             return response()->json([
                 'message' => 'Invalid old password'
             ], 422);
@@ -102,8 +109,9 @@ class AuthController extends Controller {
         ]);
 
     }
-
-    public function ChangeEmail(ChangeEmail $request) {
+    //Auth Change Email
+    public function authChangeEmail(ChangeEmail $request)
+    {
         $user = auth()->user();
 
         $validatedData = $request->validated();
@@ -117,7 +125,16 @@ class AuthController extends Controller {
         ]);
     }
 
-    public function logout(Request $request) {
+    //On Login Reset
+    //
+    //
+    //
+    //
+
+
+    //On Logout
+    public function logout(Request $request)
+    {
         auth()->user()->currentAccessToken()->delete();
         return response()->json([
             'message' => 'Logged out'

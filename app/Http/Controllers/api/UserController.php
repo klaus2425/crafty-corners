@@ -28,17 +28,16 @@ class UserController extends Controller
     {
         // Validate the request
         $data = $request->validated();
-
-
         if ($request->hasFile('profile_picture')) {
             $file = $request->file('profile_picture');
-            $file->move(public_path() . '/storage/users/', $file->getClientOriginalName());
-            $data['profile_picture'] = $file->getClientOriginalName();
+            $fileName = $user->id . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/users', $fileName);
+            $data['profile_picture'] = $fileName;
         }
         $user->update($data);
-
         return new UserResource($user);
     }
+
     public function destroy(User $user)
     {
         if ($user->profile_picture) {
