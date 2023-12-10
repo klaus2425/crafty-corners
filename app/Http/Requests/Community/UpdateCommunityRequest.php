@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Community;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CommunityRequest extends FormRequest
+class UpdateCommunityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class CommunityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:communities,name',
+            'name' => 'string|unique:communities,name,'.$this->community->id,
             'description' => 'nullable|string',
             'community_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];

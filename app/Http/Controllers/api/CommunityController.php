@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Community;
 use App\Http\Resources\CommunityResource;
-use App\Http\Requests\CommunityRequest;
-
+use App\Http\Requests\Community\StoreCommunityRequest;
+use App\Http\Requests\Community\UpdateCommunityRequest;
 
 class CommunityController extends Controller {
     /**
@@ -21,7 +21,7 @@ class CommunityController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CommunityRequest $request) {
+    public function store(StoreCommunityRequest $request) {
         if(auth()->user()->type != 'admin') {
             return response()->json([
                 'message' => 'You are not authorized to create a community'
@@ -58,18 +58,11 @@ class CommunityController extends Controller {
     
 
 
-    public function update(CommunityRequest $request, Community $community) {
+    public function update(UpdateCommunityRequest $request, Community $community) {
         if(auth()->user()->id != $community->user_id) {
             return response()->json([
                 'message' => 'You are not authorized to update this community'
             ], 403);
-        }
-        if($request->hasFile('community_photo')) {
-            $file = $request->file('community_photo');
-            $fileName = $community->id.'.'.$file->getClientOriginalExtension();
-            $file->storeAs('public/communities', $fileName);
-            $community->community_photo = $fileName;
-            $community->save();
         }
         $community->update($request->validated());
         return new CommunityResource($community);
