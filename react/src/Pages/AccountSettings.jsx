@@ -14,12 +14,19 @@ const AccountSettings =  () => {
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     if (!image) {setImage('/avatar.jpg')}
 
-    const handleChange = (ev) => {
-        setImage(URL.createObjectURL(ev.target.files[0]));
-        setImageChange(true);
-        setCurrentUser({...currentUser, profile_picture: ev.target.files[0]})
-    };
 
+    const getUser = () => {
+        setLoading(true);
+        axiosClient.get('/user')
+        .then(({data}) => {
+            setLoading(false);
+            setCurrentUser(data);
+            setImage(storageBaseUrl+data.profile_picture)
+        })
+        .catch(() =>{
+            setLoading(false);
+        });
+    }
 
     const onEmailSubmit = (ev) => {
         ev.preventDefault();
@@ -32,6 +39,7 @@ const AccountSettings =  () => {
         axiosClient.post(`users/${currentUser.id}`, formData)
             .then((res) => {
                 console.log(res.data); 
+                getUser();
             })
             .catch(err => {
                 const response = err.response;
@@ -52,7 +60,7 @@ const AccountSettings =  () => {
         axiosClient.post(`users/${currentUser.id}`, formData)
             .then((res) => {
                 console.log(res.data); 
-                window.location.reload();
+                getUser();
             })
             .catch(err => {
                 const response = err.response;
@@ -61,7 +69,7 @@ const AccountSettings =  () => {
                 }
             });
     };
-
+    
     
     const onPasswordSubmit = (ev) => {
         ev.preventDefault();
@@ -77,7 +85,8 @@ const AccountSettings =  () => {
         axiosClient.post(`change-password/`, formData)
             .then((res) => {
                 console.log(res.data); 
-                window.location.reload();
+                getUser();
+
             })
             .catch(err => {
                 const response = err.response;
@@ -92,16 +101,7 @@ const AccountSettings =  () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setLoading(true);
-        axiosClient.get('/user')
-        .then(({data}) => {
-            setLoading(false);
-            setCurrentUser(data);
-            setImage(storageBaseUrl+data.profile_picture)
-        })
-        .catch(() =>{
-            setLoading(false);
-        });
+        getUser();
     }, []);
 
 
