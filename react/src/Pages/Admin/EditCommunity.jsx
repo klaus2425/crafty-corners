@@ -44,6 +44,7 @@ const EditCommunity = () => {
 
       if(!imageChange && community.name !== communityName) {
           const formData = new FormData();
+          console.log('image || Cname');
           formData.append("_method", "PUT");
           formData.append('name', community.name);
           formData.append('description', community.description);
@@ -61,8 +62,10 @@ const EditCommunity = () => {
                 });
               }
           });
-      }
+      } 
       else if(imageChange && community.name === communityName) {
+        console.log('Cimage || name');
+
         const formData = new FormData();
         formData.append("_method", "PUT");
         formData.append('description', community.description);
@@ -71,6 +74,8 @@ const EditCommunity = () => {
         axiosClient.post(`communities/${id}`, formData)
         .then(() => {
             getCommunity();
+            setImageChange(false);
+
         })
         .catch(err => {
             const response = err.response;
@@ -82,9 +87,10 @@ const EditCommunity = () => {
               });
             }
         });
-
       } 
-      else {
+      else if (imageChange && community.name !== communityName){
+        console.log('Cimage || Cname');
+
         const formData = new FormData();
         formData.append("_method", "PUT");
         for (const key in community) {
@@ -107,6 +113,12 @@ const EditCommunity = () => {
             setImage(image);
         
         })
+      }
+      else {
+        Swal.fire({
+          title: "No Changes Applied",
+          icon: "info"
+        });
       }
     }
 
