@@ -2,6 +2,7 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axiosClient from "../axios-client";
 import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 
 const EditProfile =  () => {
@@ -50,7 +51,7 @@ const EditProfile =  () => {
             axiosClient.post(`users/${currentUser.id}`, formData)
                 .then((res) => {
                     console.log(res.data); 
-                    getUser()
+                    window.location.reload();
                 })
                 .catch(err => {
                     const response = err.response;
@@ -70,18 +71,22 @@ const EditProfile =  () => {
             axiosClient.post(`users/${currentUser.id}`, formData)
                 .then((res) => {
                     console.log(res.data); 
+                    window.location.reload();
+
                 })
                 .catch(err => {
                     const response = err.response;
+                    Swal.fire({
+                        title: "Error",
+                        text: `${Object.values(response.data.errors)[0]}`,
+                        icon: "warning"
+                      });
                     setLoading(false);
-                    setCurrentUser(data);
                     setImage(storageBaseUrl+data.profile_picture)
                     getUser();
-
+                 
                 })
-            .catch(() =>{
-                setLoading(false);
-            });
+     
         }
 
         
