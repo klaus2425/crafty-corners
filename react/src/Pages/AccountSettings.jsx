@@ -2,6 +2,7 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axiosClient from "../axios-client";
 import { useState, useEffect, useRef } from 'react';
+import Swal from 'sweetalert2';
 
 
 const AccountSettings =  () => {
