@@ -11,18 +11,23 @@ const EditUser = () => {
     const [image, setImage] = useState();
     if (!image) {setImage('/avatar.jpg')}
 
+    const getUser = () => {
+        setLoading(true);
+        axiosClient.get(`/users/${id}`)
+        .then(({ data }) => {
+        setUser(data);
+        setLoading(false);
+
+        setImage(storageBaseUrl+data.profile_picture);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
     if(id) {
         useEffect(() => {
-            setLoading(true);
-            axiosClient.get(`/users/${id}`)
-                  .then(({ data }) => {
-                    setUser(data);
-                    setLoading(false);
-
-                   setImage(storageBaseUrl+data.profile_picture);
-                  })
-                  .catch(() => {
-                  })
+            getUser();
         }, []);
     }
 
@@ -52,7 +57,7 @@ const EditUser = () => {
             axiosClient.post(`users/${id}`, formData)
                 .then((res) => {
                     console.log(res.data); 
-                    window.location.reload();
+                    getUser();
                 })
                 .catch(err => {
                     const response = err.response;
@@ -72,7 +77,7 @@ const EditUser = () => {
             axiosClient.post(`users/${id}`, formData)
                 .then((res) => {
                     console.log(res.data); 
-                    window.location.reload();
+                    getUser();
                 })
                 .catch(err => {
                 const response = err.response;
