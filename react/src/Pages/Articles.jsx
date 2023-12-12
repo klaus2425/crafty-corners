@@ -3,7 +3,7 @@ import Article from "../components/Article";
 
 const UserFeed =  () => {
     const [active, setActive] = useState("1");
-
+    
     const handleClick = (ev) => {
         ev.preventDefault();
         setActive(ev.target.id);        
