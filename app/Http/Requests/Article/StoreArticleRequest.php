@@ -24,7 +24,7 @@ class StoreArticleRequest extends FormRequest
         return [
             'community_id' => 'required|exists:communities,id',
             'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            'content' => 'string',
             'article_photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'link' => 'string|max:255',
             'description' => 'string|max:255',
