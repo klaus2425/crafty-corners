@@ -37,10 +37,17 @@ class ArticleController extends Controller
         $articleData = $request->validated();
         $articleData['user_id'] = auth()->user()->id;
         $articleData['author'] = auth()->user()->first_name . ' ' . auth()->user()->last_name;
+
+        if($request->hasFile('article_photo')) {
+            $file = $request->file('article_photo');
+            $fileName = auth()->user()->id.'.'.$file->getClientOriginalExtension();
+            $file->storeAs('public/articles', $fileName);
+            $articleData['article_photo'] = $fileName;
+        }
+        
         $article = auth()->user()->articles()->create($articleData);
         return new ArticleResource($article);
     }
-
     /**
      * Display the specified resource.
      */
@@ -62,7 +69,14 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        $article->update($request->validated());
+      $data = $request->validated();
+        if($request->hasFile('article_photo')) {
+            $file = $request->file('article_photo');
+            $fileName = auth()->user()->id.'.'.$file->getClientOriginalExtension();
+            $file->storeAs('public/articles', $fileName);
+            $data['article_photo'] = $fileName;}
+        $article->update($data);
+
         return new ArticleResource($article);
     }
 

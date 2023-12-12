@@ -15,8 +15,7 @@ class ArticleResource extends JsonResource
     public function toArray($request): array
     {
         return[
-            'community_id' => $this->community_id,
-            'user_id' => $this->user_id,
+           
             'title' => $this->title,
             'content' => $this->content,
             'article_photo' => $this->article_photo,
@@ -25,6 +24,15 @@ class ArticleResource extends JsonResource
             'author' => $this->author,
             'created_at' => $this->created_at->format('d-m-Y'),
             'updated_at' => $this->updated_at->diffForHumans(),
+            'community'=>[
+                'id' => $this->community->id,
+                'name' => $this->community->name,
+            ],
+            'user'=>[
+                'id' => $this->user->id,
+                'first_name' => $this->user->first_name,
+                'last_name' => $this->user->last_name,
+            ]
         ];
     }
 }
