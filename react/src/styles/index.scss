@@ -1821,6 +1821,28 @@ input::-webkit-inner-spin-button {
   background-color: $lighter_grey;
 }
 
+.video {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.2s;
+  border-radius: 5px;
+  padding: 0.42rem;
+  .top {
+    display: flex;
+    justify-content: space-between;
+  }
+  .bottom {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.video:hover {
+  background-color: $lighter_grey;
+}
+
 @media screen and (max-width: 900px) {
   .guest-buttons {
     display: none;
