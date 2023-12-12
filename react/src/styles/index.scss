@@ -1134,11 +1134,10 @@ input::-webkit-inner-spin-button {
     margin-top: 1rem;
     width: 60%;
     flex-direction: column;
-    color: white;
     justify-content: center;
     .top {
       display: flex;
-      background-color: $purple;
+      background-color: $lighter_grey;
       padding: 2rem;
       gap: 4rem;
       word-wrap: break-word;
@@ -1146,13 +1145,12 @@ input::-webkit-inner-spin-button {
       border-top-left-radius: 20px;
       a {
         text-decoration: none;
-        color: #FFF;
+        color: $font_grey;
         font-size: 1.5em;
         font-weight: bold;
         border-radius: 20px;
       }      
       a:hover {
-        color: $green;
       }
     }
 
