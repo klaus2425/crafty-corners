@@ -25,8 +25,8 @@ const UserFeed =  () => {
                     </div>
                 </div>
                 <div className="card">
-                    <Article title="The Association Between Video Gaming and Psychological Functioning" description="This article describes the relationship of Video Gaming and psychological functioning" link="" community="Gaming"/>
-                    <Article title="The Association Between Video Gaming and Psychological Functioning" description="This article describes the relationship of Video Gaming and psychological functioning" link="" community="Gaming"/>
+                    <Article author="Theo Tzanidis" title="All the video games shortlisted for the 2023 Game Awards" description="Six games were shortlisted for game of the year at the 2023 Game Awards – the industry’s equivalent of the Oscars. Our academics reviewed the finalists ahead of the ceremony, which revealed Baldur’s Gate 3 to be the winner. " link="https://theconversation.com/all-the-video-games-shortlisted-for-the-2023-game-awards-reviewed-by-experts-217843" community="Gaming"/>
+                    <Article author="Juliane M. von der Heiden" title="The Association Between Video Gaming and Psychological Functioning" description="This article describes the relationship of Video Gaming and psychological functioning" link="https://www.frontiersin.org/articles/10.3389/fpsyg.2019.01731/full" community="Gaming"/>
                 </div>
             </div>
             <div className="recommended">

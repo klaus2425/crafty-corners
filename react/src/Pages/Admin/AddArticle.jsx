@@ -10,6 +10,9 @@ const AddArticle = () => {
             <form onSubmit={onSubmit}>
                 <h2>Add an Article</h2>
                 <div className="article-form">
+                    <div>
+                        
+                    </div>
                     <div className="article-input">
                         <label>Article Title:</label>
                         <input type="text" />
