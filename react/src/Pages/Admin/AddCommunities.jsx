@@ -29,11 +29,11 @@ const AddCommunities = () => {
             const response = err.response;
             if (response && response.status === 422) {
                 Swal.fire({
-                  title: "Error",
-                  text: `${Object.values(response.data.errors)[0]}`,
-                  icon: "warning"
+                    title: "Error",
+                    text: `${Object.values(response.data.errors)[0]}`,
+                    icon: "warning"
                 });
-              }
+            }
         });
     }
 
@@ -55,11 +55,11 @@ const AddCommunities = () => {
                     <div>
                     <div className="community-right">
                         <div className="upload-picture">
-                                    <img id='update-picture'src={image}/>
-                                    <input ref={communityImageRef}id='upload-button' type="file" onChange={handleChange} />
-                                    <label htmlFor='upload-button'>Upload File</label>
-                                    <span className="edit-text">File size: maximum 2 MB</span>
-                                    <span className="edit-text">File extension: .JPEG, .PNG, .JPG</span>
+                            <img id='update-picture'src={image}/>
+                            <input ref={communityImageRef}id='upload-button' type="file" onChange={handleChange} />
+                            <label htmlFor='upload-button'>Upload File</label>
+                            <span className="edit-text">File size: maximum 2 MB</span>
+                            <span className="edit-text">File extension: .JPEG, .PNG, .JPG</span>
                         </div>
                     </div>
                     </div>
