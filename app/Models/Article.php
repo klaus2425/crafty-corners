@@ -22,11 +22,11 @@ class Article extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class)->withTimestamps();
+        return $this->belongsTo(User::class);
     }
 
     public function community()
     {
-        return $this->belongsTo(Community::class)->withTimestamps();
+        return $this->belongsTo(Community::class);
     }
 }

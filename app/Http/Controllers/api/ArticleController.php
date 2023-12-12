@@ -40,7 +40,6 @@ class ArticleController extends Controller
         $article = auth()->user()->articles()->create($articleData);
         return new ArticleResource($article);
     }
-
     /**
      * Display the specified resource.
      */
