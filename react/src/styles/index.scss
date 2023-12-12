@@ -25,7 +25,9 @@ $dark_purple: #2C3373;
 
 }
 
-
+input, textarea {
+  outline: none;
+}
 
 .grey {
   color: #1b1b1b;
@@ -727,6 +729,16 @@ input::-webkit-inner-spin-button {
 
   }
 
+  .section-header-col {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #000;
+    margin-top: 1.2rem;
+    margin-bottom: 1rem;
+
+  }
+
   .card{
     display: flex;
     flex-direction: column;
@@ -1124,11 +1136,10 @@ input::-webkit-inner-spin-button {
     margin-top: 1rem;
     width: 60%;
     flex-direction: column;
-    color: white;
     justify-content: center;
     .top {
       display: flex;
-      background-color: $purple;
+      background-color: $lighter_grey;
       padding: 2rem;
       gap: 4rem;
       word-wrap: break-word;
@@ -1136,12 +1147,18 @@ input::-webkit-inner-spin-button {
       border-top-left-radius: 20px;
       a {
         text-decoration: none;
-        color: #FFF;
+        color: $font_grey;
         font-size: 1.5em;
         font-weight: bold;
+        border-radius: 15px;
+        padding: 0.45rem;
       }      
       a:hover {
-        color: $green;
+        background-color: $light_grey;
+      }
+
+      .active {
+        background-color: $light_grey;
       }
     }
 
@@ -1160,7 +1177,7 @@ input::-webkit-inner-spin-button {
         flex-direction: column;
         color: $font_grey;
         padding: 2rem;
-
+        width: 100%;
         .user-count{
           width: 10rem;
           background-color: #6DD871;
@@ -1348,6 +1365,21 @@ input::-webkit-inner-spin-button {
       input {
         padding-left: 1rem;
       }
+    }
+    textarea {
+      width: 100%;
+      border: 2px solid #D8DCE3;
+      background: #FFF;
+      color: #677186;
+      font-family: Helvetica;
+      font-size: 1.20rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      font-size: 1rem;
+      padding: 1.2rem;
+      transition: 0.5s;
+      margin-right: 1.25rem;
     }
     
     label{
@@ -1751,6 +1783,96 @@ input::-webkit-inner-spin-button {
   justify-content: center;
 }
 
+
+
+.rounded-card {
+  background-color: #fff;
+  border-radius: 30px;
+  border: 2px solid $light_grey;
+  width: 100%;
+  padding: 0.64rem 1.425rem;
+  display: flex;
+  gap: 1.5rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+
+  text {
+    border-radius: 10px;
+    padding: 0.43rem;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  text:hover {
+    background-color: $lighter_grey;
+  }
+
+  .active {
+    background-color: $light_grey;
+  }
+}
+
+.title {
+  font-weight: bold;
+  color: #000;
+  font-size: 1.125rem;
+}
+
+.community-title {
+  color: $purple;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.article {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.2s;
+  border-radius: 5px;
+  padding: 0.42rem;
+  .top {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  
+}
+
+.article:hover {
+  background-color: $lighter_grey;
+}
+
+
+
+.video {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.2s;
+  border-radius: 5px;
+  padding: 0.42rem;
+  .top {
+    display: flex;
+    justify-content: space-between;
+  }
+  .bottom {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.video:hover {
+  background-color: $lighter_grey;
+}
+
+.add-article-container {
+  padding-top: 1rem;
+  .article-input {
+    display: flex;
+    flex-direction: column;
+  }
+}
 
 @media screen and (max-width: 900px) {
   .guest-buttons {

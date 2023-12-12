@@ -21,6 +21,8 @@ import AddCommunities from "./Pages/Admin/AddCommunities";
 import Schedule from "./Pages/Schedule";
 import AccountSettings from "./Pages/AccountSettings";
 import EditCommunity from "./Pages/Admin/EditCommunity";
+import AdminArticles from "./Pages/Admin/AdminArticles";
+import AddArticle from "./Pages/Admin/AddArticle";
 
 const router = createBrowserRouter([
     {   
@@ -103,7 +105,16 @@ const router = createBrowserRouter([
             {
                 path: '/edit-community/:id',
                 element: <EditCommunity/>
-            }
+            },
+            {
+                path: '/admin-articles',
+                element: <AdminArticles />
+            },
+            {
+                path: 'add-article',
+                element: <AddArticle />
+            },
+            
         ]
     },
     {

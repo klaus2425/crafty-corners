@@ -87,7 +87,7 @@ const EditSchedule = (props) => {
                 <div className="edit-sched-header">
                     <h2>Edit Schedule</h2>
                     </div>
-            {loading && <div className="loading">Loading...</div>}
+            {loading && <div className="loading">Loading details...</div>}
             {!loading &&
                 <form onSubmit={onSubmit}>
                 <div className="schedule-input">

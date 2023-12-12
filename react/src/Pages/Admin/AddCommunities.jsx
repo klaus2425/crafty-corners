@@ -1,12 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import axiosClient from "../../axios-client";
+import {useNavigate} from 'react-router-dom'
+import Swal from 'sweetalert2';
+
 
 const AddCommunities = () => {
     const [image, setImage] = useState();
     const handleChange = (ev) => {
         setImage(URL.createObjectURL(ev.target.files[0]));
     };
-
+    const navigate = useNavigate();
     const communityNameRef = useRef();
     const communityDescriptionRef = useRef();
     const communityImageRef = useRef();
@@ -19,13 +22,17 @@ const AddCommunities = () => {
         formData.append('description', communityDescriptionRef.current.value);
         formData.append('community_photo', communityImageRef.current.files[0]);
         axiosClient.post('/communities', formData)
-        .then(({data}) => {
-            console.log(data);
+        .then(() => {
+            navigate('/admin-communities');
         })
         .catch(err => {
             const response = err.response;
             if (response && response.status === 422) {
-                console.log(err);
+                Swal.fire({
+                    title: "Error",
+                    text: `${Object.values(response.data.errors)[0]}`,
+                    icon: "warning"
+                });
             }
         });
     }
@@ -48,11 +55,11 @@ const AddCommunities = () => {
                     <div>
                     <div className="community-right">
                         <div className="upload-picture">
-                                    <img id='update-picture'src={image}/>
-                                    <input ref={communityImageRef}id='upload-button' type="file" onChange={handleChange} />
-                                    <label htmlFor='upload-button'>Upload File</label>
-                                    <span className="edit-text">File size: maximum 2 MB</span>
-                                    <span className="edit-text">File extension: .JPEG, .PNG, .JPG</span>
+                            <img id='update-picture'src={image}/>
+                            <input ref={communityImageRef}id='upload-button' type="file" onChange={handleChange} />
+                            <label htmlFor='upload-button'>Upload File</label>
+                            <span className="edit-text">File size: maximum 2 MB</span>
+                            <span className="edit-text">File extension: .JPEG, .PNG, .JPG</span>
                         </div>
                     </div>
                     </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosClient from "../../axios-client";
+import Swal from 'sweetalert2';
 
 const EditUser = () => {
     let {id} = useParams();
@@ -56,7 +57,13 @@ const EditUser = () => {
             formData.append('phone_number', user.phone_number);
             axiosClient.post(`users/${id}`, formData)
                 .then((res) => {
-                    console.log(res.data); 
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Changes applied",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     getUser();
                 })
                 .catch(err => {
@@ -75,8 +82,14 @@ const EditUser = () => {
               }
               
             axiosClient.post(`users/${id}`, formData)
-                .then((res) => {
-                    console.log(res.data); 
+                .then(() => {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Changes applied",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     getUser();
                 })
                 .catch(err => {
