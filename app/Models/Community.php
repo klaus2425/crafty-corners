@@ -16,7 +16,7 @@ class Community extends Model
         'community_photo',
     ];
     
-   
+
     public function posts()
     {
         return $this->hasMany(Post::class);
@@ -29,6 +29,11 @@ class Community extends Model
     
     public function users(){
         return $this->belongsToMany(User::class, 'community_members')->withTimestamps();
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
     }
 }
 

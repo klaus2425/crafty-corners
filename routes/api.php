@@ -9,7 +9,7 @@ use App\Http\Controllers\api\CommunityController;
 use App\Http\Controllers\api\PostController;
 use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\api\ScheduleController;
-
+use App\Http\Controllers\api\ArticleController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/change-email', [AuthController::class, 'changeEmail']);
     Route::apiResource('/schedule', ScheduleController::class);
 
+    Route::apiResource('/articles', ArticleController::class);
 });
 
 Route::get('/communities', [CommunityController::class, 'index']);
