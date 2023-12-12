@@ -27,7 +27,6 @@ const UserFeed =  () => {
                 <div className="card">
                     <Article title="The Association Between Video Gaming and Psychological Functioning" description="This article describes the relationship of Video Gaming and psychological functioning" link="" community="Gaming"/>
                     <Article title="The Association Between Video Gaming and Psychological Functioning" description="This article describes the relationship of Video Gaming and psychological functioning" link="" community="Gaming"/>
-
                 </div>
             </div>
             <div className="recommended">
