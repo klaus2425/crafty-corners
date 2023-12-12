@@ -26,7 +26,7 @@ const AdminLayout = () => {
                         <Link id="1" className={active === "1" ? "active" : undefined} to="/Users" onClick={handleClick}>Users</Link>
                         <Link id="2" className={active === "2" ? "active" : undefined} to="/admin-communities" onClick={handleClick}>Communities</Link>
                         <Link id="3" className={active === "3" ? "active" : undefined} to="/admin-articles" onClick={handleClick}>Articles</Link>
-                        <Link id="4" className={active === "4" ? "active" : undefined} to="/admin-communities" onClick={handleClick}>Videos</Link>
+                        <Link id="4" className={active === "4" ? "active" : undefined} to="/admin-videos" onClick={handleClick}>Videos</Link>
                         
                     </div>
                     <div className="bottom">
