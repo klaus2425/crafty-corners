@@ -4,7 +4,7 @@ import axiosClient from '../../axios-client';
 import { useStateContext } from '../../context/ContextProvider'
 
 
-const AddArticle = () => {
+const AddVideo = () => {
     const [communities, setCommunities] = useState([]);
     const {user} = useStateContext();
 
@@ -33,39 +33,39 @@ const AddArticle = () => {
     return(
         
         <div className="add-article-container">
-            <h2>Add an Article</h2>
+            <h2>Add a Video</h2>
             <form onSubmit={onSubmit}>
                 <div className="article-form">
                     <div className="article-input">
-                        <label><strong>Article Title:</strong></label>
+                        <label>Video Title:</label>
                         <input type="text" />
                     </div>
                     <div className="article-input">
-                        <label><strong>Article Author:</strong></label>
+                        <label>Video Creator:</label>
                         <input type="text" />
                     </div>
                     <div className="article-input">
-                        <label><strong>Description:</strong></label>
+                        <label>Description:</label>
                         <input type="textarea" />
                     </div>
                     <div className="article-input">
-                        <label><strong>Link:</strong></label>
+                        <label>Link:</label>
                         <input type="textarea" />
                     </div>
                     <div className="article-input">
-                        <label><strong>Community:</strong></label>
+                        <label>Community:</label>
                         <select name="communities">
+                            
                             {communities.map((community) => (
                                 <option value={community.id}>{community.name}</option>      
                             ))}
                         </select>
                     </div>
                     <button className='purple-button'>Submit</button>
-
                 </div>
             </form>
         </div>
     )
 }
 
-export default AddArticle;
+export default AddVideo;

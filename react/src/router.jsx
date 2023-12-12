@@ -23,6 +23,8 @@ import AccountSettings from "./Pages/AccountSettings";
 import EditCommunity from "./Pages/Admin/EditCommunity";
 import AdminArticles from "./Pages/Admin/AdminArticles";
 import AddArticle from "./Pages/Admin/AddArticle";
+import AddVideo from "./Pages/Admin/AddVideo";
+import AdminVideos from "./Pages/Admin/AdminVideos";
 
 const router = createBrowserRouter([
     {   
@@ -114,6 +116,14 @@ const router = createBrowserRouter([
                 path: 'add-article',
                 element: <AddArticle />
             },
+            {
+                path: '/admin-videos',
+                element: <AdminVideos />
+            },
+            {
+                path: '/add-video',
+                element: <AddVideo />
+            }
             
         ]
     },

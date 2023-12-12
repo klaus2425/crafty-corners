@@ -64,10 +64,12 @@ input::-webkit-inner-spin-button {
   border-radius: 10px;
   background-color: $purple;
   color: white;
+  font-family: Helvetica, Arial, sans-serif;
   padding: 0.5rem;
   height: fit-content;
+  font-size: 0.86rem;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .green-button {
@@ -1875,11 +1877,32 @@ input::-webkit-inner-spin-button {
 }
 
 .add-article-container {
-  padding-top: 1rem;
-  .article-input {
+  padding: 1rem 3rem;
+  width: 100%;
+
+  .article-form{
+    width: 60%;
     display: flex;
     flex-direction: column;
-    input {
+    align-items: center;
+    button {
+      width: fit-content;
+      padding: 0.5rem;
+      margin-top: 1rem;
+    }
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    padding-left: 2rem;
+  }
+  .article-input {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    input, select {
       border-radius: 10px;
       border: 2px solid #D8DCE3;
       background: #FFF;
