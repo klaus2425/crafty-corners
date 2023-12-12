@@ -727,6 +727,16 @@ input::-webkit-inner-spin-button {
 
   }
 
+  .section-header-col {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #000;
+    margin-top: 1.2rem;
+    margin-bottom: 1rem;
+
+  }
+
   .card{
     display: flex;
     flex-direction: column;
@@ -1139,6 +1149,7 @@ input::-webkit-inner-spin-button {
         color: #FFF;
         font-size: 1.5em;
         font-weight: bold;
+        border-radius: 20px;
       }      
       a:hover {
         color: $green;
@@ -1751,6 +1762,64 @@ input::-webkit-inner-spin-button {
   justify-content: center;
 }
 
+
+
+.rounded-card {
+  background-color: #fff;
+  border-radius: 30px;
+  border: 2px solid $light_grey;
+  width: 100%;
+  padding: 0.64rem 1.425rem;
+  display: flex;
+  gap: 1.5rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+
+  text {
+    border-radius: 10px;
+    padding: 0.43rem;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  text:hover {
+    background-color: $lighter_grey;
+  }
+
+  .active {
+    background-color: $light_grey;
+  }
+}
+
+.title {
+  font-weight: bold;
+  color: #000;
+  font-size: 1.125rem;
+}
+
+.community-title {
+  color: $purple;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.article {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.2s;
+  border-radius: 5px;
+  padding: 0.42rem;
+  .top {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  
+}
+
+.article:hover {
+  background-color: $lighter_grey;
+}
 
 @media screen and (max-width: 900px) {
   .guest-buttons {
