@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Article;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreArticleRequest extends FormRequest
 {
@@ -22,7 +23,20 @@ class StoreArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'community_id' => 'required|exists:communities,id',
+            'community_id' => [
+                'required_without:community_name',
+                Rule::exists('communities', 'id')->where(function ($query) {
+                    $query->where('id',$this->input('community_id'));
+                }),
+            ],
+            'community_name'=>[
+                'required_without:community_id',
+                'string',
+                'max:255',
+                Rule::unique('communities', 'name')->where(function ($query) {
+                    $query->where('id',$this->input('community_id'));
+                }),
+            ],
             'title' => 'required|string|max:255',
             'content' => 'string',
             'article_photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
