@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-
+import Swal from 'sweetalert2'
 const AdminArticles = () => {
     const [loading, setLoading] = useState(false);
     const [articles, setArticles] = useState([]);

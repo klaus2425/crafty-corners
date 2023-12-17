@@ -1,8 +1,8 @@
 import Swal from 'sweetalert2';
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react';
 import axiosClient from '../../axios-client';
-import { useStateContext } from '../../context/ContextProvider'
-import {useNavigate} from 'react-router-dom'
+import { useStateContext } from '../../context/ContextProvider';
+import {useNavigate} from 'react-router-dom';
 
 const AddArticle = () => {
     const [communities, setCommunities] = useState([]);
@@ -47,7 +47,16 @@ const AddArticle = () => {
         formData.append('user_id', user.id);
 
         axiosClient.post('/articles', formData)
-        .then(() => navigate('/admin-articles'))
+        .then(() => {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Article Added",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            navigate('/admin-articles')
+        })
         .catch(err => {
             const response = err.response;
             if (response && response.status === 422) {
@@ -69,21 +78,21 @@ const AddArticle = () => {
             <h2>Add an Article</h2>
             <form onSubmit={onSubmit}>
                 <div className="article-form">
-                    <div ref={titleRef} className="article-input">
+                    <div className="article-input">
                         <label><strong>Article Title:</strong></label>
-                        <input type="text" />
+                        <input ref={titleRef} type="text" />
                     </div>
-                    <div ref={authorRef} className="article-input">
+                    <div className="article-input">
                         <label><strong>Article Author:</strong></label>
-                        <input type="text" />
+                        <input ref={authorRef} type="text" />
                     </div>
-                    <div ref={descriptionRef} className="article-input">
+                    <div className="article-input">
                         <label><strong>Description:</strong></label>
-                        <input type="textarea" />
+                        <input ref={descriptionRef} type="textarea" />
                     </div>
-                    <div ref={linkRef} className="article-input">
+                    <div  className="article-input">
                         <label><strong>Link:</strong></label>
-                        <input type="textarea" />
+                        <input ref={linkRef} type="textarea" />
                     </div>
                     <div className="article-input">
                         <label><strong>Community:</strong></label>
