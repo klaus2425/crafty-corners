@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 import axiosClient from "../../axios-client";
+import Swal from 'sweetalert2'
 
 
 const AdminCommunities = () => {
@@ -16,13 +17,28 @@ const AdminCommunities = () => {
     }, [])
 
     const onDeleteClick = community => {
-        if (!window.confirm("Are you sure you want to delete this community?")) {
-          return
-        }
-        axiosClient.delete(`/communities/${community.id}`)
-          .then(() => {
-            getCommunities();
-        })
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axiosClient.delete(`/communities/${community.id}`)
+                .then(() => {
+                  getCommunities();
+              })
+              Swal.fire({
+                title: "Deleted!",
+                text: "Community has been deleted",
+                icon: "success"
+              });
+            }
+          });
+
     }
 
     const getCommunities = () => {
