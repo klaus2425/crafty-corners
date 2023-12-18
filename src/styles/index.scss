@@ -1315,7 +1315,6 @@ input::-webkit-inner-spin-button {
   padding: 1rem;
   color: #FFF;
   font-weight: bolder;
-  margin-bottom: 1rem;
 }
 
 .loading {
@@ -1331,7 +1330,7 @@ input::-webkit-inner-spin-button {
 .communities-container {
   width: 80%;
   .top-section{
-    padding: 1rem 0;
+    padding: 2rem 0;
     text-align: center;
     .add-community-button {
       text-decoration: none;
