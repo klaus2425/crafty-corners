@@ -1180,15 +1180,7 @@ input::-webkit-inner-spin-button {
         flex-direction: column;
         color: $font_grey;
         width: 100%;
-        .user-count{
-          width: 10rem;
-          background-color: #6DD871;
-          border-radius: 10px;
-          padding: 1rem;
-          color: #FFF;
-          font-weight: bolder;
-          margin-bottom: 1rem;
-        }
+
 
         table {
           border-collapse: collapse;
@@ -1314,6 +1306,16 @@ input::-webkit-inner-spin-button {
     
   }
   
+}
+
+.user-count{
+  width: 10rem;
+  background-color: #6DD871;
+  border-radius: 10px;
+  padding: 1rem;
+  color: #FFF;
+  font-weight: bolder;
+  margin-bottom: 1rem;
 }
 
 .loading {
