@@ -27,7 +27,7 @@ const UserFeed =  () => {
                         </div>
                     </div>
                     <div className="card">
-                        <Video link="https://www.youtube.com/watch?v=aAxGTnVNJiE" title="How to Crochet for Absolute Beginners: Part 1" description="Today I'm showing you how to crochet for absolute beginners. A detailed step-by-step tutorial on how to crochet a chain and a single crochet, as well as make a slip knot, hold the crochet hook and yarn, and weave in the ends of your work." creator="simplydaisy" link="https://www.youtube.com/watch?v=aAxGTnVNJiE" community="Crochet" id=""/>
+                        <Video link="https://www.youtube.com/watch?v=aAxGTnVNJiE" title="How to Crochet for Absolute Beginners: Part 1" description="Today I'm showing you how to crochet for absolute beginners. A detailed step-by-step tutorial on how to crochet a chain and a single crochet, as well as make a slip knot, hold the crochet hook and yarn, and weave in the ends of your work." creator="simplydaisy" community="Crochet" id=""/>
                     </div>
             </div>
             <div className="recommended">
