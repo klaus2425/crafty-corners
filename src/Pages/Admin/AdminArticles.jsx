@@ -8,11 +8,37 @@ const AdminArticles = () => {
     const [loading, setLoading] = useState(false);
     const [articles, setArticles] = useState([]);
 
+    const onDeleteClick = (article) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axiosClient.delete(`/articles/${article.id}`)
+                .then((res) => {
+                    getArticles();
+                })
+              Swal.fire({
+                title: "Deleted!",
+                text: "Article has been deleted",
+                icon: "success"
+              });
+            }
+          });
+        
+          
+    }
     const getArticles = () => {
         setLoading(true);
         axiosClient.get('/articles')
         .then((res) => {
             setLoading(false);
+            setArticles(res.data.data)
             console.log(res.data);
         })
     }
@@ -39,13 +65,13 @@ const AdminArticles = () => {
                 <div key={u.id} className="community-item">
                     <div className="community-item-details" >
                         <div className="community-details-top">
-                            <span><strong>Community Name: <br/> </strong></span>
-                            <span><strong>Description: <br/></strong></span>
-                            <span><strong>Members: <br/></strong></span>
+                            <span><strong>Title: <br/> </strong>{u.title} </span>
+                            <span><strong>Author:  <br/></strong>{u.author}</span>
+                            <span><strong>Description:  <br/></strong>{u.description}</span>
                         </div>
                         <div className="buttons-community">
-                            <Link to={'/edit-community/' + u.id} className="orange-button">View Community</Link>
-                            <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete Community</button>
+                            <Link to={'/edit-article/' + u.id} className="orange-button">View Article</Link>
+                            <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete Article</button>
                         </div>
                         
 

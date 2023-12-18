@@ -9,6 +9,7 @@ const AddArticle = () => {
     const {user} = useStateContext();
     const [selected, setSelected] = useState();
     const navigate = useNavigate();
+    
     const getCommunities = () => {
         axiosClient.get('/communities').then(({ data }) => {
             setCommunities(data.data);
