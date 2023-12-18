@@ -10,19 +10,36 @@ const Users = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const userCount = users.length;
+    const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
+
     useEffect(() => {
         getUsers();
     }, [])
 
     const onDeleteClick = user => {
-
-        if (!window.confirm("Are you sure you want to delete this user?")) {
-          return
-        }
-        axiosClient.delete(`/users/${user.id}`)
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axiosClient.delete(`/users/${user.id}`)
           .then(() => {
             getUsers()
           })
+          Swal.fire({
+            title: "Deleted!",
+            text: "Community has been deleted",
+            icon: "success"
+          });
+        }
+      });
+
+
     }
 
     const getUsers = () => {
@@ -52,17 +69,18 @@ const Users = () => {
         {!loading &&
             
              users.map(u => (
-                
                 <div key={u.id} className="community-item">
                     <div className="community-item-details" >
                         <div className="community-details-top">
-                            <span><strong>Title: <br/> </strong>{u.title} </span>
-                            <span><strong>Author:  <br/></strong>{u.author}</span>
-                            <span><strong>Description:  <br/></strong>{u.description}</span>
+                            <span><img src={storageBaseUrl+u.profile_picture} alt="" /></span>
+                            <span><strong>Full Name: <br/> </strong>{`${u.first_name} ${u.middle_name} ${u.last_name}  `} </span>
+                            <span><strong>Username:  <br/></strong>{u.user_name}</span>
+                            <span><strong>Email:  <br/></strong>{u.email}</span>
+                            <span><strong>Date Created:  <br/></strong>{u.created_at}</span>
                         </div>
                         <div className="buttons-community">
-                            <Link to={'/edit-article/' + u.id} className="orange-button">View Article</Link>
-                            <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete Article</button>
+                            <Link to={'/edit-article/' + u.id} className="orange-button">View User</Link>
+                            <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete User</button>
                         </div>
                         
 

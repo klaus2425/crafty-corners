@@ -1136,7 +1136,7 @@ input::-webkit-inner-spin-button {
   .admin-container {
     display: flex;
     margin-top: 1rem;
-    width: 60%;
+    width: clamp(45rem, 60vw, 250rem);
     flex-direction: column;
     justify-content: center;
     .top {
@@ -1151,7 +1151,7 @@ input::-webkit-inner-spin-button {
       a {
         text-decoration: none;
         color: $font_grey;
-        font-size: clamp(1rem, 2vw, 1.5rem);
+        font-size: clamp(1.5rem, 2vw, 1.5rem);
         font-weight: bold;
         border-radius: 15px;
         padding: 0.45rem;
@@ -1331,7 +1331,7 @@ input::-webkit-inner-spin-button {
 .communities-container {
   width: 80%;
   .top-section{
-    padding: 2rem;
+    padding: 1rem 0;
     text-align: center;
     .add-community-button {
       text-decoration: none;
@@ -1724,7 +1724,7 @@ input::-webkit-inner-spin-button {
   display: flex;
   gap: 10px;
   margin-bottom: 1.25rem;
-  width: clamp(10rem, 50vw, 55rem);
+  width: 100%;
   img {
     height: 4rem;
     width: 4rem;
@@ -1761,6 +1761,8 @@ input::-webkit-inner-spin-button {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  gap: 1rem;
+
 }
 
 .guest-login {
