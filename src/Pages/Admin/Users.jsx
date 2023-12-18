@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
 import axiosClient from "../../axios-client";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2';
+
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -35,49 +38,43 @@ const Users = () => {
       }
 
     return ( 
+<div className="communities-container">
+        <div className="top-section">
+          <div className='user-count'>Current Number of users: {userCount}</div>
+        </div>
         <div className='users-table'>
         
-
-          {loading &&
+        {loading &&
             <div className="loading-admin">Loading...</div>
-          }
 
-          {!loading &&
-          <div> 
-            <div className='user-count'>Current Number of users: {userCount}</div>
-            <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Birthday</th>
-                <th>Address</th>
-                <th>Create Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-              <tbody>
-              {users.map(u => (
-                  <tr key={u.id}>
-                    <td>{u.id}</td>
-                    <td>{`${u.first_name} ${u.middle_name} ${u.last_name}`}</td>
-                    <td>{u.email}</td>
-                    <td>{u.birthday}</td>
-                    <td>{`${u.street_address}, ${u.municipality}, ${u.province}`}</td>
-                    <td>{u.created_at}</td>
-                    <td className='table-actions'>
-                      <Link className="btn-edit" to={'/users/' + u.id}>Edit</Link>
-                      &nbsp;
-                      <button className="btn-delete" onClick={ev => onDeleteClick(u)}>Delete</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          }
+        }
+
+        {!loading &&
+            
+             users.map(u => (
+                
+                <div key={u.id} className="community-item">
+                    <div className="community-item-details" >
+                        <div className="community-details-top">
+                            <span><strong>Title: <br/> </strong>{u.title} </span>
+                            <span><strong>Author:  <br/></strong>{u.author}</span>
+                            <span><strong>Description:  <br/></strong>{u.description}</span>
+                        </div>
+                        <div className="buttons-community">
+                            <Link to={'/edit-article/' + u.id} className="orange-button">View Article</Link>
+                            <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete Article</button>
+                        </div>
+                        
+
+                    </div>
+                </div>
+            ))
+            
+
+        }
+        
         </div>
+    </div>
     )
 
 
