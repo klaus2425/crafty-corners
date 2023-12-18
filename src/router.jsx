@@ -93,7 +93,7 @@ const router = createBrowserRouter([
                 element: <Users />
             },
             {
-                path: '/users/:id',
+                path: '/edit-user/:id',
                 element: <EditUser />
             },
             {

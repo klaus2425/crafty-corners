@@ -79,7 +79,7 @@ const Users = () => {
                             <span><strong>Date Created:  <br/></strong>{u.created_at}</span>
                         </div>
                         <div className="buttons-community">
-                            <Link to={'/edit-article/' + u.id} className="orange-button">View User</Link>
+                            <Link to={'/edit-user/' + u.id} className="orange-button">View User</Link>
                             <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete User</button>
                         </div>
                         
