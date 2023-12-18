@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import SignUpModal from '../components/SignUpModal';
 import { useStateContext } from "../context/ContextProvider";
 

@@ -3,15 +3,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axiosClient from "../axios-client";
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
+import { useStateContext } from "../context/ContextProvider";
 
 
 const EditProfile =  () => {
     
     const [image, setImage] = useState();
+    const {user, setUser} = useStateContext();
     const [imageChange, setImageChange] = useState(false);
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
-    if (!image) {setImage('/avatar.jpg')}
 
+
+    if (!image) {setImage('/avatar.jpg')}
+    
     const handleChange = (ev) => {
         setImage(URL.createObjectURL(ev.target.files[0]));
         setImageChange(true);
@@ -24,7 +28,7 @@ const EditProfile =  () => {
         .then(({data}) => {
             setLoading(false);
             setCurrentUser(data);
-            setImage(storageBaseUrl+data.profile_picture)
+            setImage(storageBaseUrl+data.profile_picture);
         })
         .catch(() =>{
             setLoading(false);
@@ -50,8 +54,14 @@ const EditProfile =  () => {
             formData.append('gender', currentUser.gender); 
             axiosClient.post(`users/${currentUser.id}`, formData)
                 .then((res) => {
-                    console.log(res.data); 
-                    window.location.reload();
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your profile has been updated",
+                        showConfirmButton: false,
+                        timer: 1500
+                      });
+                    setUser(res.data);
                 })
                 .catch(err => {
                     const response = err.response;
