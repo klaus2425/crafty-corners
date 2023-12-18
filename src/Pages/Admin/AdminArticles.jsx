@@ -2,11 +2,24 @@ import { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2'
 const AdminArticles = () => {
     const [loading, setLoading] = useState(false);
     const [articles, setArticles] = useState([]);
 
+    const getArticles = () => {
+        setLoading(true);
+        axiosClient.get('/articles')
+        .then((res) => {
+            setLoading(false);
+            console.log(res.data);
+        })
+    }
+
+    useEffect(() => {
+        getArticles();
+    }, [])
     return (
         <div className="communities-container">
         <div className="top-section">
