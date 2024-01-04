@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
 import axiosClient from "../../axios-client";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2';
 
 
@@ -17,6 +15,7 @@ const Users = () => {
     }, [])
 
     const onDeleteClick = user => {
+      console.log(user.id);
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -29,11 +28,11 @@ const Users = () => {
         if (result.isConfirmed) {
           axiosClient.delete(`/users/${user.id}`)
           .then(() => {
-            getUsers()
+            getUsers();
           })
           Swal.fire({
             title: "Deleted!",
-            text: "Community has been deleted",
+            text: "User has been deleted",
             icon: "success"
           });
         }

@@ -9,7 +9,8 @@ const AdminArticles = () => {
     const [loading, setLoading] = useState(false);
     const [articles, setArticles] = useState([]);
 
-    const onDeleteClick = (article) => {
+    const onDeleteClick = article => {
+        console.log(article);
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -20,6 +21,7 @@ const AdminArticles = () => {
             confirmButtonText: "Yes, delete it!"
           }).then((result) => {
             if (result.isConfirmed) {
+                console.log(article.id);
                 axiosClient.delete(`/articles/${article.id}`)
                 .then((res) => {
                     getArticles();
@@ -62,7 +64,6 @@ const AdminArticles = () => {
         {!loading &&
             
              articles.map(u => (
-                
                 <div key={u.id} className="community-item">
                     <div className="community-item-details" >
                         <div className="community-details-top">

@@ -89,7 +89,7 @@ const AddVideo = () => {
                         <select onChange={handleChange} name="communities">
                             <option >Select a community</option>      
                             {communities.map((community) => (
-                                <option value={community.id}>{community.name}</option>      
+                                <option key={community.id} value={community.id}>{community.name}</option>      
                             ))}
                         </select>
                     </div>

@@ -25,6 +25,7 @@ import AdminArticles from "./Pages/Admin/AdminArticles";
 import AddArticle from "./Pages/Admin/AddArticle";
 import AddVideo from "./Pages/Admin/AddVideo";
 import AdminVideos from "./Pages/Admin/AdminVideos";
+import EditArticle from "./Pages/Admin/EditArticle";
 
 const router = createBrowserRouter([
     {   
@@ -123,6 +124,10 @@ const router = createBrowserRouter([
             {
                 path: '/add-video',
                 element: <AddVideo />
+            },
+            {
+                path: '/edit-article/:id',
+                element: <EditArticle />
             }
             
         ]

@@ -13,11 +13,22 @@ const Schedule = () => {
     const [open, setOpen] = useState(false);
     const [day, setDay] = useState('');
     const [schedule, setSchedule] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const getSchedule = () => {
+        setLoading(true);
         axiosClient.get('/schedule')
         .then(({data}) => {
+            setLoading(false);
             setSchedule(data.data);
+        }).catch(err => {
+            setLoading(false);
+            const response = err.response;
+            Swal.fire({
+                title: "Error",
+                text: `${Object.values(response.data.errors)[0]}`,
+                icon: "warning"
+              });
         })
     }
 
@@ -67,7 +78,8 @@ const Schedule = () => {
                         </div>
                         <AddScheduleModal isOpen={open} getAllSched={getSchedule} day={day} setOpen={setOpen} />
                         <EditSchedule isOpen={editOpen} setOpen={setEditOpen} id={schedID} getAllSched={getSchedule} />
-                        <div className="schedules">
+                        { loading ? <div className="loading">Loading Schedules...</div> :
+                            <div className="schedules">
                             <div className='weekday'>
                                 <div className="weekday-title">
                                     <span>Monday</span>
@@ -213,7 +225,7 @@ const Schedule = () => {
                                         )
                                     }
                                 </div>
-                            </div>
+                            </div>}
                         </div>
                         </div>
             </div>
