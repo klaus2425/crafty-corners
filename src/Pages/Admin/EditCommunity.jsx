@@ -171,7 +171,7 @@ const EditCommunity = () => {
 
     return (
       <div>
-          <form enctype="multipart/form-data" onSubmit={onSubmit}>
+          <form encType="multipart/form-data" onSubmit={onSubmit}>
             <div className="add-community-container">
               <h1>Edit {communityName} Community</h1>
               <div className="community-form">

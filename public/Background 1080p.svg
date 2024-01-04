@@ -1,19 +1,19 @@
 <svg width="1920" height="1003" viewBox="0 0 1920 1003" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="1920" height="1003" fill="url(#pattern0)"/>
-<path d="M1778.86 715.036L1918.93 574.969V715.036H1778.86Z" fill="#A076F9" stroke="#A076F9" stroke-width="2"/>
-<path d="M1635.38 858.518L1775.45 718.451V858.518H1635.38Z" stroke="#A076F9" stroke-width="2"/>
-<path d="M1631.96 857.104L1491.9 717.036H1631.96V857.104Z" stroke="#A076F9" stroke-width="2"/>
-<circle cx="1848.19" cy="929.466" r="70.7409" transform="rotate(-180 1848.19 929.466)" stroke="#A076F9" stroke-width="2"/>
-<circle cx="1363.94" cy="875.66" r="16.9352" transform="rotate(-180 1363.94 875.66)" fill="#A076F9" stroke="#A076F9" stroke-width="2"/>
-<circle cx="1682.29" cy="631.741" r="70.7409" transform="rotate(-180 1682.29 631.741)" stroke="#A076F9" stroke-width="2"/>
-<rect x="1631.96" y="1002" width="141.482" height="141.482" transform="rotate(-180 1631.96 1002)" fill="#A076F9" stroke="#A076F9" stroke-width="2"/>
-<path d="M141.549 289.964L1.48169 430.031V289.964H141.549Z" fill="#A076F9" stroke="#A076F9" stroke-width="2"/>
-<path d="M285.031 146.482L144.963 286.549V146.482H285.031Z" fill="#A076F9" stroke="#A076F9" stroke-width="2"/>
-<path d="M288.445 147.896L428.513 287.964H288.445V147.896Z" fill="#A076F9" stroke="#A076F9" stroke-width="2"/>
-<circle cx="72.2226" cy="75.5344" r="70.7409" stroke="#A076F9" stroke-width="2"/>
-<circle cx="556.474" cy="129.34" r="16.9352" fill="#A076F9" stroke="#A076F9" stroke-width="2"/>
-<circle cx="238.123" cy="373.259" r="70.7409" stroke="#A076F9" stroke-width="2"/>
-<rect x="288.445" y="3" width="141.482" height="141.482" fill="#A076F9" stroke="#A076F9" stroke-width="2"/>
+<path d="M1778.86 715.036L1918.93 574.969V715.036H1778.86Z" fill="#A076F9" stroke="#A076F9" strokeWidth="2"/>
+<path d="M1635.38 858.518L1775.45 718.451V858.518H1635.38Z" stroke="#A076F9" strokeWidth="2"/>
+<path d="M1631.96 857.104L1491.9 717.036H1631.96V857.104Z" stroke="#A076F9" strokeWidth="2"/>
+<circle cx="1848.19" cy="929.466" r="70.7409" transform="rotate(-180 1848.19 929.466)" stroke="#A076F9" strokeWidth="2"/>
+<circle cx="1363.94" cy="875.66" r="16.9352" transform="rotate(-180 1363.94 875.66)" fill="#A076F9" stroke="#A076F9" strokeWidth="2"/>
+<circle cx="1682.29" cy="631.741" r="70.7409" transform="rotate(-180 1682.29 631.741)" stroke="#A076F9" strokeWidth="2"/>
+<rect x="1631.96" y="1002" width="141.482" height="141.482" transform="rotate(-180 1631.96 1002)" fill="#A076F9" stroke="#A076F9" strokeWidth="2"/>
+<path d="M141.549 289.964L1.48169 430.031V289.964H141.549Z" fill="#A076F9" stroke="#A076F9" strokeWidth="2"/>
+<path d="M285.031 146.482L144.963 286.549V146.482H285.031Z" fill="#A076F9" stroke="#A076F9" strokeWidth="2"/>
+<path d="M288.445 147.896L428.513 287.964H288.445V147.896Z" fill="#A076F9" stroke="#A076F9" strokeWidth="2"/>
+<circle cx="72.2226" cy="75.5344" r="70.7409" stroke="#A076F9" strokeWidth="2"/>
+<circle cx="556.474" cy="129.34" r="16.9352" fill="#A076F9" stroke="#A076F9" strokeWidth="2"/>
+<circle cx="238.123" cy="373.259" r="70.7409" stroke="#A076F9" strokeWidth="2"/>
+<rect x="288.445" y="3" width="141.482" height="141.482" fill="#A076F9" stroke="#A076F9" strokeWidth="2"/>
 <defs>
 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_288_448" transform="matrix(0.00087066 0 0 0.00166667 -0.0189132 0)"/>

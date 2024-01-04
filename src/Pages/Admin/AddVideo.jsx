@@ -46,8 +46,6 @@ const AddVideo = () => {
         formData.append('description', descriptionRef.current.value);
         formData.append('community_id', selected);
         formData.append('user_id', user.id);
-
-        
         axiosClient.post('/videos', formData)
         .then(() => navigate('/admin-videos'))
         .catch(err => {

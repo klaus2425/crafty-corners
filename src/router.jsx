@@ -26,6 +26,7 @@ import AddArticle from "./Pages/Admin/AddArticle";
 import AddVideo from "./Pages/Admin/AddVideo";
 import AdminVideos from "./Pages/Admin/AdminVideos";
 import EditArticle from "./Pages/Admin/EditArticle";
+import Messages from "./Pages/Messages";
 
 const router = createBrowserRouter([
     {   
@@ -76,8 +77,12 @@ const router = createBrowserRouter([
             {
                 path: '/account-settings',
                 element: <AccountSettings />
+            },
+            {
+                path: '/messages',
+                element: <Messages />
             }
-        
+            
 
         ],
     },

@@ -38,7 +38,7 @@ const AddCommunities = () => {
     }
 
     return (
-        <form enctype="multipart/form-data" onSubmit={onSubmit}>
+        <form encType="multipart/form-data" onSubmit={onSubmit}>
             <div className="add-community-container">
                 <h1>Add a New Community</h1>
                 <div className="community-form">
