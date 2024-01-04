@@ -1875,6 +1875,45 @@ input::-webkit-inner-spin-button {
   }
 }
 
+.messages-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #FDFDFD;
+    border: 2px solid #D8DCE3;
+    border-radius: 15px;
+    width: 95%;
+    margin-bottom: 0.5rem;
+    padding: 1rem;
+    .conversation-search{
+      position: relative;
+      display: inline-block;
+      .search {
+        outline: none !important;
+        border: 1.3px solid $font-grey;
+        border-radius: 25px;
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        font-weight: lighter;
+        color: $font_grey;
+        width: 100%;
+        padding: 0.7rem 1rem;
+      }
+      .search::placeholder {
+        text-align: center;
+      }
+      svg {
+        position: absolute;
+        right: 0;
+        margin-top: auto;
+        margin-bottom: auto;
+        top:0;
+        bottom: 0;
+        margin-right: 1rem;
+      }
+    }
+
+}
+
 .video:hover {
   background-color: $lighter_grey;
 }
