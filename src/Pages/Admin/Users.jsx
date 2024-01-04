@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import axiosClient from "../../axios-client";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
+import Loading from '../../components/utils/Loading';
 
 
 const Users = () => {
@@ -61,7 +62,7 @@ const Users = () => {
         <div className='users-table'>
         
         {loading &&
-            <div className="loading-admin">Loading...</div>
+            <Loading />
 
         }
 

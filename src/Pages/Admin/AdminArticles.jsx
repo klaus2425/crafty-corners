@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2'
+import Loading from '../../components/utils/Loading';
 
 const AdminArticles = () => {
     const [loading, setLoading] = useState(false);
@@ -42,7 +43,6 @@ const AdminArticles = () => {
         .then((res) => {
             setLoading(false);
             setArticles(res.data.data)
-            console.log(res.data);
         })
     }
 
@@ -57,7 +57,7 @@ const AdminArticles = () => {
         <div className='users-table'>
         
         {loading &&
-            <div className="loading-admin">Loading...</div>
+            <Loading />
 
         }
 

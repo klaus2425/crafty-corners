@@ -30,7 +30,7 @@ const EditArticle = () => {
 
     const getArticle = () => {
         setLoading(true);
-        axiosClient.get(`/articles/${15}`).then(({ data }) => {
+        axiosClient.get(`/articles/${id}`).then(({ data }) => {
             setArticle(data.data);
             console.log(data.data.link);
             setLoading(false);
@@ -58,7 +58,7 @@ const EditArticle = () => {
         }
 
 
-        axiosClient.post(`/articles/${15}`, formData)
+        axiosClient.post(`/articles/${id}`, formData)
         .then(() => {
             Swal.fire({
                 position: "top-end",

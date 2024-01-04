@@ -18,10 +18,38 @@ const Messages = () => {
                         <path d="M28.333 28.3333L24.083 24.0833" stroke="#677186" stroke-width="1.41667" stroke-linecap="round"/>
                       </svg>
                    </div>
+
+                    <div className="conversations">
+                      <div className="conversation">
+                        <div className="conversation-image">
+                          <img src="/Jaycie.png" alt="" />
+                        </div>
+                        <div className="conversation-text">
+                          <text>Jaycie</text>
+                          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat aliquam quisquam, deserunt ab vitae, eius nesciunt alias quia quo a, fuga corporis praesentium debitis quas deleniti soluta assumenda temporibus et.</p>
+                        </div>
+                        <div className="conversation-time">
+                          <text>2h</text>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="conversations">
+                      <div className="conversation">
+                        <div className="conversation-image">
+                          <img src="/kafka.jpg" alt="" />
+                        </div>
+                        <div className="conversation-text">
+                          <text>Kafka</text>
+                          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat aliquam quisquam, deserunt ab vitae, eius nesciunt alias quia quo a, fuga corporis praesentium debitis quas deleniti soluta assumenda temporibus et.</p>
+                        </div>
+                        <div className="conversation-time">
+                          <text>4h</text>
+                        </div>
+                      </div>
+                    </div>
                 </div>
-                <div className="conversations">
-                  
-                </div>
+               
             </div>
             <div className="recommended">
             </div>

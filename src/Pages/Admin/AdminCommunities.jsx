@@ -4,6 +4,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2'
+import Loading from "../../components/utils/Loading";
 
 
 const AdminCommunities = () => {
@@ -59,7 +60,7 @@ const AdminCommunities = () => {
             <div className='users-table'>
             
             {loading &&
-                <div className="loading-admin">Loading...</div>
+                <Loading />
 
             }
 
