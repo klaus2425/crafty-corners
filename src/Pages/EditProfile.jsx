@@ -135,8 +135,8 @@ const EditProfile =  () => {
                         
                         <div className="edit-card">
                             <div className='edit-header'>
-                                <FontAwesomeIcon icon={faPencil} />
-                                <h1>Update your Profile</h1>
+                                
+                                <h1><FontAwesomeIcon icon={faPencil} /> Update your Profile</h1>
                             </div>
                             <div className="upload-picture">
                                 <img id='update-picture'src={image}/>
