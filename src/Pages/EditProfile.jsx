@@ -4,6 +4,7 @@ import axiosClient from "../axios-client";
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { useStateContext } from "../context/ContextProvider";
+import Loading from '../components/utils/Loading';
 
 
 const EditProfile =  () => {
@@ -118,19 +119,14 @@ const EditProfile =  () => {
             <div className="feed">
             <div className='section-header'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
-                        <path d="M28.7693 29.8187C28.1046 27.9581 26.6399 26.3141 24.6024 25.1415C22.5649 23.9689 20.0684 23.3333 17.5002 23.3333C14.9319 23.3333 12.4355 23.9689 10.3979 25.1415C8.36043 26.3141 6.89574 27.9581 6.23103 29.8187" stroke="#677186" strokeWidth="2.91667" strokeLinecap="round"/>
-                        <circle cx="17.4998" cy="11.6667" r="5.83333" stroke="#677186" strokeWidth="2.91667" strokeLinecap="round"/>
+                        <path d="M28.7693 29.8187C28.1046 27.9581 26.6399 26.3141 24.6024 25.1415C22.5649 23.9689 20.0684 23.3333 17.5002 23.3333C14.9319 23.3333 12.4355 23.9689 10.3979 25.1415C8.36043 26.3141 6.89574 27.9581 6.23103 29.8187" stroke="#677186" strokeWidth="2.91667" stroke-linecap="round"/>
+                        <circle cx="17.4998" cy="11.6667" r="5.83333" stroke="#677186" strokeWidth="2.91667" stroke-linecap="round"/>
                     </svg>
                     <h3>Edit Profile</h3>
             </div>
                 <div className="card">
-                    {loading && (
-                        <div className="loading">
-                            Loading...
-                        </div>
-                    )}
-
-                    {!loading && (
+                    { loading ? <Loading /> :
+                   
                     <form encType="multipart/form-data" onSubmit={onSubmit}>
                         
                         <div className="edit-card">
@@ -210,7 +206,7 @@ const EditProfile =  () => {
                         </div>
                        
                     </form>
-                    )}
+                    }
                 </div>
             </div>
             
