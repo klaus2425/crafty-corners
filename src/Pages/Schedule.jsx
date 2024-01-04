@@ -4,6 +4,7 @@ import axiosClient from '../axios-client';
 import { useState, useEffect } from 'react'
 import AddScheduleModal from '../components/AddScheduleModal';
 import EditSchedule from '../components/EditSchedule';
+import Loading from '../components/utils/Loading';
 
 
 const Schedule = () => {
@@ -78,7 +79,7 @@ const Schedule = () => {
                         </div>
                         <AddScheduleModal isOpen={open} getAllSched={getSchedule} day={day} setOpen={setOpen} />
                         <EditSchedule isOpen={editOpen} setOpen={setEditOpen} id={schedID} getAllSched={getSchedule} />
-                        { loading ? <div className="loading">Loading Schedules...</div> :
+                        { loading ? <Loading /> :
                             <div className="schedules">
                             <div className='weekday'>
                                 <div className="weekday-title">

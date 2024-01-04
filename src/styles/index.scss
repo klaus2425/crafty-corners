@@ -1715,6 +1715,7 @@ input::-webkit-inner-spin-button {
   display: flex;
   width: 100%;
   flex-direction: column;
+  align-items: center;
   h2 {
     font: $font_grey;
   }
@@ -1767,6 +1768,7 @@ input::-webkit-inner-spin-button {
 .schedule-header {
   display: flex;
   justify-content: space-between;
+  width: 100%;
   .edit-schedule {
     text-decoration: none;
     color: white;

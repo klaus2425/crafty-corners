@@ -67,7 +67,7 @@ const AdminVideos = () => {
                                 <span><strong>Community: <br/></strong> {u.community.name}</span>
                             </div>
                             <div className="buttons-community">
-                                <Link to={'/edit-community/' + u.id} className="orange-button">View Video</Link>
+                                <Link to={`/edit-video/${u.id}`} className="orange-button">View Video</Link>
                                 <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete Video</button>
                             </div>
                             

@@ -47,7 +47,6 @@ const AdminCommunities = () => {
         setLoading(true);
         axiosClient.get('/communities').then(({ data }) => {
             setLoading(false);
-            console.log(data);
             setCommunities(data.data);
         })
     }
