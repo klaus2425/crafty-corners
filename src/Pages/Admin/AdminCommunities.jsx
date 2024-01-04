@@ -11,7 +11,6 @@ const AdminCommunities = () => {
     const storageBaseUrl = import.meta.env.VITE_API_COMMUNITIES_URL;
     const [loading, setLoading] = useState(false);
     const [communities, setCommunities] = useState([]);
-    const [image, setImage] = useState();
 
     useEffect(() => {
         getCommunities();
