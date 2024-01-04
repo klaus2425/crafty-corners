@@ -34,6 +34,7 @@ $dark_purple: #2C3373;
   border-radius: 50%;
   border-right-color: #6528F7;
   animation: l15 1s infinite linear;
+  margin: auto;
 }
 .loader::before,
 .loader::after {    
@@ -807,7 +808,6 @@ input::-webkit-inner-spin-button {
     border-radius: 15px;
     width: 100%;
     margin-bottom: 0.5rem;
-
     padding: 1rem;
     .profile-card {
       a {
