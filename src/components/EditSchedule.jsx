@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axiosClient from '../axios-client';
 import Swal from 'sweetalert2';
+import Loading from "./utils/Loading";
 
 const EditSchedule = (props) => {
     const [schedule, setSchedule] = useState({});
@@ -87,7 +88,7 @@ const EditSchedule = (props) => {
                 <div className="edit-sched-header">
                     <h2>Edit Schedule</h2>
                     </div>
-            {loading && <div className="loading">Loading details...</div>}
+            {loading && <Loading /> }
             {!loading &&
                 <form onSubmit={onSubmit}>
                 <div className="schedule-input">
