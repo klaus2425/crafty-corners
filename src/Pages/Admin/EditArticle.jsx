@@ -52,13 +52,15 @@ const EditArticle = () => {
         ev.preventDefault();
         const formData = new FormData();
         formData.append('_method', "PUT")
-        formData.append('creator', article.creator);
-        formData.append('community_ud', article.community.id);
-
+        formData.append('author', article.author);
+        formData.append('title', article.title);
+        formData.append('link', article.link);
+        formData.append('description', article.description);
+        formData.append('community_id', article.community.id);
 
 
         axiosClient.post(`/articles/${id}`, formData)
-        .then(() => {
+        .then((res) => {
             Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -66,6 +68,7 @@ const EditArticle = () => {
                 showConfirmButton: false,
                 timer: 1500
               });
+            console.log(res.data);
             getArticle();
         })
         .catch(err => {
@@ -100,7 +103,7 @@ const EditArticle = () => {
                     </div>
                     <div className="article-input">
                         <label><strong>Description:</strong></label>
-                        <input  value={article.description} onChange={ev => setArticle({...article, description: ev.target.value})} type="textarea" />
+                        <textarea value={article.description} onChange={ev => setArticle({...article, description: ev.target.value})} type="textarea" />
                     </div>
                     <div  className="article-input">
                         <label><strong>Link:</strong></label>
