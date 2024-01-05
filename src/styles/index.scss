@@ -1935,8 +1935,8 @@ input::-webkit-inner-spin-button {
 
 .video {
   display: flex;
-  flex-direction: column;
   width: 100%;
+  gap: 2rem;
   cursor: pointer;
   transition: 0.2s;
   border-radius: 5px;
@@ -1951,6 +1951,13 @@ input::-webkit-inner-spin-button {
     width: 90%;
     text-align: justify;
   }
+  .left {
+    width: 10%;
+  }
+  .right {
+    width: 90%;
+  }
+  
 }
 
 .messages-card {
