@@ -73,7 +73,8 @@ $dark_purple: #2C3373;
 }
 
 #user-img-span {
-  width: 15%;
+  width: clamp(4rem, 20vw, 30rem);
+
 }
 
 #spinner {
@@ -2075,14 +2076,22 @@ input::-webkit-inner-spin-button {
     display: flex;
     width: 100%;
     flex-direction: column;
+    margin-bottom: 0.5rem;
     input,textarea, select {
       border-radius: 10px;
       border: 2px solid #D8DCE3;
       background: #FFF;
       color: #677186;
+      font-size: 1rem;
+      font-family: Helvetica, Arial, sans-serif;
       padding: 0.75rem;
       margin-left: 1rem;
       transition: 0.5s;
+    }
+    textarea {
+      overflow: auto;
+      height:6rem;
+      resize: none;
     }
   }
 }
