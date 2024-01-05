@@ -1,15 +1,13 @@
 import Swal from 'sweetalert2';
 import { useState, useEffect } from 'react';
 import axiosClient from '../../axios-client';
-import { useStateContext } from '../../context/ContextProvider';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import Loading from '../../components/utils/Loading';
 
 const EditArticle = () => {
     let {id} = useParams();
     const [communities, setCommunities] = useState([]);
     const [article, setArticle] = useState({});
-    const [selected, setSelected] = useState();
-    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
 
@@ -32,13 +30,14 @@ const EditArticle = () => {
         setLoading(true);
         axiosClient.get(`/articles/${id}`).then(({ data }) => {
             setArticle(data.data);
-            console.log(data.data.link);
             setLoading(false);
         })
 
     }
     const handleChange = (ev) => {
-        setSelected(ev.target.value);
+        setArticle({...article, community: {id: ev.target.value}});
+        console.log(article.community.id);
+
     }
 
 
@@ -53,9 +52,9 @@ const EditArticle = () => {
         ev.preventDefault();
         const formData = new FormData();
         formData.append('_method', "PUT")
-        for (const key in article) {
-            formData.append(key, article[key]);
-        }
+        formData.append('creator', article.creator);
+        formData.append('community_ud', article.community.id);
+
 
 
         axiosClient.post(`/articles/${id}`, formData)
@@ -88,7 +87,7 @@ const EditArticle = () => {
         
         <div className="add-article-container">
             <h2>Edit Article</h2>
-            {loading ? <div className="loading-admin">Loading...</div> : 
+            {loading ? <Loading /> : 
             <form onSubmit={onSubmit}>
                 <div className="article-form">
                     <div className="article-input">
