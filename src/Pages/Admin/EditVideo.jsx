@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import axiosClient from '../../axios-client';
 import { useStateContext } from '../../context/ContextProvider';
 import { useNavigate, useParams } from 'react-router-dom';
+import Loading from '../../components/utils/Loading';
 
 const EditVideo = () => {
     let {id} = useParams();
@@ -53,10 +54,10 @@ const EditVideo = () => {
         ev.preventDefault();
         const formData = new FormData();
         formData.append('_method', "PUT")
-        for (const key in video) {
-            formData.append(key, video[key]);
-        }
-
+        formData.append('creator', video.creator);
+        formData.append('community_id', video.community.id);
+        formData.append('video_title', video.video_title);
+        formData.append('video_url', video.video_url)
 
         axiosClient.post(`/videos/${id}`, formData)
         .then(() => {
@@ -88,7 +89,7 @@ const EditVideo = () => {
         
         <div className="add-article-container">
             <h2>Edit Video</h2>
-            {loading ? <div className="loading-admin">Loading...</div> : 
+            {loading ? <Loading /> : 
             <form onSubmit={onSubmit}>
                 <div className="article-form">
                     <div className="article-input">
