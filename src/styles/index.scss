@@ -2075,7 +2075,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     width: 100%;
     flex-direction: column;
-    input, select {
+    input,textarea, select {
       border-radius: 10px;
       border: 2px solid #D8DCE3;
       background: #FFF;
