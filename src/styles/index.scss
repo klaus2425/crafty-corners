@@ -72,6 +72,10 @@ $dark_purple: #2C3373;
   }
 }
 
+#user-img-span {
+  width: 15%;
+}
+
 #spinner {
   transform-origin: center;
   animation-name: animation;
@@ -213,6 +217,7 @@ input::-webkit-inner-spin-button {
   }
   img {
     border: 3px solid transparent;
+    object-fit: cover;
   }
 }
 
@@ -1792,6 +1797,7 @@ input::-webkit-inner-spin-button {
   img {
     height: 4rem;
     width: 4rem;
+    object-fit: cover;
     border-radius: 10000px;
   }
 
