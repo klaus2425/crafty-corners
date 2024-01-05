@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2';
+import Loading from "../../components/utils/Loading";
 
 const EditUser = () => {
     let {id} = useParams();
@@ -109,13 +110,13 @@ const EditUser = () => {
     return (
         
         <div className="edit-user-container">
-            <h1>User Profile</h1>
+            
             {loading && (
-                        <div className="loading">
-                            Loading...
-                        </div>
+                        <Loading />
             )}
             {!loading && 
+            <div>
+                <h1>User Profile</h1>
                 <form className="edit-form" encType="multipart/form-data" onSubmit={onSubmit}>
                 <div className="edit-left">
                     <div className="edit-labels">
@@ -160,11 +161,14 @@ const EditUser = () => {
                                 <span className="edit-text">File extension: .JPEG, .PNG, .JPG</span>
                     </div>
                 </div>   
-            </form>}
-            <div className="admin-user-posts">
-                <h1>User Posts</h1>
-                    
-            </div>    
+            </form>
+                <div className="admin-user-posts">
+                    <h1>User Posts</h1>     
+                </div>     
+            </div>
+            }
+          
+          
         </div>
     )
 }
