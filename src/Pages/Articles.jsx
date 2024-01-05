@@ -1,14 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Article from "../components/Article";
+import axiosClient from "../axios-client";
+import Loading from "../components/utils/Loading";
 
 const UserFeed =  () => {
     const [active, setActive] = useState("1");
-    
+    const [articles, setArticles] = useState([]);
+    const [loading, setLoading] = useState(false);
     const handleClick = (ev) => {
         ev.preventDefault();
         setActive(ev.target.id);        
     }
     
+    const getArticles = () => {
+        setLoading(true);
+        axiosClient.get('/articles')
+        .then(res => {
+            setArticles(res.data.data)
+            setLoading(false);
+            console.log(res);
+        })
+    }
+
+    useEffect(() => {
+        getArticles();
+    },[])
+
     return (
         <div className="authenticated-container">
             <div className="feed">
@@ -24,10 +41,14 @@ const UserFeed =  () => {
                         <text id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</text>
                     </div>
                 </div>
+                {loading ? <Loading /> :
                 <div className="card">
-                    <Article author="Theo Tzanidis" title="All the video games shortlisted for the 2023 Game Awards" description="Six games were shortlisted for game of the year at the 2023 Game Awards – the industry’s equivalent of the Oscars. Our academics reviewed the finalists ahead of the ceremony, which revealed Baldur’s Gate 3 to be the winner. " link="https://theconversation.com/all-the-video-games-shortlisted-for-the-2023-game-awards-reviewed-by-experts-217843" community="Gaming"/>
-                    <Article author="Juliane M. von der Heiden" title="The Association Between Video Gaming and Psychological Functioning" description="This article describes the relationship of Video Gaming and psychological functioning" link="https://www.frontiersin.org/articles/10.3389/fpsyg.2019.01731/full" community="Gaming"/>
-                </div>
+                { articles.map( a => (
+                    <Article author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name}/>
+                ))}
+            </div> 
+            }
+                
             </div>
             <div className="recommended">
             </div>
