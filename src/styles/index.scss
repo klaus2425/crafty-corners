@@ -86,7 +86,7 @@ $dark_purple: #2C3373;
   fill:transparent;
   stroke:#6528F7;
   stroke-width: 7px;
-  stroke-linecap: round;
+  strokeLinecap: round;
 }
 
 input, textarea {
@@ -494,7 +494,7 @@ input::-webkit-inner-spin-button {
     .navbar-img:hover {
       border: 3px solid#4627a1;
       cursor: pointer;
-
+      transition: 0.1s;
     }
 
     ul {
@@ -1878,13 +1878,13 @@ input::-webkit-inner-spin-button {
   font-weight: bold;
   font-size: 1.2rem;
 
-  text {
+  span {
     border-radius: 10px;
     padding: 0.43rem;
     transition: 0.3s;
     cursor: pointer;
   }
-  text:hover {
+  span:hover {
     background-color: $lighter_grey;
   }
 

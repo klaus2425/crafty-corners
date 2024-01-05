@@ -1,15 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Video from "../components/Video";
+import Loading from "../components/utils/Loading";
+import axiosClient from "../axios-client";
+import Swal from 'sweetalert2';
 
 
 const UserFeed =  () => {
 
     const [active, setActive] = useState("1");
+    const [videos, setVideos] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const handleClick = (ev) => {
         ev.preventDefault();
         setActive(ev.target.id);        
     }
+
+    const getVideos = () => {
+        axiosClient.get('/videos')
+        .then(res => {
+            setVideos(res.data.data)
+        })
+        .catch(err => {
+            const response = err.response;
+            if (response && response.status === 422) {
+                Swal.fire({
+                    title: "Error",
+                    text: `${Object.values(response.data.errors)[0]}`,
+                    icon: "warning"
+                });
+            }
+        })
+    }
+
+    useEffect(() => {
+        getVideos();
+    }, [])
 
     return (
         <div className="authenticated-container">
@@ -22,12 +48,17 @@ const UserFeed =  () => {
                         <h3>Videos</h3> 
                     </div>
                         <div className="rounded-card">
-                            <text id="1" className={active === "1" ? "active" : undefined} onClick={handleClick}>All</text>
-                            <text id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</text>
+                            <span id="1" className={active === "1" ? "active" : undefined} onClick={handleClick}>All</span>
+                            <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
                         </div>
                     </div>
                     <div className="card">
-                        <Video link="https://www.youtube.com/watch?v=aAxGTnVNJiE" title="How to Crochet for Absolute Beginners: Part 1" description="Today I'm showing you how to crochet for absolute beginners. A detailed step-by-step tutorial on how to crochet a chain and a single crochet, as well as make a slip knot, hold the crochet hook and yarn, and weave in the ends of your work." creator="simplydaisy" community="Crochet" id=""/>
+                        {loading ? <Loading /> :
+                            videos.map(v => (
+                                <Video key={v.id} link={v.video_url} title={v.video_title} 
+                                description={v.video_description} creator={v.creator} community={v.community.name} id={v.id}/>
+                            ))
+                        }
                     </div>
             </div>
             <div className="recommended">

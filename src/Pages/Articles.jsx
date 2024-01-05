@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Article from "../components/Article";
 import axiosClient from "../axios-client";
 import Loading from "../components/utils/Loading";
+import Swal from 'sweetalert2';
 
 const UserFeed =  () => {
     const [active, setActive] = useState("1");
@@ -19,6 +20,16 @@ const UserFeed =  () => {
             setArticles(res.data.data)
             setLoading(false);
             console.log(res);
+        })
+        .catch(err => {
+            const response = err.response;
+            if (response && response.status === 422) {
+                Swal.fire({
+                    title: "Error",
+                    text: `${Object.values(response.data.errors)[0]}`,
+                    icon: "warning"
+                });
+            }
         })
     }
 

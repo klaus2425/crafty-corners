@@ -6,7 +6,7 @@ import axiosClient from "../axios-client";
 import DropDownItem from "./DropDownItem";
 
 const Navbar = () => {
-    const {isOpen, setIsOpen, isSignUpOpen, setIsSignUpOpen, setUser, setToken, user, token} = useStateContext();
+    const {isOpen, setIsOpen, setUser, setToken, user, token} = useStateContext();
     const [openDropDown, setOpenDropDown] = useState(false);
     const onLogout = () => {
         axiosClient.post('/logout')
@@ -33,7 +33,7 @@ const Navbar = () => {
         return (
             <div className='authenticated-navbar'>
                 <div className='navbar title'>
-                    <img src='Logo.png'/>
+                    <img src='/Logo.png'/>
                     <h1>Crafty Corners</h1>
                 </div>
                 <div className="search-post">
@@ -42,7 +42,7 @@ const Navbar = () => {
                 <div className="profile">
                     <button className='add-post'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 20.6154L12 3.30768M3.34619 11.9615H20.6539" stroke="#677186" strokeWidth="5.76923" stroke-linecap="round" strokeLinejoin="round"/>
+                        <path d="M12 20.6154L12 3.30768M3.34619 11.9615H20.6539" stroke="#677186" strokeWidth="5.76923" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                     </button>
                     <h3 id="navbar-header">Hi, {user.first_name}</h3>
