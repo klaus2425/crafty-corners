@@ -32,13 +32,13 @@ const EditVideo = () => {
         setLoading(true);
         axiosClient.get(`/videos/${id}`).then(({ data }) => {
             setVideo(data.data);
-            console.log(data.data.link);
+            console.log(data.data);
             setLoading(false);
         })
 
     }
     const handleChange = (ev) => {
-        setSelected(ev.target.value);
+        setVideo({...video, community: {id: ev.target.value}});
     }
 
 
@@ -58,7 +58,7 @@ const EditVideo = () => {
         }
 
 
-        axiosClient.post(`/articles/${id}`, formData)
+        axiosClient.post(`/videos/${id}`, formData)
         .then(() => {
             Swal.fire({
                 position: "top-end",
@@ -93,19 +93,19 @@ const EditVideo = () => {
                 <div className="article-form">
                     <div className="article-input">
                         <label><strong>Video Title:</strong></label>
-                        <input value={video.title} onChange={ev => setArticle({...video, title: ev.target.value})} type="text" />
+                        <input value={video.video_title} onChange={ev => setVideo({...video, video_title: ev.target.value})} type="text" />
                     </div>
                     <div className="article-input">
                         <label><strong>Video Creator:</strong></label>
-                        <input value={video.author} onChange={ev => setArticle({...video, author: ev.target.value})} type="text" />
+                        <input value={video.creator} onChange={ev => setVideo({...video, creator: ev.target.value})} type="text" />
                     </div>
                     <div className="article-input">
                         <label><strong>Description:</strong></label>
-                        <input  value={video.description} onChange={ev => setArticle({...video, description: ev.target.value})} type="textarea" />
+                        <textarea value={video.video_description} onChange={ev => setVideo({...video, video_description: ev.target.value})} />
                     </div>
                     <div  className="article-input">
                         <label><strong>Link:</strong></label>
-                        <input  value={video.link} onChange={ev => setArticle({...video, link: ev.target.value})} type="textarea" />
+                        <input  value={video.video_url} onChange={ev => setVideo({...video, video_url: ev.target.value})} type="textarea" />
                     </div>
                     <div className="article-input">
                         <label><strong>Community:</strong></label>
