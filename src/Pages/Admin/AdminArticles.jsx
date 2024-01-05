@@ -24,7 +24,7 @@ const AdminArticles = () => {
             if (result.isConfirmed) {
                 console.log(article.id);
                 axiosClient.delete(`/articles/${article.id}`)
-                .then((res) => {
+                .then(() => {
                     getArticles();
                 })
               Swal.fire({
@@ -58,7 +58,6 @@ const AdminArticles = () => {
         
         {loading &&
             <Loading />
-
         }
 
         {!loading &&
