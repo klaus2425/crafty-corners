@@ -10,17 +10,16 @@ const EditUser = () => {
     const[user, setUser] = useState({});
     const [imageChange, setImageChange] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [image, setImage] = useState();
+    const [image, setImage] = useState('');
     if (!image) {setImage('/avatar.jpg')}
 
     const getUser = () => {
         setLoading(true);
         axiosClient.get(`/users/${id}`)
         .then(({ data }) => {
-        setUser(data);
-        setLoading(false);
-
-        setImage(storageBaseUrl+data.profile_picture);
+            setUser(data);
+            setLoading(false);
+            setImage(storageBaseUrl+data.profile_picture);
         })
         .catch((err) => {
         })
@@ -56,7 +55,7 @@ const EditUser = () => {
             formData.append('gender', user.gender);
             formData.append('phone_number', user.phone_number);
             axiosClient.post(`users/${id}`, formData)
-            .then((res) => {
+            .then(() => {
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -85,7 +84,7 @@ const EditUser = () => {
               }
               
             axiosClient.post(`users/${id}`, formData)
-                .then(() => {
+                .then((res) => {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
@@ -93,6 +92,7 @@ const EditUser = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
+                    console.log(res.data);
                     getUser();
                 })
                 .catch(err => {
