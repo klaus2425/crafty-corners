@@ -1848,6 +1848,8 @@ input::-webkit-inner-spin-button {
   gap: 1rem;
   span {
     width: 33%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
   .desc {
     white-space: nowrap;
