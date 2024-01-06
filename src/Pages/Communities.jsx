@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client";
 import Swal from 'sweetalert2';
+import Loading from "../components/utils/Loading";
 
 
 const Communities = () => {
 
     const [communities, setCommunities] = useState([]);
     const storageBaseUrl= import.meta.env.VITE_API_COMMUNITIES_URL;
-    
+    const [loading, setLoading] = useState(false);
+
+
+
     const getCommunities = () => {
+        setLoading(true);
         axiosClient.get('/communities')
         .then(res => {
+            setLoading(false);
             setCommunities(res.data.data);
         })
         .catch(err => {
@@ -51,7 +57,7 @@ const Communities = () => {
                           <path d="M28.333 28.3333L24.083 24.0833" stroke="#677186" stroke-width="1.41667" strokeLinecap="round"/>
                         </svg>
                      </div>
-  
+                    {loading ? <Loading /> :
                       <div className="list-card-items">
                         { communities.map(c => (
                            <div className="list-card-item">
@@ -74,6 +80,7 @@ const Communities = () => {
                          </div> 
                         ))}
                       </div>
+                      }
                   </div>
                  
               </div>
