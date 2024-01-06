@@ -63,7 +63,7 @@ const AdminVideos = () => {
                         <div className="community-item-details" >
                             <div className="community-details-top">
                                 <span><strong>Video Title: <br/></strong>{u.video_title}</span>
-                                <span><strong>Description: <br/></strong> {u.video_description}</span>
+                                <span className='desc'><strong>Description: <br/></strong> {u.video_description}</span>
                                 <span><strong>Community: <br/></strong> {u.community.name}</span>
                             </div>
                             <div className="buttons-community">
