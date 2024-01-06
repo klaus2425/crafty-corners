@@ -12,6 +12,7 @@ const EditVideo = () => {
     const [selected, setSelected] = useState();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [count, setCount] = useState(0);
 
 
     const getCommunities = () => {
@@ -27,6 +28,11 @@ const EditVideo = () => {
                 });
             }
         })
+    }
+
+    const handleTextChange = (ev) => {
+        setVideo({...video, video_description: ev.target.value});
+        setCount(ev.target.value.length);
     }
 
     const getVideo = () => {
@@ -58,7 +64,7 @@ const EditVideo = () => {
         formData.append('community_id', video.community.id);
         formData.append('video_title', video.video_title);
         formData.append('video_url', video.video_url)
-
+        formData.append('video_description', video.video_description);
         axiosClient.post(`/videos/${id}`, formData)
         .then(() => {
             Swal.fire({
@@ -102,11 +108,15 @@ const EditVideo = () => {
                     </div>
                     <div className="article-input">
                         <label><strong>Description:</strong></label>
-                        <textarea value={video.video_description} onChange={ev => setVideo({...video, video_description: ev.target.value})} />
+                        <div className="textarea-container">
+                            <textarea maxLength={255} value={video.video_description} onChange={ev => handleTextChange(ev)} />
+                            <span style={count >= 255 ? {color: '#F44336'} : {color: '#677186'}} className='text-counter'>{count}/255</span>
+                        </div>
+
                     </div>
                     <div  className="article-input">
                         <label><strong>Link:</strong></label>
-                        <input  value={video.video_url} onChange={ev => setVideo({...video, video_url: ev.target.value})} type="textarea" />
+                        <input  value={video.video_url} onChange={ev => setVideo({...video, video_url: ev.target.value})}  />
                     </div>
                     <div className="article-input">
                         <label><strong>Community:</strong></label>
