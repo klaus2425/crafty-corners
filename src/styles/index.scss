@@ -806,6 +806,19 @@ input::-webkit-inner-spin-button {
 
   }
 
+.video-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #FDFDFD;
+  border: 2px solid #D8DCE3;
+  border-radius: 15px;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  align-items: center;
+}
+
+
   .card{
     display: flex;
     flex-direction: column;
@@ -2102,6 +2115,26 @@ input::-webkit-inner-spin-button {
       resize: none;
     }
   }
+}
+
+.video-title {
+  width: 100%;
+  color: black;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.player-wrapper {
+  position: relative;
+  padding-top: 56.25%; /* 720 / 1280 = 0.5625 */
+  width: clamp(20rem, 48vw, 120rem);
+  margin-bottom: 1rem;
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 @media screen and (max-width: 900px) {
