@@ -9,6 +9,7 @@ const AddArticle = () => {
     const {user} = useStateContext();
     const [selected, setSelected] = useState();
     const navigate = useNavigate();
+    const [count, setCount] = useState(0);
     
     const getCommunities = () => {
         axiosClient.get('/communities').then(({ data }) => {
@@ -89,7 +90,10 @@ const AddArticle = () => {
                     </div>
                     <div className="article-input">
                         <label><strong>Description:</strong></label>
-                        <input ref={descriptionRef} type="textarea" />
+                        <div className="textarea-container">
+                            <textarea ref={descriptionRef} onChange={ev => setCount(ev.target.value.length)} />
+                            <span style={count >= 255 ? {color: '#F44336'} : {color: '#677186'}} className='text-counter'>{count}/255</span>
+                        </div>
                     </div>
                     <div  className="article-input">
                         <label><strong>Link:</strong></label>

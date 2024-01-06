@@ -9,6 +9,7 @@ const EditArticle = () => {
     const [communities, setCommunities] = useState([]);
     const [article, setArticle] = useState({});
     const [loading, setLoading] = useState(false);
+    const [count, setCount] = useState(0);
 
 
     const getCommunities = () => {
@@ -39,7 +40,10 @@ const EditArticle = () => {
         console.log(article.community.id);
 
     }
-
+    const handleTextChange = (ev) => {
+        setArticle({...article, description: ev.target.value});
+        setCount(ev.target.value.length);
+    }
 
     useEffect(() => {
         getCommunities();
@@ -103,11 +107,15 @@ const EditArticle = () => {
                     </div>
                     <div className="article-input">
                         <label><strong>Description:</strong></label>
-                        <textarea value={article.description} onChange={ev => setArticle({...article, description: ev.target.value})} type="textarea" />
+                        <div className="textarea-container">
+                            <textarea maxLength={255} value={article.description} onChange={ev => handleTextChange(ev)}  />
+                            <span style={count >= 255 ? {color: '#F44336'} : {color: '#677186'}} className='text-counter'>{count}/255</span>
+                        </div>
+
                     </div>
                     <div  className="article-input">
                         <label><strong>Link:</strong></label>
-                        <input  value={article.link} onChange={ev => setArticle({...article, link: ev.target.value})} type="textarea" />
+                        <input  value={article.link} onChange={ev => setArticle({...article, link: ev.target.value})}  />
                     </div>
                     <div className="article-input">
                         <label><strong>Community:</strong></label>

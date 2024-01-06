@@ -25,6 +25,8 @@ $dark_purple: #2C3373;
 
 }
 
+
+
 /* HTML: <div class="loader"></div> */
 .loader {
   width: 75px;
@@ -1964,6 +1966,8 @@ input::-webkit-inner-spin-button {
   }
   .left {
     width: 10%;
+    display: flex;
+    align-items: center;
   }
   .right {
     width: 90%;
@@ -1971,7 +1975,7 @@ input::-webkit-inner-spin-button {
   
 }
 
-.messages-card {
+.list-card {
     display: flex;
     flex-direction: column;
     background-color: #FDFDFD;
@@ -1981,7 +1985,7 @@ input::-webkit-inner-spin-button {
     min-height: 80vh;
     margin-bottom: 0.5rem;
     padding: 1rem;
-  .conversation-search{
+  .card-search{
     position: relative;
     display: inline-block;
     margin-bottom: 1rem;
@@ -2010,20 +2014,20 @@ input::-webkit-inner-spin-button {
     }
   }
   
-  .conversations {
+  .list-card-items {
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: center;
     gap: 0.5rem;
-    .conversation{
+    .list-card-item{
       display: flex;
       gap: 0.5rem;
       border-radius: 25px;
       padding: 0.5rem 1rem;
       width: 100%;
       cursor: pointer;
-      .conversation-image{
+      .list-card-item-image{
         flex-basis: 5rem;
         img {
           width: 5rem;
@@ -2032,7 +2036,7 @@ input::-webkit-inner-spin-button {
           border-radius: 1000px;
         }
       }
-      .conversation-text {
+      .list-card-item-text {
         flex-basis: 50rem;
         display: flex;
         flex-direction: column;
@@ -2050,13 +2054,34 @@ input::-webkit-inner-spin-button {
           text-overflow: ellipsis;
         }
       }
-      .conversation-time {
+      .list-card-item-time {
         width: 100%;
         flex-basis: 2rem;
         
+        .purple-button {
+          height: 2rem;
+          width: 2.25rem;
+          display: flex;
+          align-items: center;
+          transition: 0.3s;
+          .com-button-text{
+            color: white;
+            display: none;
+            font-weight: bold;
+          }
+        }
+        .purple-button:hover{
+          width: 4rem;
+
+          .com-button-text{
+            display: inline;
+          }
+        }
+
+        
       }
     }
-    .conversation:hover{
+    .list-card-item:hover{
       background-color: $lighter_grey;
     }
    
@@ -2078,6 +2103,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     button {
       width: fit-content;
       padding: 0.5rem;
@@ -2096,6 +2122,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     flex-direction: column;
     margin-bottom: 0.5rem;
+
     input,textarea, select {
       border-radius: 10px;
       border: 2px solid #D8DCE3;
@@ -2104,13 +2131,28 @@ input::-webkit-inner-spin-button {
       font-size: 1rem;
       font-family: Helvetica, Arial, sans-serif;
       padding: 0.75rem;
+      resize: none;
       margin-left: 1rem;
       transition: 0.5s;
     }
-    textarea {
-      overflow: auto;
-      height:6rem;
-      resize: none;
+    
+    .textarea-container{
+      position: relative;
+      width: 97%;
+      textarea {
+        overflow: auto;
+        height:6rem;
+        resize: none;
+        height: 10rem;
+        width: 100%;
+        z-index: 1;
+      }
+      span{
+        position: absolute;
+        bottom: 10px;
+        right: 5px;
+        z-index: 2;
+      }
     }
   }
 }

@@ -11,7 +11,7 @@ const AddVideo = () => {
     const {user} = useStateContext();
     const [selected, setSelected] = useState();
     const navigate = useNavigate();
-
+    const [count, setCount] = useState(0);
     const getCommunities = () => {
         axiosClient.get('/communities').then(({ data }) => {
             setCommunities(data.data);
@@ -39,6 +39,7 @@ const AddVideo = () => {
     const creatorRef = useRef();
     const descriptionRef = useRef();
     const linkRef = useRef();
+
 
     const onSubmit = (ev) => {
         ev.preventDefault();
@@ -98,7 +99,11 @@ const AddVideo = () => {
                     </div>
                     <div className="article-input">
                         <label>Description:</label>
-                        <input ref={descriptionRef} type="textarea" />
+                        <div className='textarea-container'>
+                            <textarea maxLength={255} ref={descriptionRef} type="textarea" onChange={ev => setCount(ev.target.value.length)}/>
+                            <span style={count >= 255 ? {color: '#F44336'} : {color: '#677186'}} className='text-counter'>{count}/255</span>
+                        </div>
+                        
                     </div>
                     <div className="article-input">
                         <label>Link:</label>
