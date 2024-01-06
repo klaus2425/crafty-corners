@@ -15,7 +15,7 @@ const AdminVideos = () => {
         axiosClient.get('/videos')
         .then((res) => {
             setLoading(false);
-            setVideos(res.data.data)
+            setVideos(res.data.data);
         })
     }
 
@@ -65,6 +65,7 @@ const AdminVideos = () => {
                                 <span><strong>Video Title: <br/></strong>{u.video_title}</span>
                                 <span className='desc'><strong>Description: <br/></strong> {u.video_description}</span>
                                 <span><strong>Community: <br/></strong> {u.community.name}</span>
+                                <span><strong>Uploader: <br/></strong> {`${u.user.first_name} ${u.user.last_name}`}</span>
                             </div>
                             <div className="buttons-community">
                                 <Link to={`/edit-video/${u.id}`} className="orange-button">View Video</Link>
