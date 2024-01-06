@@ -47,8 +47,7 @@ const ViewVideo = () => {
                     <span className='video-title'>{video.video_title}</span>
                     <span className="video-community-header">/{video.community?.name}</span>
                   </div>
-                  
-
+                  <span>{video.creator}</span>
               </>
             )
           }
