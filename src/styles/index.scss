@@ -1848,9 +1848,11 @@ input::-webkit-inner-spin-button {
   gap: 1rem;
   span {
     width: 33%;
+  }
+  .desc {
     white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 
