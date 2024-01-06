@@ -1743,20 +1743,22 @@ input::-webkit-inner-spin-button {
     width: 100%;
     gap: 1rem;
     flex-direction: column;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
   .weekday {
     padding-left: 1rem;
     color: #000;
     font-weight: bolder;
     font-size: clamp(1rem, 2vw, 2rem);
-
+    width: 100%;
     .schedule {
       display: flex;
       flex-direction: column;
       color: #FFF;
       border-radius: 10px;
       font-weight: normal;
-      width: clamp(10rem, 47vw - 1.25rem, 90rem);
+      width: clamp(10rem, 100%, 90rem);
       padding: 0.5rem 0.8rem;
       font-size: clamp(1rem, 1vw, 2rem);
       margin-bottom: 0.325rem;
@@ -2145,7 +2147,6 @@ input::-webkit-inner-spin-button {
   padding-top: 56.25%; /* 720 / 1280 = 0.5625 */
   width: clamp(20rem, 48vw, 120rem);
   margin-bottom: 1rem;
-
 }
 
 .react-player {
