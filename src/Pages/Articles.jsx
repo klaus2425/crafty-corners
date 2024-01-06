@@ -52,13 +52,14 @@ const UserFeed =  () => {
                         <text id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</text>
                     </div>
                 </div>
-                {loading ? <Loading /> :
                 <div className="card">
-                { articles.map( a => (
-                    <Article author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name}/>
-                ))}
+                {loading ? <Loading /> :
+                    articles.map( a => (
+                        <Article author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name}/>
+                    ))
+                }
             </div> 
-            }
+           
                 
             </div>
             <div className="recommended">
