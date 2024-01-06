@@ -38,8 +38,6 @@ const Users = () => {
           });
         }
       });
-
-
     }
 
     const getUsers = () => {
@@ -63,11 +61,8 @@ const Users = () => {
         
         {loading &&
             <Loading />
-
         }
-
         {!loading &&
-            
              users.map(u => (
                 <div key={u.id} className="community-item">
                     <div className="community-item-details" >
