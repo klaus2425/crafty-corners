@@ -1775,10 +1775,6 @@ input::-webkit-inner-spin-button {
         display: flex;
         width: 100%;
       }
-
-
-
-
     }
     .schedule:hover {
       cursor: pointer;
@@ -2138,6 +2134,33 @@ input::-webkit-inner-spin-button {
     font-size: 1.1rem;
     margin-left: 1rem;
     font-weight: bold;
+  }
+}
+
+.video-btm-text {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 0.56rem;
+  gap: 1rem;
+
+  .title-likes {
+    display: flex;
+    justify-content: space-between;
+    .creator-name {
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    .v-likes {
+      display: flex;
+      align-items: center;
+      svg {
+        cursor: pointer;
+      }
+      span {
+        font-size: 1.1rem;
+      }
+    }
   }
 }
 
