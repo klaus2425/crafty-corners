@@ -68,7 +68,7 @@ const AdminArticles = () => {
                         <div className="community-details-top">
                             <span><strong>Title: <br/> </strong>{u.title} </span>
                             <span><strong>Author:  <br/></strong>{u.author}</span>
-                            <span><strong>Description:  <br/></strong>{u.description}</span>
+                            <span className='desc'><strong>Description:  <br/></strong>{u.description}</span>
                         </div>
                         <div className="buttons-community">
                             <Link to={'/edit-article/' + u.id} className="orange-button">View Article</Link>
