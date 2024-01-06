@@ -2,15 +2,20 @@ import { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom'
 import axiosClient from '../axios-client';
 import ReactPlayer from 'react-player';
+import Loading from '../components/utils/Loading';
 
 const ViewVideo = () => {
 
   const {id} = useParams();
   const [video, setVideo] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const getVideo = () => {
+    setLoading(true)
     axiosClient.get(`/videos/${id}`)
     .then(res => {
       setVideo(res.data.data)
+      setLoading(false)
     })
   }
   
@@ -19,6 +24,7 @@ const ViewVideo = () => {
   },[])
 
   return(
+    
       <div className="authenticated-container">
         <div className="feed">
           <div className='section-header-col'>
@@ -29,9 +35,22 @@ const ViewVideo = () => {
                 <h3>Videos</h3> 
             </div>
           </div>
-          <div className="card">
-            <ReactPlayer url={video.video_url} controls />
+          <div className="video-card">
+          {loading ? <Loading /> :
+                (
+                <>
+                  <span>/{video.community?.name}</span>
+                  <div className="player-wrapper">
+                        <ReactPlayer className='react-player' width="100%"
+                        height="100%" url={video.video_url} controls />
+                  </div>
+                  <span className='video-title'>{video.video_title}</span>
+              </>
+            )
+          }
+
           </div>
+
         </div>
 
         <div className="recommended">
