@@ -9,9 +9,9 @@ const Messages = () => {
                   </svg>
                   <h3>Messages</h3>
                 </div>
-                <div className="messages-card">
-                   <div className="conversation-search">
-                      <input className="search" type="text" placeholder="Search for conversations" />
+                <div className="list-card">
+                   <div className="card-search">
+                      <input className="search" type="text" placeholder="Search for Conversations" />
                       <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
                         <circle cx="15.583" cy="15.5833" r="8.5" stroke="#677186" stroke-width="1.41667"/>
                         <path d="M15.583 11.3333C15.0249 11.3333 14.4722 11.4432 13.9566 11.6568C13.441 11.8704 12.9725 12.1835 12.5778 12.5781C12.1832 12.9728 11.8701 13.4413 11.6565 13.9569C11.4429 14.4725 11.333 15.0252 11.333 15.5833" stroke="#677186" stroke-width="1.41667" strokeLinecap="round"/>
@@ -19,31 +19,31 @@ const Messages = () => {
                       </svg>
                    </div>
 
-                    <div className="conversations">
-                      <div className="conversation">
-                        <div className="conversation-image">
+                    <div className="list-card-items">
+                      <div className="list-card-item">
+                        <div className="list-card-item-image">
                           <img src="/Jaycie.png" alt="" />
                         </div>
-                        <div className="conversation-text">
+                        <div className="list-card-item-text">
                           <text>Jaycie</text>
                           <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat aliquam quisquam, deserunt ab vitae, eius nesciunt alias quia quo a, fuga corporis praesentium debitis quas deleniti soluta assumenda temporibus et.</p>
                         </div>
-                        <div className="conversation-time">
+                        <div className="list-card-item-time">
                           <text>2h</text>
                         </div>
                       </div>
                     </div>
 
-                    <div className="conversations">
-                      <div className="conversation">
-                        <div className="conversation-image">
+                    <div className="list-card-items">
+                      <div className="list-card-item">
+                        <div className="list-card-item-image">
                           <img src="/kafka.jpg" alt="" />
                         </div>
-                        <div className="conversation-text">
+                        <div className="list-card-item-text">
                           <text>Kafka</text>
                           <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat aliquam quisquam, deserunt ab vitae, eius nesciunt alias quia quo a, fuga corporis praesentium debitis quas deleniti soluta assumenda temporibus et.</p>
                         </div>
-                        <div className="conversation-time">
+                        <div className="list-card-item-time">
                           <text>4h</text>
                         </div>
                       </div>
