@@ -39,12 +39,16 @@ const ViewVideo = () => {
           {loading ? <Loading /> :
                 (
                 <>
-                  <span>/{video.community?.name}</span>
                   <div className="player-wrapper">
                         <ReactPlayer className='react-player' width="100%"
                         height="100%" url={video.video_url} controls />
                   </div>
-                  <span className='video-title'>{video.video_title}</span>
+                  <div className='video-sub-text'>
+                    <span className='video-title'>{video.video_title}</span>
+                    <span className="video-community-header">/{video.community?.name}</span>
+                  </div>
+                  
+
               </>
             )
           }
