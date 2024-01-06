@@ -17,8 +17,10 @@ const UserFeed =  () => {
     }
 
     const getVideos = () => {
+        setLoading(true);
         axiosClient.get('/videos')
         .then(res => {
+            setLoading(false)
             setVideos(res.data.data)
         })
         .catch(err => {
