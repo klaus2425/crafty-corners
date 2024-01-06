@@ -23,7 +23,6 @@ const EditUser = () => {
         setImage(storageBaseUrl+data.profile_picture);
         })
         .catch((err) => {
-            console.log(err);
         })
     }
 
@@ -57,29 +56,32 @@ const EditUser = () => {
             formData.append('gender', user.gender);
             formData.append('phone_number', user.phone_number);
             axiosClient.post(`users/${id}`, formData)
-                .then((res) => {
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "Changes applied",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    getUser();
-                })
-                .catch(err => {
-                    const response = err.response;
-                    if (response && response.status === 422) {
-                        console.log(response);
-                    }
+            .then((res) => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Changes applied",
+                    showConfirmButton: false,
+                    timer: 1500
                 });
+                getUser();
+            })
+            .catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    Swal.fire({
+                        title: "Error",
+                        text: `${Object.values(response.data.errors)[0]}`,
+                        icon: "warning"
+                    });
+                }
+            });
         } 
         else {
             const formData = new FormData();
             formData.append("_method", "PUT");
             for (const key in user) {
                 formData.append(key, user[key]);
-                console.log(user[key]);
               }
               
             axiosClient.post(`users/${id}`, formData)
@@ -95,12 +97,28 @@ const EditUser = () => {
                 })
                 .catch(err => {
                 const response = err.response;
+                if (response && response.status === 422) {
+                    Swal.fire({
+                        title: "Error",
+                        text: `${Object.values(response.data.errors)[0]}`,
+                        icon: "warning"
+                    });
+                }
                 setLoading(false);
                 setUser(data);
                 setImage(storageBaseUrl+data.profile_picture)
             })
-            .catch(() =>{
+            .catch((err) =>{
                 setLoading(false);
+                const response = err.response;
+                if (response && response.status === 422) {
+                    Swal.fire({
+                        title: "Error",
+                        text: `${Object.values(response.data.errors)[0]}`,
+                        icon: "warning"
+                    });
+                }
+                
             });
         }
 
