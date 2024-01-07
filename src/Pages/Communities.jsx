@@ -3,7 +3,7 @@ import axiosClient from "../axios-client";
 import Swal from 'sweetalert2';
 import Loading from "../components/utils/Loading";
 import { useStateContext } from "../context/ContextProvider";
-import MembershipCheck from "../components/utils/MembershipCheck";
+import MembershipCheck from "../components/utils/Membership";
 
 
 const Communities = () => {
@@ -73,7 +73,7 @@ const Communities = () => {
                              <p>{c.description}</p>
                            </div>
                            <div className="list-card-item-time">
-                              <MembershipCheck community_id={c.id} user_id={user.id}/>
+                              <Membership community_id={c.id} user_id={user.id}/>
                              
                            </div>
                          </div> 
