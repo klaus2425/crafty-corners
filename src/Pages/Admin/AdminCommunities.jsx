@@ -5,16 +5,17 @@ import { useEffect, useState } from 'react'
 import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2'
 import Loading from "../../components/utils/Loading";
+import GetCommunityMembers from "../../components/utils/GetCommunityMembers";
 
 
 const AdminCommunities = () => {
     const storageBaseUrl = import.meta.env.VITE_API_COMMUNITIES_URL;
     const [loading, setLoading] = useState(false);
     const [communities, setCommunities] = useState([]);
-
     useEffect(() => {
         getCommunities();
     }, [])
+
 
     const onDeleteClick = community => {
         console.log(community);
@@ -72,7 +73,7 @@ const AdminCommunities = () => {
                             <div className="community-details-top">
                                 <span><strong>Community Name: <br/> </strong>{u.name}</span>
                                 <span><strong>Description: <br/></strong>{u.description}</span>
-                                <span><strong>Members: <br/></strong></span>
+                                <span><strong>Members: <br/></strong>{<GetCommunityMembers id={u.id} />}</span>
                             </div>
                             <div className="buttons-community">
                                 <Link to={'/edit-community/' + u.id} className="orange-button">View Community</Link>
