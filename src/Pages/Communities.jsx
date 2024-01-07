@@ -3,6 +3,7 @@ import axiosClient from "../axios-client";
 import Swal from 'sweetalert2';
 import Loading from "../components/utils/Loading";
 import { useStateContext } from "../context/ContextProvider";
+import MembershipCheck from "../components/utils/MembershipCheck";
 
 
 const Communities = () => {
@@ -12,6 +13,7 @@ const Communities = () => {
     const [loading, setLoading] = useState(false);
     const {user} = useStateContext();
     
+
     const joinCommunity = (id) => {
       const formData = new FormData();
       formData.append('community_id', id);
@@ -87,13 +89,8 @@ const Communities = () => {
                              <p>{c.description}</p>
                            </div>
                            <div className="list-card-item-time">
-                             <button className="purple-button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M12 6L12 18" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M18 12L6 12" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                                <span onClick={() => joinCommunity(c.id)} className="com-button-text">Join</span>
-                             </button>
+                              <MembershipCheck community_id={c.id} user_id={user.id}/>
+                             
                            </div>
                          </div> 
                         ))}
