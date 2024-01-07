@@ -138,6 +138,19 @@ input::-webkit-inner-spin-button {
   font-weight: normal;
 }
 
+.white-button {
+  border: none;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  color: $purple;
+  font-family: Helvetica, Arial, sans-serif;
+  padding: 0.5rem;
+  height: fit-content;
+  font-size: 0.86rem;
+  cursor: pointer;
+  font-weight: normal;
+}
+
 .green-button {
   border: none;
   border-radius: 10px;
@@ -2078,6 +2091,11 @@ input::-webkit-inner-spin-button {
           .com-button-text{
             display: inline;
           }
+        }
+
+        .white-button {
+          border: 2px $purple solid;
+          border-radius: 1000px;
         }
 
         
