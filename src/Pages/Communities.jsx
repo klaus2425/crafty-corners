@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axiosClient from "../axios-client";
 import Swal from 'sweetalert2';
 import Loading from "../components/utils/Loading";
+import { useStateContext } from "../context/ContextProvider";
 
 
 const Communities = () => {
@@ -9,8 +10,25 @@ const Communities = () => {
     const [communities, setCommunities] = useState([]);
     const storageBaseUrl= import.meta.env.VITE_API_COMMUNITIES_URL;
     const [loading, setLoading] = useState(false);
-
-
+    const {user} = useStateContext();
+    
+    const joinCommunity = (id) => {
+      const formData = new FormData();
+      formData.append('community_id', id);
+      formData.append('user_id', user.id);
+      
+      axiosClient.post('/join-community', formData)
+      .then(({data}) => {
+      })
+      .catch(err => {
+        const response  = err.response;
+        Swal.fire({
+          title: "Error",
+          text: `${Object.values(response.data)[0]}`,
+          icon: "warning"
+        });
+      })
+    }
 
     const getCommunities = () => {
         setLoading(true);
@@ -74,7 +92,7 @@ const Communities = () => {
                                     <path d="M12 6L12 18" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
                                     <path d="M18 12L6 12" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
                                 </svg>
-                                <span className="com-button-text">Join</span>
+                                <span onClick={() => joinCommunity(c.id)} className="com-button-text">Join</span>
                              </button>
                            </div>
                          </div> 
