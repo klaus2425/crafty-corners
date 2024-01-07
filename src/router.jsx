@@ -29,6 +29,7 @@ import EditArticle from "./Pages/Admin/EditArticle";
 import Messages from "./Pages/Messages";
 import EditVideo from "./Pages/Admin/EditVideo";
 import ViewVideo from "./Pages/ViewVideo";
+import ViewCommunity from "./Pages/ViewCommunity";
 
 const router = createBrowserRouter([
     {   
@@ -87,6 +88,10 @@ const router = createBrowserRouter([
             {
                 path: '/v/:id',
                 element: <ViewVideo />
+            },
+            {
+                path: '/c/:id',
+                element: <ViewCommunity />
             }
             
 
