@@ -44,11 +44,11 @@ const MembershipCheck = (props) => {
 
     Swal.fire({
       title: "Leave this community?",
-      text: "You won't be able to revert this!",
+      text: "You are still welcome to come back!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes"
     }).then((result) => {
       if (result.isConfirmed) {
