@@ -2078,6 +2078,7 @@ input::-webkit-inner-spin-button {
           width: 2.25rem;
           display: flex;
           align-items: center;
+          border-radius: 1000px;
           transition: 0.3s;
           .com-button-text{
             color: white;
@@ -2094,8 +2095,10 @@ input::-webkit-inner-spin-button {
         }
 
         .white-button {
-          border: 2px $purple solid;
+          border: 1px $purple solid;
           border-radius: 1000px;
+          width: 4rem;
+          transition: 0.3s;
         }
 
         
