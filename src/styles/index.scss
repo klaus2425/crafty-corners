@@ -1,4 +1,4 @@
-$font_grey: #677186;
+$font_grey: #393a3d;
 $purple: #6528F7;
 $light_grey: #D8DCE3;
 $lighter_grey:#EEF1F5;
@@ -16,7 +16,7 @@ $dark_purple: #2C3373;
   line-height: 1.5;
   font-weight: 400;
   color: #677186;
-  background: #f7f7f7;
+  background: #f0f2f5;
   box-sizing: border-box;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -226,8 +226,7 @@ input::-webkit-inner-spin-button {
 
 
 .navbar {
-  height: 4.5rem;
-  border-bottom: 3px solid #F0F2F5;
+  height: 100%;
   background: #FDFDFD;
   display: flex;
   align-items: center;
@@ -709,7 +708,6 @@ input::-webkit-inner-spin-button {
     position: fixed;
     left: 0;
     margin-top: 1.9rem;
-    margin-left: 2rem;
     display: flex;
     flex-direction: column;
     min-width: 20%;
@@ -731,7 +729,7 @@ input::-webkit-inner-spin-button {
   a {
     text-decoration: none;
     color: $font-grey;
-    font-weight: 700;
+    font-weight: 530;
     font-size: 1.41194rem;
     margin: 0.4rem;
   }
@@ -824,9 +822,9 @@ input::-webkit-inner-spin-button {
   .card{
     display: flex;
     flex-direction: column;
-    background-color: #FDFDFD;
-    border: 2px solid #D8DCE3;
+    background-color: #FFFFFF;
     border-radius: 15px;
+    box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
     width: 100%;
     margin-bottom: 0.5rem;
     padding: 1rem;
@@ -1120,8 +1118,8 @@ input::-webkit-inner-spin-button {
 .post{
   display: flex;
   flex-direction: column;
-  background-color: #FDFDFD;
-  border: 2px solid #D8DCE3;
+  background-color: #FFFFFF;
+  box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
   border-radius: 15px;
   width: 80%;
   padding: 1rem;
@@ -1145,7 +1143,7 @@ input::-webkit-inner-spin-button {
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
-
+        color: $font_grey;
         #post-time {
           margin-top: -0.5rem;
           font-size: 0.9rem;
@@ -1999,7 +1997,7 @@ input::-webkit-inner-spin-button {
       border-radius: 25px;
       font-size: 1.2rem;
       padding: 0.5rem;
-      font-weight: lighter;
+      font-weight: 300;
       color: $font_grey;
       width: 100%;
       padding: 0.7rem 1rem;
