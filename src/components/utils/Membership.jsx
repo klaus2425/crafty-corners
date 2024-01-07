@@ -41,18 +41,33 @@ const MembershipCheck = (props) => {
     formData.append('community_id', id);
     formData.append('user_id', props.user_id);
     
-    axiosClient.post('/leave-community', formData)
-    .then(() => {
-      getCommunity();
-    })
-    .catch(err => {
-      const response  = err.response;
-      Swal.fire({
-        title: "Error",
-        text: `${Object.values(response.data)[0]}`,
-        icon: "warning"
-      });
-    })
+
+    Swal.fire({
+      title: "Leave this community?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosClient.post('/leave-community', formData)
+        .then(() => {
+          getCommunity();
+        })
+        .catch(err => {
+          const response  = err.response;
+          Swal.fire({
+            title: "Error",
+            text: `${Object.values(response.data)[0]}`,
+            icon: "warning"
+          });
+        })
+      }
+    });
+    
+
   }
 
   useEffect(() => {
