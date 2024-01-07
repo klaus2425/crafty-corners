@@ -1884,8 +1884,8 @@ input::-webkit-inner-spin-button {
 
 .rounded-card {
   background-color: #fff;
-  border-radius: 30px;
-  border: 2px solid $light_grey;
+  box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
+  border-radius: 1000px;
   width: 100%;
   padding: 0.64rem 1.425rem;
   display: flex;
@@ -1980,8 +1980,8 @@ input::-webkit-inner-spin-button {
 .list-card {
     display: flex;
     flex-direction: column;
-    background-color: #FDFDFD;
-    border: 2px solid #D8DCE3;
+    background-color: #FFFFFF;
+    box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
     border-radius: 15px;
     width: 95%;
     min-height: 80vh;
