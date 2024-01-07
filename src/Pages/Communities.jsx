@@ -7,15 +7,14 @@ import Membership from "../components/utils/Membership";
 
 
 const Communities = () => {
-
     const [communities, setCommunities] = useState([]);
     const storageBaseUrl= import.meta.env.VITE_API_COMMUNITIES_URL;
     const [loading, setLoading] = useState(false);
     const {user} = useStateContext();
     
-
-
-
+    const openCommunity = () => {
+      console.log('opened');
+    }    
     const getCommunities = () => {
         setLoading(true);
         axiosClient.get('/communities')
@@ -62,21 +61,23 @@ const Communities = () => {
                         </svg>
                      </div>
                     {loading ? <Loading /> :
-                      <div className="list-card-items">
+                      <div  className="list-card-items">
                         { communities.map(c => (
                            <div className="list-card-item">
-                           <div className="list-card-item-image">
-                             <img src={storageBaseUrl+c.community_photo} alt="" />
-                           </div>
-                           <div className="list-card-item-text">
-                             <text>{c.name}</text>
-                             <p>{c.description}</p>
-                           </div>
+                            <div onClick={openCommunity} className="list-card-left">
+                              <div className="list-card-item-image">
+                                <img src={storageBaseUrl+c.community_photo} alt="" />
+                            </div>
+                            <div className="list-card-item-text">
+                              <text>{c.name}</text>
+                              <p>{c.description}</p>
+                            </div>
+                            </div>
+                      
                            <div className="list-card-item-time">
                               <Membership community_id={c.id} user_id={user.id}/>
-                             
                            </div>
-                         </div> 
+                         </div>
                         ))}
                       </div>
                       }
