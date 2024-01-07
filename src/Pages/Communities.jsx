@@ -3,7 +3,7 @@ import axiosClient from "../axios-client";
 import Swal from 'sweetalert2';
 import Loading from "../components/utils/Loading";
 import { useStateContext } from "../context/ContextProvider";
-import MembershipCheck from "../components/utils/Membership";
+import Membership from "../components/utils/Membership";
 
 
 const Communities = () => {
