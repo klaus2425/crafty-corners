@@ -10,18 +10,25 @@ const EditUser = () => {
     const[user, setUser] = useState({});
     const [imageChange, setImageChange] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState();
     if (!image) {setImage('/avatar.jpg')}
 
     const getUser = () => {
         setLoading(true);
         axiosClient.get(`/users/${id}`)
         .then(({ data }) => {
-            setUser(data);
+            setUser(data.data);
             setLoading(false);
-            setImage(storageBaseUrl+data.profile_picture);
+            setImage(storageBaseUrl+data.data.profile_picture);
         })
         .catch((err) => {
+            setLoading(false);
+            const response  = err.response;
+            Swal.fire({
+            title: "Error",
+            text: `${Object.values(response.data)[0]}`,
+            icon: "warning"
+        });
         })
     }
 
@@ -130,7 +137,7 @@ const EditUser = () => {
         <div className="edit-user-container">
             
             {loading && (
-                        <Loading />
+                <Loading />
             )}
             {!loading && 
             <div>
