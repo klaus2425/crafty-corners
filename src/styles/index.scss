@@ -676,7 +676,7 @@ input::-webkit-inner-spin-button {
     .card {
       display: flex;
       justify-content: center;
-      width: clamp(5rem, 10vw + 5rem, 14rem);
+      width: clamp(5rem, 10vw + 7rem, 16rem);
       h3 {
         font-size: clamp(0.8rem, 1vw, 3rem);
       }
@@ -1059,24 +1059,7 @@ input::-webkit-inner-spin-button {
     }
     
 
-    .notification {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      img {
-        border-radius: 10000px;
-        object-fit: cover;
-        max-width: 3.125rem;
-        min-width: 3.123rem;
-        max-height: 3.125rem;
-        min-height: 3.125rem;
-      }
 
-      #bold {
-        font-weight: bold;
-        color: black;
-      }
-    }
   }
 
   .user-posts {
@@ -1090,8 +1073,41 @@ input::-webkit-inner-spin-button {
     }
 
   }
+  .notification-card {
+    display: flex;
+      flex-direction: column;
+      background-color: #FFFFFF;
+      border-radius: 15px;
+      box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
+      width: 100%;
+      margin-bottom: 0.5rem;
+      padding: 1rem;
+  .notification {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    img {
+      border-radius: 10000px;
+      object-fit: cover;
+      max-width: 3.125rem;
+      min-width: 3.123rem;
+      max-height: 3.125rem;
+      min-height: 3.125rem;
+    }
+  
+    #bold {
+      font-weight: bold;
+      color: black;
+    }
+  }
+  }
+  
 
 }
+
+
+
+
 
 .dropdown-menu{
   border: 2px solid $light_grey;
@@ -2035,6 +2051,11 @@ input::-webkit-inner-spin-button {
     width: 100%;
     align-items: center;
     gap: 0.5rem;
+    .list-card-left{
+      display: flex;
+      width: 100%;
+      gap: 1.25rem;
+    }
     .list-card-item{
       display: flex;
       gap: 0.5rem;
@@ -2072,7 +2093,7 @@ input::-webkit-inner-spin-button {
       .list-card-item-time {
         width: 100%;
         flex-basis: 2rem;
-        
+        z-index: 1;
         .purple-button {
           height: 2rem;
           width: 2.25rem;
@@ -2099,6 +2120,7 @@ input::-webkit-inner-spin-button {
           border-radius: 1000px;
           width: 4rem;
           transition: 0.3s;
+          z-index: 2;
         }
 
         
