@@ -1,6 +1,6 @@
 const UserNotifications = (props) => {
     return (
-        <div className="card">
+        <div className="notification-card">
             {
                 props.notificationType=== 'like' && 
                 <div className="notification">
