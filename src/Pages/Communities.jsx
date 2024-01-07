@@ -14,23 +14,7 @@ const Communities = () => {
     const {user} = useStateContext();
     
 
-    const joinCommunity = (id) => {
-      const formData = new FormData();
-      formData.append('community_id', id);
-      formData.append('user_id', user.id);
-      
-      axiosClient.post('/join-community', formData)
-      .then(({data}) => {
-      })
-      .catch(err => {
-        const response  = err.response;
-        Swal.fire({
-          title: "Error",
-          text: `${Object.values(response.data)[0]}`,
-          icon: "warning"
-        });
-      })
-    }
+
 
     const getCommunities = () => {
         setLoading(true);
