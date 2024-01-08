@@ -420,7 +420,7 @@ input::-webkit-inner-spin-button {
   position: fixed;
   width: 100%;
   height: 4.5rem;
-  border-bottom: 3px solid #F0F2F5;
+  box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
   background: #FDFDFD;
   display: flex;
   align-items: center;
@@ -1909,7 +1909,31 @@ input::-webkit-inner-spin-button {
   justify-content: center;
 }
 
-
+.conversation-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  .conversation-name {
+    display: flex;
+    align-items: center;
+    svg {
+      margin-left: 1rem;
+      
+    }
+    span {
+      width: 90%;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #000;
+    }
+  }
+}
 
 .rounded-card {
   background-color: #fff;
