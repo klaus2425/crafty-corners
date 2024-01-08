@@ -1,5 +1,11 @@
+import { useNavigate } from "react-router-dom"
 
 const Messages = () => {
+  const navigate = useNavigate();
+  const viewConversation = (id) => {
+    navigate(`/conversation/${id}`);
+  }
+
   return (
     <div className="authenticated-container">
             <div className="feed">
@@ -19,7 +25,7 @@ const Messages = () => {
                       </svg>
                    </div>
 
-                    <div className="list-card-items">
+                    <div onClick={ () => viewConversation(1)} className="list-card-items">
                       <div className="list-card-item">
                         <div className="list-card-item-image">
                           <img src="/Jaycie.png" alt="" />
