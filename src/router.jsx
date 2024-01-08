@@ -30,6 +30,7 @@ import Messages from "./Pages/Messages";
 import EditVideo from "./Pages/Admin/EditVideo";
 import ViewVideo from "./Pages/ViewVideo";
 import ViewCommunity from "./Pages/ViewCommunity";
+import ViewConversation from "./Pages/ViewConversation";
 
 const router = createBrowserRouter([
     {   
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
             {
                 path: '/c/:id',
                 element: <ViewCommunity />
+            },
+            {
+                path: 'conversation/:id',
+                element: <ViewConversation />
             }
             
 
