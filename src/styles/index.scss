@@ -1281,6 +1281,7 @@ input::-webkit-inner-spin-button {
       display: flex;
       justify-content: center;
       width: 100%;
+      min-height: 60vh;
       .users-table{
         display: flex;
         justify-content: center;
