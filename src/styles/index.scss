@@ -2012,12 +2012,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     gap: 0.5rem;
     padding: 0 0.852rem;
-     input {
-      border: 1px $light_grey solid;
-      border-radius: 1000px; 
-      width: 100%;
-      padding: 0.65rem 0.87rem;
-     }
+
      svg {
       width: 2.5rem;
       height: 2.5rem; 
@@ -2031,6 +2026,22 @@ input::-webkit-inner-spin-button {
      }
      #send-icon {
       fill: $dark_grey;
+     }
+     .text-icon-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      position: relative;
+      svg {
+        position: absolute;
+        right: 0.1rem;
+      }
+      input {
+        border: 1px $light_grey solid;
+        border-radius: 1000px; 
+        width: 100%;
+        padding: 0.75rem 0.87rem;
+       }
      }
 
    }
