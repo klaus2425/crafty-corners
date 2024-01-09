@@ -29,6 +29,7 @@ const EditProfile =  () => {
         .then(({data}) => {
             setLoading(false);
             setCurrentUser(data);
+            setUser(data);
             setImage(storageBaseUrl+data.profile_picture);
         })
         .catch(() =>{
@@ -62,7 +63,7 @@ const EditProfile =  () => {
                         showConfirmButton: false,
                         timer: 1500
                       });
-                    setUser(res.data);
+                    getUser();
                 })
                 .catch(err => {
                     const response = err.response;
