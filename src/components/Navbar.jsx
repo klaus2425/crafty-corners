@@ -1,6 +1,5 @@
 import { useStateContext } from "../context/ContextProvider";
 import LoginModal from "./LoginModal";
-import SignUpModal from "./SignUpModal";
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client";
 import DropDownItem from "./DropDownItem";
@@ -20,12 +19,15 @@ const Navbar = () => {
         openDropDown ? setOpenDropDown(false) : setOpenDropDown(true);
     }
 
-    useEffect(() => {
-        axiosClient.get('/user')
-        .then(({data}) => {
-            setUser(data)
-        })
-    }, []);
+    if (token) {
+        useEffect(() => {
+            axiosClient.get('/user')
+            .then(({data}) => {
+                setUser(data)
+            })
+        }, []);
+    }
+    
 
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     const userPicture = `${storageBaseUrl}${user.profile_picture}`;
