@@ -1,10 +1,11 @@
-$font_grey: #393a3d;
+$dark_grey: #393a3d;
 $purple: #6528F7;
 $light_grey: #D8DCE3;
 $lighter_grey:#EEF1F5;
 $orange: #e97100;
 $red: #EA4242;
 $green: #3fcc44;
+$grey: #000;
 $dark_purple: #2C3373;
 @font-face {
   font-family: Archivo;
@@ -351,7 +352,7 @@ input::-webkit-inner-spin-button {
       }
       hr {
         margin: 0.5rem 0;
-        border: 0.1rem solid $font_grey;
+        border: 0.1rem solid $dark_grey;
         border-radius: 25px;
 
       }
@@ -361,7 +362,7 @@ input::-webkit-inner-spin-button {
         margin-bottom: 0.8rem;
         width: 20rem;
         border-width: 1.5px;
-        color: $font_grey;
+        color: $dark_grey;
         padding-left: 2rem;
         border-radius: 5px;
       }
@@ -535,7 +536,7 @@ input::-webkit-inner-spin-button {
 
     a {
       text-decoration: none;
-      color: $font_grey;
+      color: $dark_grey;
     }
   }
 
@@ -741,7 +742,7 @@ input::-webkit-inner-spin-button {
 
   a {
     text-decoration: none;
-    color: $font-grey;
+    color: $dark_grey;
     font-weight: 530;
     font-size: 1.41194rem;
     margin: 0.4rem;
@@ -1172,7 +1173,7 @@ input::-webkit-inner-spin-button {
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
-        color: $font_grey;
+        color: $dark_grey;
         #post-time {
           margin-top: -0.5rem;
           font-size: 0.9rem;
@@ -1256,7 +1257,7 @@ input::-webkit-inner-spin-button {
       border-top-left-radius: 20px;
       a {
         text-decoration: none;
-        color: $font_grey;
+        color: $dark_grey;
         font-size: clamp(1.5rem, 2vw, 1.5rem);
         font-weight: bold;
         border-radius: 15px;
@@ -1285,7 +1286,7 @@ input::-webkit-inner-spin-button {
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        color: $font_grey;
+        color: $dark_grey;
         width: 100%;
 
 
@@ -1343,7 +1344,7 @@ input::-webkit-inner-spin-button {
   }
   .edit-user-container {
     padding: 2rem 2rem 0 3rem;
-    color: $font_grey;
+    color: $dark_grey;
     .edit-form{
       display: flex;
       margin-top: 2rem;
@@ -1376,7 +1377,7 @@ input::-webkit-inner-spin-button {
       .edit-labels {
         display: flex;
         flex-direction: column;
-        color: $font_grey;
+        color: $dark_grey;
         width: 40%;
         align-items: end;
         margin-top: 0.25rem;
@@ -1458,7 +1459,7 @@ input::-webkit-inner-spin-button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color:$font_grey;
+  color:$dark_grey;
   margin-top: 2rem;
   text-align: center;
   .community-form{
@@ -1517,7 +1518,7 @@ input::-webkit-inner-spin-button {
     }
     #update-picture {
       border-radius: 10000px;
-      border: 2px solid $font_grey;
+      border: 2px solid $dark_grey;
       max-width: 10.125rem;
       min-width: 10.123rem;
       max-height: 10.125rem;
@@ -1698,7 +1699,7 @@ input::-webkit-inner-spin-button {
   }
   hr {
     margin: 0.5rem 0;
-    border: 0.1rem solid $font_grey;
+    border: 0.1rem solid $dark_grey;
     border-radius: 25px;
 
   }
@@ -1765,7 +1766,7 @@ input::-webkit-inner-spin-button {
   flex-direction: column;
   align-items: center;
   h2 {
-    font: $font_grey;
+    font: $dark_grey;
   }
   .schedules {
     display: flex;
@@ -1915,24 +1916,94 @@ input::-webkit-inner-spin-button {
   background-color: #FFFFFF;
   border-radius: 15px;
   box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
-  width: 100%;
+  width: 95%;
   margin-bottom: 0.5rem;
+  min-height: 75  vh;
   padding: 1rem;
   .conversation-name {
     display: flex;
     align-items: center;
+    background-color: $lighter_grey;
+    border-radius: 1000px;
+    padding: 0.25rem;
     svg {
       margin-left: 1rem;
-      
     }
-    span {
-      width: 90%;
+    .c-name-type {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding-right: 3rem;
       text-align: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #000;
+      .c-username {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #000;
+      }
+    }
+
+
+  }
+  .conversation-container {
+    width: 100%;
+    min-height: 60vh;
+    gap: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    .conversation-item-sender{
+      display: flex;
+      width: 100%;
+      gap: 1rem;
+      .chat-timestamp {
+        display: flex;
+        color: $dark_grey;
+        align-items: flex-end;
+      }
+      .chat-img {
+        width: 4.25rem;
+        height: 4.25rem;
+        border-radius: 1000px;
+        object-fit: cover;
+      }
+      .chat {
+        border-radius: 25px;
+        background-color: $lighter_grey;
+        padding: 1rem;
+        color: #000000;
+        max-width: 70ch;
+      }
+    }
+    .conversation-item-user{
+      display: flex;
+      width: 100%;
+      gap: 1rem;
+      justify-content: flex-start;
+      flex-direction: row-reverse;
+      .chat-timestamp {
+        display: flex;
+        color: $dark_grey;
+        align-items: flex-end;
+      }
+      .chat-img {
+        width: 4.25rem;
+        height: 4.25rem;
+        border-radius: 1000px;
+        object-fit: cover;
+      }
+      .chat {
+        border-radius: 25px;
+        background-color: $lighter_grey;
+        padding: 1rem;
+        color: #000000;
+        max-width: 70ch;
+      }
     }
   }
+   .textbox {
+     width: 100%;
+   }
 }
 
 .rounded-card {
@@ -2046,12 +2117,12 @@ input::-webkit-inner-spin-button {
     margin-bottom: 1rem;
     .search {
       outline: none !important;
-      border: 1.3px solid $font-grey;
+      border: 1.3px solid $dark_grey;
       border-radius: 25px;
       font-size: 1.2rem;
       padding: 0.5rem;
       font-weight: 300;
-      color: $font_grey;
+      color: $dark_grey;
       width: 100%;
       padding: 0.7rem 1rem;
     }
