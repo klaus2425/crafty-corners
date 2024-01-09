@@ -19,7 +19,27 @@ const ViewConversation = (props) => {
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M4 8L3.64645 8.35355L3.29289 8L3.64645 7.64645L4 8ZM9 19.5C8.72386 19.5 8.5 19.2761 8.5 19C8.5 18.7239 8.72386 18.5 9 18.5L9 19.5ZM8.64645 13.3536L3.64645 8.35355L4.35355 7.64645L9.35355 12.6464L8.64645 13.3536ZM3.64645 7.64645L8.64645 2.64645L9.35355 3.35355L4.35355 8.35355L3.64645 7.64645ZM4 7.5L14.5 7.5L14.5 8.5L4 8.5L4 7.5ZM14.5 19.5L9 19.5L9 18.5L14.5 18.5L14.5 19.5ZM20.5 13.5C20.5 16.8137 17.8137 19.5 14.5 19.5L14.5 18.5C17.2614 18.5 19.5 16.2614 19.5 13.5L20.5 13.5ZM14.5 7.5C17.8137 7.5 20.5 10.1863 20.5 13.5L19.5 13.5C19.5 10.7386 17.2614 8.5 14.5 8.5L14.5 7.5Z" fill="#222222"/>
             </svg>
-            <span><strong>R. Octavo</strong></span>
+            <div className='c-name-type'>
+              <span className='c-username'>R. Octavo</span>
+              <span>Hobbyist</span>
+            </div>
+          </div>
+          <div className="conversation-container">
+            <div className="conversation-item-sender">
+              <img className='chat-img' src="/kafka.jpg" alt="" />
+              <span className="chat">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, eaque, expedita dicta accusamus fugit, ipsum eligendi minima officiis veritatis iste numquam nulla inventore alias quaerat similique animi illum quia deserunt!</span>
+              <span className='chat-timestamp'>12:00</span>
+            </div>
+            <div className="conversation-item-user">
+              <img className='chat-img' src="/kafka.jpg" alt="" />
+              <span className="chat">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, eaque, expedita dicta accusamus fugit, ipsum eligendi minima officiis veritatis iste numquam nulla inventore alias quaerat similique animi illum quia deserunt!</span>
+              <span className='chat-timestamp'>12:00</span>
+            </div>
+          </div>
+          <div>
+            <div className="textbox">
+              <input type="text" />
+            </div>
           </div>
         </div>
       </div>
