@@ -68,7 +68,7 @@ const Communities = () => {
                            <div className="list-card-item">
                             <div onClick={() => openCommunity(c.id)} className="list-card-left">
                               <div className="list-card-item-image">
-                                <img src={storageBaseUrl+c.community_photo} alt="" />
+                                <img loading="lazy" src={storageBaseUrl+c.community_photo} alt="" />
                             </div>
                             <div className="list-card-item-text">
                               <text>{c.name}</text>
