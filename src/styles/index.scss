@@ -2202,10 +2202,16 @@ input::-webkit-inner-spin-button {
       cursor: pointer;
       .list-card-item-image{
         flex-basis: 5rem;
+        height: 100%;
         img {
           width: 5rem;
           height: 5rem;
           object-fit: cover;
+          border-radius: 1000px;
+        }
+        .loading-img {
+          width: 5rem;
+          height: 5rem;
           border-radius: 1000px;
         }
       }
