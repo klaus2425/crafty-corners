@@ -496,13 +496,14 @@ input::-webkit-inner-spin-button {
       margin-right: 1rem;
       white-space: nowrap;
       min-width: 4rem;
+      transition: ease-in;
     }
 
     .navbar-img {
       border-radius: 10000px;
       height: 3.125rem;
       width: 3.125rem;
-      transition: 0.1s;
+      transition: ease-in;
     }
 
     .navbar-img:hover {
