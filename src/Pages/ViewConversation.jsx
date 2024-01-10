@@ -1,9 +1,14 @@
 import { useParams } from 'react-router-dom'
+import { useEffect, useRef } from 'react';
 
 const ViewConversation = (props) => {
 
   const id = useParams(); 
- 
+  const conversationEndRef = useRef(null);
+  
+  useEffect(() => {
+    conversationEndRef.current?.scrollIntoView();
+  }, [])
 
   return (
     <div className="authenticated-container">
@@ -45,6 +50,7 @@ const ViewConversation = (props) => {
               <span className="chat">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, eaque, expedita dicta accusamus fugit, ipsum eligendi minima officiis veritatis iste numquam nulla inventore alias quaerat similique animi illum quia deserunt!</span>
               <span className='chat-timestamp'>13:00</span>
             </div>
+            <div ref={conversationEndRef}/>
 
           </div>
           <div>
