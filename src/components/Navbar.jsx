@@ -3,10 +3,14 @@ import LoginModal from "./LoginModal";
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client";
 import DropDownItem from "./DropDownItem";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'   
 
 const Navbar = () => {
     const {isOpen, setIsOpen, setUser, setToken, user, token} = useStateContext();
     const [openDropDown, setOpenDropDown] = useState(false);
+    const [loading, setLoading] = useState(true);
+
     const onLogout = () => {
         axiosClient.post('/logout')
         .then(() => {
@@ -47,8 +51,10 @@ const Navbar = () => {
                         <path d="M12 20.6154L12 3.30768M3.34619 11.9615H20.6539" stroke="#677186" strokeWidth="5.76923" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                     </button>
-                    <h3 id="navbar-header">Hi, {user.first_name}</h3>
-                    <img className="navbar-img" src={userPicture} alt="Profile Picture" onClick={handleDropDown} />
+                    { loading && <Skeleton containerClassName="navbar-header" />}
+                    <h3 style={loading ? {display: 'none'} : {display: 'inline'}} className="navbar-header">Hi, {user.first_name}</h3>
+                    { loading && <Skeleton className="navbar-img" /> }
+                    <img style={loading ? {display: 'none'} : {display: 'inline'}} className="navbar-img" src={userPicture} alt="Profile Picture" onClick={handleDropDown} onLoad={() => setLoading(false)}/>
 
                     {openDropDown && (
                         <DropDownItem userData={user} logout={onLogout} picture = {userPicture} type={user.type}/>

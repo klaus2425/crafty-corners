@@ -492,17 +492,16 @@ input::-webkit-inner-spin-button {
     justify-content: center;
     align-items: center;
     margin-right: 2rem;
-    #navbar-header {
+    .navbar-header {
       margin-right: 1rem;
       white-space: nowrap;
+      min-width: 4rem;
     }
 
     .navbar-img {
       border-radius: 10000px;
-      max-width: 3.125rem;
-      min-width: 3.123rem;
-      max-height: 3.125rem;
-      min-height: 3.125rem;
+      height: 3.125rem;
+      width: 3.125rem;
       transition: 0.1s;
     }
 
