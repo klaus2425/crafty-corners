@@ -5,11 +5,13 @@ import Loading from "../components/utils/Loading";
 import { useStateContext } from "../context/ContextProvider";
 import Membership from "../components/utils/Membership";
 import { useNavigate } from 'react-router-dom';
+import Skeleton from "react-loading-skeleton";
 
 const Communities = () => {
     const [communities, setCommunities] = useState([]);
     const storageBaseUrl= import.meta.env.VITE_API_COMMUNITIES_URL;
     const [loading, setLoading] = useState(false);
+    const [imageLoading, setImageLoading] = useState(true);
     const {user} = useStateContext();
     const navigate = useNavigate();
 
@@ -68,7 +70,8 @@ const Communities = () => {
                            <div className="list-card-item">
                             <div onClick={() => openCommunity(c.id)} className="list-card-left">
                               <div className="list-card-item-image">
-                                <img loading="lazy" src={storageBaseUrl+c.community_photo} alt="" />
+                                { imageLoading && <Skeleton className="loading-img"/> }
+                                <img style={imageLoading ? {display: 'none'} : {display: 'inline'}} src={storageBaseUrl+c.community_photo} onLoad={() => setImageLoading(false)} />
                             </div>
                             <div className="list-card-item-text">
                               <text>{c.name}</text>
