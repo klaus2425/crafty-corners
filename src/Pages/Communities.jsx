@@ -6,6 +6,7 @@ import { useStateContext } from "../context/ContextProvider";
 import Membership from "../components/utils/Membership";
 import { useNavigate } from 'react-router-dom';
 import Skeleton from "react-loading-skeleton";
+import LoadCommunity from "../components/utils/LoadCommunity";
 
 const Communities = () => {
     const [communities, setCommunities] = useState([]);
@@ -67,22 +68,7 @@ const Communities = () => {
                     {loading ? <Loading /> :
                       <div  className="list-card-items">
                         { communities.map(c => (
-                           <div className="list-card-item">
-                            <div onClick={() => openCommunity(c.id)} className="list-card-left">
-                              <div className="list-card-item-image">
-                                { imageLoading && <Skeleton className="loading-img"/> }
-                                <img style={imageLoading ? {display: 'none'} : {display: 'inline'}} src={storageBaseUrl+c.community_photo} onLoad={() => setImageLoading(false)} />
-                            </div>
-                            <div className="list-card-item-text">
-                              <text>{c.name}</text>
-                              <p>{c.description}</p>
-                            </div>
-                            </div>
-                      
-                           <div className="list-card-item-time">
-                              <Membership community_id={c.id} user_id={user.id}/>
-                           </div>
-                         </div>
+                           <LoadCommunity c={c}/>
                         ))}
                       </div>
                       }
