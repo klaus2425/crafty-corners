@@ -49,10 +49,10 @@ const UserFeed =  () => {
                         </svg>
                         <h3>Videos</h3> 
                     </div>
-                        <div className="rounded-card">
-                            <span id="1" className={active === "1" ? "active" : undefined} onClick={handleClick}>All</span>
-                            <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
-                        </div>
+                    <div className="round-card">
+                        <span id="1" className={active === "1" ? "active" : undefined} onClick={handleClick}>All</span>
+                        <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
+                    </div>
                     </div>
                     <div className="card">
                         {loading ? <Loading /> :

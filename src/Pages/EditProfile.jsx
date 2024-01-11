@@ -82,8 +82,15 @@ const EditProfile =  () => {
         
             axiosClient.post(`users/${currentUser.id}`, formData)
                 .then((res) => {
-                    console.log(res.data); 
-                    window.location.reload();
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your profile has been updated",
+                        showConfirmButton: false,
+                        timer: 1500
+                      });
+                    getUser();
+                    setImageChange(false);
 
                 })
                 .catch(err => {
@@ -94,6 +101,7 @@ const EditProfile =  () => {
                         icon: "warning"
                       });
                     setLoading(false);
+                    setImageChange(false);
                     setImage(storageBaseUrl+data.profile_picture)
                     getUser();
                  
@@ -189,7 +197,7 @@ const EditProfile =  () => {
                                         </div>
                                     </div>
                                     <div className="field-holder">
-                                            <input id="street-address" type="text" value={currentUser.street_address} onChange={ev => setCurrentUser({...currentUser, street_address: ev.target.value})} required/>
+                                            <textarea id="street-address" type="text" value={currentUser.street_address} onChange={ev => setCurrentUser({...currentUser, street_address: ev.target.value})} required/>
                                             <label>Street Address</label>
                                     </div>
                                     <div className="field-holder">
