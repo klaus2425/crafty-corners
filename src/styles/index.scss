@@ -1,12 +1,13 @@
 $dark_grey: #393a3d;
 $purple: #6528F7;
 $light_grey: #D8DCE3;
-$lighter_grey:#EEF1F5;
+$lighter_grey: #EEF1F5;
 $orange: #e97100;
 $red: #EA4242;
 $green: #3fcc44;
 $grey: #000;
 $dark_purple: #2C3373;
+
 @font-face {
   font-family: Archivo;
   src: url('../fonts/ArchivoBlack-Regular.ttf');
@@ -39,8 +40,9 @@ $dark_purple: #2C3373;
   animation: l15 1s infinite linear;
   margin: auto;
 }
+
 .loader::before,
-.loader::after {    
+.loader::after {
   content: "";
   grid-area: 1/1;
   margin: 2px;
@@ -48,27 +50,34 @@ $dark_purple: #2C3373;
   border-radius: 50%;
   animation: l15 2s infinite;
 }
+
 .loader::after {
   margin: 8px;
   animation-duration: 3s;
 }
-@keyframes l15{ 
-  100%{transform: rotate(1turn)}
+
+@keyframes l15 {
+  100% {
+    transform: rotate(1turn)
+  }
 }
 
 #loading-container {
   width: 200px;
   height: 200px;
 }
+
 @keyframes animation {
   0% {
     stroke-dasharray: 1 98;
     stroke-dashoffset: -105;
   }
+
   50% {
     stroke-dasharray: 80 10;
     stroke-dashoffset: -160;
   }
+
   100% {
     stroke-dasharray: 1 98;
     stroke-dashoffset: -300;
@@ -86,31 +95,33 @@ $dark_purple: #2C3373;
   animation-duration: 1.2s;
   animation-timing-function: cubic-bezier;
   animation-iteration-count: infinite;
-  fill:transparent;
-  stroke:#6528F7;
+  fill: transparent;
+  stroke: #6528F7;
   stroke-width: 7px;
   strokeLinecap: round;
 }
 
-input, textarea {
+input,
+textarea {
   outline: none;
 }
 
 .grey {
   color: #1b1b1b;
 }
+
 a {
   text-decoration: none;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -204,6 +215,7 @@ input::-webkit-inner-spin-button {
   border-radius: 10px;
   transition: 0.3s;
 }
+
 #logout_button:hover {
   background-color: rgba(#6339DC, $alpha: 0.4);
   cursor: pointer;
@@ -217,9 +229,11 @@ input::-webkit-inner-spin-button {
   gap: 0.5rem;
   align-items: center;
   margin-bottom: 1rem;
+
   input[type='file'] {
     display: none;
   }
+
   label {
     background-color: #6339DC;
     color: #FFF;
@@ -229,9 +243,11 @@ input::-webkit-inner-spin-button {
     cursor: pointer;
 
   }
+
   label:active {
     background-color: #4627a1;
   }
+
   img {
     border: 3px solid transparent;
     object-fit: cover;
@@ -245,10 +261,11 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   h1 {
     color: #000;
     font-family: Archivo;
-    font-size: max(1.8vw, 1.2rem); 
+    font-size: max(1.8vw, 1.2rem);
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -259,7 +276,7 @@ input::-webkit-inner-spin-button {
     width: 4.6875rem;
     height: 4.125rem;
   }
-  
+
   input {
     width: 42rem;
     height: 2.125rem;
@@ -275,14 +292,14 @@ input::-webkit-inner-spin-button {
     padding: 1.2rem;
     margin-left: 1rem;
     transition: 0.5s;
-    
+
   }
 
   input:focus {
     border-color: $purple;
   }
 
-  input:hover{
+  input:hover {
     border-color: #6339DC;
   }
 
@@ -295,13 +312,14 @@ input::-webkit-inner-spin-button {
     height: fit-content;
     cursor: pointer;
   }
+
   button:hover {
     background-color: #6d697c;
     transition: 0.4s;
   }
-  
 
-  .title{
+
+  .title {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -318,10 +336,11 @@ input::-webkit-inner-spin-button {
     background-color: #FFF;
     z-index: 1000;
     padding: 1.46rem;
-    
+
     .close-login {
       display: flex;
       justify-content: flex-end;
+
       button {
         width: 1.5rem;
         height: 1.5em;
@@ -331,33 +350,38 @@ input::-webkit-inner-spin-button {
         border-radius: 50%;
         color: #FFF;
       }
+
       svg {
         border-radius: 50%;
         transition: 0.3s;
       }
+
       svg:hover {
         background-color: #e6e6e6;
-        
+
       }
 
     }
 
-  
 
-    .login-main{ 
+
+    .login-main {
       h2 {
         padding-left: 0.3rem;
         color: black;
         margin-bottom: 0.456rem;
       }
+
       hr {
         margin: 0.5rem 0;
         border: 0.1rem solid $dark_grey;
         border-radius: 25px;
 
       }
+
       display: flex;
       flex-direction: column;
+
       input {
         margin-bottom: 0.8rem;
         width: 20rem;
@@ -366,20 +390,24 @@ input::-webkit-inner-spin-button {
         padding-left: 2rem;
         border-radius: 5px;
       }
+
       input:focus {
         border-color: $purple;
         outline: none !important;
       }
+
       span {
         margin-left: 1rem;
       }
 
-      
+
     }
-    .login-button{
+
+    .login-button {
       display: flex;
       justify-content: center;
       margin: 0.125rem;
+
       .purple-button {
         font-size: 1.24rem;
         width: (1.24rem, 3vw, 5rem);
@@ -387,7 +415,7 @@ input::-webkit-inner-spin-button {
     }
   }
 
-  .overlay{
+  .overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -410,7 +438,7 @@ input::-webkit-inner-spin-button {
   height: 100%;
   max-height: 1080px;
   align-items: center;
-  
+
   .sidebar {
     display: flex;
     flex-direction: column;
@@ -427,7 +455,7 @@ input::-webkit-inner-spin-button {
   align-items: center;
   justify-content: space-between;
 
-  
+
 
   h1 {
     color: #000;
@@ -446,10 +474,11 @@ input::-webkit-inner-spin-button {
     margin-right: 0.5rem;
 
   }
-  
+
   .search-post {
     display: flex;
     width: 43rem;
+
     input {
       width: 100%;
       max-width: 40rem;
@@ -468,13 +497,13 @@ input::-webkit-inner-spin-button {
       transition: 0.5s;
       margin-right: 1.25rem;
     }
-  
+
     input[type]:focus {
       border-color: #6339DC;
       outline: 0;
     }
-  
-    input:hover{
+
+    input:hover {
       border-color: #6339DC;
     }
 
@@ -483,16 +512,17 @@ input::-webkit-inner-spin-button {
   @media screen and (max-width: 900px) {
     .search-post {
       display: none;
-    } 
+    }
 
   }
 
 
-  .profile{
+  .profile {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 2rem;
+
     .navbar-header {
       margin-right: 1rem;
       white-space: nowrap;
@@ -526,13 +556,13 @@ input::-webkit-inner-spin-button {
       margin-right: 1rem;
       transition: 0.5s;
     }
-  
-    .add-post:hover{
+
+    .add-post:hover {
       border-color: #6339DC;
       outline: 0;
       cursor: pointer;
 
-  
+
     }
 
     a {
@@ -542,7 +572,7 @@ input::-webkit-inner-spin-button {
   }
 
 
-  .title{
+  .title {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -558,7 +588,7 @@ input::-webkit-inner-spin-button {
   height: 100%;
   max-height: 1080px;
   align-items: center;
-  
+
   .sidebar {
     display: flex;
     flex-direction: column;
@@ -572,8 +602,8 @@ input::-webkit-inner-spin-button {
   width: 100%;
   height: 100%;
   max-height: 1080px;
-  
-  .overlay{
+
+  .overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -595,6 +625,7 @@ input::-webkit-inner-spin-button {
     z-index: 1000;
     padding: 1.46rem;
     width: clamp(20rem, 30vw + 2rem, 25rem);
+
     .close {
       display: flex;
       justify-content: flex-end;
@@ -608,23 +639,25 @@ input::-webkit-inner-spin-button {
 
       svg:hover {
         background-color: #e6e6e6;
-        
+
       }
     }
-    
+
 
     h2 {
       color: black;
     }
-    
+
     .schedule-input {
       display: flex;
       flex-direction: column;
       margin: 0.726rem;
+
       input {
         width: 100%;
         height: 1rem;
-        border-radius: 3.125rem;font-size: 2rem;
+        border-radius: 3.125rem;
+        font-size: 2rem;
         border: 2px solid #D8DCE3;
         background: #FFF;
         color: #677186;
@@ -641,13 +674,14 @@ input::-webkit-inner-spin-button {
         height: 2rem !important;
         padding: 0.25rem;
       }
+
       .sched-radio {
         width: 2rem;
       }
 
-    
 
-      .radio-input{
+
+      .radio-input {
         display: flex;
         gap: 0.4rem;
         align-items: center;
@@ -658,30 +692,35 @@ input::-webkit-inner-spin-button {
       display: flex;
       justify-content: center;
       gap: 2rem;
+
       .red-button {
         background-color: $red;
       }
+
       .red-button:focus {
         background-color: $red;
       }
     }
-  
+
 
 
   }
 
 
 
-  .recommended{
+  .recommended {
     margin-top: 4.5rem;
     width: 25%;
+
     .card {
       display: flex;
       justify-content: center;
       width: clamp(5rem, 10vw + 7rem, 16rem);
+
       h3 {
         font-size: clamp(0.8rem, 1vw, 3rem);
       }
+
       .rec-community-item {
         display: flex;
         border-top: 2px solid $light_grey;
@@ -689,13 +728,14 @@ input::-webkit-inner-spin-button {
         gap: 1rem;
         font-size: clamp(0.5rem, 1vw, 2rem);
         padding-top: 0.125rem;
-        
+
         #rank {
           font-size: 1.6rem;
           font-weight: bold;
           color: #000;
           margin-left: 1rem;
         }
+
         h4 {
           color: $purple;
         }
@@ -710,6 +750,7 @@ input::-webkit-inner-spin-button {
           display: flex;
           flex-direction: column;
           width: 80%;
+
           .top {
             display: flex;
             gap: 0.5rem;
@@ -727,6 +768,7 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     min-width: 20%;
     align-items: end;
+
     .sidebar-upper {
       display: flex;
       width: fit-content;
@@ -756,6 +798,7 @@ input::-webkit-inner-spin-button {
     margin-bottom: 1rem;
     border-radius: 10px;
     cursor: pointer;
+
     svg {
       margin-bottom: 0.3rem;
       width: 2.81838rem;
@@ -821,20 +864,20 @@ input::-webkit-inner-spin-button {
 
   }
 
-.video-card {
-  display: flex;
-  flex-direction: column;
-  background-color: #FDFDFD;
-  border: 2px solid #D8DCE3;
-  border-radius: 15px;
-  width: 100%;
-  margin-bottom: 0.5rem;
-  padding: 1rem;
-  align-items: center;
-}
+  .video-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #FDFDFD;
+    border: 2px solid #D8DCE3;
+    border-radius: 15px;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding: 1rem;
+    align-items: center;
+  }
 
 
-  .card{
+  .card {
     display: flex;
     flex-direction: column;
     background-color: #FFFFFF;
@@ -843,6 +886,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     margin-bottom: 0.5rem;
     padding: 1rem;
+
     .profile-card {
       a {
         width: 8.0625rem;
@@ -865,37 +909,42 @@ input::-webkit-inner-spin-button {
         color: #FFF;
       }
 
-      #edit-profile-button   {
+      #edit-profile-button {
         width: 100%;
         display: flex;
         justify-content: flex-end;
       }
 
-      .profile-details{
+      .profile-details {
         display: flex;
         justify-content: space-between;
         padding: 1rem 2rem;
         overflow: hidden;
+
         #profile-picture {
           width: 7rem;
           height: 7rem;
           border-radius: 50%;
           border: 5px solid black;
         }
-        .left{
+
+        .left {
           display: flex;
           flex-direction: column;
+
           .upper-details {
             display: flex;
             justify-content: center;
             align-items: center;
+
             #display-name {
               display: flex;
               flex-direction: column;
               justify-content: center;
               margin-left: 1rem;
+
               h2 {
-                color:black;
+                color: black;
               }
             }
           }
@@ -905,7 +954,8 @@ input::-webkit-inner-spin-button {
             width: 100%;
             margin-top: 1rem;
             margin-left: 1.8rem;
-            font-size: 1.2  rem;
+            font-size: 1.2 rem;
+
             #community-count {
               color: black;
               font-weight: bold;
@@ -919,31 +969,35 @@ input::-webkit-inner-spin-button {
           flex-direction: column;
           justify-content: center;
           align-items: center;
+
           img {
             width: 7rem;
             height: 7rem;
           }
+
           #display-level {
             display: flex;
             justify-content: center;
+
             h2 {
-              color:black;
+              color: black;
             }
-            
+
           }
         }
       }
 
-      
+
     }
 
-    .edit-card{
+    .edit-card {
       display: flex;
       padding: 1rem 4rem 0 4rem;
       flex-direction: column;
       flex-wrap: wrap;
       width: 100%;
       min-width: 0;
+
       .edit-header {
         display: flex;
         align-items: center;
@@ -955,6 +1009,7 @@ input::-webkit-inner-spin-button {
         width: 100%;
         gap: 1rem;
       }
+
       .input-col-container {
         display: flex;
         flex-direction: column;
@@ -971,6 +1026,7 @@ input::-webkit-inner-spin-button {
           justify-content: center;
           align-items: flex-start;
         }
+
         .change-text {
           font-weight: bold;
         }
@@ -980,25 +1036,28 @@ input::-webkit-inner-spin-button {
         display: flex;
         gap: 1.25rem;
         height: 4.256rem;
+
         .gender-radio {
           display: flex;
           gap: 1rem;
+
           input[type=radio] {
             border: 0px;
-            height:1rem;
+            height: 1rem;
             min-width: 0;
           }
         }
       }
+
       .field-holder {
         position: relative;
         margin-top: 1.25rem;
-        
+
         #input-birthday {
           max-width: 7rem;
         }
 
-        
+
 
         input {
           border-radius: 10px;
@@ -1025,20 +1084,21 @@ input::-webkit-inner-spin-button {
           align-items: center;
         }
 
-     
-        
-        input:focus ~ label,
-        input:valid ~ label
-        {
+
+
+        input:focus~label,
+        input:valid~label {
           transform: translateY(-23px);
           font-size: 0.85rem;
         }
       }
     }
+
     .button-section {
       display: flex;
       justify-content: center;
     }
+
     button {
       border: none;
       border-radius: 10px;
@@ -1051,7 +1111,7 @@ input::-webkit-inner-spin-button {
       cursor: pointer;
       font-weight: bold;
     }
-    
+
     button:hover {
       transition: 0.2s;
       background: #6339DC;
@@ -1059,14 +1119,15 @@ input::-webkit-inner-spin-button {
       cursor: pointer;
 
     }
-    
+
 
 
   }
 
   .user-posts {
     width: 100%;
-    .section-header{
+
+    .section-header {
       img {
         width: 1.5rem;
         height: 1.5rem;
@@ -1075,35 +1136,38 @@ input::-webkit-inner-spin-button {
     }
 
   }
+
   .notification-card {
     display: flex;
-      flex-direction: column;
-      background-color: #FFFFFF;
-      border-radius: 15px;
-      box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
-      width: 100%;
-      margin-bottom: 0.5rem;
-      padding: 1rem;
-  .notification {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    img {
-      border-radius: 10000px;
-      object-fit: cover;
-      max-width: 3.125rem;
-      min-width: 3.123rem;
-      max-height: 3.125rem;
-      min-height: 3.125rem;
-    }
-  
-    #bold {
-      font-weight: bold;
-      color: black;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding: 1rem;
+
+    .notification {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      img {
+        border-radius: 10000px;
+        object-fit: cover;
+        max-width: 3.125rem;
+        min-width: 3.123rem;
+        max-height: 3.125rem;
+        min-height: 3.125rem;
+      }
+
+      #bold {
+        font-weight: bold;
+        color: black;
+      }
     }
   }
-  }
-  
+
 
 }
 
@@ -1111,7 +1175,7 @@ input::-webkit-inner-spin-button {
 
 
 
-.dropdown-menu{
+.dropdown-menu {
   border: 2px solid $light_grey;
   position: absolute;
   display: flex;
@@ -1124,6 +1188,7 @@ input::-webkit-inner-spin-button {
   padding: 10px;
   width: 15rem;
   gap: 0.5rem;
+
   h3 {
     border-bottom: 2px solid gray;
     margin-bottom: -0.5rem;
@@ -1135,9 +1200,11 @@ input::-webkit-inner-spin-button {
     border-radius: 10000px;
     margin: 0;
   }
+
   a {
     margin-left: 0.5rem;
   }
+
   a:hover {
     transition: 0.2s;
     color: $purple;
@@ -1146,7 +1213,7 @@ input::-webkit-inner-spin-button {
 }
 
 
-.post{
+.post {
   display: flex;
   flex-direction: column;
   background-color: #FFFFFF;
@@ -1156,12 +1223,15 @@ input::-webkit-inner-spin-button {
   padding: 1rem;
   margin-bottom: 1.5rem;
   gap: 0.5rem;
-  .post-header{
+
+  .post-header {
     display: flex;
     justify-content: space-between;
+
     .left {
       display: flex;
       gap: 0.5rem;
+
       .post-image {
         height: 3rem;
         width: 3rem;
@@ -1175,6 +1245,7 @@ input::-webkit-inner-spin-button {
         align-items: flex-start;
         justify-content: center;
         color: $dark_grey;
+
         #post-time {
           margin-top: -0.5rem;
           font-size: 0.9rem;
@@ -1188,8 +1259,10 @@ input::-webkit-inner-spin-button {
       font-size: 1.2rem;
     }
   }
-  .post-content{
+
+  .post-content {
     text-align: center;
+
     .post-image {
       object-fit: cover;
       width: 100%;
@@ -1198,24 +1271,27 @@ input::-webkit-inner-spin-button {
       max-height: 21.9375rem;
     }
   }
-  
+
   .post-footer {
     display: flex;
     padding-left: 2rem;
     justify-content: flex-start;
     width: 100%;
     gap: 0.5rem;
+
     .footer-item {
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: flex-start;
     }
+
     .heart:hover {
       transition: 0.2s;
       fill: rgb(255, 40, 40);
-      
+
     }
+
     .count {
       padding-top: 0.25rem;
     }
@@ -1223,7 +1299,7 @@ input::-webkit-inner-spin-button {
 }
 
 
-.admin-dashboard{
+.admin-dashboard {
   height: 100svh;
   padding-top: 6rem;
   padding-left: 2rem;
@@ -1231,6 +1307,7 @@ input::-webkit-inner-spin-button {
   background-image: url('../../public/cool-background\ .svg');
   flex-direction: column;
   align-items: center;
+
   .admin-header {
     color: #677186;
     font-size: 2.5rem;
@@ -1247,6 +1324,7 @@ input::-webkit-inner-spin-button {
     width: clamp(45rem, 60vw, 250rem);
     flex-direction: column;
     justify-content: center;
+
     .top {
       display: flex;
       background-color: $lighter_grey;
@@ -1256,6 +1334,7 @@ input::-webkit-inner-spin-button {
       width: 100%;
       border-top-right-radius: 20px;
       border-top-left-radius: 20px;
+
       a {
         text-decoration: none;
         color: $dark_grey;
@@ -1263,7 +1342,8 @@ input::-webkit-inner-spin-button {
         font-weight: bold;
         border-radius: 15px;
         padding: 0.45rem;
-      }      
+      }
+
       a:hover {
         background-color: $light_grey;
       }
@@ -1283,7 +1363,8 @@ input::-webkit-inner-spin-button {
       justify-content: center;
       width: 100%;
       min-height: 60vh;
-      .users-table{
+
+      .users-table {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1295,6 +1376,7 @@ input::-webkit-inner-spin-button {
         table {
           border-collapse: collapse;
         }
+
         td {
           padding: 0.5rem;
           text-align: start;
@@ -1303,16 +1385,20 @@ input::-webkit-inner-spin-button {
         tr:nth-child(odd) {
           background-color: $light_grey;
         }
-        tr{
+
+        tr {
           background-color: #EAEEF3;
         }
-        th{
+
+        th {
           background-color: orange;
           color: white;
-          padding:  0 0.4rem;
+          padding: 0 0.4rem;
           text-align: start;
         }
-        th, td {
+
+        th,
+        td {
           padding-left: 0.5rem;
         }
       }
@@ -1320,7 +1406,8 @@ input::-webkit-inner-spin-button {
 
 
   }
-  .btn-delete{
+
+  .btn-delete {
     border: 0;
     background-color: $red;
     color: white;
@@ -1330,7 +1417,7 @@ input::-webkit-inner-spin-button {
     cursor: pointer;
   }
 
-  .btn-edit{
+  .btn-edit {
     text-decoration: none;
     background-color: $green;
     color: white;
@@ -1341,31 +1428,39 @@ input::-webkit-inner-spin-button {
     justify-content: center;
     align-items: center;
   }
+
   .table-actions {
     display: flex;
   }
+
   .edit-user-container {
     padding: 2rem 2rem 0 3rem;
     color: $dark_grey;
-    .edit-form{
+
+    .edit-form {
       display: flex;
       margin-top: 2rem;
     }
+
     .edit-left {
       width: 50%;
       display: flex;
       justify-content: flex-start;
       margin-right: 5rem;
-      label, input {
+
+      label,
+      input {
         height: 2rem;
-        margin:0 0 .5rem;
+        margin: 0 0 .5rem;
       }
+
       input {
         padding-left: 1rem;
         border: 1px solid $light_grey;
         width: 15rem;
         border-radius: 2px;
       }
+
       button {
         width: fit-content;
         padding: 0.5rem;
@@ -1376,6 +1471,7 @@ input::-webkit-inner-spin-button {
         border-radius: 5px;
         cursor: pointer;
       }
+
       .edit-labels {
         display: flex;
         flex-direction: column;
@@ -1384,22 +1480,25 @@ input::-webkit-inner-spin-button {
         align-items: end;
         margin-top: 0.25rem;
       }
+
       .edit-inputs {
         display: flex;
         margin-left: 1rem;
         width: 30%;
         flex-direction: column;
+
         .gender-container {
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 0.3rem;
           margin-left: 5.5rem;
+
           input[type=radio] {
             margin: 0;
             width: 2rem;
-            height:2rem;
-        }
+            height: 2rem;
+          }
         }
       }
     }
@@ -1407,18 +1506,19 @@ input::-webkit-inner-spin-button {
     .edit-right {
       width: 50%;
       border-left: 1px solid $light_grey;
+
       .edit-text {
         font-size: 1rem;
         margin-bottom: -0.5rem;
       }
     }
 
-    
+
   }
-  
+
 }
 
-.user-count{
+.user-count {
   width: 10rem;
   background-color: #6DD871;
   border-radius: 10px;
@@ -1431,21 +1531,22 @@ input::-webkit-inner-spin-button {
   text-align: center;
 }
 
-.loading-container {
-
-}
+.loading-container {}
 
 .loading-admin {
   font-size: clamp(1rem, 5vw, 4rem);
   font-weight: bold;
   text-align: center;
-  
+
 }
+
 .communities-container {
   width: 80%;
-  .top-section{
+
+  .top-section {
     padding: 2rem 0;
     text-align: center;
+
     .add-community-button {
       text-decoration: none;
       color: white;
@@ -1457,17 +1558,19 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.add-community-container{
+.add-community-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color:$dark_grey;
+  color: $dark_grey;
   margin-top: 2rem;
   text-align: center;
-  .community-form{
+
+  .community-form {
     display: flex;
     margin-top: 2rem;
     width: 75%;
+
     .community-labels {
       display: flex;
       flex-direction: column;
@@ -1476,13 +1579,16 @@ input::-webkit-inner-spin-button {
       margin-bottom: 2rem;
       margin-right: 2rem;
     }
+
     .community-inputs {
       display: flex;
       flex-direction: column;
+
       input {
         padding-left: 1rem;
       }
     }
+
     textarea {
       width: 100%;
       border: 2px solid #D8DCE3;
@@ -1498,10 +1604,11 @@ input::-webkit-inner-spin-button {
       transition: 0.5s;
       margin-right: 1.25rem;
     }
-    
-    label{
+
+    label {
       margin-bottom: 2.1rem;
     }
+
     input {
       margin-bottom: 1.8rem;
       border: 1px solid $light_grey;
@@ -1509,7 +1616,8 @@ input::-webkit-inner-spin-button {
       height: 2rem;
       border-radius: 2px;
     }
-    textarea{
+
+    textarea {
       padding: 0.5rem;
       width: 15rem;
       font-family: Arial, Helvetica, sans-serif;
@@ -1518,6 +1626,7 @@ input::-webkit-inner-spin-button {
     .community-right {
       margin-left: 5rem;
     }
+
     #update-picture {
       border-radius: 10000px;
       border: 2px solid $dark_grey;
@@ -1533,7 +1642,7 @@ input::-webkit-inner-spin-button {
 
 .landing-bg {
   background-image: url('/landing-bg.svg');
-  
+
   input {
     width: clamp(5rem, 10vw + 3rem, 20rem);
     height: 2.125rem;
@@ -1548,7 +1657,7 @@ input::-webkit-inner-spin-button {
     line-height: normal;
     padding: 1.2rem;
     transition: 0.5s;
-    
+
   }
 
   input[type]:focus {
@@ -1556,14 +1665,15 @@ input::-webkit-inner-spin-button {
     outline: 0 none;
   }
 
-  input:hover{
+  input:hover {
     border-color: #6339DC;
   }
-  
+
   .close-login {
     width: 100%;
     display: flex;
     justify-content: flex-end;
+
     button {
       border-radius: 100%;
       padding: 0;
@@ -1572,6 +1682,7 @@ input::-webkit-inner-spin-button {
       color: #FFF;
       border: 0;
     }
+
     svg {
       border-radius: 100%;
       transition: 0.3s;
@@ -1579,16 +1690,17 @@ input::-webkit-inner-spin-button {
       height: 1.75rem;
       cursor: pointer;
     }
+
     svg:hover {
       background-color: #e6e6e6;
-      
+
     }
 
   }
-    
-  
-   
-  
+
+
+
+
   .modal {
     display: flex;
     flex-direction: column;
@@ -1602,8 +1714,8 @@ input::-webkit-inner-spin-button {
     padding: 1.46rem;
     width: 50rem;
   }
-  
-  .overlay{
+
+  .overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -1612,15 +1724,17 @@ input::-webkit-inner-spin-button {
     background: rgba($color: #000000, $alpha: 0.7);
     z-index: 1000;
   }
-  
+
   .landing-container {
-    min-height: calc(100vh - 4.5rem);;
+    min-height: calc(100vh - 4.5rem);
+    ;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     padding-top: 14.5rem;
     text-align: center;
     align-items: center;
+
     .landing-title {
       font-size: clamp(1rem, 5vw, 20rem);
       color: $dark_purple;
@@ -1628,6 +1742,7 @@ input::-webkit-inner-spin-button {
       line-height: clamp(2rem, 4vw + 1rem, 6rem);
       font-family: Archivo;
     }
+
     .landing-sub {
       color: black;
       font-size: clamp(1rem, 3vw, 2rem);
@@ -1650,6 +1765,7 @@ input::-webkit-inner-spin-button {
   display: flex;
   justify-content: center;
   gap: 1rem;
+
   .left {
     display: flex;
     flex-direction: column;
@@ -1659,31 +1775,36 @@ input::-webkit-inner-spin-button {
       display: flex;
       width: 100%;
       justify-content: center;
+
       .gender-radio {
         display: flex;
         gap: 1rem;
         justify-content: center;
         align-items: center;
+
         input[type=radio] {
           border: 0px;
-          height:1rem;
+          height: 1rem;
           min-width: 0;
           width: 2rem;
         }
       }
     }
+
     .gender-container {
       display: flex;
       flex-direction: row;
       width: clamp(4rem, 6vw, 8rem);
       justify-content: center;
       align-items: flex-start;
+
       input[type=radio] {
         border: 0px;
         margin: 0;
-    }
+      }
     }
   }
+
   .right {
     display: flex;
     flex-direction: column;
@@ -1692,21 +1813,25 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.signup-main{
+.signup-main {
   display: flex;
   height: 50rem;
+
   h2 {
     padding-left: 0.3rem;
     color: black;
   }
+
   hr {
     margin: 0.5rem 0;
     border: 0.1rem solid $dark_grey;
     border-radius: 25px;
 
   }
+
   display: flex;
   flex-direction: column;
+
   input {
     margin-bottom: 0.8rem;
     width: 20rem;
@@ -1715,15 +1840,16 @@ input::-webkit-inner-spin-button {
     border-radius: 10px;
   }
 
-  
+
 }
+
 .sign-up:hover {
   background-color: $dark_purple;
 }
 
 
 .swal2-container {
-  z-index:2000;
+  z-index: 2000;
 }
 
 .sign-up-button-container {
@@ -1735,11 +1861,12 @@ input::-webkit-inner-spin-button {
 .gender-container {
   display: flex;
   align-items: center;
+
   input[type=radio] {
     border: 0px;
     margin: 0;
-    height:1rem;
-}
+    height: 1rem;
+  }
 }
 
 .button {
@@ -1757,6 +1884,7 @@ input::-webkit-inner-spin-button {
   line-height: normal;
   margin-right: 1rem;
 }
+
 .button:hover {
   background-color: #6d697c;
   transition: 0.4s;
@@ -1767,9 +1895,11 @@ input::-webkit-inner-spin-button {
   width: 100%;
   flex-direction: column;
   align-items: center;
+
   h2 {
     font: $dark_grey;
   }
+
   .schedules {
     display: flex;
     width: 100%;
@@ -1778,12 +1908,14 @@ input::-webkit-inner-spin-button {
     padding-left: 2rem;
     padding-right: 2rem;
   }
+
   .weekday {
     padding-left: 1rem;
     color: #000;
     font-weight: bolder;
     font-size: clamp(1rem, 2vw, 2rem);
     width: 100%;
+
     .schedule {
       display: flex;
       flex-direction: column;
@@ -1794,10 +1926,12 @@ input::-webkit-inner-spin-button {
       padding: 0.5rem 0.8rem;
       font-size: clamp(1rem, 1vw, 2rem);
       margin-bottom: 0.325rem;
+
       .time {
         color: #FFF;
         font-weight: bolder;
       }
+
       .schedule-top {
         display: flex;
         justify-content: space-between;
@@ -1808,6 +1942,7 @@ input::-webkit-inner-spin-button {
         width: 100%;
       }
     }
+
     .schedule:hover {
       cursor: pointer;
     }
@@ -1818,6 +1953,7 @@ input::-webkit-inner-spin-button {
   display: flex;
   justify-content: space-between;
   width: 100%;
+
   .edit-schedule {
     text-decoration: none;
     color: white;
@@ -1838,6 +1974,7 @@ input::-webkit-inner-spin-button {
   gap: 10px;
   margin-bottom: 1.25rem;
   width: 100%;
+
   img {
     height: 4rem;
     width: 4rem;
@@ -1850,6 +1987,7 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     width: 100%;
     gap: 0.75rem;
+
     a {
       padding: 0.25rem 0.5rem;
       font-weight: normal;
@@ -1866,6 +2004,7 @@ input::-webkit-inner-spin-button {
   margin-left: 2rem;
   justify-content: flex-end;
 }
+
 .community-input-label {
   display: flex;
 
@@ -1876,11 +2015,13 @@ input::-webkit-inner-spin-button {
   justify-content: space-between;
   width: 100%;
   gap: 1rem;
+
   span {
     width: 33%;
     overflow-wrap: break-word;
     word-wrap: break-word;
   }
+
   .desc {
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -1902,7 +2043,7 @@ input::-webkit-inner-spin-button {
 }
 
 .weekday-title:hover {
-  #add-schedule{
+  #add-schedule {
     opacity: 1;
   }
 }
@@ -1920,23 +2061,27 @@ input::-webkit-inner-spin-button {
   box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
   width: 95%;
   margin-bottom: 0.5rem;
-  min-height: 75  vh;
+  min-height: 75 vh;
   padding: 1rem;
+
   .conversation-name {
     display: flex;
     align-items: center;
     background-color: $lighter_grey;
     border-radius: 1000px;
     padding: 0.25rem;
+
     svg {
       margin-left: 1rem;
     }
+
     .c-name-type {
       display: flex;
       flex-direction: column;
       width: 100%;
       padding-right: 3rem;
       text-align: center;
+
       .c-username {
         text-align: center;
         font-size: 1.2rem;
@@ -1947,6 +2092,7 @@ input::-webkit-inner-spin-button {
 
 
   }
+
   .conversation-container {
     width: 100%;
     height: 100%;
@@ -1959,21 +2105,25 @@ input::-webkit-inner-spin-button {
     margin-bottom: 0.56rem;
     display: flex;
     flex-direction: column;
-    .conversation-item-sender{
+
+    .conversation-item-sender {
       display: flex;
       width: 100%;
       gap: 1rem;
+
       .chat-timestamp {
         display: flex;
         color: $dark_grey;
         align-items: flex-end;
       }
+
       .chat-img {
         width: 4.25rem;
         height: 4.25rem;
         border-radius: 1000px;
         object-fit: cover;
       }
+
       .chat {
         border-radius: 25px;
         background-color: $lighter_grey;
@@ -1982,71 +2132,81 @@ input::-webkit-inner-spin-button {
         max-width: 70ch;
       }
     }
-    .conversation-item-user{
+
+    .conversation-item-user {
       display: flex;
       width: 100%;
       gap: 1rem;
       justify-content: flex-start;
       flex-direction: row-reverse;
+
       .chat-timestamp {
         display: flex;
         color: $dark_grey;
         align-items: flex-end;
       }
+
       .chat-img {
         width: 4.25rem;
         height: 4.25rem;
         border-radius: 1000px;
         object-fit: cover;
       }
+
       .chat {
         border-radius: 25px;
-        background-color:   $purple;
+        background-color: $purple;
         padding: 1rem;
         color: #FFF;
         max-width: 70ch;
       }
     }
   }
-   .textbox {
+
+  .textbox {
     display: flex;
     align-items: center;
     width: 100%;
     gap: 0.5rem;
     padding: 0 0.852rem;
 
-     svg {
+    svg {
       width: 2.5rem;
-      height: 2.5rem; 
+      height: 2.5rem;
       cursor: pointer;
-     }
-     svg:hover {
+    }
+
+    svg:hover {
       #send-icon {
-        fill: $purple; 
+        fill: $purple;
         transition: ease-in;
-       }
-     }
-     #send-icon {
+      }
+    }
+
+    #send-icon {
       fill: $dark_grey;
-     }
-     .text-icon-container {
+    }
+
+    .text-icon-container {
       display: flex;
       align-items: center;
       width: 100%;
       position: relative;
+
       svg {
         position: absolute;
         right: 0.1rem;
       }
+
       input {
         border: 1px $light_grey solid;
-        border-radius: 1000px; 
+        border-radius: 1000px;
         width: 100%;
         padding: 0.75rem 0.87rem;
-       }
-     }
+      }
+    }
 
-   }
+  }
 }
 
 .rounded-card {
@@ -2066,6 +2226,7 @@ input::-webkit-inner-spin-button {
     transition: 0.3s;
     cursor: pointer;
   }
+
   span:hover {
     background-color: $lighter_grey;
   }
@@ -2087,6 +2248,7 @@ input::-webkit-inner-spin-button {
   font-size: 1rem;
   font-weight: 700;
 }
+
 .article {
   display: flex;
   flex-direction: column;
@@ -2095,10 +2257,12 @@ input::-webkit-inner-spin-button {
   transition: 0.2s;
   border-radius: 5px;
   padding: 0.42rem;
+
   .top {
     display: flex;
     justify-content: space-between;
   }
+
   .bottom {
     display: flex;
     flex-direction: column;
@@ -2106,7 +2270,7 @@ input::-webkit-inner-spin-button {
     text-align: justify;
   }
 
-  
+
 }
 
 .article:hover {
@@ -2123,41 +2287,47 @@ input::-webkit-inner-spin-button {
   transition: 0.2s;
   border-radius: 5px;
   padding: 0.42rem;
+
   .top {
     display: flex;
     justify-content: space-between;
   }
+
   .bottom {
     display: flex;
     flex-direction: column;
     width: 90%;
     text-align: justify;
   }
+
   .left {
     width: 10%;
     display: flex;
     align-items: center;
   }
+
   .right {
     width: 90%;
   }
-  
+
 }
 
 .list-card {
-    display: flex;
-    flex-direction: column;
-    background-color: #FFFFFF;
-    box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
-    border-radius: 15px;
-    width: 95%;
-    min-height: 80vh;
-    margin-bottom: 0.5rem;
-    padding: 1rem;
-  .card-search{
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
+  border-radius: 15px;
+  width: 95%;
+  min-height: 80vh;
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+
+  .card-search {
     position: relative;
     display: inline-block;
     margin-bottom: 1rem;
+
     .search {
       outline: none !important;
       border: 1.3px solid $dark_grey;
@@ -2169,53 +2339,61 @@ input::-webkit-inner-spin-button {
       width: 100%;
       padding: 0.7rem 1rem;
     }
+
     .search::placeholder {
       text-align: center;
     }
+
     svg {
       position: absolute;
       right: 0;
       margin-top: auto;
       margin-bottom: auto;
-      top:0;
+      top: 0;
       bottom: 0;
       margin-right: 1rem;
     }
   }
-  
+
   .list-card-items {
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: center;
     gap: 0.5rem;
-    .list-card-left{
+
+    .list-card-left {
       display: flex;
       width: 100%;
       gap: 1.25rem;
     }
-    .list-card-item{
+
+    .list-card-item {
       display: flex;
       gap: 0.5rem;
       border-radius: 25px;
       padding: 0.5rem 1rem;
       width: 100%;
       cursor: pointer;
-      .list-card-item-image{
+
+      .list-card-item-image {
         flex-basis: 5rem;
         height: 100%;
+
         img {
           width: 5rem;
           height: 5rem;
           object-fit: cover;
           border-radius: 1000px;
         }
+
         .loading-img {
           width: 5rem;
           height: 5rem;
           border-radius: 1000px;
         }
       }
+
       .list-card-item-text {
         flex-basis: 50rem;
         display: flex;
@@ -2223,10 +2401,12 @@ input::-webkit-inner-spin-button {
         flex-shrink: 1;
         width: 75%;
         justify-content: center;
+
         text {
           font-weight: bold;
           color: black;
         }
+
         p {
           white-space: nowrap;
           overflow: hidden;
@@ -2234,10 +2414,12 @@ input::-webkit-inner-spin-button {
           text-overflow: ellipsis;
         }
       }
+
       .list-card-item-time {
         width: 100%;
         flex-basis: 2rem;
         z-index: 1;
+
         .purple-button {
           height: 2rem;
           width: 2.25rem;
@@ -2245,16 +2427,18 @@ input::-webkit-inner-spin-button {
           align-items: center;
           border-radius: 1000px;
           transition: 0.3s;
-          .com-button-text{
+
+          .com-button-text {
             color: white;
             display: none;
             font-weight: bold;
           }
         }
-        .purple-button:hover{
+
+        .purple-button:hover {
           width: 4rem;
 
-          .com-button-text{
+          .com-button-text {
             display: inline;
           }
         }
@@ -2267,16 +2451,17 @@ input::-webkit-inner-spin-button {
           z-index: 2;
         }
 
-        
+
       }
     }
-    .list-card-item:hover{
+
+    .list-card-item:hover {
       background-color: $lighter_grey;
     }
-   
+
   }
 
-  
+
 }
 
 .video:hover {
@@ -2287,7 +2472,7 @@ input::-webkit-inner-spin-button {
   padding: 1rem 3rem;
   width: 100%;
 
-  .article-form{
+  .article-form {
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -2299,6 +2484,7 @@ input::-webkit-inner-spin-button {
       margin-top: 1rem;
     }
   }
+
   form {
     display: flex;
     flex-direction: column;
@@ -2306,13 +2492,16 @@ input::-webkit-inner-spin-button {
     align-items: center;
     padding-left: 2rem;
   }
+
   .article-input {
     display: flex;
     width: 100%;
     flex-direction: column;
     margin-bottom: 0.5rem;
 
-    input,textarea, select {
+    input,
+    textarea,
+    select {
       border-radius: 10px;
       border: 2px solid #D8DCE3;
       background: #FFF;
@@ -2324,19 +2513,21 @@ input::-webkit-inner-spin-button {
       margin-left: 1rem;
       transition: 0.5s;
     }
-    
-    .textarea-container{
+
+    .textarea-container {
       position: relative;
       width: 97%;
+
       textarea {
         overflow: auto;
-        height:6rem;
+        height: 6rem;
         resize: none;
         height: 10rem;
         width: 100%;
         z-index: 1;
       }
-      span{
+
+      span {
         position: absolute;
         bottom: 10px;
         right: 5px;
@@ -2352,12 +2543,13 @@ input::-webkit-inner-spin-button {
   justify-content: space-between;
   width: 100%;
   padding: 0 0.4rem;
+
   .video-title {
     color: black;
     font-weight: bold;
     font-size: 1.25rem;
   }
-  
+
   .video-community-header {
     display: flex;
     justify-content: flex-end;
@@ -2378,16 +2570,20 @@ input::-webkit-inner-spin-button {
   .title-likes {
     display: flex;
     justify-content: space-between;
+
     .creator-name {
       font-weight: bold;
       font-size: 1rem;
     }
+
     .v-likes {
       display: flex;
       align-items: center;
+
       svg {
         cursor: pointer;
       }
+
       span {
         font-size: 1.1rem;
       }
@@ -2395,10 +2591,22 @@ input::-webkit-inner-spin-button {
   }
 }
 
+.mentor-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+}
+
 
 .player-wrapper {
   position: relative;
-  padding-top: 56.25%; /* 720 / 1280 = 0.5625 */
+  padding-top: 56.25%;
+  /* 720 / 1280 = 0.5625 */
   width: clamp(20rem, 48vw, 120rem);
   margin-bottom: 1rem;
 }
@@ -2414,25 +2622,24 @@ input::-webkit-inner-spin-button {
 @media screen and (max-width: 900px) {
   .guest-buttons {
     display: none;
-  } 
-  
-} 
+  }
+
+}
 
 @media screen and (max-width: 1200px) {
   .input-container {
     flex-direction: column;
   }
 
-  .community-form{
+  .community-form {
     flex-direction: column;
   }
 }
 
 @media screen and (max-width: 1540px) {
 
-.input-container {
-  flex-direction: column;
-}
+  .input-container {
+    flex-direction: column;
+  }
 
 }
-
