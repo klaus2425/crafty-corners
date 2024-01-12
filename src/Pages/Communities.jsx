@@ -3,18 +3,12 @@ import axiosClient from "../axios-client";
 import Swal from 'sweetalert2';
 import Loading from "../components/utils/Loading";
 import { useStateContext } from "../context/ContextProvider";
-import Membership from "../components/utils/Membership";
 import { useNavigate } from 'react-router-dom';
-import Skeleton from "react-loading-skeleton";
 import LoadCommunity from "../components/utils/LoadCommunity";
 
 const Communities = () => {
     const [communities, setCommunities] = useState([]);
-    const storageBaseUrl= import.meta.env.VITE_API_COMMUNITIES_URL;
     const [loading, setLoading] = useState(false);
-    const [imageLoading, setImageLoading] = useState(true);
-    const {user} = useStateContext();
-    const navigate = useNavigate();
 
     const getCommunities = () => {
         setLoading(true);
