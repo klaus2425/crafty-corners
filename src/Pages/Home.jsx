@@ -1,4 +1,4 @@
-import Posts from '../components/Posts'
+import Post from '../components/Post'
 import RecommendedCommunities from '../components/RecommendedCommunities'
 
 const UserFeed = () => {
@@ -12,13 +12,12 @@ const UserFeed = () => {
                     </svg>
                     <h3>Home</h3>
                 </div>
-                <Posts />
-                <Posts />
-                <Posts />
-                <Posts />
-                <Posts />
-                <Posts />
-
+                <Post />
+                <Post />
+                <Post />
+                <Post />
+                <Post />
+                <Post />
             </div>
             <div className="recommended">
 
