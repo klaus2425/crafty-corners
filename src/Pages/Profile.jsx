@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Post from '../components/Post';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { JoinedCommunity } from '../components/utils/Membership';
+import { JoinedCommunityCount } from '../components/utils/Membership';
 
 const UserFeed = () => {
 
@@ -39,10 +39,11 @@ const UserFeed = () => {
                                     <div class='display-name'>
                                         <h2>{user.first_name || <Skeleton />}</h2>
                                         {user.user_name ? `@${user.user_name}` : <Skeleton />}
+                                        { user.id ? <JoinedCommunityCount id={user.id} /> : <Skeleton className='skeleton' />}
+
                                     </div>
                                 </div>
                                 <div className='lower-details'>
-                                    <span id='community-count'><JoinedCommunity /></span><p>Communities</p>
                                 </div>
                             </div>
                             <div className='right'>
