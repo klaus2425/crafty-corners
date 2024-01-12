@@ -50,9 +50,6 @@ const EditProfile = () => {
             formData.append('email', currentUser.email);
             formData.append('password', currentUser.password);
             formData.append('birthday', currentUser.birthday);
-            formData.append('street_address', currentUser.street_address);
-            formData.append('municipality', currentUser.municipality);
-            formData.append('province', currentUser.province);
             formData.append('gender', currentUser.gender);
             axiosClient.post(`users/${currentUser.id}`, formData)
                 .then((res) => {
@@ -163,16 +160,16 @@ const EditProfile = () => {
                                             <input type="text" value={currentUser.last_name} onChange={ev => setCurrentUser({ ...currentUser, last_name: ev.target.value })} required />
                                             <label>Last Name</label>
                                         </div>
-                                        <div className="field-holder">
-                                            <input id='input-birthday' type="date" value={currentUser.birthday} onChange={ev => setCurrentUser({ ...currentUser, birthday: ev.target.value })} />
-                                            <label>Birthday</label>
-                                        </div>
+
 
                                     </div>
 
 
                                     <div className="input-col-container">
-
+                                        <div className="field-holder">
+                                            <input id='input-birthday' type="date" value={currentUser.birthday} onChange={ev => setCurrentUser({ ...currentUser, birthday: ev.target.value })} />
+                                            <label>Birthday</label>
+                                        </div>
                                         <div className="gender-field-holder">
                                             <div className="gender-label">
                                                 Gender
@@ -195,18 +192,6 @@ const EditProfile = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="field-holder">
-                                            <textarea id="street-address" type="text" value={currentUser.street_address} onChange={ev => setCurrentUser({ ...currentUser, street_address: ev.target.value })} required />
-                                            <label>Street Address</label>
-                                        </div>
-                                        <div className="field-holder">
-                                            <input type="text" value={currentUser.municipality} onChange={ev => setCurrentUser({ ...currentUser, municipality: ev.target.value })} required />
-                                            <label>Municipality</label>
-                                        </div>
-                                        <div className="field-holder">
-                                            <input type="text" value={currentUser.province} onChange={ev => setCurrentUser({ ...currentUser, province: ev.target.value })} required />
-                                            <label>Province</label>
                                         </div>
                                     </div>
                                 </div>
