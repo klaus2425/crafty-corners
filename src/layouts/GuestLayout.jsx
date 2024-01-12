@@ -6,11 +6,11 @@ import Navbar from '../components/Navbar';
 
 
 const GuestLayout = () => {
-    const {token} = useStateContext();
+    const { token } = useStateContext();
     if (token) {
         return <Navigate to='/' />
     };
-    
+
     return (
         <div>
             <Navbar />

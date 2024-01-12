@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import axiosClient from "../../axios-client";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2';
 
 
@@ -22,19 +22,19 @@ const AddCommunities = () => {
         formData.append('description', communityDescriptionRef.current.value);
         formData.append('community_photo', communityImageRef.current.files[0]);
         axiosClient.post('/communities', formData)
-        .then(() => {
-            navigate('/admin-communities');
-        })
-        .catch(err => {
-            const response = err.response;
-            if (response && response.status === 422) {
-                Swal.fire({
-                    title: "Error",
-                    text: `${Object.values(response.data.errors)[0]}`,
-                    icon: "warning"
-                });
-            }
-        });
+            .then(() => {
+                navigate('/admin-communities');
+            })
+            .catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    Swal.fire({
+                        title: "Error",
+                        text: `${Object.values(response.data.errors)[0]}`,
+                        icon: "warning"
+                    });
+                }
+            });
     }
 
     return (
@@ -48,20 +48,20 @@ const AddCommunities = () => {
                             <label htmlFor="community-name">Community Description</label>
                         </div>
                         <div className="community-inputs">
-                            <input ref={communityNameRef} type="text" name="community-name" id="community-name" required/>
-                            <textarea ref={communityDescriptionRef}  name="community-name" rows={6} cols={20} required/>
+                            <input ref={communityNameRef} type="text" name="community-name" id="community-name" required />
+                            <textarea ref={communityDescriptionRef} name="community-name" rows={6} cols={20} required />
                         </div>
                     </div>
                     <div>
-                    <div className="community-right">
-                        <div className="upload-picture">
-                            <img id='update-picture'src={image}/>
-                            <input ref={communityImageRef}id='upload-button' type="file" onChange={handleChange} />
-                            <label htmlFor='upload-button'>Upload File</label>
-                            <span className="edit-text">File size: maximum 2 MB</span>
-                            <span className="edit-text">File extension: .JPEG, .PNG, .JPG</span>
+                        <div className="community-right">
+                            <div className="upload-picture">
+                                <img id='update-picture' src={image} />
+                                <input ref={communityImageRef} id='upload-button' type="file" onChange={handleChange} />
+                                <label htmlFor='upload-button'>Upload File</label>
+                                <span className="edit-text">File size: maximum 2 MB</span>
+                                <span className="edit-text">File extension: .JPEG, .PNG, .JPG</span>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
                 <button className="button">Submit</button>
@@ -70,4 +70,4 @@ const AddCommunities = () => {
     )
 }
 
-export  default AddCommunities;
+export default AddCommunities;

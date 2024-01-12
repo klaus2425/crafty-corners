@@ -27,19 +27,19 @@ const AdminCommunities = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 axiosClient.delete(`/communities/${community.id}`)
-                .then(() => {
-                  getCommunities();
-              })
-              Swal.fire({
-                title: "Deleted!",
-                text: "Community has been deleted",
-                icon: "success"
-              });
+                    .then(() => {
+                        getCommunities();
+                    })
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Community has been deleted",
+                    icon: "success"
+                });
             }
-          });
+        });
 
     }
 
@@ -57,37 +57,37 @@ const AdminCommunities = () => {
                 <Link className="add-community-button" to={'/add-communities'}><span><FontAwesomeIcon icon={faPlus} /></span> Add a Community</Link>
             </div>
             <div className='users-table'>
-            
-            {loading &&
-                <Loading />
 
-            }
+                {loading &&
+                    <Loading />
 
-            {!loading &&
-                
-                 communities.map(u => (
-                    
-                    <div key={u.id} className="community-item">
-                        <div><img src={storageBaseUrl+u.community_photo} alt="" /></div>
-                        <div className="community-item-details" >
-                            <div className="community-details-top">
-                                <span><strong>Community Name: <br/> </strong>{u.name}</span>
-                                <span><strong>Description: <br/></strong>{u.description}</span>
-                                <span><strong>Members: <br/></strong>{<GetCommunityMembers id={u.id} />}</span>
+                }
+
+                {!loading &&
+
+                    communities.map(u => (
+
+                        <div key={u.id} className="community-item">
+                            <div><img src={storageBaseUrl + u.community_photo} alt="" /></div>
+                            <div className="community-item-details" >
+                                <div className="community-details-top">
+                                    <span><strong>Community Name: <br /> </strong>{u.name}</span>
+                                    <span><strong>Description: <br /></strong>{u.description}</span>
+                                    <span><strong>Members: <br /></strong>{<GetCommunityMembers id={u.id} />}</span>
+                                </div>
+                                <div className="buttons-community">
+                                    <Link to={'/edit-community/' + u.id} className="orange-button">View Community</Link>
+                                    <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete Community</button>
+                                </div>
+
+
                             </div>
-                            <div className="buttons-community">
-                                <Link to={'/edit-community/' + u.id} className="orange-button">View Community</Link>
-                                <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete Community</button>
-                            </div>
-                            
-
                         </div>
-                    </div>
-                ))
-                
+                    ))
 
-            }
-            
+
+                }
+
             </div>
         </div>
     )

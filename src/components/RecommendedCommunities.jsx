@@ -12,8 +12,8 @@ const RecommendedCommunities = (props) => {
                 </div>
                 <span>{props.communityMemberCount} Members</span>
             </div>
-            
-            
+
+
         </div>
     )
 }

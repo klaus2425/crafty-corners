@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import Loading from '../../components/utils/Loading';
 
 const EditArticle = () => {
-    let {id} = useParams();
+    let { id } = useParams();
     const [communities, setCommunities] = useState([]);
     const [article, setArticle] = useState({});
     const [loading, setLoading] = useState(false);
@@ -36,12 +36,12 @@ const EditArticle = () => {
 
     }
     const handleChange = (ev) => {
-        setArticle({...article, community: {id: ev.target.value}});
+        setArticle({ ...article, community: { id: ev.target.value } });
         console.log(article.community.id);
 
     }
     const handleTextChange = (ev) => {
-        setArticle({...article, description: ev.target.value});
+        setArticle({ ...article, description: ev.target.value });
         setCount(ev.target.value.length);
     }
 
@@ -50,7 +50,7 @@ const EditArticle = () => {
         getArticle();
     }, [])
 
-    
+
 
     const onSubmit = (ev) => {
         ev.preventDefault();
@@ -64,72 +64,72 @@ const EditArticle = () => {
 
 
         axiosClient.post(`/articles/${id}`, formData)
-        .then((res) => {
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Article Updated",
-                showConfirmButton: false,
-                timer: 1500
-              });
-            console.log(res.data);
-            getArticle();
-        })
-        .catch(err => {
-            const response = err.response;
-            if (response && response.status === 422) {
+            .then((res) => {
                 Swal.fire({
-                    title: "Error",
-                    text: `${Object.values(response.data.errors)[0]}`,
-                    icon: "warning"
+                    position: "top-end",
+                    icon: "success",
+                    title: "Article Updated",
+                    showConfirmButton: false,
+                    timer: 1500
                 });
-            }
-        })
+                console.log(res.data);
+                getArticle();
+            })
+            .catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    Swal.fire({
+                        title: "Error",
+                        text: `${Object.values(response.data.errors)[0]}`,
+                        icon: "warning"
+                    });
+                }
+            })
 
 
 
     }
 
-    return(
-        
+    return (
+
         <div className="add-article-container">
             <h2>Edit Article</h2>
-            {loading ? <Loading /> : 
-            <form onSubmit={onSubmit}>
-                <div className="article-form">
-                    <div className="article-input">
-                        <label><strong>Article Title:</strong></label>
-                        <input value={article.title} onChange={ev => setArticle({...article, title: ev.target.value})} type="text" />
-                    </div>
-                    <div className="article-input">
-                        <label><strong>Article Author:</strong></label>
-                        <input value={article.author} onChange={ev => setArticle({...article, author: ev.target.value})} type="text" />
-                    </div>
-                    <div className="article-input">
-                        <label><strong>Description:</strong></label>
-                        <div className="textarea-container">
-                            <textarea maxLength={255} value={article.description} onChange={ev => handleTextChange(ev)}  />
-                            <span style={count >= 255 ? {color: '#F44336'} : {color: '#677186'}} className='text-counter'>{count}/255</span>
+            {loading ? <Loading /> :
+                <form onSubmit={onSubmit}>
+                    <div className="article-form">
+                        <div className="article-input">
+                            <label><strong>Article Title:</strong></label>
+                            <input value={article.title} onChange={ev => setArticle({ ...article, title: ev.target.value })} type="text" />
                         </div>
+                        <div className="article-input">
+                            <label><strong>Article Author:</strong></label>
+                            <input value={article.author} onChange={ev => setArticle({ ...article, author: ev.target.value })} type="text" />
+                        </div>
+                        <div className="article-input">
+                            <label><strong>Description:</strong></label>
+                            <div className="textarea-container">
+                                <textarea maxLength={255} value={article.description} onChange={ev => handleTextChange(ev)} />
+                                <span style={count >= 255 ? { color: '#F44336' } : { color: '#677186' }} className='text-counter'>{count}/255</span>
+                            </div>
+
+                        </div>
+                        <div className="article-input">
+                            <label><strong>Link:</strong></label>
+                            <input value={article.link} onChange={ev => setArticle({ ...article, link: ev.target.value })} />
+                        </div>
+                        <div className="article-input">
+                            <label><strong>Community:</strong></label>
+                            <select name="communities" value={article.community?.id} onChange={handleChange}>
+                                <option >Select a community</option>
+                                {communities.map((community) => (
+                                    <option key={community.id} value={community.id}>{community.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <button className='purple-button'>Submit</button>
 
                     </div>
-                    <div  className="article-input">
-                        <label><strong>Link:</strong></label>
-                        <input  value={article.link} onChange={ev => setArticle({...article, link: ev.target.value})}  />
-                    </div>
-                    <div className="article-input">
-                        <label><strong>Community:</strong></label>
-                        <select name="communities" value={article.community?.id} onChange={handleChange}>
-                            <option >Select a community</option>      
-                            {communities.map((community) => (
-                                <option key={community.id} value={community.id}>{community.name}</option>      
-                            ))}
-                        </select>
-                    </div>
-                    <button className='purple-button'>Submit</button>
-
-                </div>
-            </form>
+                </form>
             }
         </div>
     )

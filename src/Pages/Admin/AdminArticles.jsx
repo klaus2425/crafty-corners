@@ -20,30 +20,30 @@ const AdminArticles = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 console.log(article.id);
                 axiosClient.delete(`/articles/${article.id}`)
-                .then(() => {
-                    getArticles();
-                })
-              Swal.fire({
-                title: "Deleted!",
-                text: "Article has been deleted",
-                icon: "success"
-              });
+                    .then(() => {
+                        getArticles();
+                    })
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Article has been deleted",
+                    icon: "success"
+                });
             }
-          });
-        
-          
+        });
+
+
     }
     const getArticles = () => {
         setLoading(true);
         axiosClient.get('/articles')
-        .then((res) => {
-            setLoading(false);
-            setArticles(res.data.data)
-        })
+            .then((res) => {
+                setLoading(false);
+                setArticles(res.data.data)
+            })
     }
 
     useEffect(() => {
@@ -51,40 +51,40 @@ const AdminArticles = () => {
     }, [])
     return (
         <div className="communities-container">
-        <div className="top-section">
-            <Link className="add-community-button" to={'/add-article'}><span><FontAwesomeIcon icon={faPlus} /></span> Add an Article</Link>
-        </div>
-        <div className='users-table'>
-        
-        {loading &&
-            <Loading />
-        }
+            <div className="top-section">
+                <Link className="add-community-button" to={'/add-article'}><span><FontAwesomeIcon icon={faPlus} /></span> Add an Article</Link>
+            </div>
+            <div className='users-table'>
 
-        {!loading &&
-            
-             articles.map(u => (
-                <div key={u.id} className="community-item">
-                    <div className="community-item-details" >
-                        <div className="community-details-top">
-                            <span><strong>Title: <br/> </strong>{u.title} </span>
-                            <span><strong>Author:  <br/></strong>{u.author}</span>
-                            <span className='desc'><strong>Description:  <br/></strong>{u.description}</span>
+                {loading &&
+                    <Loading />
+                }
+
+                {!loading &&
+
+                    articles.map(u => (
+                        <div key={u.id} className="community-item">
+                            <div className="community-item-details" >
+                                <div className="community-details-top">
+                                    <span><strong>Title: <br /> </strong>{u.title} </span>
+                                    <span><strong>Author:  <br /></strong>{u.author}</span>
+                                    <span className='desc'><strong>Description:  <br /></strong>{u.description}</span>
+                                </div>
+                                <div className="buttons-community">
+                                    <Link to={'/edit-article/' + u.id} className="orange-button">View Article</Link>
+                                    <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete Article</button>
+                                </div>
+
+
+                            </div>
                         </div>
-                        <div className="buttons-community">
-                            <Link to={'/edit-article/' + u.id} className="orange-button">View Article</Link>
-                            <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete Article</button>
-                        </div>
-                        
+                    ))
 
-                    </div>
-                </div>
-            ))
-            
 
-        }
-        
+                }
+
+            </div>
         </div>
-    </div>
     )
 }
 

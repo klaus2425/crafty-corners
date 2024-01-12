@@ -2,13 +2,13 @@ import Swal from 'sweetalert2';
 import { useState, useEffect, useRef } from 'react'
 import axiosClient from '../../axios-client';
 import { useStateContext } from '../../context/ContextProvider'
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const AddVideo = () => {
     const [communities, setCommunities] = useState([]);
-    const {user} = useStateContext();
+    const { user } = useStateContext();
     const [selected, setSelected] = useState();
     const navigate = useNavigate();
     const [count, setCount] = useState(0);
@@ -34,7 +34,7 @@ const AddVideo = () => {
     const handleChange = (ev) => {
         setSelected(ev.target.value);
     }
-    
+
     const titleRef = useRef();
     const creatorRef = useRef();
     const descriptionRef = useRef();
@@ -51,40 +51,40 @@ const AddVideo = () => {
         formData.append('video_url', linkRef.current.value);
         formData.append('user_id', user.id);
         axiosClient.post('/videos', formData)
-        .then(() => {
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Video Added",
-                showConfirmButton: false,
-                timer: 1500
-              });
-            navigate('/admin-videos')
-        })
-        .catch(err => {
-            const response = err.response;
-            if (response && response.status === 422) {
+            .then(() => {
                 Swal.fire({
-                    title: "Error",
-                    text: `${Object.values(response.data.errors)[0]}`,
-                    icon: "warning"
+                    position: "top-end",
+                    icon: "success",
+                    title: "Video Added",
+                    showConfirmButton: false,
+                    timer: 1500
                 });
-            }
-        })
-        .catch(err => {
-            const response = err.response;
-            if (response && response.status === 422) {
-                Swal.fire({
-                    title: "Error",
-                    text: `${Object.values(response.data.errors)[0]}`,
-                    icon: "warning"
-                });
-            }
-        })
+                navigate('/admin-videos')
+            })
+            .catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    Swal.fire({
+                        title: "Error",
+                        text: `${Object.values(response.data.errors)[0]}`,
+                        icon: "warning"
+                    });
+                }
+            })
+            .catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    Swal.fire({
+                        title: "Error",
+                        text: `${Object.values(response.data.errors)[0]}`,
+                        icon: "warning"
+                    });
+                }
+            })
     }
 
-    return(
-        
+    return (
+
         <div className="add-article-container">
             <h2>Add a Video</h2>
             <form onSubmit={onSubmit}>
@@ -100,10 +100,10 @@ const AddVideo = () => {
                     <div className="article-input">
                         <label>Description:</label>
                         <div className='textarea-container'>
-                            <textarea maxLength={255} ref={descriptionRef} type="textarea" onChange={ev => setCount(ev.target.value.length)}/>
-                            <span style={count >= 255 ? {color: '#F44336'} : {color: '#677186'}} className='text-counter'>{count}/255</span>
+                            <textarea maxLength={255} ref={descriptionRef} type="textarea" onChange={ev => setCount(ev.target.value.length)} />
+                            <span style={count >= 255 ? { color: '#F44336' } : { color: '#677186' }} className='text-counter'>{count}/255</span>
                         </div>
-                        
+
                     </div>
                     <div className="article-input">
                         <label>Link:</label>
@@ -112,9 +112,9 @@ const AddVideo = () => {
                     <div className="article-input">
                         <label>Community:</label>
                         <select onChange={handleChange} name="communities">
-                            <option >Select a community</option>      
+                            <option >Select a community</option>
                             {communities.map((community) => (
-                                <option key={community.id} value={community.id}>{community.name}</option>      
+                                <option key={community.id} value={community.id}>{community.name}</option>
                             ))}
                         </select>
                     </div>

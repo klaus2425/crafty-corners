@@ -11,12 +11,12 @@ const AdminVideos = () => {
     const [videos, setVideos] = useState([]);
 
     const getVideos = () => {
-        setLoading(true);   
+        setLoading(true);
         axiosClient.get('/videos')
-        .then((res) => {
-            setLoading(false);
-            setVideos(res.data.data);
-        })
+            .then((res) => {
+                setLoading(false);
+                setVideos(res.data.data);
+            })
     }
 
     const onDeleteClick = video => {
@@ -28,21 +28,21 @@ const AdminVideos = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 axiosClient.delete(`/videos/${video.id}`)
-                .then((res) => {
-                    console.log(video.id);
-                    getVideos();
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "Video has been deleted",
-                        icon: "success"
-                      });
-                })
-              
+                    .then((res) => {
+                        console.log(video.id);
+                        getVideos();
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Video has been deleted",
+                            icon: "success"
+                        });
+                    })
+
             }
-          });
+        });
     }
 
     useEffect(() => {
@@ -55,31 +55,31 @@ const AdminVideos = () => {
                 <Link className="add-community-button" to={'/add-video'}><span><FontAwesomeIcon icon={faPlus} /></span> Add a Video</Link>
             </div>
             <div className='users-table'>
-            
-            {loading ? <Loading /> :
-                
-                videos.map(u => (
-                    <div key={u.id} className="community-item">
-                        <div className="community-item-details" >
-                            <div className="community-details-top">
-                                <span><strong>Video Title: <br/></strong>{u.video_title}</span>
-                                <span className='desc'><strong>Description: <br/></strong> {u.video_description}</span>
-                                <span><strong>Community: <br/></strong> {u.community.name}</span>
-                                <span><strong>Uploader: <br/></strong> {`${u.user.first_name} ${u.user.last_name}`}</span>
-                            </div>
-                            <div className="buttons-community">
-                                <Link to={`/edit-video/${u.id}`} className="orange-button">View Video</Link>
-                                <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete Video</button>
-                            </div>
-                            
 
+                {loading ? <Loading /> :
+
+                    videos.map(u => (
+                        <div key={u.id} className="community-item">
+                            <div className="community-item-details" >
+                                <div className="community-details-top">
+                                    <span><strong>Video Title: <br /></strong>{u.video_title}</span>
+                                    <span className='desc'><strong>Description: <br /></strong> {u.video_description}</span>
+                                    <span><strong>Community: <br /></strong> {u.community.name}</span>
+                                    <span><strong>Uploader: <br /></strong> {`${u.user.first_name} ${u.user.last_name}`}</span>
+                                </div>
+                                <div className="buttons-community">
+                                    <Link to={`/edit-video/${u.id}`} className="orange-button">View Video</Link>
+                                    <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete Video</button>
+                                </div>
+
+
+                            </div>
                         </div>
-                    </div>
-                ))
-            }
-            
+                    ))
+                }
+
             </div>
-    </div>
+        </div>
     )
 }
 

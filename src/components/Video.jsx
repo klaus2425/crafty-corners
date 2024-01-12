@@ -1,4 +1,4 @@
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import ReactPlayer from 'react-player';
 
 
@@ -13,10 +13,10 @@ const Video = (props) => {
     }
 
     return (
-        
+
         <div onClick={() => openLink(props.link)} className="video">
             <div className="left">
-                <ReactPlayer url={props.link} controls width={100} height={50} light={true}/>
+                <ReactPlayer url={props.link} controls width={100} height={50} light={true} />
             </div>
             <div className="right">
                 <div className="top">

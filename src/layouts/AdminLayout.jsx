@@ -4,7 +4,7 @@ import { Navigate, Outlet, Link } from "react-router-dom";
 import { useState } from "react";
 
 const AdminLayout = () => {
-    const {user, token} = useStateContext();
+    const { user, token } = useStateContext();
 
     if (!token) {
         return <Navigate to='./Landing' />;
@@ -12,9 +12,9 @@ const AdminLayout = () => {
     const [active, setActive] = useState("1");
 
     const handleClick = (ev) => {
-        setActive(ev.target.id);        
+        setActive(ev.target.id);
     }
-   
+
 
     return (
         <div>
@@ -27,7 +27,7 @@ const AdminLayout = () => {
                         <Link id="2" className={active === "2" ? "active" : undefined} to="/admin-communities" onClick={handleClick}>Communities</Link>
                         <Link id="3" className={active === "3" ? "active" : undefined} to="/admin-articles" onClick={handleClick}>Articles</Link>
                         <Link id="4" className={active === "4" ? "active" : undefined} to="/admin-videos" onClick={handleClick}>Videos</Link>
-                        
+
                     </div>
                     <div className="bottom">
                         <Outlet />

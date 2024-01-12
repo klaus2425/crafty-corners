@@ -33,13 +33,13 @@ import ViewCommunity from "./Pages/ViewCommunity";
 import ViewConversation from "./Pages/ViewConversation";
 
 const router = createBrowserRouter([
-    {   
+    {
         path: '/',
         element: <DefaultLayout />,
         children: [
             {
                 path: '/',
-                element: <Navigate to='/Home'/>,
+                element: <Navigate to='/Home' />,
             },
             {
                 path: '/Home',
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
             {
                 path: '/Articles',
                 element: <Articles />
-            },            
+            },
             {
                 path: '/Videos',
                 element: <Videos />
@@ -98,7 +98,7 @@ const router = createBrowserRouter([
                 path: 'conversation/:id',
                 element: <ViewConversation />
             }
-            
+
 
         ],
     },
@@ -108,7 +108,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Navigate to='/Users'/>
+                element: <Navigate to='/Users' />
             },
             {
                 path: '/Users',
@@ -124,11 +124,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/add-communities',
-                element: <AddCommunities/>
+                element: <AddCommunities />
             },
             {
                 path: '/edit-community/:id',
-                element: <EditCommunity/>
+                element: <EditCommunity />
             },
             {
                 path: '/admin-articles',
@@ -154,7 +154,7 @@ const router = createBrowserRouter([
                 path: '/edit-video/:id',
                 element: <EditVideo />
             }
-            
+
         ]
     },
     {

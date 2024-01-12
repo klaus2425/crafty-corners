@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import { Sidebar } from "../components/Sidebar";
 
 const DefaultLayout = () => {
-    const {user, token} = useStateContext();
+    const { user, token } = useStateContext();
 
     if (!token || !user) { // Change to false later
         return <Navigate to='./Landing' />;
@@ -14,11 +14,11 @@ const DefaultLayout = () => {
     if (user.type === 'admin') {
         return <Navigate to='/Users' />
     }
-    
+
     return (
-        <div style = {{height:"100dvh"}}>
+        <div style={{ height: "100dvh" }}>
             <Navbar />
-            <div className="authenticated-container">            
+            <div className="authenticated-container">
                 <Sidebar />
                 <Outlet />
             </div>
