@@ -1165,7 +1165,6 @@ input::-webkit-inner-spin-button {
       .input-container {
         display: flex;
         width: 100%;
-        gap: 1rem;
       }
 
       .input-col-container {
@@ -1174,6 +1173,7 @@ input::-webkit-inner-spin-button {
         flex-wrap: wrap;
         min-width: 0;
         width: 50%;
+        margin-top: 1rem;
         gap: 1rem;
 
         .gender-container {
@@ -2837,6 +2837,12 @@ input::-webkit-inner-spin-button {
 @media screen and (max-width: 1200px) {
   .input-container {
     flex-direction: column;
+  }
+  .input-col-container {
+    margin-top: 0;
+  }
+  .gender-field-holder {
+    margin-bottom: 1rem;
   }
 
   .community-form {
