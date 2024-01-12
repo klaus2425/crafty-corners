@@ -9,14 +9,21 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 const ViewCommunity = () => {
   const [community, setCommunity] = useState([]);
+  const [memberCount, setMemberCount] = useState(null);
   const [image, setImage] = useState(null);
   const {user} = useStateContext();
   const {id} = useParams();
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(true);
 
-  const getCommunity = () => {
-    
+  const getMembers = () => {
+    axiosClient.get(`/communities/${id}/users`)
+    .then(({data}) => {
+      setMemberCount(data.members.length);
+    })
+  }
+
+  const getCommunity = () => {    
     axiosClient.get(`/communities/${id}`)
     .then(res => {
       setLoading(false);
@@ -27,6 +34,7 @@ const ViewCommunity = () => {
   }
 
   useEffect(() => {
+    getMembers();
     getCommunity();
   },[])
 
@@ -53,7 +61,10 @@ const ViewCommunity = () => {
                         <img style={imageLoading ? {display: 'none'} : {display: 'inline'}} onLoad={() => setImageLoading(false)} className='community-img' src={image} />
                         
                         <div className="com-name-join">
-                          <span className='community-name'>{community.name || <Skeleton containerClassName='community-name'/>}</span>
+                          <div className="community-text">
+                            <span className='community-name'>{community.name || <Skeleton containerClassName='community-name'/>}</span>
+                            <span className='community-count'> { !memberCount ? <Skeleton /> : <span><strong>{memberCount}</strong> Members</span> }</span>
+                          </div>
                           <div className='community-join'>
                           {!loading && 
                             <MembershipCheck community_id={community.id} user_id={user.id} />
@@ -61,9 +72,7 @@ const ViewCommunity = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="community-details-bottom">
-                        <span className='c-member-count'><strong>154</strong> Members</span>
-                      </div>
+
                     </div>
 
         </div>
