@@ -59,9 +59,6 @@ const EditUser = () => {
             formData.append('email', e_user.email);
             formData.append('password', e_user.password);
             formData.append('birthday', e_user.birthday);
-            formData.append('street_address', e_user.street_address);
-            formData.append('municipality', e_user.municipality);
-            formData.append('province', e_user.province);
             formData.append('gender', e_user.gender);
             formData.append('phone_number', e_user.phone_number);
             axiosClient.post(`users/${id}`, formData)
@@ -156,9 +153,6 @@ const EditUser = () => {
                                 <label>Phone Number</label>
                                 <label>Birthday</label>
                                 <label>Gender</label>
-                                <label>Street Address</label>
-                                <label>Municipality</label>
-                                <label>Province</label>
                             </div>
                             <div className="edit-inputs">
                                 <input type="text" value={e_user.user_name} onChange={ev => setE_User({ ...e_user, user_name: ev.target.value })} />
@@ -173,10 +167,6 @@ const EditUser = () => {
                                     <input type="radio" name="gender" value="Female" checked={e_user.gender === 'Female'} onChange={ev => setE_User({ ...e_user, gender: ev.target.value })} /> Female
                                     <input type="radio" name="gender" value="Other" checked={e_user.gender === 'Other'} onChange={ev => setE_User({ ...e_user, gender: ev.target.value })} /> Other
                                 </div>
-                                <input type="text" value={e_user.street_address} onChange={ev => setE_User({ ...e_user, street_address: ev.target.value })} />
-                                <input type="text" value={e_user.municipality} onChange={ev => setE_User({ ...e_user, municipality: ev.target.value })} />
-                                <input type="text" value={e_user.province} onChange={ev => setE_User({ ...e_user, province: ev.target.value })} />
-
                                 <button type="submit">Save</button>
                             </div>
                         </div>
