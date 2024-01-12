@@ -9,7 +9,6 @@ const MembershipCheck = (props) => {
   const getCommunity = () => {
     axiosClient.get(`/communities/${props.community_id}/users`)
     .then(({data}) => {
-    console.log(data);
     setCommunity(data);
     const members = data.members;
 
@@ -40,7 +39,6 @@ const MembershipCheck = (props) => {
     const formData = new FormData();
     formData.append('community_id', id);
     formData.append('user_id', props.user_id);
-    
 
     Swal.fire({
       title: "Leave this community?",
