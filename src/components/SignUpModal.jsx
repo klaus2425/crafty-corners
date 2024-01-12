@@ -20,9 +20,6 @@ export default function SignUpModal(props) {
     const passwordRef = useRef();
     const passwordConfirmationRef = useRef();
     const birthdayRef = useRef();
-    const streetAddressRef = useRef();
-    const municipalityRef = useRef();
-    const provinceRef = useRef();
     const [gender, setGender] = useState('');
     const numberRef = useRef();
     const profilePictureRef = useRef();
@@ -39,9 +36,6 @@ export default function SignUpModal(props) {
         formData.append('password', passwordRef.current.value);
         formData.append('password_confirmation', passwordConfirmationRef.current.value);
         formData.append('birthday', birthdayRef.current.value);
-        formData.append('street_address', streetAddressRef.current.value);
-        formData.append('municipality', municipalityRef.current.value);
-        formData.append('province', provinceRef.current.value);
         formData.append('profile_picture', profilePictureRef.current.files[0]);
         formData.append('phone_number', numberRef.current.value);
         formData.append('gender', gender);
@@ -132,12 +126,6 @@ export default function SignUpModal(props) {
                                     <input ref={passwordRef} type='password' ></input>
                                     <label>Confirm Password:</label>
                                     <input ref={passwordConfirmationRef} type='password' ></input>
-                                    <label>Street Address:</label>
-                                    <input ref={streetAddressRef} ></input>
-                                    <label>Municipality:</label>
-                                    <input ref={municipalityRef} required></input>
-                                    <label>Province:</label>
-                                    <input ref={provinceRef} ></input>
                                 </div>
                             </div>
 
