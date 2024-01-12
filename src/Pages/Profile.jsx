@@ -1,12 +1,18 @@
-import { useStateContext } from '../context/ContextProvider'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { useStateContext } from '../context/ContextProvider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import Post from '../components/Post';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { JoinedCommunity } from '../components/utils/Membership';
 
 const UserFeed = () => {
 
     const { user } = useStateContext();
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
+    const [imageLoading, setImageLoading] = useState(true);
 
 
 
@@ -28,14 +34,15 @@ const UserFeed = () => {
                         <div className='profile-details'>
                             <div className='left'>
                                 <div className='upper-details'>
-                                    <img id='profile-picture' src={`${storageBaseUrl}/${user.profile_picture}`} alt='Profile Picture'></img>
-                                    <div id='display-name'>
-                                        <h2>{user.first_name}</h2>
-                                        @{user.user_name}
+                                    {imageLoading && <Skeleton className='profile-picture' circle={true} />}
+                                    <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} class='profile-picture' src={`${storageBaseUrl}/${user.profile_picture}`} alt='Profile Picture'/>
+                                    <div class='display-name'>
+                                        <h2>{user.first_name || <Skeleton />}</h2>
+                                        {user.user_name ? `@${user.user_name}` : <Skeleton />}
                                     </div>
                                 </div>
                                 <div className='lower-details'>
-                                    <span id='community-count'>0</span><p>Communities</p>
+                                    <span id='community-count'><JoinedCommunity /></span><p>Communities</p>
                                 </div>
                             </div>
                             <div className='right'>
@@ -52,6 +59,10 @@ const UserFeed = () => {
                         <img src='/address-card-solid.svg' />
                         <h3>Posts</h3>
                     </div>
+                    <div className='posts-col'>
+                        <Post />
+                    </div>
+
                 </div>
             </div>
             <div className="recommended">
