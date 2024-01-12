@@ -11,7 +11,6 @@ const LoadCommunity = (c) => {
   const navigate = useNavigate();
   const {user} = useStateContext();
   const openCommunity = (id) => {
-    console.log('opened');
     navigate(`/c/${id}`)
   }  
 
