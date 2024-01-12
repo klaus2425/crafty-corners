@@ -977,7 +977,10 @@ input::-webkit-inner-spin-button {
           z-index: 2;
         }
         }
-
+      }
+      .community-details-bottom {
+        display: flex;
+        padding: 0 3.75rem;
       }
     }
     display: flex;
