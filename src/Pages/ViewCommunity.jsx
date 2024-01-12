@@ -3,18 +3,26 @@ import MembershipCheck from '../components/utils/Membership';
 import axiosClient from '../axios-client';
 import { useEffect, useState } from 'react';
 import { useStateContext } from "../context/ContextProvider";
-
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 
 const ViewCommunity = () => {
   const [community, setCommunity] = useState([]);
+  const [image, setImage] = useState(null);
   const {user} = useStateContext();
   const {id} = useParams();
+  const [loading, setLoading] = useState(true);
+  const [imageLoading, setImageLoading] = useState(true);
+
   const getCommunity = () => {
+    
     axiosClient.get(`/communities/${id}`)
     .then(res => {
-      console.log(res.data);
-      setCommunity(res.data);
+      setLoading(false);
+      console.log(import.meta.env.VITE_API_COMMUNITIES_URL+res.data.data.community_photo);
+      setCommunity(res.data.data);
+      setImage(import.meta.env.VITE_API_COMMUNITIES_URL+res.data.data.community_photo);
     })
   }
 
@@ -37,18 +45,24 @@ const ViewCommunity = () => {
           <h3>Community</h3>
         </div>
         <div className="card">
-            <div className="banner">
-              <img className='banner-img' src="/banner.png" />
-              <div className='community-details'>
-                <img className='community-img' src="/kafka.jpg" />
-                <div className="com-name-join">
-                  <span className='community-name'>Singing</span>
-                  <div className='community-join'>
-                    <MembershipCheck community_id={1} user_id={1} />
-                  </div>
-                </div>
-              </div>
-            </div>
+          
+                      <div className="banner">
+                      <img className='banner-img' src="/banner.png" />
+                      <div className='community-details'>
+                        {imageLoading && <Skeleton className='community-img' circle={true}/>}
+                        <img style={imageLoading ? {display: 'none'} : {display: 'inline'}} onLoad={() => setImageLoading(false)} className='community-img' src={image} />
+                        
+                        <div className="com-name-join">
+                          <span className='community-name'>{community.name || <Skeleton containerClassName='community-name'/>}</span>
+                          <div className='community-join'>
+                          {!loading && 
+                            <MembershipCheck community_id={community.id} user_id={user.id} />
+                          }
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
         </div>
       </div>
       <div className="recommended">
