@@ -1038,10 +1038,38 @@ input::-webkit-inner-spin-button {
         color: #FFF;
       }
 
-      #edit-profile-button {
+      .edit-profile-button {
         width: 100%;
         display: flex;
         justify-content: flex-end;
+        .purple-button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 2rem;
+          width: 2.25rem;
+          padding: 1rem;
+          align-items: center;
+          border-radius: 1000px;
+          transition: 0.2s;
+          overflow: hidden;
+          gap: 0.25rem;
+          .button-text {
+            color: white;
+            display: none;
+            white-space: nowrap;
+            font-weight: bold;
+          }
+        }
+
+        .purple-button:hover {
+          width: 8rem;
+
+          .button-text {
+            display: inline;
+          }
+        }
+
       }
 
       .profile-details {
