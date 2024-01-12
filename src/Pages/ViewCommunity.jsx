@@ -61,6 +61,9 @@ const ViewCommunity = () => {
                           </div>
                         </div>
                       </div>
+                      <div className="community-details-bottom">
+                        <span className='c-member-count'><strong>154</strong> Members</span>
+                      </div>
                     </div>
 
         </div>
