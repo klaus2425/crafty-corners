@@ -89,5 +89,11 @@ const MembershipCheck = (props) => {
     )
 
 }
+export const JoinedCommunity = () => {
+
+  return(
+    <div>10</div>
+  )
+}
 
 export default MembershipCheck;
