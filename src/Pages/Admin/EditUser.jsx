@@ -3,21 +3,24 @@ import { useParams } from "react-router-dom";
 import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2';
 import Loading from "../../components/utils/Loading";
+import { useStateContext } from "../../context/ContextProvider";
 
 const EditUser = () => {
     let { id } = useParams();
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
-    const [user, setUser] = useState({});
+    const [e_user, setE_User] = useState({});
     const [imageChange, setImageChange] = useState(false);
     const [loading, setLoading] = useState(false);
     const [image, setImage] = useState();
+    const { setUser } = useStateContext();
     if (!image) { setImage('/avatar.jpg') }
 
     const getUser = () => {
         setLoading(true);
         axiosClient.get(`/users/${id}`)
             .then(({ data }) => {
-                setUser(data.data);
+                setE_User(data.data);
+                setUser(data.data)
                 setLoading(false);
                 setImage(storageBaseUrl + data.data.profile_picture);
             })
@@ -41,7 +44,7 @@ const EditUser = () => {
     const handleChange = (ev) => {
         setImage(URL.createObjectURL(ev.target.files[0]));
         setImageChange(true);
-        setUser({ ...user, profile_picture: ev.target.files[0] })
+        setE_User({ ...e_user, profile_picture: ev.target.files[0] })
     };
 
     const onSubmit = (ev) => {
@@ -49,18 +52,18 @@ const EditUser = () => {
         if (!imageChange) {
             const formData = new FormData();
             formData.append("_method", "PUT");
-            formData.append('user_name', user.user_name)
-            formData.append('first_name', user.first_name);
-            formData.append('middle_name', user.middle_name);
-            formData.append('last_name', user.last_name);
-            formData.append('email', user.email);
-            formData.append('password', user.password);
-            formData.append('birthday', user.birthday);
-            formData.append('street_address', user.street_address);
-            formData.append('municipality', user.municipality);
-            formData.append('province', user.province);
-            formData.append('gender', user.gender);
-            formData.append('phone_number', user.phone_number);
+            formData.append('user_name', e_user.user_name)
+            formData.append('first_name', e_user.first_name);
+            formData.append('middle_name', e_user.middle_name);
+            formData.append('last_name', e_user.last_name);
+            formData.append('email', e_user.email);
+            formData.append('password', e_user.password);
+            formData.append('birthday', e_user.birthday);
+            formData.append('street_address', e_user.street_address);
+            formData.append('municipality', e_user.municipality);
+            formData.append('province', e_user.province);
+            formData.append('gender', e_user.gender);
+            formData.append('phone_number', e_user.phone_number);
             axiosClient.post(`users/${id}`, formData)
                 .then(() => {
                     Swal.fire({
@@ -86,8 +89,8 @@ const EditUser = () => {
         else {
             const formData = new FormData();
             formData.append("_method", "PUT");
-            for (const key in user) {
-                formData.append(key, user[key]);
+            for (const key in e_user) {
+                formData.append(key, e_user[key]);
             }
 
             axiosClient.post(`users/${id}`, formData)
@@ -112,7 +115,7 @@ const EditUser = () => {
                         });
                     }
                     setLoading(false);
-                    setUser(data);
+                    setE_User(data);
                     setImage(storageBaseUrl + data.profile_picture)
                 })
                 .catch((err) => {
@@ -158,21 +161,21 @@ const EditUser = () => {
                                 <label>Province</label>
                             </div>
                             <div className="edit-inputs">
-                                <input type="text" value={user.user_name} onChange={ev => setUser({ ...user, user_name: ev.target.value })} />
-                                <input type="text" value={user.first_name} onChange={ev => setUser({ ...user, first_name: ev.target.value })} />
-                                <input type="text" value={user.middle_name} onChange={ev => setUser({ ...user, middle_name: ev.target.value })} />
-                                <input type="text" value={user.last_name} onChange={ev => setUser({ ...user, last_name: ev.target.value })} />
-                                <input type="email" value={user.email} onChange={ev => setUser({ ...user, email: ev.target.value })} />
-                                <input type="number" value={user.phone_number} onChange={ev => setUser({ ...user, phone_number: ev.target.value })} />
-                                <input type="date" value={user.birthday} onChange={ev => setUser({ ...user, birthday: ev.target.value })} />
+                                <input type="text" value={e_user.user_name} onChange={ev => setE_User({ ...e_user, user_name: ev.target.value })} />
+                                <input type="text" value={e_user.first_name} onChange={ev => setE_User({ ...e_user, first_name: ev.target.value })} />
+                                <input type="text" value={e_user.middle_name} onChange={ev => setE_User({ ...e_user, middle_name: ev.target.value })} />
+                                <input type="text" value={e_user.last_name} onChange={ev => setE_User({ ...e_user, last_name: ev.target.value })} />
+                                <input type="email" value={e_user.email} onChange={ev => setE_User({ ...e_user, email: ev.target.value })} />
+                                <input type="number" value={e_user.phone_number} onChange={ev => setE_User({ ...e_user, phone_number: ev.target.value })} />
+                                <input type="date" value={e_user.birthday} onChange={ev => setE_User({ ...e_user, birthday: ev.target.value })} />
                                 <div className="gender-container">
-                                    <input type="radio" name="gender" value="Male" checked={user.gender === 'Male'} onChange={ev => setUser({ ...user, gender: ev.target.value })} required /> Male
-                                    <input type="radio" name="gender" value="Female" checked={user.gender === 'Female'} onChange={ev => setUser({ ...user, gender: ev.target.value })} /> Female
-                                    <input type="radio" name="gender" value="Other" checked={user.gender === 'Other'} onChange={ev => setUser({ ...user, gender: ev.target.value })} /> Other
+                                    <input type="radio" name="gender" value="Male" checked={e_user.gender === 'Male'} onChange={ev => setE_User({ ...e_user, gender: ev.target.value })} required /> Male
+                                    <input type="radio" name="gender" value="Female" checked={e_user.gender === 'Female'} onChange={ev => setE_User({ ...e_user, gender: ev.target.value })} /> Female
+                                    <input type="radio" name="gender" value="Other" checked={e_user.gender === 'Other'} onChange={ev => setE_User({ ...e_user, gender: ev.target.value })} /> Other
                                 </div>
-                                <input type="text" value={user.street_address} onChange={ev => setUser({ ...user, street_address: ev.target.value })} />
-                                <input type="text" value={user.municipality} onChange={ev => setUser({ ...user, municipality: ev.target.value })} />
-                                <input type="text" value={user.province} onChange={ev => setUser({ ...user, province: ev.target.value })} />
+                                <input type="text" value={e_user.street_address} onChange={ev => setE_User({ ...e_user, street_address: ev.target.value })} />
+                                <input type="text" value={e_user.municipality} onChange={ev => setE_User({ ...e_user, municipality: ev.target.value })} />
+                                <input type="text" value={e_user.province} onChange={ev => setE_User({ ...e_user, province: ev.target.value })} />
 
                                 <button type="submit">Save</button>
                             </div>
