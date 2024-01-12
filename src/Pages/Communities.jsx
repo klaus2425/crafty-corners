@@ -16,10 +16,6 @@ const Communities = () => {
     const {user} = useStateContext();
     const navigate = useNavigate();
 
-    const openCommunity = (id) => {
-      console.log('opened');
-      navigate(`/c/${id}`)
-    }    
     const getCommunities = () => {
         setLoading(true);
         axiosClient.get('/communities')
