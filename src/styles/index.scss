@@ -543,10 +543,9 @@ input::-webkit-inner-spin-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 2rem;
-
+    margin-right: 1rem;
+    gap: 1rem;
     .navbar-header {
-      margin-right: 1rem;
       white-space: nowrap;
       min-width: 4rem;
       transition: ease-in;
@@ -575,7 +574,6 @@ input::-webkit-inner-spin-button {
       height: 3.125rem;
       border-radius: 100%;
       background: transparent;
-      margin-right: 1rem;
       transition: 0.5s;
     }
 
@@ -2077,7 +2075,9 @@ input::-webkit-inner-spin-button {
   margin-bottom: 0.5rem;
   min-height: 75 vh;
   padding: 1rem;
-
+  .message-back {
+    cursor: pointer;
+  }
   .conversation-name {
     display: flex;
     align-items: center;
