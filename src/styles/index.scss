@@ -922,6 +922,7 @@ input::-webkit-inner-spin-button {
           border-radius: 1000px;
           border: 5px #FFF solid;
           width: 8.125rem;
+          height: 100%;
           object-fit: cover;
         }
         .community-name {
@@ -968,7 +969,10 @@ input::-webkit-inner-spin-button {
         .white-button {
           border: 1px $purple solid;
           border-radius: 1000px;
-          width: 5rem;
+          color: $purple;
+          background-color: white;
+          width: 5.2rem;
+          font-weight: normal;
           transition: 0.3s;
           z-index: 2;
         }
@@ -2732,6 +2736,8 @@ input::-webkit-inner-spin-button {
   width: clamp(20rem, 48vw, 120rem);
   margin-bottom: 1rem;
 }
+
+
 
 .react-player {
   position: absolute;
