@@ -130,6 +130,10 @@ textarea {
   outline: none;
 }
 
+.skeleton {
+  width: 8rem;
+}
+
 .grey {
   color: #1b1b1b;
 }
@@ -1056,7 +1060,6 @@ input::-webkit-inner-spin-button {
         .left {
           display: flex;
           flex-direction: column;
-
           .upper-details {
             display: flex;
             justify-content: center;
@@ -1072,20 +1075,22 @@ input::-webkit-inner-spin-button {
                 color: black;
               }
             }
+
+            .community-count {
+              color: black;
+              width: 8rem;
+              font-weight: bold;
+              margin-right: 0.6rem;
+            }
           }
 
           .lower-details {
             display: flex;
             width: 100%;
-            margin-top: 1rem;
-            margin-left: 1.8rem;
             font-size: 1.2 rem;
+            align-items: flex-start;
+            padding-left: 7.96rem;
 
-            #community-count {
-              color: black;
-              font-weight: bold;
-              margin-right: 0.6rem;
-            }
           }
         }
 
