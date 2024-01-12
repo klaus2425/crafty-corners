@@ -898,6 +898,14 @@ input::-webkit-inner-spin-button {
 
 
   .card {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding: 1rem;
     .banner {
       position: relative;
       width: 100%;
@@ -912,7 +920,7 @@ input::-webkit-inner-spin-button {
       }
       .community-details {
         display: flex;
-        margin-top: 4rem;
+        margin-top: 5.12rem;
         margin-left: 2rem;
         position: relative;
         display: flex;
@@ -925,12 +933,19 @@ input::-webkit-inner-spin-button {
           height: 100%;
           object-fit: cover;
         }
-        .community-name {
+        .community-text {
           display: flex;
-          align-items: flex-end;
-          color: #000;
-          font-weight: bold;
-          font-size: 2.425rem;
+          align-items: flex-start;
+          flex-direction: column;
+          .community-name {
+            color: #000;
+            font-size: 2.425rem;
+            font-weight: bold;
+            min-width: 10rem;
+          }
+          .community-count {
+            min-width: 10rem;
+          }
         }
         .com-name-join {
           display: flex;
@@ -978,19 +993,8 @@ input::-webkit-inner-spin-button {
         }
         }
       }
-      .community-details-bottom {
-        display: flex;
-        padding: 0 3.75rem;
-      }
     }
-    display: flex;
-    flex-direction: column;
-    background-color: #FFFFFF;
-    border-radius: 15px;
-    box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
-    width: 100%;
-    margin-bottom: 0.5rem;
-    padding: 1rem;
+
 
     .profile-card {
       a {
