@@ -27,7 +27,6 @@ const ViewCommunity = () => {
     axiosClient.get(`/communities/${id}`)
       .then(res => {
         setLoading(false);
-        console.log(import.meta.env.VITE_API_COMMUNITIES_URL + res.data.data.community_photo);
         setCommunity(res.data.data);
         setImage(import.meta.env.VITE_API_COMMUNITIES_URL + res.data.data.community_photo);
       })
@@ -62,7 +61,6 @@ const ViewCommunity = () => {
               <div className="com-name-join">
                 <div className="community-text">
                   <span className='community-name'>{community.name || <Skeleton containerClassName='community-name' />}</span>
-                  {console.log(memberCount)}
                   <span className='community-count'> {memberCount>= 0 ? <span><strong>{memberCount}</strong> {memberCount === 1 ? 'Member' : 'Members'}</span> : <Skeleton />}</span>
                 </div>
                 <div className='community-join'>
