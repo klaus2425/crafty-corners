@@ -1,9 +1,9 @@
 import { useStateContext } from '../context/ContextProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Post from '../components/Post';
+import { useNavigate } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { JoinedCommunityCount } from '../components/utils/Membership';
@@ -13,7 +13,11 @@ const UserFeed = () => {
     const { user } = useStateContext();
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     const [imageLoading, setImageLoading] = useState(true);
+    const navigate = useNavigate();
 
+    const handleEdit = () => {
+        navigate('/edit-profile')
+    }
 
 
     return (
@@ -28,18 +32,18 @@ const UserFeed = () => {
                 </div>
                 <div className="card">
                     <div className='profile-card'>
-                        <div id='edit-profile-button'>
-                            <Link to={'/EditProfile'}> <FontAwesomeIcon icon={faPenToSquare} size="lg" /> Edit Profile</Link>
+                        <div className='edit-profile-button'>
+                            <span onClick={handleEdit} className='purple-button'><FontAwesomeIcon icon={faPenToSquare} size="lg" /> <span className="button-text">Edit Profile</span></span>
                         </div>
                         <div className='profile-details'>
                             <div className='left'>
                                 <div className='upper-details'>
                                     {imageLoading && <Skeleton className='profile-picture' circle={true} />}
-                                    <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} class='profile-picture' src={`${storageBaseUrl}/${user.profile_picture}`} alt='Profile Picture'/>
+                                    <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} class='profile-picture' src={`${storageBaseUrl}/${user.profile_picture}`} alt='Profile Picture' />
                                     <div class='display-name'>
                                         <h2>{user.first_name || <Skeleton />}</h2>
                                         {user.user_name ? `@${user.user_name}` : <Skeleton />}
-                                        { user.id ? <JoinedCommunityCount id={user.id} /> : <Skeleton className='skeleton' />}
+                                        {user.id ? <JoinedCommunityCount id={user.id} /> : <Skeleton className='skeleton' />}
 
                                     </div>
                                 </div>
