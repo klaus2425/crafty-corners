@@ -3,11 +3,17 @@ import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { useStateContext } from "../../context/ContextProvider";
 import Membership from "./Membership";
+import { useNavigate } from 'react-router-dom';
 
 const LoadCommunity = (c) => {
   const [imageLoading, setImageLoading] = useState(true);
   const storageBaseUrl= import.meta.env.VITE_API_COMMUNITIES_URL;
+  const navigate = useNavigate();
   const {user} = useStateContext();
+  const openCommunity = (id) => {
+    console.log('opened');
+    navigate(`/c/${id}`)
+  }  
 
   return (
     <div className="list-card-item">
