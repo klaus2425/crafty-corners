@@ -1,9 +1,26 @@
 import {useParams} from 'react-router-dom'
+import MembershipCheck from '../components/utils/Membership';
+import axiosClient from '../axios-client';
+import { useEffect, useState } from 'react';
+import { useStateContext } from "../context/ContextProvider";
 
 
 
 const ViewCommunity = () => {
+  const [community, setCommunity] = useState([]);
+  const {user} = useStateContext();
   const {id} = useParams();
+  const getCommunity = () => {
+    axiosClient.get(`/communities/${id}`)
+    .then(res => {
+      console.log(res.data);
+      setCommunity(res.data);
+    })
+  }
+
+  useEffect(() => {
+    getCommunity();
+  },[])
 
   return (
     <div className="authenticated-container">
@@ -18,6 +35,20 @@ const ViewCommunity = () => {
               <path d="M12 14C15.7087 14 16.6665 17.301 16.9139 19.0061C16.9932 19.5526 16.5523 20 16 20H8C7.44772 20 7.00684 19.5526 7.08614 19.0061C7.33351 17.301 8.29134 14 12 14Z" fill="#33363F"/>
           </svg>
           <h3>Community</h3>
+        </div>
+        <div className="card">
+            <div className="banner">
+              <img className='banner-img' src="/banner.png" />
+              <div className='community-details'>
+                <img className='community-img' src="/kafka.jpg" />
+                <div className="com-name-join">
+                  <span className='community-name'>Singing</span>
+                  <div className='community-join'>
+                    <MembershipCheck community_id={1} user_id={1} />
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
       <div className="recommended">
