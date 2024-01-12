@@ -898,6 +898,84 @@ input::-webkit-inner-spin-button {
 
 
   .card {
+    .banner {
+      position: relative;
+      width: 100%;
+      height: clamp(10rem, 40vh, 17rem);
+      .banner-img {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        object-fit: cover;
+        border-radius: 15px 15px 0 0;
+        height: 50%;
+      }
+      .community-details {
+        display: flex;
+        margin-top: 4rem;
+        margin-left: 2rem;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        .community-img {
+          aspect-ratio: 1 / 1;
+          border-radius: 1000px;
+          border: 5px #FFF solid;
+          width: 8.125rem;
+          object-fit: cover;
+        }
+        .community-name {
+          display: flex;
+          align-items: flex-end;
+          color: #000;
+          font-weight: bold;
+          font-size: 2.425rem;
+        }
+        .com-name-join {
+          display: flex;
+          height: fit-content;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          padding-right: 1rem;
+          gap: 0.654rem;
+        }
+        .community-join {
+          display: flex;
+          align-items: center;
+          .purple-button {
+          height: 2rem;
+          width: 3.1rem;
+          display: flex;
+          align-items: center;
+          border-radius: 1000px;
+          transition: 0.3s;
+          .com-button-text {
+            color: white;
+            display: none;
+            font-weight: bold;
+          }
+        }
+
+        .purple-button:hover {
+          width: 5rem;
+
+          .com-button-text {
+            display: inline;
+          }
+        }
+
+        .white-button {
+          border: 1px $purple solid;
+          border-radius: 1000px;
+          width: 5rem;
+          transition: 0.3s;
+          z-index: 2;
+        }
+        }
+
+      }
+    }
     display: flex;
     flex-direction: column;
     background-color: #FFFFFF;
@@ -2075,6 +2153,7 @@ input::-webkit-inner-spin-button {
   margin-bottom: 0.5rem;
   min-height: 75 vh;
   padding: 1rem;
+
   .message-back {
     cursor: pointer;
   }
@@ -2417,7 +2496,7 @@ input::-webkit-inner-spin-button {
           align-items: center;
           border-radius: 1000px;
           transition: 0.3s;
-
+          align-items: center;
           .com-button-text {
             color: white;
             display: none;
