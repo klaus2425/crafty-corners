@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { useStateContext } from "../../context/ContextProvider";
-import Membership from "./Membership";
+import MembershipCheck from "./Membership";
 import { useNavigate } from 'react-router-dom';
 
 const LoadCommunity = (c) => {
@@ -28,7 +28,7 @@ const LoadCommunity = (c) => {
                             </div>
                       
                            <div className="list-card-item-time">
-                              <Membership community_id={c.c.id} user_id={user.id}/>
+                              <MembershipCheck community_id={c.c.id} user_id={user.id}/>
                            </div>
                          </div>
   )
