@@ -1,4 +1,4 @@
-const Posts = (props) => {
+const Post = (props) => {
 
     return (
         <div className="post">
@@ -43,4 +43,4 @@ const Posts = (props) => {
     )
 }
 
-export default Posts;
+export default Post;
