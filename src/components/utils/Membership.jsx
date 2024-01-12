@@ -11,7 +11,6 @@ const MembershipCheck = (props) => {
     .then(({data}) => {
     setCommunity(data);
     const members = data.members;
-
     setIsMember(members.some(member => member.id === props.user_id));
   })
   }
