@@ -9,7 +9,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 const ViewCommunity = () => {
   const [community, setCommunity] = useState([]);
-  const [memberCount, setMemberCount] = useState(null);
+  const [memberCount, setMemberCount] = useState(-1);
   const [image, setImage] = useState(null);
   const { user } = useStateContext();
   const { id } = useParams();
@@ -62,7 +62,8 @@ const ViewCommunity = () => {
               <div className="com-name-join">
                 <div className="community-text">
                   <span className='community-name'>{community.name || <Skeleton containerClassName='community-name' />}</span>
-                  <span className='community-count'> {!memberCount ? <Skeleton /> : <span><strong>{memberCount}</strong> Members</span>}</span>
+                  {console.log(memberCount)}
+                  <span className='community-count'> {memberCount>= 0 ? <span><strong>{memberCount}</strong> {memberCount === 1 ? 'Member' : 'Members'}</span> : <Skeleton />}</span>
                 </div>
                 <div className='community-join'>
                   {!loading &&
@@ -71,9 +72,13 @@ const ViewCommunity = () => {
                 </div>
               </div>
             </div>
-
           </div>
-
+        </div>
+        <div className="community-posts">
+          <div className="section-header">
+              <img src='/address-card-solid.svg' />
+              <h3>Posts</h3>
+          </div>
         </div>
       </div>
       <div className="recommended">
