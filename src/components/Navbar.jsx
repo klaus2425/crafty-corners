@@ -33,9 +33,10 @@ const Navbar = () => {
     }
     
 
-    const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
-    const userPicture = `${storageBaseUrl}${user.profile_picture}`;
+
     if (token){ 
+        const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
+        const userPicture = `${storageBaseUrl}${user.profile_picture}`;
         return (
             <div className='authenticated-navbar'>
                 <div className='navbar title'>
