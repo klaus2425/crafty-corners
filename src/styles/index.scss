@@ -347,6 +347,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     align-items: center;
     justify-content: start;
+    font-family: Helvetica, Arial, sans-serif;
   }
 
   .modal {
@@ -1045,11 +1046,11 @@ input::-webkit-inner-spin-button {
         padding: 1rem 2rem;
         overflow: hidden;
 
-        #profile-picture {
+        .profile-picture {
           width: 7rem;
           height: 7rem;
           border-radius: 50%;
-          border: 5px solid black;
+          border: 5px solid white;
         }
 
         .left {
@@ -1061,12 +1062,12 @@ input::-webkit-inner-spin-button {
             justify-content: center;
             align-items: center;
 
-            #display-name {
+            .display-name {
               display: flex;
               flex-direction: column;
               justify-content: center;
               margin-left: 1rem;
-
+              width: 9rem;
               h2 {
                 color: black;
               }
@@ -1271,6 +1272,12 @@ input::-webkit-inner-spin-button {
         height: 1.5rem;
         margin-right: 0.5rem;
       }
+    }
+
+    .posts-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 
