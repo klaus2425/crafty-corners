@@ -558,6 +558,7 @@ input::-webkit-inner-spin-button {
       border-radius: 10000px;
       height: 3.125rem;
       width: 3.125rem;
+      object-fit: cover;
       transition: ease-in;
     }
 
@@ -1271,7 +1272,18 @@ input::-webkit-inner-spin-button {
         margin-right: 0.5rem;
       }
     }
+  }
 
+  .community-posts {
+    width: 100%;
+
+    .section-header {
+      img {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 0.5rem;
+      }
+    }
   }
 
   .notification-card {
