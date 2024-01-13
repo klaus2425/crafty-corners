@@ -1,17 +1,21 @@
+import { useState } from "react";
+import Skeleton from "react-loading-skeleton";
+
 const Post = (props) => {
     const post = props.post;
     const user = post.user;
     const community = post.community;
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
     const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
-    
+    const [loading, setLoading] = useState(true);
+    const [loadingProfile, setLoadingProfile] = useState(true);
     if (post.post_type === 'image') {
         return (
             <div className="post">
-                {console.log(post)}
                 <div className="post-header" id="posts">
                     <div className="left">
-                        <img className='post-image' src={`${storageUserUrl}${user.profile_picture}`} alt="" />
+                        {loadingProfile && <Skeleton circle className="post-image" />}
+                        <img className={loading ? 'hide' : 'post-image'} src={`${storageUserUrl}${user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)}/>
                         <div className='post-user'>
                             <h4>{user.first_name}</h4>
                             <span id='post-time'>2 hours ago</span>
@@ -21,8 +25,11 @@ const Post = (props) => {
                         <span>/{community.name}</span>
                     </div>
                 </div>
+                <span className="post-title">{post.title}</span>
                 <div className="post-content">
-                    <img className='post-image' src={`${storagePostUrl}${post.image}`} alt="" />
+                    {loading && <Skeleton className="post-image" />}
+                    
+                    <img className={loading ? 'hide' : 'post-image'} src={`${storagePostUrl}${post.image}`} alt="" onLoad={() => setLoading(false)}/>
                 </div>
                 <div className="post-footer">
                     <div className="footer-item">
