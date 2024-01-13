@@ -23,6 +23,7 @@ const ViewCommunity = () => {
       })
   }
 
+
   const getCommunity = () => {
     axiosClient.get(`/communities/${id}`)
       .then(res => {
