@@ -83,7 +83,9 @@ const ViewCommunity = () => {
               <h3>Posts</h3>   
             </div>
             <div className="right">
+              {!loading && 
                 <span onClick={ () => setIsOpen(true)} className='purple-button'>Create a Post</span>
+              }
             </div>
           </div>
           <PostModal isOpen={isOpen} setIsOpen={setIsOpen}/>
