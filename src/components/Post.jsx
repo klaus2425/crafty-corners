@@ -2,12 +2,16 @@ const Post = (props) => {
     const post = props.post;
     const user = post.user;
     const community = post.community;
+    const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
+    const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
+    
     if (post.post_type === 'image') {
         return (
             <div className="post">
+                {console.log(post)}
                 <div className="post-header" id="posts">
                     <div className="left">
-                        <img className='post-image' src="/kafka.jpg" alt="" />
+                        <img className='post-image' src={`${storageUserUrl}${user.profile_picture}`} alt="" />
                         <div className='post-user'>
                             <h4>{user.first_name}</h4>
                             <span id='post-time'>2 hours ago</span>
@@ -18,7 +22,7 @@ const Post = (props) => {
                     </div>
                 </div>
                 <div className="post-content">
-                    <img className='post-image' src="/kafkasing.jpg" alt="" />
+                    <img className='post-image' src={`${storagePostUrl}${post.image}`} alt="" />
                 </div>
                 <div className="post-footer">
                     <div className="footer-item">
