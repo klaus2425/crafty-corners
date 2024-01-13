@@ -932,11 +932,11 @@ input::-webkit-inner-spin-button {
 
       .community-details {
         display: flex;
-        margin-top: 5.12rem;
+        margin-top: 5.65rem;
         margin-left: 2rem;
         position: relative;
         display: flex;
-        align-items: flex-end;
+        align-items: flex-start;
 
         .community-img {
           aspect-ratio: 1 / 1;
@@ -951,15 +951,20 @@ input::-webkit-inner-spin-button {
           display: flex;
           align-items: flex-start;
           flex-direction: column;
-
+          padding-top: 0.5rem;
           .community-name {
             color: #000;
+            margin-top: 2rem;
             font-size: 2.425rem;
             font-weight: bold;
             min-width: 10rem;
           }
+          .com-desc {
+            padding-left: 0.5rem;
+          }
 
           .community-count {
+            padding-left: 0.5rem;
             min-width: 10rem;
           }
         }
