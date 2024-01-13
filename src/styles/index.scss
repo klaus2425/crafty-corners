@@ -225,9 +225,7 @@ input::-webkit-inner-spin-button {
   min-height: 10.125rem;
 }
 
-#upload-button {
-  border: 0;
-}
+
 
 #logout_button {
   display: flex;
@@ -263,17 +261,19 @@ input::-webkit-inner-spin-button {
   }
 
   label {
-    background-color: #6339DC;
-    color: #FFF;
-    border-radius: 5px;
+    background-color: $purple;
+    border-radius: 1000px;
     padding: 0.4rem;
     text-align: center;
     cursor: pointer;
+    color: #FFF;
+    
 
   }
 
   label:active {
-    background-color: #4627a1;
+    background-color: $purple;
+    border-radius: 1000px;
   }
 
   img {
@@ -1310,6 +1310,7 @@ input::-webkit-inner-spin-button {
         height: 1.5rem;
         margin-right: 0.5rem;
       }
+
     }
 
     .posts-col {
@@ -1323,10 +1324,28 @@ input::-webkit-inner-spin-button {
     width: 100%;
 
     .section-header {
+      display: flex;
+      padding: 0 0.14rem;
+      justify-content: space-between;
       img {
         width: 1.5rem;
         height: 1.5rem;
         margin-right: 0.5rem;
+      }
+      .left {
+        display: flex;
+      }
+      .right {
+        .purple-button {
+          border-radius: 1000px;
+          font-weight: 700;
+          transition: 0.2s;
+        }
+        .purple-button:hover {
+          background-color: #FFF;
+          color: $purple;
+          border: 1px $purple solid;
+        }
       }
     }
   }
