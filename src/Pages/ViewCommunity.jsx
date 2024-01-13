@@ -6,6 +6,7 @@ import { useStateContext } from "../context/ContextProvider";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import PostModal from '../components/PostModal';
+import Post from '../components/Post';
 
 
 const ViewCommunity = () => {
@@ -17,6 +18,8 @@ const ViewCommunity = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
+
 
   const getMembers = () => {
     axiosClient.get(`/communities/${id}/users`)
@@ -31,6 +34,7 @@ const ViewCommunity = () => {
       .then(res => {
         setLoading(false);
         setCommunity(res.data.data);
+        setPosts(res.data.data.posts);
         setImage(import.meta.env.VITE_API_COMMUNITIES_URL + res.data.data.community_photo);
       })
   }
@@ -65,7 +69,7 @@ const ViewCommunity = () => {
                 <div className="community-text">
                   <span className='community-name'>{community.name || <Skeleton containerClassName='community-name' />}</span>
                   <span className='com-desc'>{community.description || <Skeleton />}</span>
-                  <span className='community-count'> {memberCount>= 0 ? <span><strong>{memberCount}</strong> {memberCount === 1 ? 'Member' : 'Members'}</span> : <Skeleton />}</span>
+                  <span className='community-count'> {memberCount >= 0 ? <span><strong>{memberCount}</strong> {memberCount === 1 ? 'Member' : 'Members'}</span> : <Skeleton />}</span>
                 </div>
                 <div className='community-join'>
                   {!loading &&
@@ -80,15 +84,21 @@ const ViewCommunity = () => {
           <div className="section-header">
             <div className='left'>
               <img src='/address-card-solid.svg' />
-              <h3>Posts</h3>   
+              <h3>Posts</h3>
             </div>
             <div className="right">
-              {!loading && 
-                <span onClick={ () => setIsOpen(true)} className='purple-button'>Create a Post</span>
+              {!loading &&
+                <span onClick={() => setIsOpen(true)} className='purple-button'>Create a Post</span>
               }
             </div>
           </div>
-          <PostModal isOpen={isOpen} setIsOpen={setIsOpen}/>
+          { posts.map(p => (
+            <Post id={p.id}  />
+          )        
+          )
+
+          }
+          <PostModal isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
       </div>
       <div className="recommended">
