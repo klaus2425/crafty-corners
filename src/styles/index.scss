@@ -1510,7 +1510,9 @@ input::-webkit-inner-spin-button {
 
   .community-posts {
     width: 100%;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     .section-header {
       display: flex;
       padding: 0 0.256rem;
@@ -2768,7 +2770,7 @@ input::-webkit-inner-spin-button {
         width: 75%;
         justify-content: center;
 
-        text {
+        span {
           font-weight: bold;
           color: black;
         }
