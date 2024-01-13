@@ -5,12 +5,10 @@ import Skeleton from "react-loading-skeleton";
 
 const MembershipCheck = (props) => {
   const [isMember, setIsMember] = useState(false);
-  const [community, setCommunity] = useState([]);
 
   const getCommunity = () => {
     axiosClient.get(`/communities/${props.community_id}/users`)
       .then(({ data }) => {
-        setCommunity(data);
         const members = data.members;
         setIsMember(members.some(member => member.id === props.user_id));
       })
@@ -90,6 +88,9 @@ const MembershipCheck = (props) => {
     )
 
 }
+
+
+
 export const JoinedCommunityCount = (user) => {
   const [count, setCount] = useState(0);
   
@@ -106,6 +107,31 @@ export const JoinedCommunityCount = (user) => {
   
   return count > 0 ? ( count === 1 ? (<div><span className="community-count">{count}</span>Community</div>) 
   : (<div><span className="community-count">{count}</span>Communities</div>)) : <Skeleton className="community-count"/>
+}
+
+
+
+
+export const IsAMember = (props) => {
+  const [isMember, setIsMember] = useState(false);
+
+  const getCommunity = () => {
+    axiosClient.get(`/communities/${props.community_id}/users`)
+      .then(({ data }) => {
+        const members = data.members;
+        setIsMember(members.some(member => member.id === props.user_id));
+        console.log(object);
+      })
+    
+  
+}
+
+  useEffect(() => {
+    getCommunity();
+  }, [])
+
+  return isMember;
+
 }
 
 export default MembershipCheck;
