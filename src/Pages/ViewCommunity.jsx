@@ -92,9 +92,9 @@ const ViewCommunity = () => {
               }
             </div>
           </div>
-          { posts.map(p => (
-            <Post id={p.id}  />
-          )        
+          {posts.map(p => (
+            <Post post={p} />
+          )
           )
 
           }
