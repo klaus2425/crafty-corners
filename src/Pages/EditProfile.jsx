@@ -133,7 +133,6 @@ const EditProfile = () => {
                 <div className="card">
                     <div className="edit-card">
                         <div className='edit-header'>
-
                             <h1><FontAwesomeIcon icon={faPencil} /> Update your Profile</h1>
                         </div>
                         {loading ? <Loading /> :
