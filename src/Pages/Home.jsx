@@ -12,12 +12,7 @@ const UserFeed = () => {
                     </svg>
                     <h3>Home</h3>
                 </div>
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
+
             </div>
             <div className="recommended">
 
