@@ -1,12 +1,13 @@
 import { useStateContext } from '../context/ContextProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
-import Post from '../components/Post';
+import { useEffect, useState } from 'react';
+import  { UserPost } from '../components/Post';
 import { useNavigate } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { JoinedCommunityCount } from '../components/utils/Membership';
+import axiosClient from '../axios-client';
 
 const UserFeed = () => {
 
@@ -14,6 +15,22 @@ const UserFeed = () => {
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     const [imageLoading, setImageLoading] = useState(true);
     const navigate = useNavigate();
+    const [userPosts, setUserPosts] = useState([]);
+    const getPosts = () => {
+        axiosClient.get('/posts')
+        .then(res => {
+            const posts = res.data.posts;
+            const filteredData = posts.filter(item => item.user.id === user.id);
+            console.log(filteredData);
+            setUserPosts(filteredData);
+        })
+
+    }
+
+    useEffect(() => {
+        getPosts();
+    }, [user])
+
 
     const handleEdit = () => {
         navigate('/edit-profile')
@@ -65,6 +82,11 @@ const UserFeed = () => {
                         <h3>Posts</h3>
                     </div>
                     <div className='posts-col'>
+                        {userPosts &&
+                            userPosts.map(p => (
+                                <UserPost post={p}/> 
+                            ))
+                        }
                     </div>
 
                 </div>
