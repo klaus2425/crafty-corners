@@ -14,35 +14,61 @@ const PostModal = (props) => {
   const [video, setVideo] = useState();
   const [postType, setPostType] = useState('text');
   const [file, setFile] = useState();
+  const [count, setCount] = useState();
   const titleRef = useRef();
   const descriptionRef = useRef();
   const linkRef = useRef();
   const {user} = useStateContext();
 
+  const handleCount = (ev) => {
+    setCount(ev.target.value.length);
+    console.log(ev.target.value.length);
+  }
+
   const handleSubmit = (ev) => {
     ev.preventDefault()
     if (postType === 'video') {
       const formData = new FormData();
+      formData.append('user_id', user.id);
+      formData.append('community_id', id);
       formData.append('title', titleRef.current.value);
       formData.append('video', file);
+      formData.append('type', 'video');
       for (const value of formData.values()) {
         console.log(value);
       }
     }
     else if (postType === 'image') {
       const formData = new FormData();
+      formData.append('user_id', user.id);
+      formData.append('community_id', id);
       formData.append('title', titleRef.current.value);
       formData.append('image', file);
-      for (const value of formData.values()) {
-        console.log(value);
-      }
+      formData.append('type', 'image');
+      axiosClient.post('/posts', formData)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        const response = err.response;
+        console.log(err);
+        if (response && response.status === 422) {
+            Swal.fire({
+                title: "Error",
+                text: `${Object.values(response.data.errors)[0]}`,
+                icon: "warning"
+            });
+        }
+      })
     }
     else if (postType === 'text') {
       const formData = new FormData();
       formData.append('user_id', user.id);
-      formData.append('title', titleRef.current.value);
-      formData.append('description', descriptionRef.current.value);
       formData.append('community_id', id);
+      formData.append('title', titleRef.current.value);
+      formData.append('content', descriptionRef.current.value);
+      formData.append('type', 'text');
+
       for (const value of formData.values()) {
         console.log(value);
       }
@@ -52,6 +78,7 @@ const PostModal = (props) => {
       })
       .catch(err => {
         const response = err.response;
+        console.log(err);
         if (response && response.status === 422) {
             Swal.fire({
                 title: "Error",
@@ -63,12 +90,27 @@ const PostModal = (props) => {
     }
     else if (postType === 'url') {
       const formData = new FormData();
+      formData.append('user_id', user.id);
+      formData.append('community_id', id);
       formData.append('title', titleRef.current.value);
       formData.append('link', linkRef.current.value);
-      formData.append('description', descriptionRef.current.value);
-      for (const value of formData.values()) {
-        console.log(value);
-      }
+      formData.append('content', descriptionRef.current.value);
+      formData.append('type', 'link');
+      axiosClient.post('/posts', formData)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        const response = err.response;
+        console.log(err);
+        if (response && response.status === 422) {
+            Swal.fire({
+                title: "Error",
+                text: `${Object.values(response.data.errors)[0]}`,
+                icon: "warning"
+            });
+        }
+      })
     }
 
   }
@@ -82,6 +124,7 @@ const PostModal = (props) => {
       setFileUpload(false);
     index === 0 && setPostType('text');
     index === 2 && setPostType('url');
+    setCount(0);
   }
 
   const handleFileChange = (ev) => {
@@ -148,8 +191,8 @@ const PostModal = (props) => {
                 <div className="post-container">
                   <input required ref={titleRef} type="text" name="title" id="title" placeholder='Title' />
                   <div className="textarea-container">
-                    <textarea required ref={descriptionRef} cols="30" rows="10" />
-                    <span>0/255</span>
+                    <textarea maxLength={1000} onChange={ev => handleCount(ev)} ref={descriptionRef} placeholder='Description' cols="30" rows="10" />
+                    <span style={count >= 1000 ? { color: '#F44336' } : { color: '#677186' }} className='text-counter'>{count}/1000</span>
                   </div>
                 </div>
               </div>
@@ -198,8 +241,8 @@ const PostModal = (props) => {
                   <input ref={titleRef} type="text" name="title" id="title" placeholder='Title' />
                   <input ref={linkRef} type="text" name="link" id="title" placeholder='Url' />
                   <div className="textarea-container" >
-                    <textarea ref={descriptionRef} placeholder='Description' cols="30" rows="10" />
-                    <span>0/255</span>
+                    <textarea maxLength={140} onChange={ev => handleCount(ev)} ref={descriptionRef} placeholder='Description' cols="30" rows="10" />
+                    <span style={count >= 140 ? { color: '#F44336' } : { color: '#677186' }} className='text-counter'>{count}/140</span>
                   </div>
                 </div>
               </div>
