@@ -192,7 +192,7 @@ const EditProfile = () => {
                                     </div>
                                 </div>
                                 <div className="button-section">
-                                    <button className='green-buttton' type='submit'>Update</button>
+                                    <button className='purple-button' type='submit'>Update</button>
                                 </div>
 
                             </form>
