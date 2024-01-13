@@ -65,7 +65,6 @@ const UserFeed = () => {
                         <h3>Posts</h3>
                     </div>
                     <div className='posts-col'>
-                        <Post />
                     </div>
 
                 </div>
