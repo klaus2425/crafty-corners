@@ -22,7 +22,7 @@ const LoadCommunity = (c) => {
           <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} src={storageBaseUrl + c.c.community_photo} onLoad={() => setImageLoading(false)} />
         </div>
         <div className="list-card-item-text">
-          <text>{c.c.name}</text>
+          <span>{c.c.name}</span>
           <p>{c.c.description}</p>
         </div>
       </div>
