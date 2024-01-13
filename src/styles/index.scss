@@ -59,6 +59,7 @@ html {
 .hide {
   width: 0;
   height: 0;
+  visibility: hidden;
 }
 
 /* HTML: <div class="loader"></div> */
@@ -1693,8 +1694,20 @@ input::-webkit-inner-spin-button {
       min-height: 24rem;
       max-width: 41.375rem;
       max-height: 28.9375rem;
+    }
+    .post-text {
+      display: flex;
+      padding: 0 2rem;
+      position: relative;
+      width: 100%;
+      max-height: 20.5ch;
+      word-break: break-word;
+      overflow: hidden;
+      justify-content: flex-start;
 
     }
+    
+
   }
 
   .post-footer {
