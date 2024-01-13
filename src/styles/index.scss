@@ -267,7 +267,7 @@ input::-webkit-inner-spin-button {
     text-align: center;
     cursor: pointer;
     color: #FFF;
-    
+
 
   }
 
@@ -365,6 +365,7 @@ input::-webkit-inner-spin-button {
     background-color: #FFF;
     z-index: 1000;
     padding: 1.46rem;
+
 
     .close-login {
       display: flex;
@@ -642,6 +643,41 @@ input::-webkit-inner-spin-button {
     z-index: 1000;
   }
 
+  .post-modal {
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFF;
+    z-index: 1000;
+    padding: 1.46rem;
+    width: clamp(20rem, 50vw + 2rem, 45rem);
+
+    
+    .close {
+      display: flex;
+      justify-content: space-between;
+
+      .header-span {
+        color: #000;
+        font-weight: 600;
+        font-size: 1.12rem;  
+      }
+      svg {
+        border-radius: 50%;
+        transition: 0.3s;
+        cursor: pointer;
+      }
+
+      svg:hover {
+        background-color: #e6e6e6;
+      }
+    }
+  }
+
   .modal {
     display: flex;
     flex-direction: column;
@@ -653,7 +689,7 @@ input::-webkit-inner-spin-button {
     background-color: #FFF;
     z-index: 1000;
     padding: 1.46rem;
-    width: clamp(20rem, 30vw + 2rem, 25rem);
+    width: clamp(20rem, 17vw + 2rem, 35rem);
 
     .close {
       display: flex;
@@ -913,6 +949,7 @@ input::-webkit-inner-spin-button {
     border-radius: 15px;
     box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
     width: 100%;
+    min-width: fit-content;
     margin-bottom: 0.5rem;
     padding: 1rem;
 
@@ -952,6 +989,7 @@ input::-webkit-inner-spin-button {
           align-items: flex-start;
           flex-direction: column;
           padding-top: 0.5rem;
+
           .community-name {
             color: #000;
             margin-top: 2rem;
@@ -959,6 +997,7 @@ input::-webkit-inner-spin-button {
             font-weight: bold;
             min-width: 10rem;
           }
+
           .com-desc {
             padding-left: 0.5rem;
           }
@@ -1047,6 +1086,7 @@ input::-webkit-inner-spin-button {
         width: 100%;
         display: flex;
         justify-content: flex-end;
+
         .purple-button {
           display: flex;
           justify-content: center;
@@ -1059,6 +1099,7 @@ input::-webkit-inner-spin-button {
           transition: 0.2s;
           overflow: hidden;
           gap: 0.25rem;
+
           .button-text {
             color: white;
             display: none;
@@ -1093,6 +1134,7 @@ input::-webkit-inner-spin-button {
         .left {
           display: flex;
           flex-direction: column;
+
           .upper-details {
             display: flex;
             justify-content: center;
@@ -1104,6 +1146,7 @@ input::-webkit-inner-spin-button {
               justify-content: center;
               margin-left: 1rem;
               width: 9rem;
+
               h2 {
                 color: black;
               }
@@ -1325,22 +1368,26 @@ input::-webkit-inner-spin-button {
 
     .section-header {
       display: flex;
-      padding: 0 0.14rem;
+      padding: 0 0.256rem;
       justify-content: space-between;
+
       img {
         width: 1.5rem;
         height: 1.5rem;
         margin-right: 0.5rem;
       }
+
       .left {
         display: flex;
       }
+
       .right {
         .purple-button {
           border-radius: 1000px;
           font-weight: 700;
           transition: 0.2s;
         }
+
         .purple-button:hover {
           background-color: #FFF;
           color: $purple;
@@ -2862,9 +2909,11 @@ input::-webkit-inner-spin-button {
   .input-container {
     flex-direction: column;
   }
+
   .input-col-container {
     margin-top: 0;
   }
+
   .gender-field-holder {
     margin-bottom: 1rem;
   }
