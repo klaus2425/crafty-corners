@@ -5,11 +5,13 @@ import { useEffect, useState } from 'react';
 import { useStateContext } from "../context/ContextProvider";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import PostModal from '../components/PostModal';
 
 
 const ViewCommunity = () => {
   const [community, setCommunity] = useState([]);
   const [memberCount, setMemberCount] = useState(-1);
+  const [isOpen, setIsOpen] = useState(false);
   const [image, setImage] = useState(null);
   const { user } = useStateContext();
   const { id } = useParams();
@@ -81,9 +83,10 @@ const ViewCommunity = () => {
               <h3>Posts</h3>   
             </div>
             <div className="right">
-                <span className='purple-button'>Create a Post</span>
+                <span onClick={ () => setIsOpen(true)} className='purple-button'>Create a Post</span>
             </div>
           </div>
+          <PostModal isOpen={isOpen} setIsOpen={setIsOpen}/>
         </div>
       </div>
       <div className="recommended">
