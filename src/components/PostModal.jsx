@@ -7,6 +7,7 @@ const PostModal = (props) => {
   const [fileType, setFileType] = useState('');
   const [image, setImage] = useState();
   const [video, setVideo] = useState();
+  const [postType, setPostType] = useState();
 
   const handleFileChange = (ev) => {
     const file = ev.target.files[0];
@@ -63,10 +64,10 @@ const PostModal = (props) => {
             </TabList>
             <TabPanel>
               <div className="post-input">
-                <div className="post-text-container">
+                <div className="post-container">
                   <input type="text" name="title" id="title" placeholder='Title' />
                   <div className="textarea-container">
-                    <textarea name="" id="" cols="30" rows="10" />
+                    <textarea cols="30" rows="10" />
                     <span>0/255</span>
                   </div>
                 </div>
@@ -75,7 +76,7 @@ const PostModal = (props) => {
             </TabPanel>
             <TabPanel>
               <div className="post-input">
-                <div className="post-text-container">
+                <div className="post-container">
                   <input type="text" name="title" id="title" placeholder='Title' />
                   <div className="media-upload-container">
                     {
@@ -106,16 +107,23 @@ const PostModal = (props) => {
                               <input id='upload-button' type="file" onChange={handleFileChange} accept=".mp4, .jpg, .png, .jpeg" />
                               <label htmlFor='upload-button' className="change-picture">Change File</label>
                             </div>
-
                         )
                     }
-
                   </div>
                 </div>
               </div>
             </TabPanel>
             <TabPanel>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, vitae. Voluptas sunt sed est laboriosam praesentium minus iusto! Officia excepturi vitae unde a labore tempora architecto modi quasi recusandae sint.
+            <div className="post-input">
+                <div className="post-container">
+                  <input type="text" name="title" id="title" placeholder='Title' />
+                  <input type="text" name="link" id="title" placeholder='Url' />
+                  <div className="textarea-container" >
+                    <textarea placeholder='Description' cols="30" rows="10" />
+                    <span>0/255</span>
+                  </div>
+                </div>
+              </div>
             </TabPanel>
           </Tabs>
           <span className='purple-button'>Post</span>
