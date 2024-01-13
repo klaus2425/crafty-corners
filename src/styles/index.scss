@@ -658,6 +658,10 @@ input::-webkit-inner-spin-button {
     z-index: 1000;
     padding: 1.46rem;
     width: clamp(20rem, 50vw + 2rem, 45rem);
+    form {
+      text-align: end;
+      width: 100%;
+    }
     .react-tabs__tab-list {
       font-family: Helvetica, Arial, sans-serif;
       display: flex;
