@@ -716,7 +716,6 @@ input::-webkit-inner-spin-button {
         border: 2px $light_grey solid;
         border-radius: 10px;
         padding: 1.65rem;
-        min-height: 10rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -730,32 +729,39 @@ input::-webkit-inner-spin-button {
         label {
           text-align: center;
         }
+        video {
+          width: 100%;
+        }
 
-        .uploaded-image-container{
+        .uploaded-container{
           position: relative;
-          width: 30rem;
-          height: 30rem;
+          width: fit-content;
+          height: fit-content;
 
           .change-picture {
             position: absolute;
             opacity: 0;
             margin-left: auto;
             margin-right: auto;
-            top: 45%;
+            margin-top: auto;
+            margin-bottom: auto;
+            top: 0;
             bottom: 0;
-            height: 6rem;
+            height: 6.8rem;
             background-color: rgba($color: #000000, $alpha: 0.5);
-            width: 6rem;
+            width: 6.8rem;
             left: 0;
             right: 0;
             text-align: center;
             position: absolute;
             border-radius: 1000px;
             color: #FFF;
+            font-weight: 700;
             cursor: pointer;
             text-align: center;
             transition: 0.2s;
             display: flex;
+            justify-content: center;
             align-items: center;
           }
           .post-uploaded-img {
@@ -765,11 +771,10 @@ input::-webkit-inner-spin-button {
             width:100%;
             transition: 0.2s;
             object-fit: scale-down;
-
           }
         }
 
-        .uploaded-image-container:hover {
+        .uploaded-container:hover {
           .post-uploaded-img {
             filter: blur(5px);
           }
