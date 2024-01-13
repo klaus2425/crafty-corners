@@ -199,7 +199,7 @@ const PostModal = (props) => {
               <TabPanel>
                 <div className="post-input">
                   <div className="post-container">
-                    <input required ref={titleRef} type="text" name="title" id="title" placeholder='Title' />
+                    <input required maxLength={300} ref={titleRef} type="text" name="title" id="title" placeholder='Title' />
                     <div className="textarea-container">
                       <textarea maxLength={1000} onChange={ev => handleCount(ev)} ref={descriptionRef} placeholder='Description' cols="30" rows="10" />
                       <span style={count >= 1000 ? { color: '#F44336' } : { color: '#677186' }} className='text-counter'>{count}/1000</span>
@@ -211,7 +211,7 @@ const PostModal = (props) => {
               <TabPanel>
                 <div className="post-input">
                   <div className="post-container">
-                    <input ref={titleRef} type="text" name="title" id="title" placeholder='Title' />
+                    <input maxLength={300} ref={titleRef} type="text" name="title" id="title" placeholder='Title' />
                     <div className="media-upload-container">
                       {
                         !fileUpload ?
@@ -248,7 +248,7 @@ const PostModal = (props) => {
               <TabPanel>
                 <div className="post-input">
                   <div className="post-container">
-                    <input ref={titleRef} type="text" name="title" id="title" placeholder='Title' />
+                    <input maxLength={300} ref={titleRef} type="text" name="title" id="title" placeholder='Title' />
                     <input ref={linkRef} type="text" name="link" id="title" placeholder='Url' />
                     <div className="textarea-container" >
                       <textarea maxLength={140} onChange={ev => handleCount(ev)} ref={descriptionRef} placeholder='Description' cols="30" rows="10" />
