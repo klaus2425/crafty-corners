@@ -75,8 +75,13 @@ const ViewCommunity = () => {
         </div>
         <div className="community-posts">
           <div className="section-header">
+            <div className='left'>
               <img src='/address-card-solid.svg' />
-              <h3>Posts</h3>
+              <h3>Posts</h3>   
+            </div>
+            <div className="right">
+                <span className='purple-button'>Create a Post</span>
+            </div>
           </div>
         </div>
       </div>
