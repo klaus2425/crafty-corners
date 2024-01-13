@@ -1,21 +1,101 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useParams } from 'react-router-dom'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import axiosClient from '../axios-client';
+import Swal from 'sweetalert2';
+import { useStateContext } from '../context/ContextProvider';
 
 const PostModal = (props) => {
+  const {id} = useParams();
   const [fileUpload, setFileUpload] = useState(false);
   const [fileType, setFileType] = useState('');
   const [image, setImage] = useState();
   const [video, setVideo] = useState();
-  const [postType, setPostType] = useState();
+  const [postType, setPostType] = useState('text');
+  const [file, setFile] = useState();
+  const titleRef = useRef();
+  const descriptionRef = useRef();
+  const linkRef = useRef();
+  const {user} = useStateContext();
+
+  const handleSubmit = (ev) => {
+    ev.preventDefault()
+    if (postType === 'video') {
+      const formData = new FormData();
+      formData.append('title', titleRef.current.value);
+      formData.append('video', file);
+      for (const value of formData.values()) {
+        console.log(value);
+      }
+    }
+    else if (postType === 'image') {
+      const formData = new FormData();
+      formData.append('title', titleRef.current.value);
+      formData.append('image', file);
+      for (const value of formData.values()) {
+        console.log(value);
+      }
+    }
+    else if (postType === 'text') {
+      const formData = new FormData();
+      formData.append('user_id', user.id);
+      formData.append('title', titleRef.current.value);
+      formData.append('description', descriptionRef.current.value);
+      formData.append('community_id', id);
+      for (const value of formData.values()) {
+        console.log(value);
+      }
+      axiosClient.post('/posts', formData)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        const response = err.response;
+        if (response && response.status === 422) {
+            Swal.fire({
+                title: "Error",
+                text: `${Object.values(response.data.errors)[0]}`,
+                icon: "warning"
+            });
+        }
+      })
+    }
+    else if (postType === 'url') {
+      const formData = new FormData();
+      formData.append('title', titleRef.current.value);
+      formData.append('link', linkRef.current.value);
+      formData.append('description', descriptionRef.current.value);
+      for (const value of formData.values()) {
+        console.log(value);
+      }
+    }
+
+  }
+
+  const handleTabChange = (index) => {
+    index !== 1 && 
+      setImage(null);
+      setVideo(null);
+      setPostType(null);
+      setFileType(null);
+      setFileUpload(false);
+    index === 0 && setPostType('text');
+    index === 2 && setPostType('url');
+  }
 
   const handleFileChange = (ev) => {
     const file = ev.target.files[0];
+    setFile(file);
     setFileUpload(true);
     if (file.type === 'video/mp4') {
+      setPostType('video');
       setVideo(URL.createObjectURL(file));
     }
-    else setImage(URL.createObjectURL(file));
+    else {
+      setImage(URL.createObjectURL(file));
+      setPostType('image');
+    }
 
     setFileType(file.type);
     console.log(file.type);
@@ -38,9 +118,10 @@ const PostModal = (props) => {
               <path d="M15 9L9 15" stroke="#222222" strokeLinecap="round" />
             </svg>
           </div>
-          <Tabs>
+          <form>
+          <Tabs onSelect={(index) => handleTabChange(index)}>
             <TabList>
-              <Tab>
+              <Tab onSelect={() => console.log('selected')}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M5.58579 4.58579C5 5.17157 5 6.11438 5 8V17C5 18.8856 5 19.8284 5.58579 20.4142C6.17157 21 7.11438 21 9 21H15C16.8856 21 17.8284 21 18.4142 20.4142C19 19.8284 19 18.8856 19 17V8C19 6.11438 19 5.17157 18.4142 4.58579C17.8284 4 16.8856 4 15 4H9C7.11438 4 6.17157 4 5.58579 4.58579ZM9 8C8.44772 8 8 8.44772 8 9C8 9.55228 8.44772 10 9 10H15C15.5523 10 16 9.55228 16 9C16 8.44772 15.5523 8 15 8H9ZM9 12C8.44772 12 8 12.4477 8 13C8 13.5523 8.44772 14 9 14H15C15.5523 14 16 13.5523 16 13C16 12.4477 15.5523 12 15 12H9ZM9 16C8.44772 16 8 16.4477 8 17C8 17.5523 8.44772 18 9 18H13C13.5523 18 14 17.5523 14 17C14 16.4477 13.5523 16 13 16H9Z" fill="#222222" />
                 </svg>
@@ -65,9 +146,9 @@ const PostModal = (props) => {
             <TabPanel>
               <div className="post-input">
                 <div className="post-container">
-                  <input type="text" name="title" id="title" placeholder='Title' />
+                  <input required ref={titleRef} type="text" name="title" id="title" placeholder='Title' />
                   <div className="textarea-container">
-                    <textarea cols="30" rows="10" />
+                    <textarea required ref={descriptionRef} cols="30" rows="10" />
                     <span>0/255</span>
                   </div>
                 </div>
@@ -77,7 +158,7 @@ const PostModal = (props) => {
             <TabPanel>
               <div className="post-input">
                 <div className="post-container">
-                  <input type="text" name="title" id="title" placeholder='Title' />
+                  <input ref={titleRef} type="text" name="title" id="title" placeholder='Title' />
                   <div className="media-upload-container">
                     {
                       !fileUpload ?
@@ -89,7 +170,6 @@ const PostModal = (props) => {
                               <path d="M12 12L11.2929 11.2929L12 10.5858L12.7071 11.2929L12 12ZM13 21C13 21.5523 12.5523 22 12 22C11.4477 22 11 21.5523 11 21L13 21ZM7.29289 15.2929L11.2929 11.2929L12.7071 12.7071L8.70711 16.7071L7.29289 15.2929ZM12.7071 11.2929L16.7071 15.2929L15.2929 16.7071L11.2929 12.7071L12.7071 11.2929ZM13 12L13 21L11 21L11 12L13 12Z" fill="#222222" />
                             </svg>
                             <p>Upload an Image/Video</p>
-
                           </label>
                         </>
                         :
@@ -100,7 +180,6 @@ const PostModal = (props) => {
                               <input id='upload-button' type="file" onChange={handleFileChange} accept=".mp4, .jpg, .png, .jpeg" />
                               <label htmlFor='upload-button' className="change-picture">Change File</label>
                             </div>
-
                             :
                             <div className='uploaded-container'>
                               <video controls src={video}></video>
@@ -116,17 +195,18 @@ const PostModal = (props) => {
             <TabPanel>
             <div className="post-input">
                 <div className="post-container">
-                  <input type="text" name="title" id="title" placeholder='Title' />
-                  <input type="text" name="link" id="title" placeholder='Url' />
+                  <input ref={titleRef} type="text" name="title" id="title" placeholder='Title' />
+                  <input ref={linkRef} type="text" name="link" id="title" placeholder='Url' />
                   <div className="textarea-container" >
-                    <textarea placeholder='Description' cols="30" rows="10" />
+                    <textarea ref={descriptionRef} placeholder='Description' cols="30" rows="10" />
                     <span>0/255</span>
                   </div>
                 </div>
               </div>
             </TabPanel>
           </Tabs>
-          <span className='purple-button'>Post</span>
+          <button type='submit' onClick={handleSubmit} className='purple-button'>Post</button>
+          </form>
         </div>
       </div>
     )
