@@ -160,11 +160,7 @@ const EditProfile = () => {
                                             <input type="text" value={currentUser.last_name} onChange={ev => setCurrentUser({ ...currentUser, last_name: ev.target.value })} required />
                                             <label>Last Name</label>
                                         </div>
-
-
                                     </div>
-
-
                                     <div className="input-col-container">
                                         <div className="field-holder">
                                             <input id='input-birthday' type="date" value={currentUser.birthday} onChange={ev => setCurrentUser({ ...currentUser, birthday: ev.target.value })} />
