@@ -27,6 +27,7 @@ const EditCommunity = () => {
     axiosClient.get(`/communities/${id}`)
       .then(({ data }) => {
         setPosts(data.data.posts)
+        console.log(data.data.posts);
         setCommunity(data.data);
         setLoading(false);
         setImage(storageBaseUrl + data.data.community_photo);
@@ -135,7 +136,6 @@ const EditCommunity = () => {
           });
           setLoading(false);
           setImage(image);
-
         })
     } else if (community.description !== communityDescription) {
       const formData = new FormData();
@@ -212,7 +212,7 @@ const EditCommunity = () => {
         <h1>Posts</h1>
         {
           posts && posts.map(p => (
-            <AdminPosts getCommunity={getCommunity} post={p} />
+            <AdminPosts getCommunity={getCommunity} community={community} post={p} />
           ))
         }
       </div>
