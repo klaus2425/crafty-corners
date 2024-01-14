@@ -1920,13 +1920,12 @@ input::-webkit-inner-spin-button {
   padding-top: 6rem;
   padding-left: 2rem;
   display: flex;
-  background-image: url('../../public/cool-background\ .svg');
   flex-direction: column;
   align-items: center;
 
 
   .admin-header {
-    color: #677186;
+    color: #676869;
     font-size: 2.5rem;
     font-style: normal;
     font-weight: 700;
@@ -1951,7 +1950,7 @@ input::-webkit-inner-spin-button {
     }
     .top {
       display: flex;
-      background-color: $lighter_grey;
+      background-color: $light_grey;
       padding: 2rem;
       gap: 3rem;
       word-wrap: break-word;
@@ -2945,6 +2944,8 @@ input::-webkit-inner-spin-button {
   min-height: 80vh;
   margin-bottom: 0.5rem;
   padding: 1rem;
+  overflow: auto;
+  height: 20rem;
 
   .card-search {
     position: relative;
