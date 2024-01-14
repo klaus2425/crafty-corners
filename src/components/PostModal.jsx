@@ -28,12 +28,15 @@ const PostModal = (props) => {
     ev.preventDefault()
     if (postType === 'video') {
       const formData = new FormData();
+      console.log("clicked");
       formData.append('user_id', user.id);
       formData.append('community_id', id);
       formData.append('title', titleRef.current.value);
       formData.append('video', file);
       formData.append('post_type', 'video');
-
+      for (const value of formData.values()) {
+        console.log(value);
+      }
       axiosClient.post('/posts', formData)
         .then(() => {
           props.getCommunity();
@@ -53,7 +56,6 @@ const PostModal = (props) => {
     }
     else if (postType === 'image') {
       const formData = new FormData();
-      formData.append('user_id', user.id);
       formData.append('community_id', id);
       formData.append('title', titleRef.current.value);
       formData.append('image', file);

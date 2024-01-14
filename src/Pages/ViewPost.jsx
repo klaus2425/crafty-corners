@@ -213,7 +213,8 @@ const ViewPost = () => {
             </div>
             <span className="post-title">{post.title}</span>
             <div className="post-content">
-              <p className='post-text'>{post.content || <Skeleton containerClassName='post-text' count={5} />}</p>
+              <video controls className='post-image' src={`${storagePostUrl}${post.video}`} />
+              
             </div>
             <div className="post-footer">
               <div className="footer-item">

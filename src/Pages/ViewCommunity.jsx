@@ -33,9 +33,14 @@ const ViewCommunity = () => {
       .then(res => {
         setLoading(false);
         setCommunity(res.data.data);
-        setPosts(res.data.data.posts);
         setImage(import.meta.env.VITE_API_COMMUNITIES_URL + res.data.data.community_photo);
+        console.log(res.data.data);
       })
+    axiosClient.get(`communities/${id}/posts`)
+    .then(res => {
+      setPosts(res.data.data)
+      console.log(res.data.data);
+    })
   }
 
   useEffect(() => {
@@ -91,13 +96,13 @@ const ViewCommunity = () => {
               }
             </div>
           </div>
-          {posts.toReversed().map(p => (
+          {posts.map(p => (
             <Post post={p} community={community} />
           )
           )
 
           }
-          <PostModal isOpen={isOpen} setIsOpen={setIsOpen} />
+          <PostModal getCommunity={getCommunity} isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
       </div>
       <div className="recommended">

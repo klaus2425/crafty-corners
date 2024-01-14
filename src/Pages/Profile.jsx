@@ -16,14 +16,15 @@ const UserFeed = () => {
     const [imageLoading, setImageLoading] = useState(true);
     const navigate = useNavigate();
     const [userPosts, setUserPosts] = useState([]);
-    
+    const [currentUser, setCurrentUser] = useState([]);
     const getPosts = () => {
-        axiosClient.get('/posts')
+        axiosClient.get(`/users/${user.id}`)
             .then(res => {
-                const posts = res.data.posts;
-                const filteredData = posts.filter(item => item.user.id === user.id);
-                console.log(filteredData);
-                setUserPosts(filteredData);
+                // const posts = res.data.posts;
+                // const filteredData = posts.filter(item => item.user.id === user.id);
+                console.log(res.data.data);
+                setCurrentUser(res.data.data);
+                setUserPosts(res.data.data.posts);
             })
     }
 
@@ -84,7 +85,7 @@ const UserFeed = () => {
                     <div className='posts-col'>
                         {userPosts &&
                             userPosts.map(p => (
-                                <UserPost post={p} />
+                                <UserPost post={p} user={currentUser} />
                             ))
                         }
                     </div>
