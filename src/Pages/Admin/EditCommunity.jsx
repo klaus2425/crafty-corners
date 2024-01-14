@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axiosClient from "../../axios-client"
 import Swal from 'sweetalert2';
 import { AdminPosts } from "../../components/Post";
+import Loading from "../../components/utils/Loading";
 
 const EditCommunity = () => {
 
@@ -174,8 +175,13 @@ const EditCommunity = () => {
 
   return (
     <div>
-      <form encType="multipart/form-data" onSubmit={onSubmit}>
-        <div className="add-community-container">
+      {loading ? (
+        <div className="loading-container">
+                <Loading />
+        </div>
+            ) : 
+      <div className="add-community-container">
+        <form encType="multipart/form-data" onSubmit={onSubmit}>
           <h1>Edit {communityName} Community</h1>
           <div className="community-form">
             <div className="community-input-label">
@@ -201,16 +207,17 @@ const EditCommunity = () => {
             </div>
           </div>
           <button className="button">Submit</button>
-        </div>
-      </form>
-      <div className="community-posts">
+        </form>
+        <div className="community-posts">
         <h1>Posts</h1>
         {
           posts && posts.map(p => (
-            <AdminPosts getCommunity={getCommunity} post={p}/>
+            <AdminPosts getCommunity={getCommunity} post={p} />
           ))
         }
       </div>
+      </div>
+    }
     </div>
   )
 }
