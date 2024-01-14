@@ -12,9 +12,7 @@ const AdminCommunities = () => {
     const storageBaseUrl = import.meta.env.VITE_API_COMMUNITIES_URL;
     const [loading, setLoading] = useState(false);
     const [communities, setCommunities] = useState([]);
-    useEffect(() => {
-        getCommunities();
-    }, [])
+
 
 
     const onDeleteClick = community => {
@@ -50,6 +48,10 @@ const AdminCommunities = () => {
             setCommunities(data.data);
         })
     }
+
+    useEffect(() => {
+        getCommunities();
+    }, [])
 
     return (
         <div className="communities-container">
