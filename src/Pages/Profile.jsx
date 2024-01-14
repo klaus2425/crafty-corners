@@ -16,6 +16,7 @@ const UserFeed = () => {
     const [imageLoading, setImageLoading] = useState(true);
     const navigate = useNavigate();
     const [userPosts, setUserPosts] = useState([]);
+    
     const getPosts = () => {
         axiosClient.get('/posts')
             .then(res => {
@@ -24,7 +25,6 @@ const UserFeed = () => {
                 console.log(filteredData);
                 setUserPosts(filteredData);
             })
-
     }
 
     useEffect(() => {
