@@ -9,11 +9,11 @@ import axiosClient from "../axios-client";
 const Post = (props) => {
     const [post, setPost] = useState(props.post);
     const user = post.user;
-    const [likes, setLikes] = useState(props.post.likes.length);
-    const community = post.community;
+    const community = props.community;
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
     const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
     const ago = getAgo(post.created_at);
+    const [likes, setLikes] = useState(props.post.likes.length);
     const [liked, setLiked] = useState(false);
     const [loading, setLoading] = useState(true);
     const [loadingProfile, setLoadingProfile] = useState(true);
@@ -21,11 +21,9 @@ const Post = (props) => {
     const viewPost = () => {
         navigate(`/p/${post.id}`)
     }
-
     const updatePostDetails = () => {
         axiosClient.get(`/posts/${post.id}`)
         .then(res => {
-
             setLikes(res.data.data.likes.length);
         })
     }
@@ -231,6 +229,9 @@ const Post = (props) => {
 
 
 
+
+
+
 export const UserPost = (props) => {
     const post = props.post;
     const user = post.user;
@@ -241,6 +242,49 @@ export const UserPost = (props) => {
     const [loading, setLoading] = useState(true);
     const [loadingProfile, setLoadingProfile] = useState(true);
     const navigate = useNavigate();
+    //const [likes, setLikes] = useState(props.post.likes.length);
+    const [liked, setLiked] = useState(false);
+
+    
+    const updatePostDetails = () => {
+        axiosClient.get(`/posts/${post.id}`)
+        .then(res => {
+            setLikes(0);
+        })
+    }
+    const handleLike = (id) => {
+        console.log(liked);
+        if(!liked) {
+          axiosClient.post(`/like-post/${id}`)
+          .then(res => {
+            setLiked(true);
+            console.log(res.data);
+            updatePostDetails(id);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+        }
+        else {
+          axiosClient.post(`/unlike-post/${id}`)
+          .then(res => {
+            console.log(res.data);
+            setLiked(false);
+            updatePostDetails(id);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+        }
+      }
+
+      useEffect(() =>{
+        const ip = props.post.likes;
+        console.log(props);
+        //setLiked(ip.some(item => item.user_id == user.id))
+      },[])
+
+
 
     const handleShare = () => {
         navigator.clipboard.writeText(`${import.meta.env.VITE_HOME_URL}${post.id}`);
