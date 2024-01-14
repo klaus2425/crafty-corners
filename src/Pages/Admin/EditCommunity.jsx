@@ -212,7 +212,7 @@ const EditCommunity = () => {
         <h1>Posts</h1>
         {
           posts && posts.map(p => (
-            <AdminPosts getCommunity={getCommunity} community={community} post={p} />
+            <AdminPosts getCommunity={getCommunity} community={community} post={p} user={p.user} />
           ))
         }
       </div>

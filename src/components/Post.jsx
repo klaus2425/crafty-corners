@@ -542,7 +542,7 @@ export const UserPost = (props) => {
 
 export const AdminPosts = (props) => {
     const post = props.post;
-    const user = post.user;
+    const user = props.user;
     const community = props.community;
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
     const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;

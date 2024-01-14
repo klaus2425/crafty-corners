@@ -192,8 +192,7 @@ const EditUser = () => {
                         {userPosts &&
                             userPosts.map(p => (
                                 <div className="admin-posts">
-                                <AdminPosts community={p.community} post={p} />
-
+                                <AdminPosts getCommunity={getUser} community={p.community} post={p} user={e_user}/>
                                 </div>
                             ))
                         }
