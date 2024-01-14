@@ -4,6 +4,7 @@ import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2';
 import Loading from "../../components/utils/Loading";
 import { useStateContext } from "../../context/ContextProvider";
+import { AdminPosts } from "../../components/Post";
 
 const EditUser = () => {
     let { id } = useParams();
@@ -12,6 +13,18 @@ const EditUser = () => {
     const [imageChange, setImageChange] = useState(false);
     const [loading, setLoading] = useState(false);
     const [image, setImage] = useState();
+    const [userPosts, setUserPosts] = useState([]);
+    
+    const getPosts = () => {
+        axiosClient.get('/posts')
+            .then(res => {
+                const posts = res.data.posts;
+                const filteredData = posts.filter(item => item.user.id == id );
+                console.log(filteredData);
+                setUserPosts(filteredData);
+            })
+    }
+
     const { setUser } = useStateContext();
     if (!image) { setImage('/avatar.jpg') }
 
@@ -38,6 +51,7 @@ const EditUser = () => {
     if (id) {
         useEffect(() => {
             getUser();
+            getPosts();
         }, []);
     }
 
@@ -182,6 +196,11 @@ const EditUser = () => {
                     </form>
                     <div className="admin-user-posts">
                         <h1>User Posts</h1>
+                        {userPosts && 
+                            userPosts.map(p => {
+                                <AdminPosts post={p}/>
+                        })
+                        }
                     </div>
                 </div>
             }
