@@ -8,17 +8,18 @@ import Swal from 'sweetalert2';
 
 const ViewPost = () => {
   const { id } = useParams();
-  const [post, setPost] = useState();
+  const [post, setPost] = useState([]);
   const [community, setCommunity] = useState();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState([]);
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [loading, setLoading] = useState(true);
   const [ago, setAgo] = useState();
+  const [comments, setComment] = useState([]);
+
   const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
   const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
   const [isOpen, setIsOpen] = useState(false);
   const commentRef = useRef();
-  
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
     Swal.fire({
@@ -41,9 +42,8 @@ const ViewPost = () => {
     ev.preventDefault();
     console.log('clicked');
     const formData = new FormData();
-    formData.append('post_id', id);
     formData.append('content', commentRef.current.value);
-    axiosClient.post(`/comments/`, formData)
+    axiosClient.post(`post/${id}/comment/`, formData)
       .then(res => {
         console.log(res.data);
       })
