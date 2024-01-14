@@ -1723,6 +1723,7 @@ input::-webkit-inner-spin-button {
         width: 3rem;
         border-radius: 10000px;
         object-fit: cover;
+        cursor: pointer;
       }
 
       .post-user {
@@ -1748,8 +1749,14 @@ input::-webkit-inner-spin-button {
   }
 
   .post-content {
-    text-align: center;
-
+    display: flex;
+    justify-content: center;
+    .post-text {
+      height: fit-content;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
     .post-image {
       object-fit: cover;
       width: 100%;
@@ -1758,6 +1765,8 @@ input::-webkit-inner-spin-button {
       min-height: 24rem;
       max-width: 41.375rem;
       max-height: 28.9375rem;
+      cursor: pointer;
+
     }
 
     .post-text {
@@ -1793,6 +1802,7 @@ input::-webkit-inner-spin-button {
     transform: translate(-50%, -50%);
     z-index: 1000;
     max-width: 40rem;
+    cursor: pointer;
     img {
       object-fit: scale-down;
     }
@@ -1801,11 +1811,7 @@ input::-webkit-inner-spin-button {
       position: absolute;
       opacity: 0;
       transition: 0.2s;
-      svg {
-        transform: scale(1.5)
-      }
-      right: 0;
-      margin-left: 1rem;
+
     }
     
 
