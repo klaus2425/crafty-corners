@@ -1771,6 +1771,33 @@ input::-webkit-inner-spin-button {
       justify-content: flex-start;
 
     }
+    
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($color: #000000, $alpha: 0.9);
+    z-index: 1000;
+  }
+
+  .image-modal {
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    padding: 1.46rem;
+    img {
+      object-fit: scale-down;
+      max-width: 40rem;
+    }
+
+  }
 
 
   }
@@ -2188,6 +2215,9 @@ input::-webkit-inner-spin-button {
   }
 
 
+  
+
+
 
 
   .modal {
@@ -2212,6 +2242,23 @@ input::-webkit-inner-spin-button {
     bottom: 0;
     background: rgba($color: #000000, $alpha: 0.7);
     z-index: 1000;
+  }
+
+  .image-modal {
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 1rem;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    padding: 1.46rem;
+    img {
+      width: 100px;
+    }
+
   }
 
   .landing-container {
