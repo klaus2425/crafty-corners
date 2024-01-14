@@ -1637,7 +1637,9 @@ input::-webkit-inner-spin-button {
   padding: 1rem;
   margin-bottom: 1.5rem;
   gap: 0.5rem;
-
+  .title-content-container {
+    cursor: pointer;
+  }
   .post-title {
     display: flex;
     font-size: 1.3rem;
@@ -1666,6 +1668,7 @@ input::-webkit-inner-spin-button {
       .post-user {
         display: flex;
         flex-direction: column;
+        gap: 0.25rem;
         align-items: flex-start;
         justify-content: center;
         color: $dark_grey;
