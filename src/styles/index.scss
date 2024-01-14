@@ -1695,6 +1695,14 @@ input::-webkit-inner-spin-button {
   margin-bottom: 1.5rem;
   gap: 0.5rem;
 
+  .link-button-container {
+    width: 100%;
+    text-align: center;
+    .orange-button {
+      width: fit-content;
+    }
+  }
+
   .title-content-container {
     cursor: pointer;
   }
@@ -1848,6 +1856,10 @@ input::-webkit-inner-spin-button {
 
     .count {
       padding-top: 0.25rem;
+    }
+    form{
+      width: 100%;
+      text-align: end;
     }
 
     .purple-button {
