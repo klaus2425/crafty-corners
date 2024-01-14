@@ -2125,7 +2125,13 @@ input::-webkit-inner-spin-button {
   text-align: center;
 }
 
-.loading-container {}
+.loading-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
 
 .loading-admin {
   font-size: clamp(1rem, 5vw, 4rem);
