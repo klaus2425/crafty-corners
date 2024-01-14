@@ -35,7 +35,8 @@ const PostModal = (props) => {
       formData.append('post_type', 'video');
 
       axiosClient.post('/posts', formData)
-        .then(res => {
+        .then(() => {
+          props.getCommunity();
           handleClose();
         })
         .catch(err => {
@@ -59,7 +60,7 @@ const PostModal = (props) => {
       formData.append('post_type', 'image');
       axiosClient.post('/posts', formData)
         .then(res => {
-          console.log(res.data);
+          props.getCommunity();
           handleClose();
 
         })
@@ -84,8 +85,8 @@ const PostModal = (props) => {
       formData.append('post_type', 'text');
       axiosClient.post('/posts', formData)
         .then(res => {
+          props.getCommunity();
           handleClose();
-
         })
         .catch(err => {
           const response = err.response;
@@ -109,6 +110,7 @@ const PostModal = (props) => {
       formData.append('post_type', 'link');
       axiosClient.post('/posts', formData)
         .then(res => {
+          props.getCommunity();
           handleClose();
         })
         .catch(err => {
