@@ -137,8 +137,7 @@ const Post = (props) => {
                 <div className="title-content-container" onClick={() => viewPost()}>
                     <span className="post-title">{post.title}</span>
                     <div className="post-content">
-                        {loading && <Skeleton className="post-image" />}
-                        <img className={loading ? 'hide' : 'post-image'} src={`${storagePostUrl}${post.image}`} alt="" onLoad={() => setLoading(false)} />
+                        <video controls className='post-image' src={`${storagePostUrl}${post.video}`} alt="" onLoad={() => setLoading(false)} />
                     </div>
                 </div>
                 <div className="post-footer">
@@ -267,18 +266,7 @@ const Post = (props) => {
             </div>
         )
     }
-
-
-
-
 }
-
-
-
-
-
-
-
 
 
 
@@ -470,8 +458,6 @@ export const UserPost = (props) => {
                         <div className='post-text'>
                             {post.content}
                         </div>
-
-
                     </div>
                 </div>
                 <div className="post-footer">
@@ -557,7 +543,7 @@ export const UserPost = (props) => {
 export const AdminPosts = (props) => {
     const post = props.post;
     const user = post.user;
-    const community = post.community;
+    const community = props.community;
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
     const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
     const ago = getAgo(post.created_at);
@@ -634,8 +620,7 @@ export const AdminPosts = (props) => {
                 <div className="title-content-container" onClick={() => deletePost()}>
                     <span className="post-title">{post.title}</span>
                     <div className="post-content">
-                        {loading && <Skeleton className="post-image" />}
-                        <img className={loading ? 'hide' : 'post-image'} src={`${storagePostUrl}${post.image}`} alt="" onLoad={() => setLoading(false)} />
+                        <video controls className='post-image' src={`${storagePostUrl}${post.video}`} />
                     </div>
                 </div>
 
@@ -665,8 +650,6 @@ export const AdminPosts = (props) => {
                         <div className='post-text'>
                             {post.content}
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -697,6 +680,7 @@ export const AdminPosts = (props) => {
                             {post.content}
                         </div>
                     </div>
+                    {post.link}
                 </div>
             </div>
         )
