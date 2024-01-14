@@ -1783,6 +1783,7 @@ input::-webkit-inner-spin-button {
   }
 
   .image-modal {
+    position: relative;
     display: flex;
     flex-direction: column;
     border-radius: 25px;
@@ -1791,13 +1792,30 @@ input::-webkit-inner-spin-button {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
-    padding: 1.46rem;
+    max-width: 40rem;
     img {
       object-fit: scale-down;
-      max-width: 40rem;
     }
 
+    .close {
+      position: absolute;
+      opacity: 0;
+      transition: 0.2s;
+      svg {
+        transform: scale(1.5)
+      }
+      right: 0;
+      margin-left: 1rem;
+    }
+    
+
   }
+  .image-modal:hover {
+    .close {
+      opacity: 1;
+    }
+  }
+
 
 
   }
