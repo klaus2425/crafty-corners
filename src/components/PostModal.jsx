@@ -5,6 +5,7 @@ import 'react-tabs/style/react-tabs.css';
 import axiosClient from '../axios-client';
 import Swal from 'sweetalert2';
 import { useStateContext } from '../context/ContextProvider';
+import Loading from "./utils/Loading";
 
 const PostModal = (props) => {
   const { id } = useParams();
@@ -12,6 +13,7 @@ const PostModal = (props) => {
   const [fileType, setFileType] = useState('');
   const [image, setImage] = useState();
   const [video, setVideo] = useState();
+  const [loading, setLoading] = useState(false);
   const [postType, setPostType] = useState('text');
   const [file, setFile] = useState();
   const [count, setCount] = useState();
@@ -27,6 +29,7 @@ const PostModal = (props) => {
   const handleSubmit = (ev) => {
     ev.preventDefault()
     if (postType === 'video') {
+      setLoading(true);
       const formData = new FormData();
       console.log("clicked");
       formData.append('user_id', user.id);
@@ -40,11 +43,12 @@ const PostModal = (props) => {
       axiosClient.post('/posts', formData)
         .then(() => {
           props.getCommunity();
+          setLoading(false);
           handleClose();
         })
         .catch(err => {
           const response = err.response;
-          console.log(err);
+          setLoading(false);
           if (response && response.status === 422) {
             Swal.fire({
               title: "Error",
@@ -217,7 +221,7 @@ const PostModal = (props) => {
                   <div className="post-container">
                     <input maxLength={300} ref={titleRef} type="text" name="title" id="title" placeholder='Title' />
                     <div className="media-upload-container">
-                      {
+                      {loading ? <Loading /> :
                         !fileUpload ?
                           <>
                             <input id='upload-button' type="file" onChange={handleFileChange} accept=".mp4, .jpg, .png, .jpeg" />
