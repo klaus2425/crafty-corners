@@ -1885,8 +1885,17 @@ input::-webkit-inner-spin-button {
 
     .heart:hover {
       transition: 0.2s;
-      fill: rgb(255, 40, 40);
-
+      fill: rgb(241, 89, 89);
+      path {
+        stroke: rgb(241, 89, 89);
+      }
+    }
+    .heart-filled {
+      transition: 0.2s;
+      fill: rgb(241, 89, 89);
+      path {
+        stroke: rgb(241, 89, 89);
+      }
     }
 
     .count {
