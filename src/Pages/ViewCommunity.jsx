@@ -33,6 +33,7 @@ const ViewCommunity = () => {
     axiosClient.get(`/communities/${id}`)
       .then(res => {
         setLoading(false);
+        console.log('working');
         setCommunity(res.data.data);
         setPosts(res.data.data.posts);
         setImage(import.meta.env.VITE_API_COMMUNITIES_URL + res.data.data.community_photo);
@@ -98,7 +99,7 @@ const ViewCommunity = () => {
           )
 
           }
-          <PostModal isOpen={isOpen} setIsOpen={setIsOpen} />
+          <PostModal getCommunity={getCommunity} isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
       </div>
       <div className="recommended">
