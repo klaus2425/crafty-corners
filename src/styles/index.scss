@@ -1880,6 +1880,7 @@ input::-webkit-inner-spin-button {
   flex-direction: column;
   align-items: center;
 
+
   .admin-header {
     color: #677186;
     font-size: 2.5rem;
@@ -1889,7 +1890,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     padding-left: 10rem;
   }
-
+  
   .admin-container {
     display: flex;
     margin-top: 1rem;
@@ -2387,7 +2388,7 @@ input::-webkit-inner-spin-button {
 
 .signup-main {
   display: flex;
-  height: 50rem;
+  height: fit-content;
 
   h2 {
     padding-left: 0.3rem;
@@ -2426,8 +2427,7 @@ input::-webkit-inner-spin-button {
 
 .sign-up-button-container {
   display: flex;
-  justify-content: flex-end;
-  padding-right: 10rem;
+  justify-content: center;
 }
 
 .gender-container {
