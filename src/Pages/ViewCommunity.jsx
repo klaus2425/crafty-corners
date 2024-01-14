@@ -10,8 +10,8 @@ import Post from '../components/Post';
 
 
 const ViewCommunity = () => {
-  const [community, setCommunity] = useState([]);
   const [memberCount, setMemberCount] = useState(-1);
+  const [community, setCommunity] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [image, setImage] = useState(null);
   const { user } = useStateContext();
@@ -68,7 +68,6 @@ const ViewCommunity = () => {
             <div className='community-details'>
               {imageLoading && <Skeleton className='community-img' circle={true} />}
               <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} className='community-img' src={image} />
-
               <div className="com-name-join">
                 <div className="community-text">
                   <span className='community-name'>{community.name || <Skeleton containerClassName='community-name' />}</span>

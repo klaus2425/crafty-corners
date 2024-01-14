@@ -5,12 +5,14 @@ import Skeleton from 'react-loading-skeleton';
 import { getAgo } from "@jlln/ago";
 import ImageModal from '../components/ImageModal';
 import Swal from 'sweetalert2';
+import { useStateContext } from '../context/ContextProvider';
 
 const ViewPost = () => {
   const { id } = useParams();
+  const { user } = useStateContext();
   const [post, setPost] = useState([]);
   const [community, setCommunity] = useState();
-  const [user, setUser] = useState([]);
+  const [postUser, setPostUser] = useState([]);
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [loading, setLoading] = useState(true);
   const [ago, setAgo] = useState();
@@ -32,11 +34,12 @@ const ViewPost = () => {
   }
 
   const handleLike = () => {
-    console.log('clicked');
+    console.log(liked);
     if(!liked) {
       axiosClient.post(`/like-post/${id}`)
       .then(res => {
         console.log(res.data);
+        setLiked(true)
         getPost();
       })
       .catch(err => {
@@ -47,15 +50,13 @@ const ViewPost = () => {
       axiosClient.post(`/unlike-post/${id}`)
       .then(res => {
         console.log(res.data);
+        setLiked(false);
         getPost();
       })
       .catch(err => {
         console.log(err);
       })
     }
-
-    setLiked(!liked);
-
   }
 
 
@@ -91,12 +92,12 @@ const ViewPost = () => {
       .then(res => {
         const data = res.data.data;
         const likes = data.likes;
-        setLiked(likes.some(item => item.user_id === data.user.id));
+        setLiked(likes.some(item => item.user_id == user.id));
+        console.log(user.id)
         setPost(data);
         setAgo(getAgo(data.created_at));
         setCommunity(data.community);
-        console.log(data);
-        setUser(data.user);
+        setPostUser(data.user);
         setComments(data.comments)
       })
   }
@@ -117,9 +118,9 @@ const ViewPost = () => {
             <div className="post-header" id="posts">
               <div className="left">
                 {loadingProfile && <Skeleton circle className="post-image" />}
-                <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${user?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${postUser?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                 <div className='post-user'>
-                  <h4>{user?.first_name}</h4>
+                  <h4>{postUser?.first_name}</h4>
                   <span id='post-time'>{ago} ago</span>
                 </div>
               </div>
@@ -201,9 +202,9 @@ const ViewPost = () => {
             <div className="post-header" id="posts">
               <div className="left">
                 {loadingProfile && <Skeleton circle className="post-image" />}
-                <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${user?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${postUser?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                 <div className='post-user'>
-                  <h4>{user?.first_name}</h4>
+                  <h4>{postUser?.first_name}</h4>
                   <span id='post-time'>{ago} ago</span>
                 </div>
               </div>
@@ -286,9 +287,9 @@ const ViewPost = () => {
             <div className="post-header" id="posts">
               <div className="left">
                 {loadingProfile && <Skeleton circle className="post-image" />}
-                <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${user?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${postUser?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                 <div className='post-user'>
-                  <h4>{user?.first_name}</h4>
+                  <h4>{postUser?.first_name}</h4>
                   <span id='post-time'>{ago} ago</span>
                 </div>
               </div>
@@ -369,9 +370,9 @@ const ViewPost = () => {
             <div className="post-header" id="posts">
               <div className="left">
                 {loadingProfile && <Skeleton circle className="post-image" />}
-                <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${user?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${postUser ?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                 <div className='post-user'>
-                  <h4>{user?.first_name}</h4>
+                  <h4>{postUser?.first_name}</h4>
                   <span id='post-time'>{ago} ago</span>
                 </div>
               </div>

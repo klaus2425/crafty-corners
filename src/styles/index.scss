@@ -2256,10 +2256,8 @@ input::-webkit-inner-spin-button {
     #update-picture {
       border-radius: 10000px;
       border: 2px solid $dark_grey;
-      max-width: 10.125rem;
-      min-width: 10.123rem;
-      max-height: 10.125rem;
-      min-height: 10.125rem;
+      width: 10.125rem;
+      object-fit: cover;
     }
   }
 

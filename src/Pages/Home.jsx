@@ -1,7 +1,27 @@
+import { useEffect, useState } from 'react'
 import Post from '../components/Post'
 import RecommendedCommunities from '../components/RecommendedCommunities'
+import axiosClient from '../axios-client';
+
 
 const UserFeed = () => {
+
+  const [posts, setPosts] = useState([]);
+
+  const getPosts = () => {
+    axiosClient.get('/posts')
+    .then(res => {
+        console.log(res.data.data);
+        setPosts(res.data.data);
+        setCommunity(res.data.data.community);
+    })
+  }
+
+  useEffect(() => {
+    getPosts();
+  },[])
+
+
     return (
         <div className="authenticated-container">
             <div className="feed">
@@ -12,7 +32,10 @@ const UserFeed = () => {
                     </svg>
                     <h3>Home</h3>
                 </div>
-
+                {posts.toReversed().map(p => (
+                    <Post post={p} community={p.community} />
+                ))
+                }
             </div>
             <div className="recommended">
 
