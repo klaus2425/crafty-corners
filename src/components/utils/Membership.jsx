@@ -15,11 +15,8 @@ const MembershipCheck = (props) => {
   }
 
   const joinCommunity = (id) => {
-    const formData = new FormData();
-    formData.append('community_id', id);
-    formData.append('user_id', props.user_id);
 
-    axiosClient.post('/join-community', formData)
+    axiosClient.post(`/join-community/${id}`)
       .then(() => {
         getCommunity();
       })
@@ -34,10 +31,6 @@ const MembershipCheck = (props) => {
   }
 
   const leaveCommunity = (id) => {
-    const formData = new FormData();
-    formData.append('community_id', id);
-    formData.append('user_id', props.user_id);
-
     Swal.fire({
       title: "Leave this community?",
       text: "You are still welcome to come back!",
@@ -48,7 +41,7 @@ const MembershipCheck = (props) => {
       confirmButtonText: "Yes"
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosClient.post('/leave-community', formData)
+        axiosClient.post(`/leave-community/${id}`)
           .then(() => {
             getCommunity();
           })
