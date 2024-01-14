@@ -15,7 +15,7 @@ const ViewPost = () => {
   const [loading, setLoading] = useState(true);
   const [ago, setAgo] = useState();
   const [comments, setComments] = useState([]);
-
+  const [liked, setLiked] = useState(false);
   const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
   const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
   const [isOpen, setIsOpen] = useState(false);
@@ -30,6 +30,34 @@ const ViewPost = () => {
       timer: 1500
     });
   }
+
+  const handleLike = () => {
+    console.log('clicked');
+    if(!liked) {
+      axiosClient.post(`/like-post/${id}`)
+      .then(res => {
+        console.log(res.data);
+        getPost();
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
+    else {
+      axiosClient.post(`/unlike-post/${id}`)
+      .then(res => {
+        console.log(res.data);
+        getPost();
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
+
+    setLiked(!liked);
+
+  }
+
 
   const openLink = () => {
     const newWindow = window.open(post.link, "_blank", 'noopener,noreferrer');
@@ -62,12 +90,14 @@ const ViewPost = () => {
     axiosClient.get(`/posts/${id}`)
       .then(res => {
         const data = res.data.data;
+        const likes = data.likes;
+        setLiked(likes.some(item => item.user_id === data.user.id));
         setPost(data);
         setAgo(getAgo(data.created_at));
         setCommunity(data.community);
+        console.log(data);
         setUser(data.user);
         setComments(data.comments)
-        console.log(data.comments);
       })
   }
 
@@ -105,10 +135,10 @@ const ViewPost = () => {
             </div>
             <div className="post-footer">
               <div className="footer-item">
-                <svg className="heart" xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
+                <svg onClick={handleLike} className={liked ? 'heart-filled' : "heart"} xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
                   <path d="M6.30508 19.7033L16.1546 28.9559C16.4939 29.2746 16.6635 29.434 16.8636 29.4732C16.9536 29.4909 17.0463 29.4909 17.1364 29.4732C17.3364 29.434 17.506 29.2746 17.8453 28.9559L27.6948 19.7033C30.4661 17.1 30.8026 12.816 28.4719 9.81193L28.0336 9.24707C25.2453 5.65332 19.6486 6.25602 17.6894 10.361C17.4127 10.9409 16.5873 10.9409 16.3105 10.361C14.3513 6.25602 8.75457 5.65332 5.96632 9.24706L5.52806 9.81193C3.1973 12.816 3.53383 17.1 6.30508 19.7033Z" stroke="#677186" strokeWidth="2.83333" />
                 </svg>
-                <span className="count">0</span>
+                <span className="count">{post?.likes.length}</span>
               </div>
               <div className="footer-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
@@ -116,7 +146,7 @@ const ViewPost = () => {
                   <path d="M12.3958 13.8542L22.6041 13.8542" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12.3958 18.2292H19.6874" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span className="count">0</span>
+                <span className="count">{comments?.length}</span>
               </div>
               <div className="footer-item">
                 <svg onClick={() => handleShare()} xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
@@ -187,10 +217,10 @@ const ViewPost = () => {
             </div>
             <div className="post-footer">
               <div className="footer-item">
-                <svg className="heart" xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
+                <svg onClick={handleLike} className={liked ? 'heart-filled' : "heart"} xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
                   <path d="M6.30508 19.7033L16.1546 28.9559C16.4939 29.2746 16.6635 29.434 16.8636 29.4732C16.9536 29.4909 17.0463 29.4909 17.1364 29.4732C17.3364 29.434 17.506 29.2746 17.8453 28.9559L27.6948 19.7033C30.4661 17.1 30.8026 12.816 28.4719 9.81193L28.0336 9.24707C25.2453 5.65332 19.6486 6.25602 17.6894 10.361C17.4127 10.9409 16.5873 10.9409 16.3105 10.361C14.3513 6.25602 8.75457 5.65332 5.96632 9.24706L5.52806 9.81193C3.1973 12.816 3.53383 17.1 6.30508 19.7033Z" stroke="#677186" strokeWidth="2.83333" />
                 </svg>
-                <span className="count">0</span>
+                <span className="count">{post?.likes.length}</span>
               </div>
               <div className="footer-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
@@ -198,7 +228,7 @@ const ViewPost = () => {
                   <path d="M12.3958 13.8542L22.6041 13.8542" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12.3958 18.2292H19.6874" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span className="count">0</span>
+                <span className="count">{comments?.length}</span>
               </div>
               <div className="footer-item">
                 <svg onClick={() => handleShare()} xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
@@ -271,10 +301,10 @@ const ViewPost = () => {
             </div>
             <div className="post-footer">
               <div className="footer-item">
-                <svg className="heart" xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
+                <svg onClick={handleLike} className={liked ? 'heart-filled' : "heart"} xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
                   <path d="M6.30508 19.7033L16.1546 28.9559C16.4939 29.2746 16.6635 29.434 16.8636 29.4732C16.9536 29.4909 17.0463 29.4909 17.1364 29.4732C17.3364 29.434 17.506 29.2746 17.8453 28.9559L27.6948 19.7033C30.4661 17.1 30.8026 12.816 28.4719 9.81193L28.0336 9.24707C25.2453 5.65332 19.6486 6.25602 17.6894 10.361C17.4127 10.9409 16.5873 10.9409 16.3105 10.361C14.3513 6.25602 8.75457 5.65332 5.96632 9.24706L5.52806 9.81193C3.1973 12.816 3.53383 17.1 6.30508 19.7033Z" stroke="#677186" strokeWidth="2.83333" />
                 </svg>
-                <span className="count">0</span>
+                <span className="count">{post?.likes.length}</span>
               </div>
               <div className="footer-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
@@ -282,7 +312,7 @@ const ViewPost = () => {
                   <path d="M12.3958 13.8542L22.6041 13.8542" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12.3958 18.2292H19.6874" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span className="count">0</span>
+                <span className="count">{comments?.length}</span>
               </div>
               <div className="footer-item">
                 <svg onClick={() => handleShare()} xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
@@ -359,10 +389,10 @@ const ViewPost = () => {
 
             <div className="post-footer">
               <div className="footer-item">
-                <svg className="heart" xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
+                <svg onClick={handleLike} className={liked ? 'heart-filled' : "heart"} xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
                   <path d="M6.30508 19.7033L16.1546 28.9559C16.4939 29.2746 16.6635 29.434 16.8636 29.4732C16.9536 29.4909 17.0463 29.4909 17.1364 29.4732C17.3364 29.434 17.506 29.2746 17.8453 28.9559L27.6948 19.7033C30.4661 17.1 30.8026 12.816 28.4719 9.81193L28.0336 9.24707C25.2453 5.65332 19.6486 6.25602 17.6894 10.361C17.4127 10.9409 16.5873 10.9409 16.3105 10.361C14.3513 6.25602 8.75457 5.65332 5.96632 9.24706L5.52806 9.81193C3.1973 12.816 3.53383 17.1 6.30508 19.7033Z" stroke="#677186" strokeWidth="2.83333" />
                 </svg>
-                <span className="count">0</span>
+                <span className="count">{post?.likes.length}</span>
               </div>
               <div className="footer-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
@@ -370,7 +400,7 @@ const ViewPost = () => {
                   <path d="M12.3958 13.8542L22.6041 13.8542" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12.3958 18.2292H19.6874" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span className="count">0</span>
+                <span className="count">{comments?.length}</span>
               </div>
               <div className="footer-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">

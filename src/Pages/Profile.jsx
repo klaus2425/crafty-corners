@@ -2,7 +2,7 @@ import { useStateContext } from '../context/ContextProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import Posts from '../components/Post';
+import { UserPost } from '../components/Post';
 import { useNavigate } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -84,7 +84,7 @@ const UserFeed = () => {
                     <div className='posts-col'>
                         {userPosts &&
                             userPosts.map(p => (
-                                <Posts post={p} />
+                                <UserPost post={p} />
                             ))
                         }
                     </div>

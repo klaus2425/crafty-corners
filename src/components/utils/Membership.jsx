@@ -113,7 +113,6 @@ export const IsAMember = (props) => {
       .then(({ data }) => {
         const members = data.members;
         setIsMember(members.some(member => member.id === props.user_id));
-        console.log(object);
       })
     
   

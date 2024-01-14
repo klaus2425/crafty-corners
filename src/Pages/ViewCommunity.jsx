@@ -20,7 +20,6 @@ const ViewCommunity = () => {
   const [imageLoading, setImageLoading] = useState(true);
   const [posts, setPosts] = useState([]);
 
-
   const getMembers = () => {
     axiosClient.get(`/communities/${id}/users`)
       .then(({ data }) => {
@@ -33,8 +32,8 @@ const ViewCommunity = () => {
     axiosClient.get(`/communities/${id}`)
       .then(res => {
         setLoading(false);
-        console.log('working');
         setCommunity(res.data.data);
+        console.log(res.data.data.posts);
         setPosts(res.data.data.posts);
         setImage(import.meta.env.VITE_API_COMMUNITIES_URL + res.data.data.community_photo);
       })
@@ -93,13 +92,13 @@ const ViewCommunity = () => {
               }
             </div>
           </div>
-          {posts.map(p => (
+          {posts.toReversed().map(p => (
             <Post post={p} />
           )
           )
 
           }
-          <PostModal getCommunity={getCommunity} isOpen={isOpen} setIsOpen={setIsOpen} />
+          <PostModal isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
       </div>
       <div className="recommended">
