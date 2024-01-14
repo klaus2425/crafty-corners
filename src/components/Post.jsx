@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { getAgo } from "@jlln/ago";
+import { useNavigate } from 'react-router-dom';
+
 
 const Post = (props) => {
     const post = props.post;
@@ -11,6 +13,10 @@ const Post = (props) => {
     const ago = getAgo(post.created_at);
     const [loading, setLoading] = useState(true);
     const [loadingProfile, setLoadingProfile] = useState(true);
+    const navigate = useNavigate();
+    const viewPost = () => {
+        navigate(`/p/${post.id}`)
+    }
 
     if (post.post_type === 'image') {
         return (
@@ -28,11 +34,12 @@ const Post = (props) => {
                         <span>/{community.name}</span>
                     </div>
                 </div>
-                <span className="post-title">{post.title}</span>
-                <div className="post-content">
-                    {loading && <Skeleton className="post-image" />}
-
-                    <img className={loading ? 'hide' : 'post-image'} src={`${storagePostUrl}${post.image}`} alt="" onLoad={() => setLoading(false)} />
+                <div className="title-content-container" onClick={() => viewPost()}>
+                    <span className="post-title">{post.title}</span>
+                    <div className="post-content">
+                        {loading && <Skeleton className="post-image" />}
+                        <img className={loading ? 'hide' : 'post-image'} src={`${storagePostUrl}${post.image}`} alt="" onLoad={() => setLoading(false)} />
+                    </div>
                 </div>
                 <div className="post-footer">
                     <div className="footer-item">
@@ -76,13 +83,13 @@ const Post = (props) => {
                         <span>/{community.name}</span>
                     </div>
                 </div>
-                <span className="post-title">{post.title}</span>
-                <div className="post-content">
-                    <div className='post-text'>
-                        {post.content}
+                <div className="title-content-container" onClick={() => viewPost()}>
+                    <span className="post-title">{post.title}</span>
+                    <div className="post-content">
+                        <div className='post-text'>
+                            {post.content}
+                        </div>
                     </div>
-
-
                 </div>
                 <div className="post-footer">
                     <div className="footer-item">
@@ -120,7 +127,10 @@ export const UserPost = (props) => {
     const ago = getAgo(post.created_at);
     const [loading, setLoading] = useState(true);
     const [loadingProfile, setLoadingProfile] = useState(true);
-
+    const navigate = useNavigate();
+    const viewPost = () => {
+        navigate(`/p/${post.id}`)
+    }
     if (post.post_type === 'image') {
         return (
             <div className="post">
@@ -137,11 +147,12 @@ export const UserPost = (props) => {
                         <span>/{community.name}</span>
                     </div>
                 </div>
-                <span className="post-title">{post.title}</span>
-                <div className="post-content">
-                    {loading && <Skeleton className="post-image" />}
-
-                    <img className={loading ? 'hide' : 'post-image'} src={`${storagePostUrl}${post.image}`} alt="" onLoad={() => setLoading(false)} />
+                <div className="title-content-container" onClick={() => viewPost()}>
+                    <span className="post-title">{post.title}</span>
+                    <div className="post-content">
+                        {loading && <Skeleton className="post-image" />}
+                        <img className={loading ? 'hide' : 'post-image'} src={`${storagePostUrl}${post.image}`} alt="" onLoad={() => setLoading(false)} />
+                    </div>
                 </div>
                 <div className="post-footer">
                     <div className="footer-item">
@@ -185,13 +196,15 @@ export const UserPost = (props) => {
                         <span>/{community.name}</span>
                     </div>
                 </div>
-                <span className="post-title">{post.title}</span>
-                <div className="post-content">
-                    <div className='post-text'>
-                        {post.content}
+                <div className="title-content-container" onClick={() => viewPost()}>
+                    <span className="post-title">{post.title}</span>
+                    <div className="post-content">
+                        <div className='post-text'>
+                            {post.content}
+                        </div>
+
+
                     </div>
-
-
                 </div>
                 <div className="post-footer">
                     <div className="footer-item">
@@ -218,6 +231,6 @@ export const UserPost = (props) => {
             </div>
         )
     }
-} 
+}
 
 export default Post;
