@@ -91,8 +91,7 @@ export default function SignUpModal(props) {
                                     <input ref={lastNameRef} ></input>
                                     <label>Username:</label>
                                     <input ref={userNameRef} ></input>
-                                    <label>Birthday:</label>
-                                    <input ref={birthdayRef} type='date' placeholder='Birthday' required></input>
+
                                     <div className="gender-label">
                                         Gender
                                     </div>
@@ -115,11 +114,13 @@ export default function SignUpModal(props) {
                                             </div>
                                         </div>
                                     </div>
-                                    <label>Phone Number:</label>
-                                    <input type="number" ref={numberRef} required />
+
                                 </div>
                                 <div className="right">
-
+                                    <label>Birthday:</label>
+                                    <input ref={birthdayRef} type='date' placeholder='Birthday' required></input>
+                                    <label>Phone Number:</label>
+                                    <input type="number" ref={numberRef} required />
                                     <label>Email Address:</label>
                                     <input ref={emailRef} type='email' ></input>
                                     <label>Password:</label>
