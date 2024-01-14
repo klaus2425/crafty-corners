@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import axiosClient from '../axios-client';
 import Skeleton from 'react-loading-skeleton';
 import { getAgo } from "@jlln/ago";
+import ImageModal from '../components/ImageModal';
 
 
 const ViewPost = () => {
@@ -53,12 +54,11 @@ const ViewPost = () => {
                 <span>/{community?.name}</span>
               </div>
             </div>
-            <div className="title-content-container">
-              <span className="post-title">{post.title}</span>
-              <div className="post-content">
-                {loading && <Skeleton className="post-image" />}
-                <img className={loading ? 'hide' : 'post-image'} src={`${storagePostUrl}${post.image}`} alt="" onLoad={() => setLoading(false)} />
-              </div>
+            <span className="post-title">{post.title}</span>
+            <div className="post-content">
+              {loading && <Skeleton className="post-image" />}
+              <ImageModal image={`${storagePostUrl}${post.image}`}/>
+              <img className={loading ? 'hide' : 'post-image'} src={`${storagePostUrl}${post.image}`} alt="" onLoad={() => setLoading(false)} />
             </div>
             <div className="post-footer">
               <div className="footer-item">
@@ -95,9 +95,9 @@ const ViewPost = () => {
           <div className='section-comments'>
             <img className='section-icon' src='/address-card-solid.svg' />
             <h3>Comments</h3>
-            
+
           </div>
-          
+
 
         </div>
         <div className="recommended">
