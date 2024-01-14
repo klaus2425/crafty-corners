@@ -1,4 +1,3 @@
-
 $dark_grey: #393a3d;
 $purple: #6528F7;
 $light_grey: #D8DCE3;
@@ -166,7 +165,7 @@ input::-webkit-inner-spin-button {
 
 .red-button {
   border: none;
-  border-radius: 10px;
+  border-radius: 1000px;
   background-color: $red;
   color: white;
   padding: 0.5rem;
@@ -176,7 +175,7 @@ input::-webkit-inner-spin-button {
 
 .purple-button {
   border: none;
-  border-radius: 10px;
+  border-radius: 1000px;
   background-color: $purple;
   color: white;
   font-family: Helvetica, Arial, sans-serif;
@@ -189,7 +188,7 @@ input::-webkit-inner-spin-button {
 
 .white-button {
   border: none;
-  border-radius: 10px;
+  border-radius: 1000px;
   background-color: #FFFFFF;
   color: $purple;
   font-family: Helvetica, Arial, sans-serif;
@@ -202,7 +201,7 @@ input::-webkit-inner-spin-button {
 
 .green-button {
   border: none;
-  border-radius: 10px;
+  border-radius: 1000px;
   background-color: $green;
   color: white;
   padding: 0.5rem;
@@ -212,7 +211,7 @@ input::-webkit-inner-spin-button {
 
 .orange-button {
   border: none;
-  border-radius: 10px;
+  border-radius: 1000px;
   background-color: $orange;
   color: white;
   padding: 0.5rem;
@@ -664,14 +663,17 @@ input::-webkit-inner-spin-button {
     z-index: 1000;
     padding: 1.46rem;
     width: clamp(20rem, 50vw + 2rem, 45rem);
+
     form {
       text-align: end;
       width: 100%;
     }
+
     .react-tabs__tab-list {
       font-family: Helvetica, Arial, sans-serif;
       display: flex;
     }
+
     .react-tabs__tab {
       font-family: Helvetica, Arial, sans-serif;
       display: flex;
@@ -685,8 +687,9 @@ input::-webkit-inner-spin-button {
       .header-span {
         color: #000;
         font-weight: 600;
-        font-size: 1.12rem;  
+        font-size: 1.12rem;
       }
+
       svg {
         border-radius: 50%;
         transition: 0.3s;
@@ -697,12 +700,13 @@ input::-webkit-inner-spin-button {
         background-color: #e6e6e6;
       }
     }
+
     .post-input {
       display: flex;
       width: 100%;
       flex-direction: column;
       margin-bottom: 0.5rem;
-      
+
       input,
       textarea,
       select {
@@ -716,12 +720,14 @@ input::-webkit-inner-spin-button {
         resize: none;
         transition: 0.5s;
       }
+
       .post-container {
         display: flex;
         flex-direction: column;
         gap: 1rem;
         width: 100%;
       }
+
       .media-upload-container {
         border: 2px $light_grey solid;
         border-radius: 10px;
@@ -733,17 +739,20 @@ input::-webkit-inner-spin-button {
         input[type=file] {
           display: none;
         }
+
         svg {
           transform: scale(1.5);
         }
+
         label {
           text-align: center;
         }
+
         video {
           width: 100%;
         }
 
-        .uploaded-container{
+        .uploaded-container {
           position: relative;
           width: fit-content;
           height: fit-content;
@@ -774,11 +783,12 @@ input::-webkit-inner-spin-button {
             justify-content: center;
             align-items: center;
           }
+
           .post-uploaded-img {
-            max-height:30rem;
-            max-width:30rem;
-            height:100%;
-            width:100%;
+            max-height: 30rem;
+            max-width: 30rem;
+            height: 100%;
+            width: 100%;
             transition: 0.2s;
             object-fit: scale-down;
           }
@@ -788,6 +798,7 @@ input::-webkit-inner-spin-button {
           .post-uploaded-img {
             filter: blur(5px);
           }
+
           .change-picture {
             opacity: 1;
           }
@@ -796,6 +807,7 @@ input::-webkit-inner-spin-button {
 
       .textarea-container {
         position: relative;
+
         textarea {
           overflow: auto;
           height: 6rem;
@@ -804,7 +816,7 @@ input::-webkit-inner-spin-button {
           width: 100%;
           z-index: 1;
         }
-  
+
         span {
           position: absolute;
           bottom: 0.84rem;
@@ -813,6 +825,7 @@ input::-webkit-inner-spin-button {
         }
       }
     }
+
     .purple-button {
       width: 4rem;
       font-weight: 600;
@@ -820,6 +833,7 @@ input::-webkit-inner-spin-button {
       margin-left: auto;
       text-align: center;
     }
+
     .purple-button:hover {
       transition: 0.2s;
       background-color: #FFF;
@@ -1067,6 +1081,48 @@ input::-webkit-inner-spin-button {
     margin-top: 1.2rem;
     margin-bottom: 1rem;
 
+    img {
+      width: 1.26rem;
+      margin-right: 0.2rem;
+    }
+  }
+
+  .section-comments {
+    width: 100%;
+    display: flex;
+    padding-left: 2rem;
+    align-items: center;
+    justify-content: flex-start;
+    color: #000;
+    margin-bottom: 1rem;
+
+    .section-icon {
+      width: 1.26rem;
+      margin-right: 0.2rem;
+    }
+  }
+
+  .write-comment-section {
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    width: 100%;
+    min-width: fit-content;
+    padding: 1rem;
+    textarea {
+      border-radius: 10px;
+      border: 2px solid #D8DCE3;
+      background: #FFF;
+      color: #677186;
+      font-size: 1rem;
+      width: 100% !important;
+      font-family: Helvetica, Arial, sans-serif;
+      padding: 0.75rem;
+      max-height: fit-content;
+      height: 5rem !important;
+      resize: none;
+      transition: 0.5s;
+    }
   }
 
   .section-header-col {
@@ -1519,6 +1575,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     .section-header {
       display: flex;
       padding: 0 0.256rem;
@@ -1545,7 +1602,7 @@ input::-webkit-inner-spin-button {
         .purple-button:hover {
           background-color: #FFF;
           color: $purple;
-          outline: 1px  $purple solid;
+          outline: 1px $purple solid;
         }
       }
     }
@@ -1637,9 +1694,11 @@ input::-webkit-inner-spin-button {
   padding: 1rem;
   margin-bottom: 1.5rem;
   gap: 0.5rem;
+
   .title-content-container {
     cursor: pointer;
   }
+
   .post-title {
     display: flex;
     font-size: 1.3rem;
@@ -1648,8 +1707,9 @@ input::-webkit-inner-spin-button {
     max-width: 100%;
     flex-wrap: wrap;
     word-break: break-word;
-    
+
   }
+
   .post-header {
     display: flex;
     justify-content: space-between;
@@ -1689,6 +1749,7 @@ input::-webkit-inner-spin-button {
 
   .post-content {
     text-align: center;
+
     .post-image {
       object-fit: cover;
       width: 100%;
@@ -1698,6 +1759,7 @@ input::-webkit-inner-spin-button {
       max-width: 41.375rem;
       max-height: 28.9375rem;
     }
+
     .post-text {
       display: flex;
       padding: 0 2rem;
@@ -1709,7 +1771,7 @@ input::-webkit-inner-spin-button {
       justify-content: flex-start;
 
     }
-    
+
 
   }
 
@@ -1735,6 +1797,12 @@ input::-webkit-inner-spin-button {
 
     .count {
       padding-top: 0.25rem;
+    }
+
+    .purple-button {
+      font-weight: bold;
+      margin-left: auto;
+      margin-right: 1.2rem;
     }
   }
 }
