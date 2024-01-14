@@ -60,7 +60,6 @@ const AdminCommunities = () => {
 
                 {loading &&
                     <Loading />
-
                 }
 
                 {!loading &&
