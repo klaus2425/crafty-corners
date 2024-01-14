@@ -14,13 +14,12 @@ const EditUser = () => {
     const [loading, setLoading] = useState(false);
     const [image, setImage] = useState();
     const [userPosts, setUserPosts] = useState([]);
-    
+
     const getPosts = () => {
         axiosClient.get('/posts')
             .then(res => {
                 const posts = res.data.posts;
-                const filteredData = posts.filter(item => item.user.id == id );
-                console.log(filteredData);
+                const filteredData = posts.filter(item => item.user.id == id);
                 setUserPosts(filteredData);
             })
     }
@@ -173,7 +172,7 @@ const EditUser = () => {
                                 <input type="text" value={e_user.first_name} onChange={ev => setE_User({ ...e_user, first_name: ev.target.value })} />
                                 <input type="text" value={e_user.middle_name} onChange={ev => setE_User({ ...e_user, middle_name: ev.target.value })} />
                                 <input type="text" value={e_user.last_name} onChange={ev => setE_User({ ...e_user, last_name: ev.target.value })} />
-                                <input type="email" value={e_user.email} onChange={ev => setE_User({ ...e_user, email: ev.target.value })} />
+                                <input type="email" readOnly value={e_user.email} onChange={ev => setE_User({ ...e_user, email: ev.target.value })} />
                                 <input type="number" value={e_user.phone_number} onChange={ev => setE_User({ ...e_user, phone_number: ev.target.value })} />
                                 <input type="date" value={e_user.birthday} onChange={ev => setE_User({ ...e_user, birthday: ev.target.value })} />
                                 <div className="gender-container">
@@ -196,10 +195,12 @@ const EditUser = () => {
                     </form>
                     <div className="admin-user-posts">
                         <h1>User Posts</h1>
-                        {userPosts && 
-                            userPosts.map(p => {
-                                <AdminPosts post={p}/>
-                        })
+                        {userPosts &&
+                            userPosts.map(p => (
+                                <div className="admin-posts">
+                                    <AdminPosts post={p} />
+                                </div>
+                            ))
                         }
                     </div>
                 </div>
