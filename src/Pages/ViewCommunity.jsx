@@ -33,7 +33,6 @@ const ViewCommunity = () => {
       .then(res => {
         setLoading(false);
         setCommunity(res.data.data);
-        console.log(res.data.data.posts);
         setPosts(res.data.data.posts);
         setImage(import.meta.env.VITE_API_COMMUNITIES_URL + res.data.data.community_photo);
       })
@@ -93,7 +92,7 @@ const ViewCommunity = () => {
             </div>
           </div>
           {posts.toReversed().map(p => (
-            <Post post={p} />
+            <Post post={p} community={community} />
           )
           )
 
