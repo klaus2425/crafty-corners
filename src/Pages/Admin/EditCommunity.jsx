@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosClient from "../../axios-client"
 import Swal from 'sweetalert2';
+import { AdminPosts } from "../../components/Post";
 
 const EditCommunity = () => {
 
@@ -12,6 +13,7 @@ const EditCommunity = () => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState();
   const [communityName, setCommunityName] = useState();
+  const [posts, setPosts] = useState([]);
   const [communityDescription, setCommunityDescription] = useState();
   const handleChange = (ev) => {
     setImage(URL.createObjectURL(ev.target.files[0]));
@@ -23,6 +25,7 @@ const EditCommunity = () => {
     setLoading(true);
     axiosClient.get(`/communities/${id}`)
       .then(({ data }) => {
+        setPosts(data.data.posts)
         setCommunity(data.data);
         setLoading(false);
         setImage(storageBaseUrl + data.data.community_photo);
@@ -200,6 +203,14 @@ const EditCommunity = () => {
           <button className="button">Submit</button>
         </div>
       </form>
+      <div className="community-posts">
+        <h1>Posts</h1>
+        {
+          posts && posts.map(p => (
+            <AdminPosts getCommunity={getCommunity} post={p}/>
+          ))
+        }
+      </div>
     </div>
   )
 }
