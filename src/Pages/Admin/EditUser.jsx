@@ -4,7 +4,7 @@ import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2';
 import Loading from "../../components/utils/Loading";
 import { useStateContext } from "../../context/ContextProvider";
-import { AdminPosts } from "../../components/Post";
+import { AdminPosts, UserPost } from "../../components/Post";
 
 const EditUser = () => {
     let { id } = useParams();
@@ -14,15 +14,8 @@ const EditUser = () => {
     const [loading, setLoading] = useState(false);
     const [image, setImage] = useState();
     const [userPosts, setUserPosts] = useState([]);
+    
 
-    const getPosts = () => {
-        axiosClient.get('/posts')
-            .then(res => {
-                const posts = res.data.posts;
-                const filteredData = posts.filter(item => item.user.id == id);
-                setUserPosts(filteredData);
-            })
-    }
 
     const { setUser } = useStateContext();
     if (!image) { setImage('/avatar.jpg') }
@@ -35,6 +28,8 @@ const EditUser = () => {
                 setUser(data.data)
                 setLoading(false);
                 setImage(storageBaseUrl + data.data.profile_picture);
+                setUserPosts(data.data.posts);
+                console.log(data.data.posts);
             })
             .catch((err) => {
                 setLoading(false);
@@ -50,7 +45,6 @@ const EditUser = () => {
     if (id) {
         useEffect(() => {
             getUser();
-            getPosts();
         }, []);
     }
 
@@ -198,7 +192,8 @@ const EditUser = () => {
                         {userPosts &&
                             userPosts.map(p => (
                                 <div className="admin-posts">
-                                    <AdminPosts post={p} />
+                                <AdminPosts community={p.community} post={p} />
+
                                 </div>
                             ))
                         }
