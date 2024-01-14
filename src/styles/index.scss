@@ -1890,7 +1890,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     padding-left: 10rem;
   }
-  
+
   .admin-container {
     display: flex;
     margin-top: 1rem;
@@ -1898,6 +1898,13 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     justify-content: center;
 
+    .admin-posts {
+      margin-top: 1rem;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
     .top {
       display: flex;
       background-color: $lighter_grey;
@@ -1975,6 +1982,20 @@ input::-webkit-inner-spin-button {
           padding-left: 0.5rem;
         }
       }
+    }
+
+
+  }
+
+  .community-posts {
+    display: flex;
+    margin-top: 1rem;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    h1 {
+      text-align: start;
+      color: #000;
     }
 
 
