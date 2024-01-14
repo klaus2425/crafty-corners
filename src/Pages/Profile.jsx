@@ -2,7 +2,7 @@ import { useStateContext } from '../context/ContextProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import  { UserPost } from '../components/Post';
+import { UserPost } from '../components/Post';
 import { useNavigate } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -18,12 +18,12 @@ const UserFeed = () => {
     const [userPosts, setUserPosts] = useState([]);
     const getPosts = () => {
         axiosClient.get('/posts')
-        .then(res => {
-            const posts = res.data.posts;
-            const filteredData = posts.filter(item => item.user.id === user.id);
-            console.log(filteredData);
-            setUserPosts(filteredData);
-        })
+            .then(res => {
+                const posts = res.data.posts;
+                const filteredData = posts.filter(item => item.user.id === user.id);
+                console.log(filteredData);
+                setUserPosts(filteredData);
+            })
 
     }
 
@@ -41,9 +41,9 @@ const UserFeed = () => {
         <div className="authenticated-container">
             <div className="feed">
                 <div className='section-header'>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
-                        <path d="M28.7693 29.8187C28.1046 27.9581 26.6399 26.3141 24.6024 25.1415C22.5649 23.9689 20.0684 23.3333 17.5002 23.3333C14.9319 23.3333 12.4355 23.9689 10.3979 25.1415C8.36043 26.3141 6.89574 27.9581 6.23103 29.8187" stroke="#677186" strokeWidth="2.91667" strokeLinecap="round" />
-                        <circle cx="17.4998" cy="11.6667" r="5.83333" stroke="#677186" strokeWidth="2.91667" strokeLinecap="round" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M19.6515 19.4054C20.2043 19.2902 20.5336 18.7117 20.2589 18.2183C19.6533 17.1307 18.6993 16.1749 17.4788 15.4465C15.907 14.5085 13.9812 14 12 14C10.0188 14 8.09292 14.5085 6.52112 15.4465C5.30069 16.1749 4.34666 17.1307 3.74108 18.2183C3.46638 18.7117 3.79562 19.2902 4.34843 19.4054C9.39524 20.4572 14.6047 20.4572 19.6515 19.4054Z" fill="#222222" />
+                        <circle cx="12" cy="8" r="5" fill="#222222" />
                     </svg>
                     <h3>Profile</h3>
                 </div>
@@ -84,7 +84,7 @@ const UserFeed = () => {
                     <div className='posts-col'>
                         {userPosts &&
                             userPosts.map(p => (
-                                <UserPost post={p}/> 
+                                <UserPost post={p} />
                             ))
                         }
                     </div>
