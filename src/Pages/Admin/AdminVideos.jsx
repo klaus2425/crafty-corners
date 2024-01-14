@@ -56,7 +56,7 @@ const AdminVideos = () => {
             </div>
             <div className='users-table'>
 
-                {loading ? <Loading /> :
+                {loading ?  <Loading /> :
 
                     videos.map(u => (
                         <div key={u.id} className="community-item">
