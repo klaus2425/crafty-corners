@@ -33,6 +33,8 @@ import ViewConversation from "./Pages/ViewConversation";
 import ViewPost from "./Pages/ViewPost";
 import PreAssessment from "./Pages/PreAssessment";
 import NotVerified from "./Pages/NotVerified";
+import MentorApplication from "./Pages/MentorApplication";
+import HobbyistProfile from "./Pages/HobbyistProfile";
 
 
 const router = createBrowserRouter([
@@ -112,6 +114,14 @@ const router = createBrowserRouter([
             {
                 path: '/not-verified',
                 element: <NotVerified />
+            },
+            {
+                path: '/mentor-application',
+                element: <MentorApplication />
+            },
+            {
+                path: '/u/:id',
+                element: <HobbyistProfile />
             }
 
 
