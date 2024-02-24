@@ -32,6 +32,7 @@ import ViewCommunity from "./Pages/ViewCommunity";
 import ViewConversation from "./Pages/ViewConversation";
 import ViewPost from "./Pages/ViewPost";
 import PreAssessment from "./Pages/PreAssessment";
+import NotVerified from "./Pages/NotVerified";
 
 
 const router = createBrowserRouter([
@@ -107,6 +108,10 @@ const router = createBrowserRouter([
             {
                 path: '/pre-assessment',
                 element: <PreAssessment />
+            },
+            {
+                path: '/not-verified',
+                element: <NotVerified />
             }
 
 
