@@ -93,7 +93,6 @@ const ViewPost = () => {
         const data = res.data.data;
         const likes = data.likes;
         setLiked(likes.some(item => item.user_id == user.id));
-        console.log(user.id)
         setPost(data);
         setAgo(getAgo(data.created_at));
         setCommunity(data.community);
