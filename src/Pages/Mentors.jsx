@@ -28,6 +28,9 @@ const Mentors = () => {
                         <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
                     </div>
                 </div>
+                <div className="apply-mentor-btn-container">
+                    <button className="purple-button">Apply as a Mentor</button>
+                </div>
                 <div className="mentor-card">
                     <Mentor img='/kafka.jpg' name="Kafka" community="Music" />
                     <Mentor img='/kafka.jpg' name="Kafka" community="Music" />
