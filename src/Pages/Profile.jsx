@@ -89,7 +89,6 @@ const UserFeed = () => {
                             ))
                         }
                     </div>
-
                 </div>
             </div>
             <div className="recommended">
