@@ -3218,6 +3218,17 @@ input::-webkit-inner-spin-button {
   }
 }
 
+.apply-mentor-btn-container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+  button {
+    padding: 0.66rem;
+    font-weight: bold;
+  }
+}
+
 .mentor-card {
   display: flex;
   background-color: #FFFFFF;
