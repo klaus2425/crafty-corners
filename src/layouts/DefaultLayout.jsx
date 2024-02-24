@@ -7,13 +7,18 @@ import { Sidebar } from "../components/Sidebar";
 const DefaultLayout = () => {
     const { user, token } = useStateContext();
 
-    if (!token || !user) { // Change to false later
-        return <Navigate to='./Landing' />;
+    if (!token || !user) { 
+        return <Navigate to='/Landing' />;
+    }
+    if(user.email_verified_at === null) {
+        return <Navigate to='/not-verified' />
     }
 
     if (user.type === 'admin') {
         return <Navigate to='/Users' />
     }
+
+
 
     return (
         <div style={{ height: "100dvh" }}>
