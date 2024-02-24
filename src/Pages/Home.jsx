@@ -13,7 +13,6 @@ const UserFeed = () => {
     .then(res => {
         console.log(res.data.data);
         setPosts(res.data.data);
-        setCommunity(res.data.data.community);
     })
   }
 

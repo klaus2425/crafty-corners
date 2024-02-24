@@ -6,6 +6,11 @@ import { useState } from "react";
 const AdminLayout = () => {
     const { user, token } = useStateContext();
 
+
+    if (user.type === 'hobbyist' || user.type === 'mentor') {
+        return <Navigate to='/' />
+    }
+
     if (!token) {
         return <Navigate to='./Landing' />;
     }

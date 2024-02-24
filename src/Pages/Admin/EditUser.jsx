@@ -41,6 +41,20 @@ const EditUser = () => {
                 });
             })
     }
+    const getUserPosts = () => {
+        axiosClient.get(`/users/${id}`)
+            .then(({ data }) => {
+                setUserPosts(data.data.posts);
+            })
+            .catch((err) => {
+                const response = err.response;
+                Swal.fire({
+                    title: "Error",
+                    text: `${Object.values(response.data)[0]}`,
+                    icon: "warning"
+                });
+            })
+    }
 
     if (id) {
         useEffect(() => {
@@ -192,7 +206,7 @@ const EditUser = () => {
                         {userPosts &&
                             userPosts.map(p => (
                                 <div className="admin-posts">
-                                <AdminPosts getCommunity={getUser} community={p.community} post={p} user={e_user}/>
+                                <AdminPosts getCommunity={getUserPosts} community={p.community} post={p} user={e_user}/>
                                 </div>
                             ))
                         }
