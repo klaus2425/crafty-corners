@@ -1,5 +1,4 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import Signup from './Pages/Signup';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
 import NotFound from './Pages/NotFound';
@@ -32,6 +31,8 @@ import ViewVideo from "./Pages/ViewVideo";
 import ViewCommunity from "./Pages/ViewCommunity";
 import ViewConversation from "./Pages/ViewConversation";
 import ViewPost from "./Pages/ViewPost";
+import PreAssessment from "./Pages/PreAssessment";
+
 
 const router = createBrowserRouter([
     {
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
             {
                 path: 'p/:id',
                 element: <ViewPost />
+            },
+            {
+                path: '/pre-assessment',
+                element: <PreAssessment />
             }
 
 
@@ -170,10 +175,7 @@ const router = createBrowserRouter([
                 path: '/login',
                 element: <Login />
             },
-            {
-                path: '/signup',
-                element: <Signup />
-            },
+
             {
                 path: '/landing',
                 element: <Landing />
