@@ -23,11 +23,13 @@ const Post = (props) => {
         navigate(`/p/${post.id}`)
     }
     const notify = () => toast('Link Copied', {
-        duration: 2500,
+        duration: 1500,
         position: "bottom-center",
         icon: "✅",
         style: {
             borderRadius: "100px",
+            border: 0,
+            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
         }
         
     });
