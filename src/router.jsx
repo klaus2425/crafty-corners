@@ -35,6 +35,7 @@ import PreAssessment from "./Pages/PreAssessment";
 import NotVerified from "./Pages/NotVerified";
 import MentorApplication from "./Pages/MentorApplication";
 import HobbyistProfile from "./Pages/HobbyistProfile";
+import MentorApplicants from "./Pages/Admin/MentorApplicants";
 
 
 const router = createBrowserRouter([
@@ -178,6 +179,10 @@ const router = createBrowserRouter([
             {
                 path: '/edit-video/:id',
                 element: <EditVideo />
+            },
+            {
+                path: '/mentor-applicants/',
+                element: <MentorApplicants />
             }
 
         ]

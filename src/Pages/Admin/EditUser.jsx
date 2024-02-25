@@ -17,7 +17,6 @@ const EditUser = () => {
     
 
 
-    const { setUser } = useStateContext();
     if (!image) { setImage('/avatar.jpg') }
 
     const getUser = () => {
@@ -25,7 +24,6 @@ const EditUser = () => {
         axiosClient.get(`/users/${id}`)
             .then(({ data }) => {
                 setE_User(data.data);
-                setUser(data.data)
                 setLoading(false);
                 setImage(storageBaseUrl + data.data.profile_picture);
                 setUserPosts(data.data.posts);

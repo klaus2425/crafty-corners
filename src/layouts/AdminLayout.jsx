@@ -33,7 +33,7 @@ const AdminLayout = () => {
                         <Link id="3" className={active === "3" ? "active" : undefined} to="/admin-articles" onClick={handleClick}>Articles</Link>
                         <Link id="4" className={active === "4" ? "active" : undefined} to="/admin-videos" onClick={handleClick}>Videos</Link>
                         <Link id="5" className={active === "5" ? "active" : undefined} to="/admin-videos" onClick={handleClick}>Posts</Link>
-                        <Link id="6" className={active === "6" ? "active" : undefined} to="/admin-videos" onClick={handleClick}>Mentors</Link>
+                        <Link id="6" className={active === "6" ? "active" : undefined} to="/mentor-applicants" onClick={handleClick}>Mentors</Link>
 
                     </div>
                     <div className="bottom">

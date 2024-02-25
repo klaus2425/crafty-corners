@@ -24,8 +24,12 @@ const UserFeed = () => {
                 // const filteredData = posts.filter(item => item.user.id === user.id);
                 console.log(res.data.data);
                 setCurrentUser(res.data.data);
-                setUserPosts(res.data.data.posts);
             })
+        axiosClient.get(`/user/${user.id}/posts`)
+        .then((res) => {
+                setUserPosts(res.data.data);
+                console.log(res.data.data);
+        })
     }
 
     useEffect(() => {
@@ -85,7 +89,7 @@ const UserFeed = () => {
                     <div className='posts-col'>
                         {userPosts &&
                             userPosts.map(p => (
-                                <UserPost post={p} user={currentUser} />
+                                <UserPost key={p.id} post={p} user={currentUser} />
                             ))
                         }
                     </div>

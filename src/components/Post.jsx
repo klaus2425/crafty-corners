@@ -9,7 +9,6 @@ import { useStateContext } from "../context/ContextProvider";
 
 const Post = (props) => {
     const [post, setPost] = useState(props.post);
-    const { user } = useStateContext();
     const post_user = post.user;
     const community = props.community;
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
@@ -23,12 +22,15 @@ const Post = (props) => {
     const viewPost = () => {
         navigate(`/p/${post.id}`)
     }
+
     const updatePostDetails = () => {
         axiosClient.get(`/posts/${post.id}`)
             .then(res => {
                 setLikes(res.data.data.likes_count);
+                console.log(res.data.data.likes_count);
             })
     }
+
     const handleLike = (id) => {
         console.log(liked);
         if (!liked) {
@@ -56,11 +58,7 @@ const Post = (props) => {
     }
 
     useEffect(() => {
-        // const ip = props?.post?.likes;
-        // console.log(ip.some(item => item.user_id == user.id));
-        // setLiked(ip.some(item => item.user_id == user.id));
-        setLiked(true);
-
+        setLiked(post.liked_by_user);
     }, [])
 
     const handleShare = () => {

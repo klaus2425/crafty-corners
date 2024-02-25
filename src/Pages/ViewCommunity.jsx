@@ -7,6 +7,8 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import PostModal from '../components/PostModal';
 import Post from '../components/Post';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import Loading from '../components/utils/Loading';
 
 
 const ViewCommunity = () => {
@@ -19,6 +21,9 @@ const ViewCommunity = () => {
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(true);
   const [posts, setPosts] = useState([]);
+  const [pageIndex, setPageIndex] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+
 
   const getMembers = () => {
     axiosClient.get(`/communities/${id}/users`)
@@ -37,11 +42,21 @@ const ViewCommunity = () => {
         console.log(res.data.data);
       })
     axiosClient.get(`communities/${id}/posts`)
-    .then(res => {
-      setPosts(res.data.data)
-      console.log(res.data.data);
-    })
+      .then(res => {
+        setPosts(res.data.data)
+        console.log(res.data.data);
+      })
   }
+
+  const fetchNext = () => {
+    axiosClient.get(`/communities/${id}/posts/?page=${pageIndex + 1}`)
+        .then((res) => {
+            setPosts(posts.concat(res.data.data))
+            console.log(posts.concat(res.data.data));
+        })
+
+    setPageIndex(pageIndex + 1)
+}
 
   useEffect(() => {
     getMembers();
@@ -95,12 +110,16 @@ const ViewCommunity = () => {
               }
             </div>
           </div>
-          {posts.map(p => (
-            <Post key={p.id} post={p} community={community} />
-          )
-          )
+          <div id='scroll' className='scroll'>
+            <InfiniteScroll dataLength={posts.length} next={fetchNext} hasMore={hasMore} loader={<Loading />} endMessage={<h1>End</h1>}>
+              {posts.map(p => (
+                <Post key={p.id} post={p} community={community} />
+              )
+              )
+              }
+            </InfiniteScroll>
 
-          }
+          </div>
           <PostModal getCommunity={getCommunity} isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
       </div>

@@ -93,13 +93,17 @@ const ViewPost = () => {
         const data = res.data.data;
         const likes = data.likes;
         //setLiked(likes.some(item => item.user_id == user.id));
-        setLiked(true);
+        console.log(data);
+        setLiked(data.liked_by_user);
         setPost(data);
         setAgo(getAgo(data.created_at));
         setCommunity(data.community);
         setPostUser(data.user);
-        setComments(data.comments)
       })
+    axiosClient.get(`post/${id}/comments`)
+    .then((res) => {
+      setComments(res.data.data)
+    })
   }
 
   useEffect(() => {
@@ -341,7 +345,7 @@ const ViewPost = () => {
           </div>
           <div className="comments-container">
             {comments && comments.map(c => (
-              <div className="comment-card">
+              <div key={c.id} className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.user.profile_picture}`} />
                 <div className="name-comment">
                 <div className="name-time">{c.user.first_name} <span>{getAgo(c.created_at)} ago</span></div>
