@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import Loading from "../../components/utils/Loading";
 import { useStateContext } from "../../context/ContextProvider";
 import { AdminPosts, UserPost } from "../../components/Post";
+import { Toaster } from "react-hot-toast";
 
 const EditUser = () => {
     const { id } = useParams();
@@ -40,9 +41,9 @@ const EditUser = () => {
             })
     }
     const getUserPosts = () => {
-        axiosClient.get(`/users/${id}`)
+        axiosClient.get(`/user/${id}/posts`)
             .then(({ data }) => {
-                setUserPosts(data.data.posts);
+                setUserPosts(data.data)
             })
             .catch((err) => {
                 const response = err.response;
@@ -57,6 +58,7 @@ const EditUser = () => {
     if (id) {
         useEffect(() => {
             getUser();
+            getUserPosts();
         }, []);
     }
 
@@ -203,7 +205,7 @@ const EditUser = () => {
                         <h1>User Posts</h1>
                         {userPosts &&
                             userPosts.map(p => (
-                                <div className="admin-posts">
+                                <div key={p.id} className="admin-posts">
                                 <AdminPosts getCommunity={getUserPosts} community={p.community} post={p} user={e_user}/>
                                 </div>
                             ))
