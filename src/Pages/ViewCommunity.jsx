@@ -50,13 +50,16 @@ const ViewCommunity = () => {
 
   const fetchNext = () => {
     axiosClient.get(`/communities/${id}/posts/?page=${pageIndex + 1}`)
-        .then((res) => {
-            setPosts(posts.concat(res.data.data))
-            console.log(posts.concat(res.data.data));
-        })
+      .then((res) => {
+        setPosts(posts.concat(res.data.data))
+        console.log(posts.concat(res.data.data));
+        if (posts.length === res.data.meta.total) {
+          setHasMore(false);
+        }
+      })
 
     setPageIndex(pageIndex + 1)
-}
+  }
 
   useEffect(() => {
     getMembers();
@@ -111,7 +114,13 @@ const ViewCommunity = () => {
             </div>
           </div>
           <div id='scroll' className='scroll'>
-            <InfiniteScroll dataLength={posts.length} next={fetchNext} hasMore={hasMore} loader={<Loading />} endMessage={<h1>End</h1>}>
+            <InfiniteScroll dataLength={posts.length} next={fetchNext} hasMore={hasMore} loader={<Loading />}
+              endMessage={
+                <div style={{ textAlign: 'center' }}>
+                  <h2>End of Feed</h2>
+                </div>
+              }
+            >
               {posts.map(p => (
                 <Post key={p.id} post={p} community={community} />
               )

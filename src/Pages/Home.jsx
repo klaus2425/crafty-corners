@@ -13,7 +13,6 @@ const UserFeed = () => {
     const getPosts = () => {
         axiosClient.get('/homepage-post?page=1')
             .then(res => {
-                console.log(res.data.data);
                 setPosts(res.data.data);
             })
     }
@@ -26,7 +25,9 @@ const UserFeed = () => {
         axiosClient.get(`/homepage-post?page=${pageIndex + 1}`)
             .then((res) => {
                 setPosts(posts.concat(res.data.data))
-                console.log(posts.concat(res.data.data));
+                if (posts.length === res.data.meta.total) {
+                    setHasMore(false);
+                }
             })
 
         setPageIndex(pageIndex + 1)
@@ -43,7 +44,13 @@ const UserFeed = () => {
                     <h3>Home</h3>
                 </div>
                 <div id='scroll' className='scroll'>
-                    <InfiniteScroll  dataLength={posts.length} next={fetchNext} hasMore={hasMore} loader={<Loading />} endMessage={<h1>End</h1>}>
+                    <InfiniteScroll dataLength={posts.length} next={fetchNext} hasMore={hasMore} loader={<Loading />}
+                        endMessage={
+                            <div style={{textAlign: 'center'}}>
+                                <h2>End of Feed</h2>
+                            </div>
+
+                        }>
                         {posts.map(p => (
                             <Post key={p.id} post={p} community={p.community} />
                         ))
