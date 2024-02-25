@@ -62,8 +62,8 @@ const HobbyistProfile = () => {
               <div className='left'>
                 <div className='upper-details'>
                   {imageLoading && <Skeleton className='profile-picture' circle={true} />}
-                  <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} className='profile-picture' src={`${storageBaseUrl}/${currentUser.profile_picture}`} alt='Profile Picture' />
-                  <div className='display-name'>
+                  <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} class='profile-picture' src={`${storageBaseUrl}/${currentUser.profile_picture}`} alt='Profile Picture' />
+                  <div class='display-name'>
                     <h2>{currentUser.first_name || <Skeleton />}</h2>
                     {currentUser.user_name ? `@${currentUser.user_name}` : <Skeleton />}
                     {currentUser.id ? <JoinedCommunityCount id={currentUser.id} /> : <Skeleton className='skeleton' />}

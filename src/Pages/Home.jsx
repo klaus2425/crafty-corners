@@ -32,7 +32,7 @@ const UserFeed = () => {
                     <h3>Home</h3>
                 </div>
                 {posts.toReversed().map(p => (
-                    <Post key={p.id} post={p} community={p.community} />
+                    <Post post={p} community={p.community} />
                 ))
                 }
             </div>
