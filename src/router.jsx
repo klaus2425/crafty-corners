@@ -36,6 +36,7 @@ import NotVerified from "./Pages/NotVerified";
 import MentorApplication from "./Pages/MentorApplication";
 import HobbyistProfile from "./Pages/HobbyistProfile";
 import MentorApplicants from "./Pages/Admin/MentorApplicants";
+import ViewMentorApplication from "./Pages/Admin/ViewMentorApplication";
 
 
 const router = createBrowserRouter([
@@ -183,6 +184,10 @@ const router = createBrowserRouter([
             {
                 path: '/mentor-applicants/',
                 element: <MentorApplicants />
+            },
+            {
+                path: '/mentor-applicants/:id',
+                element: <ViewMentorApplication />
             }
 
         ]
