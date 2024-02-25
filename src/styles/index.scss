@@ -2016,12 +2016,12 @@ input::-webkit-inner-spin-button {
       display: flex;
       background-color: $light_grey;
       padding: 2rem;
-      gap: 3rem;
+      gap: clamp(0.1rem, 0.3vw + 0.4rem, 3rem);
       word-wrap: break-word;
       width: 100%;
       border-top-right-radius: 20px;
       border-top-left-radius: 20px;
-
+      
       a {
         text-decoration: none;
         color: $dark_grey;
