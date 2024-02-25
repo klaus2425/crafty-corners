@@ -2257,6 +2257,17 @@ input::-webkit-inner-spin-button {
 
 }
 
+.applicant-image {
+  text-align: center;
+  img {
+    object-fit: cover;
+    width: 8rem;
+    height: 8rem;
+    aspect-ratio: 1 / 1;
+    border-radius: 10000px;
+  }
+}
+
 .communities-container {
   width: 80%;
 
@@ -3357,6 +3368,33 @@ input::-webkit-inner-spin-button {
       font-size: 1.25rem;
     }
   }
+}
+
+.applicant-info-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  input {
+    padding-left: 1rem;
+    border: 1px solid $light_grey;
+    width: 15rem;
+    padding: 0.65rem;
+    border-radius: 2px;
+  }
+  .left {
+    width: 50%;
+  }
+
+  .right {
+    width: 50%;
+  }
+
+}
+
+.application-bottom {
+  text-align: center;
+  margin-top: 4rem;
+  width: 100%;
 }
 
 .round-card {
