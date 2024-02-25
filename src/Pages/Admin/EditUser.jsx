@@ -7,7 +7,7 @@ import { useStateContext } from "../../context/ContextProvider";
 import { AdminPosts, UserPost } from "../../components/Post";
 
 const EditUser = () => {
-    let { id } = useParams();
+    const { id } = useParams();
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     const [e_user, setE_User] = useState({});
     const [imageChange, setImageChange] = useState(false);
