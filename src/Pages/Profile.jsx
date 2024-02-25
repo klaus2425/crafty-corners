@@ -57,8 +57,8 @@ const UserFeed = () => {
                             <div className='left'>
                                 <div className='upper-details'>
                                     {imageLoading && <Skeleton className='profile-picture' circle={true} />}
-                                    <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} class='profile-picture' src={`${storageBaseUrl}/${user.profile_picture}`} alt='Profile Picture' />
-                                    <div class='display-name'>
+                                    <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} className='profile-picture' src={`${storageBaseUrl}/${user.profile_picture}`} alt='Profile Picture' />
+                                    <div className='display-name'>
                                         <h2>{user.first_name || <Skeleton />}</h2>
                                         {user.user_name ? `@${user.user_name}` : <Skeleton />}
                                         {user.id ? <JoinedCommunityCount id={user.id} /> : <Skeleton className='skeleton' />}
