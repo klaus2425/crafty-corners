@@ -19,9 +19,9 @@ const Messages = () => {
           <div className="card-search">
             <input className="search" type="text" placeholder="Search for Conversations" />
             <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
-              <circle cx="15.583" cy="15.5833" r="8.5" stroke="#677186" stroke-width="1.41667" />
-              <path d="M15.583 11.3333C15.0249 11.3333 14.4722 11.4432 13.9566 11.6568C13.441 11.8704 12.9725 12.1835 12.5778 12.5781C12.1832 12.9728 11.8701 13.4413 11.6565 13.9569C11.4429 14.4725 11.333 15.0252 11.333 15.5833" stroke="#677186" stroke-width="1.41667" strokeLinecap="round" />
-              <path d="M28.333 28.3333L24.083 24.0833" stroke="#677186" stroke-width="1.41667" strokeLinecap="round" />
+              <circle cx="15.583" cy="15.5833" r="8.5" stroke="#677186" strokeWidth="1.41667" />
+              <path d="M15.583 11.3333C15.0249 11.3333 14.4722 11.4432 13.9566 11.6568C13.441 11.8704 12.9725 12.1835 12.5778 12.5781C12.1832 12.9728 11.8701 13.4413 11.6565 13.9569C11.4429 14.4725 11.333 15.0252 11.333 15.5833" stroke="#677186" strokeWidth="1.41667" strokeLinecap="round" />
+              <path d="M28.333 28.3333L24.083 24.0833" stroke="#677186" strokeWidth="1.41667" strokeLinecap="round" />
             </svg>
           </div>
 
