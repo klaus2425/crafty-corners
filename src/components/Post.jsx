@@ -8,7 +8,6 @@ import { useStateContext } from "../context/ContextProvider";
 import toast, { Toaster } from 'react-hot-toast';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ReportModal from "./ReportModal";
 
 
 
@@ -56,22 +55,26 @@ const Post = (props) => {
         setOpen(!open);
         Swal.fire({
             title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            text: "A report will be submitted to the admins",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-          }).then((result) => {
+            confirmButtonText: "Yes"
+        }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-              });
-            }
-          });
+                toast('Report submitted', {
+                    duration: 1500,
+                    position: "bottom-center",
+                    style: {
+                        borderRadius: "100px",
+                        border: 0,
+                        boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+                    }
 
+                })
+            }
+        });
     }
     const handleLike = (id) => {
         console.log(liked);
@@ -112,7 +115,6 @@ const Post = (props) => {
         return (
             <div className="post">
                 <Toaster />
-                <ReportModal setIsOpen={setOpenReportModal} isOpen={openReportModal}/>
                 <div className="post-header" id="posts">
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
@@ -156,7 +158,7 @@ const Post = (props) => {
                         <span className="count"></span>
                     </div>
                     <div className="footer-item dropdown-parent">
-                        <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)}/>
+                        <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
                         {
                             open && <div className="ellipsis-dropdown">
                                 <ul>
@@ -222,7 +224,7 @@ const Post = (props) => {
                         <span className="count"></span>
                     </div>
                     <div className="footer-item dropdown-parent">
-                        <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)}/>
+                        <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
                         {
                             open && <div className="ellipsis-dropdown">
                                 <ul>
@@ -290,7 +292,7 @@ const Post = (props) => {
                         <span className="count"></span>
                     </div>
                     <div className="footer-item dropdown-parent">
-                        <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)}/>
+                        <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
                         {
                             open && <div className="ellipsis-dropdown">
                                 <ul>
@@ -357,7 +359,7 @@ const Post = (props) => {
                         <span className="count"></span>
                     </div>
                     <div className="footer-item dropdown-parent">
-                        <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)}/>
+                        <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
                         {
                             open && <div className="ellipsis-dropdown">
                                 <ul>
