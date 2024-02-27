@@ -20,8 +20,6 @@ const UserFeed = () => {
     const getPosts = () => {
         axiosClient.get(`/users/${user.id}`)
             .then(res => {
-                // const posts = res.data.posts;
-                // const filteredData = posts.filter(item => item.user.id === user.id);
                 console.log(res.data.data);
                 setCurrentUser(res.data.data);
             })
