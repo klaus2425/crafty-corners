@@ -52,7 +52,6 @@ export default function LoginModal(props) {
       <div className="overlay">
         <div className="modal">
           <div className="close-login">
-
             <svg onClick={() => props.setIsOpen(false)}
               xmlns="http://www.w3.org/2000/svg"
               width="30"
