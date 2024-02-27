@@ -1741,9 +1741,32 @@ input::-webkit-inner-spin-button {
 
 }
 
+.dropdown-parent {
+  position: relative;
+}
+
+.ellipsis-dropdown {
+  position: absolute;
+  background-color: white;
+  top: 2rem;
+  box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
+  padding: 0.5rem;
+  border-radius: 15px;
+  width: 6.8rem;
+  ul {
+    list-style-type: none;
+    li {
+      padding: 0.1rem;
+      border-radius: 6px;
+    }
+    li:hover {
+      background-color: $light_grey;
+      transition: 0.2s;
 
 
-
+    }
+  }
+}
 
 .dropdown-menu {
   border: 2px solid $light_grey;
@@ -2226,6 +2249,7 @@ input::-webkit-inner-spin-button {
   }
 
 }
+
 
 .user-count {
   width: 10rem;
