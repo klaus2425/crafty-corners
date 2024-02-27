@@ -15,6 +15,8 @@ const csrfToken = await axiosClient.get('/sanctum/csrf-cookie', {
 
 axiosClient.interceptors.request.use((config) => {
     config.headers['X-CSRF-TOKEN'] = csrfToken;
+    const token = localStorage.getItem('ACCESS_TOKEN');
+    config.headers.Authorization = `Bearer ${token}`
     return config;
 });
 
