@@ -37,6 +37,7 @@ import MentorApplication from "./Pages/MentorApplication";
 import HobbyistProfile from "./Pages/HobbyistProfile";
 import MentorApplicants from "./Pages/Admin/MentorApplicants";
 import ViewMentorApplication from "./Pages/Admin/ViewMentorApplication";
+import ReportedPosts from "./Pages/Admin/ReportedPosts";
 
 
 const router = createBrowserRouter([
@@ -188,6 +189,10 @@ const router = createBrowserRouter([
             {
                 path: '/mentor-applicants/:id',
                 element: <ViewMentorApplication />
+            },
+            {
+                path: '/reported-posts/',
+                element: <ReportedPosts />
             }
 
         ]
@@ -213,6 +218,8 @@ const router = createBrowserRouter([
     }
 
 ]);
+
+
 
 
 export default router;
