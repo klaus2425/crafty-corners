@@ -92,7 +92,7 @@ const Schedule = () => {
                                             return sched.schedule_day.includes('Monday')
                                         })
                                             .map((sched, index) => (
-                                                <div style={{ backgroundColor: sched.schedule_color }} onClick={() => editSchedule(sched.id)} className='schedule'>
+                                                <div key={index} style={{ backgroundColor: sched.schedule_color }} onClick={() => editSchedule(sched.id)} className='schedule'>
                                                     <div className='schedule-top'>
                                                         <strong>{sched.schedule_name}</strong> <span className='time'>
                                                             {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
@@ -114,7 +114,7 @@ const Schedule = () => {
                                             return sched.schedule_day.includes('Tuesday')
                                         })
                                             .map((sched, index) => (
-                                                <div style={{ backgroundColor: sched.schedule_color }} onClick={() => editSchedule(sched.id)} className='schedule'>
+                                                <div key={index} style={{ backgroundColor: sched.schedule_color }} onClick={() => editSchedule(sched.id)} className='schedule'>
                                                     <div className='schedule-top'>
                                                         <strong>{sched.schedule_name}</strong> <span className='time'>
                                                             {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
@@ -136,7 +136,7 @@ const Schedule = () => {
                                             return sched.schedule_day.includes('Wednesday')
                                         })
                                             .map((sched, index) => (
-                                                <div style={{ backgroundColor: sched.schedule_color }} onClick={() => editSchedule(sched.id)} className='schedule'>
+                                                <div key={index} style={{ backgroundColor: sched.schedule_color }} onClick={() => editSchedule(sched.id)} className='schedule'>
                                                     <div className='schedule-top'>
                                                         <strong>{sched.schedule_name}</strong> <span className='time'>
                                                             {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
