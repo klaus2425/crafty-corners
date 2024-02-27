@@ -6,6 +6,7 @@ import { getAgo } from "@jlln/ago";
 import ImageModal from '../components/ImageModal';
 import Swal from 'sweetalert2';
 import { useStateContext } from '../context/ContextProvider';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ViewPost = () => {
   const { id } = useParams();
@@ -24,38 +25,57 @@ const ViewPost = () => {
   const commentRef = useRef();
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Link copied to clipboard",
-      showConfirmButton: false,
-      timer: 1500
-    });
+    notifyShare();
   }
+
+  const notifyShare = () => toast('Link Copied', {
+    duration: 1500,
+    position: "bottom-center",
+    icon: "✅",
+    style: {
+      borderRadius: "100px",
+      border: 0,
+      boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+    }
+
+  });
+
+  const notifyComment = () => toast('Comment Posted', {
+    duration: 1500,
+    position: "bottom-center",
+    icon: "✅",
+    style: {
+      borderRadius: "100px",
+      border: 0,
+      boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+    }
+
+  });
+
 
   const handleLike = () => {
     console.log(liked);
-    if(!liked) {
+    if (!liked) {
       axiosClient.post(`/like-post/${id}`)
-      .then(res => {
-        console.log(res.data);
-        setLiked(true)
-        getPost();
-      })
-      .catch(err => {
-        console.log(err);
-      })
+        .then(res => {
+          console.log(res.data);
+          setLiked(true)
+          getPost();
+        })
+        .catch(err => {
+          console.log(err);
+        })
     }
     else {
       axiosClient.post(`/unlike-post/${id}`)
-      .then(res => {
-        console.log(res.data);
-        setLiked(false);
-        getPost();
-      })
-      .catch(err => {
-        console.log(err);
-      })
+        .then(res => {
+          console.log(res.data);
+          setLiked(false);
+          getPost();
+        })
+        .catch(err => {
+          console.log(err);
+        })
     }
   }
 
@@ -73,13 +93,7 @@ const ViewPost = () => {
     formData.append('content', commentRef.current.value);
     axiosClient.post(`post/${id}/comment/`, formData)
       .then(() => {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Comment Posted",
-          showConfirmButton: false,
-          timer: 1500
-        });
+        notifyComment();
         getPost();
       })
       .catch(err => {
@@ -101,9 +115,9 @@ const ViewPost = () => {
         setPostUser(data.user);
       })
     axiosClient.get(`post/${id}/comments`)
-    .then((res) => {
-      setComments(res.data.data)
-    })
+      .then((res) => {
+        setComments(res.data.data)
+      })
   }
 
   useEffect(() => {
@@ -113,6 +127,7 @@ const ViewPost = () => {
   if (post?.post_type === 'image') {
     return (
       <div className='authenticated-container'>
+        <Toaster />
         <div className="feed">
           <div className='section-header'>
             <img src='/address-card-solid.svg' />
@@ -181,8 +196,8 @@ const ViewPost = () => {
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.user.profile_picture}`} />
                 <div className="name-comment">
-                <div className="name-time">{c.user.first_name} <span>{getAgo(c.created_at)} ago</span></div>
-                {c.content}
+                  <div className="name-time">{c.user.first_name} <span>{getAgo(c.created_at)} ago</span></div>
+                  {c.content}
                 </div>
               </div>
             ))}
@@ -219,7 +234,7 @@ const ViewPost = () => {
             <span className="post-title">{post.title}</span>
             <div className="post-content">
               <video controls className='post-image' src={`${storagePostUrl}${post.video}`} />
-              
+
             </div>
             <div className="post-footer">
               <div className="footer-item">
@@ -265,8 +280,8 @@ const ViewPost = () => {
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.user.profile_picture}`} />
                 <div className="name-comment">
-                <div className="name-time">{c.user.first_name} <span>{getAgo(c.created_at)} ago</span></div>
-                {c.content}
+                  <div className="name-time">{c.user.first_name} <span>{getAgo(c.created_at)} ago</span></div>
+                  {c.content}
                 </div>
               </div>
             ))}
@@ -348,8 +363,8 @@ const ViewPost = () => {
               <div key={c.id} className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.user.profile_picture}`} />
                 <div className="name-comment">
-                <div className="name-time">{c.user.first_name} <span>{getAgo(c.created_at)} ago</span></div>
-                {c.content}
+                  <div className="name-time">{c.user.first_name} <span>{getAgo(c.created_at)} ago</span></div>
+                  {c.content}
                 </div>
               </div>
             ))}
@@ -374,7 +389,7 @@ const ViewPost = () => {
             <div className="post-header" id="posts">
               <div className="left">
                 {loadingProfile && <Skeleton circle className="post-image" />}
-                <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${postUser ?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${postUser?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                 <div className='post-user'>
                   <h4>{postUser?.first_name}</h4>
                   <span id='post-time'>{ago} ago</span>
@@ -436,8 +451,8 @@ const ViewPost = () => {
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.user.profile_picture}`} />
                 <div className="name-comment">
-                <div className="name-time">{c.user.first_name} <span>{getAgo(c.created_at)} ago</span></div>
-                {c.content}
+                  <div className="name-time">{c.user.first_name} <span>{getAgo(c.created_at)} ago</span></div>
+                  {c.content}
                 </div>
               </div>
             ))}
