@@ -5,8 +5,10 @@ import Navbar from '../components/Navbar';
 import { Sidebar } from "../components/Sidebar";
 import Swal from 'sweetalert2';
 
+
 const DefaultLayout = () => {
     const { user, token, setToken } = useStateContext();
+
     if(user.email_verified_at === null) {
         Swal.fire({
             position: "center",
