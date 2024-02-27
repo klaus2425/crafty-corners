@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from 'universal-cookie';
 
 const axiosClient = axios.create({
     baseURL: `${import.meta.env.VITE_API_BASE_URL}`,

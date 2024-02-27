@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { useStateContext } from "../context/ContextProvider";
-import useAuthContext from "../context/AuthContext";
 import axiosClient from "../axios-client";
 import Swal from 'sweetalert2';
 
@@ -8,7 +7,7 @@ export default function LoginModal(props) {
   const { setUser, setToken } = useStateContext();
   const emailRef = useRef();
   const passwordRef = useRef();
-  const {login, errors } = useAuthContext();
+
 
   const onSubmit = (ev) => {
     ev.preventDefault();
@@ -16,7 +15,35 @@ export default function LoginModal(props) {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
-    login(payload);
+    axiosClient
+      .post("/login", payload)
+      .then(({ data }) => {
+        setUser(data.user);
+        setToken(data.token);
+      })
+      .catch((err) => {
+        const response = err.response;
+        if (response && response.status === 422) {
+          if (response.data.errors) {
+            Swal.fire({
+              position: "top-end",
+              icon: "warning",
+              title: `${Object.values(response.data.errors)[0]}`,
+              showConfirmButton: false,
+              timer: 2500
+            });
+          } else {
+            Swal.fire({
+              position: "top-end",
+              icon: "warning",
+              title: `Invalid Credentials`,
+              showConfirmButton: false,
+              timer: 2500
+            });
+
+          }
+        }
+      });
   };
 
   if (!props.isOpen) return null;
