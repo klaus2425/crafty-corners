@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from 'universal-cookie';
 
 const axiosClient = axios.create({
     baseURL: `${import.meta.env.VITE_API_BASE_URL}`,
@@ -10,7 +11,8 @@ const axiosClient = axios.create({
 });
 
 const csrfToken = await axiosClient.get('/sanctum/csrf-cookie', {
-    baseURL: 'http://192.168.1.108:8000/'
+    baseURL: 'http://192.168.1.108:8000/',
+    withCredentials: true,
 })
 
 axiosClient.interceptors.request.use((config) => {
