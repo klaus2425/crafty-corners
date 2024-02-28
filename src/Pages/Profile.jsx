@@ -8,6 +8,8 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { JoinedCommunityCount } from '../components/utils/Membership';
 import axiosClient from '../axios-client';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import Loading from '../components/utils/Loading';
 
 const UserFeed = () => {
 
@@ -17,17 +19,33 @@ const UserFeed = () => {
     const navigate = useNavigate();
     const [userPosts, setUserPosts] = useState([]);
     const [currentUser, setCurrentUser] = useState([]);
-    const getPosts = () => {
-        axiosClient.get(`/users/${user.id}`)
+    const [hasMore, setHasMore] = useState(true);
+    const [pageIndex, setPageIndex] = useState(1);
+
+
+    const fetchNext = () => {
+        axiosClient.get(`/user/${user.id}/posts?page=${pageIndex + 1}`)
+            .then((res) => {
+                setUserPosts(userPosts.concat(res.data.data))
+                if (posts.length === res.data.meta.total) {
+                    setHasMore(false);
+                }
+            })
+
+        setPageIndex(pageIndex + 1)
+    }
+
+    const getPosts = async() => {
+        await axiosClient.get(`/users/${user.id}`)
             .then(res => {
                 console.log(res.data.data);
                 setCurrentUser(res.data.data);
             })
         axiosClient.get(`/user/${user.id}/posts`)
-        .then((res) => {
+            .then((res) => {
                 setUserPosts(res.data.data);
                 console.log(res.data.data);
-        })
+            })
     }
 
     useEffect(() => {
@@ -85,11 +103,22 @@ const UserFeed = () => {
                         <h3>Posts</h3>
                     </div>
                     <div className='posts-col'>
-                        {userPosts &&
-                            userPosts.map(p => (
-                                <UserPost key={p.id} post={p} user={currentUser} />
-                            ))
-                        }
+                        <div className="scroll" id="scroll">
+                            <InfiniteScroll
+                                dataLength={userPosts.length}
+                                next={fetchNext}
+                                hasMore={hasMore}
+                                loader={<Loading />}
+                            >
+                                {userPosts &&
+                                    userPosts.map(p => (
+                                        <UserPost key={p.id} post={p} user={currentUser} />
+                                    ))
+                                }
+                            </InfiniteScroll>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
