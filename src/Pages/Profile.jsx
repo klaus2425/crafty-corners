@@ -35,7 +35,7 @@ const UserFeed = () => {
         setPageIndex(pageIndex + 1)
     }
 
-    const getPosts = async() => {
+    const getPosts = async () => {
         await axiosClient.get(`/users/${user.id}`)
             .then(res => {
                 console.log(res.data.data);
