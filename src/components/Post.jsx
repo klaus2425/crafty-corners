@@ -386,7 +386,6 @@ const Post = (props) => {
 export const UserPost = (props) => {
     const post = props.post;
     const post_user = props.user;
-    const { user } = useStateContext();
 
     const community = post.community;
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
