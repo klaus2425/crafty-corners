@@ -8,6 +8,8 @@ import { JoinedCommunityCount } from '../components/utils/Membership';
 import axiosClient from '../axios-client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
+import Loading from '../components/utils/Loading';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const HobbyistProfile = () => {
   const { user } = useStateContext();
@@ -16,19 +18,32 @@ const HobbyistProfile = () => {
   const navigate = useNavigate();
   const [userPosts, setUserPosts] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [pageIndex, setPageIndex] = useState(1);
+
   const { id } = useParams();
   if (user.id == id) {
     navigate('/profile');
   }
 
+  
+  const fetchNext = () => {
+    axiosClient.get(`/user/${id}/posts?page=${pageIndex + 1}`)
+        .then((res) => {
+            setUserPosts(userPosts.concat(res.data.data))
+            if (posts.length === res.data.meta.total) {
+                setHasMore(false);
+            }
+        })
+
+    setPageIndex(pageIndex + 1)
+}
+
   const getPosts = () => {
-    axiosClient.get(`/users/${id}`)
+    axiosClient.get(`/user/${id}/posts`)
       .then(res => {
-        // const posts = res.data.posts;
-        // const filteredData = posts.filter(item => item.user.id === user.id);
-        console.log(res.data.data);
-        setCurrentUser(res.data.data);
-        setUserPosts(res.data.data.posts);
+        console.log(`User ${id}`,res.data.data)
+        setUserPosts(res.data.data);
       })
   }
 
@@ -36,7 +51,6 @@ const HobbyistProfile = () => {
     axiosClient.get(`/users/${id}`)
       .then(res => {
         setCurrentUser(res.data.data)
-        console.log(res.data);
       })
   }
   useEffect(() => {
@@ -56,7 +70,7 @@ const HobbyistProfile = () => {
         <div className="card">
           <div className='profile-card'>
             <div className='send-profile-button'>
-              <span  className='purple-button'><FontAwesomeIcon icon={faMessage} /> <span className="button-text">Send a Message</span></span>
+              <span className='purple-button'><FontAwesomeIcon icon={faMessage} /> <span className="button-text">Send a Message</span></span>
             </div>
             <div className='profile-details'>
               <div className='left'>
@@ -87,11 +101,22 @@ const HobbyistProfile = () => {
             <h3>Posts</h3>
           </div>
           <div className='posts-col'>
-            {userPosts &&
-              userPosts.map(p => (
-                <UserPost post={p} user={currentUser} />
-              ))
-            }
+            <div className="scroll" id="scroll">
+              <InfiniteScroll
+                dataLength={userPosts.length}
+                next={fetchNext}
+                hasMore={hasMore}
+                loader={<Loading />}
+              >
+                {userPosts &&
+                  userPosts.map(p => (
+                    <UserPost key={p.id} post={p} user={currentUser} />
+                  ))
+                }
+              </InfiniteScroll>
+
+            </div>
+
           </div>
         </div>
       </div>
