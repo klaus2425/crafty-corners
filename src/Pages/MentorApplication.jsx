@@ -1,15 +1,37 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axiosClient from '../axios-client';
 import Swal from 'sweetalert2';
 import Loading from "../components/utils/Loading";
+import { useStateContext } from "../context/ContextProvider";
+import toast, { Toaster } from 'react-hot-toast';
 
 const MentorApplication = () => {
+  const {user} = useStateContext();
   const [communities, setCommunities] = useState([]);
-  const [selected, setSelected] = useState();
   const [loading, setLoading] = useState(false);
+  const chosenCommunityRef = useRef();
+  const specializationRef = useRef();
+  const assessmentDateRef = useRef();
+  const today = new Date().toISOString().split("T")[0];
 
-  const handleChange = (ev) => {
-    setSelected(ev.target.value);
+  const applyForMentorShip = (ev) => {
+    console.log('clicked');
+    const formData = new FormData();
+    formData.append('community_id', chosenCommunityRef.current.value);
+    formData.append('specialization', specializationRef.current.value);
+    formData.append('date_of_assessment', assessmentDateRef.current.value);
+    formData.append('program', 'placeholder'); // Replace
+    formData.append('student_id', '20-00000'); // Replace
+    formData.append('user_id', user.id);
+
+    axiosClient.post('/apply-for-mentorship', formData)
+    .then((res) => {
+      console.log(res.data);
+
+    })
+    .catch((err) => console.log(err.response.data.errors));
+    console.log(chosenCommunityRef.current.value);
+
   }
 
   const getCommunities = (ev) => {
@@ -49,21 +71,19 @@ const MentorApplication = () => {
         </div>
         {loading ? <Loading /> :
           <div className="card">
-
-
             <span>Choose community to apply as a mentor</span>
-            <select className="mentor-apply-select" onChange={handleChange} name="communities">
+            <select ref={chosenCommunityRef} className="mentor-apply-select" name="communities" required>
               {communities.map((community) => (
                 <option key={community.id} value={community.id}>{community.name}</option>
               ))}
             </select>
             <span>What's your Specialization in this community?</span>
-            <input className="mentor-apply-input" type="text" placeholder="E.g. baking, painting, cycling" />
+            <input ref={specializationRef} className="mentor-apply-input" type="text" placeholder="E.g. baking, painting, cycling" required />
             <span>Select appointment for assessment</span>
             <section className="mentor-appointment">
-              <input type="date" />
+              <input ref={assessmentDateRef} type="date" min={today} onClick={console.log(today)} required/>
             </section>
-            <button>
+            <button onClick={applyForMentorShip}>
               Apply
             </button>
           </div>
