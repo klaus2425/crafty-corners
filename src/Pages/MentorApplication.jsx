@@ -27,10 +27,31 @@ const MentorApplication = () => {
     axiosClient.post('/apply-for-mentorship', formData)
     .then((res) => {
       console.log(res.data);
+      toast('Application Sent', {
+        duration: 1500,
+        position: "bottom-center",
+        icon: "✅",
+        style: {
+            borderRadius: "100px",
+            border: 0,
+            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+        }
 
     })
-    .catch((err) => console.log(err.response.data.errors));
-    console.log(chosenCommunityRef.current.value);
+    })
+    .catch((err) => 
+    toast(err.response.data.message, {
+      duration: 1500,
+      position: "bottom-center",
+      icon: "❌",
+      style: {
+          borderRadius: "100px",
+          border: 0,
+          boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+      }
+
+  })
+    );
 
   }
 
@@ -59,6 +80,7 @@ const MentorApplication = () => {
 
   return (
     <div className="authenticated-container">
+      <Toaster />
       <div className="feed">
         <div className='section-header-col'>
           <div className="section-header">
