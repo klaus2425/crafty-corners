@@ -45,8 +45,8 @@ const ViewMentorApplication = () => {
           <input type="text" name="" id="" readOnly />
           <div>Specialization</div>
           <input type="text" name="" id="" readOnly />
-          <div>Date of Assessment</div>
-          <input type="date" name="" id="" readOnly />
+          <div>Select Date for Assessment</div>
+          <input type="date" name="" id="" />
         </div>
       </div>
       <div className="application-bottom">
