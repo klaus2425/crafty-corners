@@ -62,13 +62,22 @@ html {
   visibility: hidden;
 }
 
+.event-content {
+  background-color: $dark_grey;
+  color: #FFF;
+  border-radius: 5px;
+  padding: 0.25rem;
+  font-size: 1rem;
+  white-space: normal;
+}
+
 .schedule-card {
   display: flex;
   flex-direction: column;
   background-color: #FFFFFF;
   border-radius: 15px;
   box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
-  width: 10rem;
+  width: 100%;
   min-width: fit-content;
   margin-bottom: 0.5rem;
   padding: 1rem;
