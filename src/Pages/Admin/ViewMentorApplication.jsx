@@ -1,5 +1,23 @@
+import { useEffect, useState } from "react";
+import axiosClient from "../../axios-client";
+import { useParams } from "react-router-dom";
 
 const ViewMentorApplication = () => {
+  const {id} = useParams();
+  const [applicant, setApplicant] = useState({});
+  const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
+  const getApplicant = () => {
+    axiosClient.get(`/mentorship-applications/${id}`)
+    .then((res) => {
+      console.log(res.data.data);
+    })
+  }
+
+
+  useEffect(() => {
+    getApplicant();
+  }, [])
+
 
   return (
     <div className="communities-container">
@@ -7,7 +25,7 @@ const ViewMentorApplication = () => {
         <h2>Applicant's Information</h2>
       </div>
       <div className="applicant-image">
-        <img src="/kafka.jpg" alt="" />
+        <img src={`${storageBaseUrl}`} alt="" />
       </div>
       <div className="applicant-info-container">
         <div className="left">
@@ -34,6 +52,9 @@ const ViewMentorApplication = () => {
       <div className="application-bottom">
         <button className="purple-button">
           Confirm Application
+        </button>
+        <button className="red-button">
+          Reject Application
         </button>
       </div>
 
