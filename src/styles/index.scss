@@ -3416,6 +3416,7 @@ input::-webkit-inner-spin-button {
   }
   .left {
     width: 50%;
+    padding-left: 3rem;
   }
 
   .right {
@@ -3425,7 +3426,9 @@ input::-webkit-inner-spin-button {
 }
 
 .application-bottom {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
   margin-top: 4rem;
   width: 100%;
 }
