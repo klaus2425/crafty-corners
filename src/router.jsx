@@ -38,6 +38,7 @@ import HobbyistProfile from "./Pages/HobbyistProfile";
 import MentorApplicants from "./Pages/Admin/MentorApplicants";
 import ViewMentorApplication from "./Pages/Admin/ViewMentorApplication";
 import ReportedPosts from "./Pages/Admin/ReportedPosts";
+import Schedule2 from "./Pages/Schedule2";
 
 
 const router = createBrowserRouter([
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
             {
                 path: '/schedule',
                 element: <Schedule />
+            },
+            {
+                path: '/schedule2',
+                element: <Schedule2 />
             },
             {
                 path: '/account-settings',
