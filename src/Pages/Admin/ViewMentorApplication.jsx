@@ -5,11 +5,13 @@ import { useParams } from "react-router-dom";
 const ViewMentorApplication = () => {
   const {id} = useParams();
   const [applicant, setApplicant] = useState({});
+  const [community, setCommunity] = useState({});
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
   const getApplicant = () => {
-    axiosClient.get(`/mentorship-applications/${id}`)
+    axiosClient.get(`/mentorship-application/${id}`)
     .then((res) => {
       console.log(res.data.data);
+      setApplicant(res.data.data)
     })
   }
 
@@ -30,17 +32,17 @@ const ViewMentorApplication = () => {
       <div className="applicant-info-container">
         <div className="left">
           <div>First Name</div>
-          <input type="text" name="" id="" readOnly />
+          <input type="text" name="" id="" readOnly value={applicant.user?.first_name}/>
           <div>Middle Name</div>
-          <input type="text" name="" id="" readOnly />
+          <input type="text" name="" id="" readOnly value={applicant.user?.middle_name} />
           <div>Last Name</div>
-          <input type="text" name="" id="" readOnly />
+          <input type="text" name="" id="" readOnly value={applicant.user?.last_name}/>
           <div>Student ID</div>
-          <input type="text" name="" id="" readOnly />
+          <input type="text" name="" id="" readOnly value={applicant.student_id}/>
         </div>
         <div className="right">
           <div>Program</div>
-          <input type="text" name="" id="" readOnly />
+          <input type="text" name="" id="" readOnly value={applicant.Program}/>
           <div>Community Applying For</div>
           <input type="text" name="" id="" readOnly />
           <div>Specialization</div>
