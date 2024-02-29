@@ -10,12 +10,36 @@ import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"
 
 const Schedule2 = () => {
+    const handleEventClick = (info) => {
+        // 'info' contains information about the clicked event
+        console.log('Event clicked:', info.event);
+        // Add your custom logic here
+      };
+    const eventRender = ({ event }) => {
+        const formatTime = (date) => {
+            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+          };
 
+        if (event.end) {
+            return (
+                <div className='event-content'>
+                    <strong>{event.title}</strong>
+                    <br />
+                    {formatTime(event.start)} - {formatTime(event.end)}
+                </div>
+            )
+        }
+        return (
+            <div className='event-content'>
+                <strong>{event.title}</strong>
+                <br />
+                {event.start.toLocaleTimeString()} -
+            </div>
+        );
+    }
 
     return (
         <div className="authenticated-container">
-
-
             <div className="feed">
                 <div className='section-header'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -27,13 +51,15 @@ const Schedule2 = () => {
                     <FullCalendar
                         plugins={[dayGridPlugin, interactionPlugin]}
                         initialView="dayGridMonth"
+                        selectable
                         events={[
-                            { title: 'event 1', date: '2024-02-29' },
-                            { title: 'event 2', date: '2024-02-29' }
-                          ]}
+                            { title: 'Thesis Defense', start: '2024-02-29T12:30:00', end: '2024-02-29T12:35:00' },
+                        ]}
                         dateClick={() => {
                             alert('Clicked on: ')
                         }}
+                        eventClick={handleEventClick}
+                        eventContent={eventRender}
                     />
                 </div>
             </div>
