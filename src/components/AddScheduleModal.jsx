@@ -13,31 +13,31 @@ const AddScheduleModal = (props) => {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
+        console.log(`${props.startDate+'T'+startingTimeRef.current.value}`);
+        // const formData = new FormData();
+        // formData.append('schedule_name', scheduleNameRef.current.value);
+        // formData.append('schedule_description', scheduleDescriptionRef.current.value);
+        // formData.append('start_time', startingTimeRef.current.value);
+        // formData.append('end_time', endTimeRef.current.value);
+        // formData.append('schedule_day', props.day);
+        // formData.append('schedule_color', color);
 
-        const formData = new FormData();
-        formData.append('schedule_name', scheduleNameRef.current.value);
-        formData.append('schedule_description', scheduleDescriptionRef.current.value);
-        formData.append('start_time', startingTimeRef.current.value);
-        formData.append('end_time', endTimeRef.current.value);
-        formData.append('schedule_day', props.day);
-        formData.append('schedule_color', color);
-
-        axiosClient.post('/schedule', formData)
-            .then(({ data }) => {
-                console.log(data);
-                props.getAllSched();
-                props.setOpen(false);
-            })
-            .catch(err => {
-                const response = err.response;
-                if (response && response.status === 422) {
-                    Swal.fire({
-                        title: "Error",
-                        text: `${Object.values(response.data.errors)[0]}`,
-                        icon: "warning"
-                    });
-                }
-            })
+        // axiosClient.post('/schedule', formData)
+        //     .then(({ data }) => {
+        //         console.log(data);
+        //         props.getAllSched();
+        //         props.setOpen(false);
+        //     })
+        //     .catch(err => {
+        //         const response = err.response;
+        //         if (response && response.status === 422) {
+        //             Swal.fire({
+        //                 title: "Error",
+        //                 text: `${Object.values(response.data.errors)[0]}`,
+        //                 icon: "warning"
+        //             });
+        //         }
+        //     })
     }
 
 
@@ -54,7 +54,7 @@ const AddScheduleModal = (props) => {
                         <path d="M15 9L9 15" stroke="#222222" strokeLinecap="round" />
                     </svg>
                 </div>
-                <div><h2>Add a schedule for {props.day}</h2></div>
+                <div><h2>Add a schedule{props.day}</h2></div>
 
                 <form onSubmit={onSubmit}>
                     <div className="schedule-input">
@@ -73,7 +73,7 @@ const AddScheduleModal = (props) => {
                         <label>End Time:</label>
                         <input ref={endTimeRef} type="time" required />
                     </div>
-                    <div className="schedule-input">
+                    {/* <div className="schedule-input">
                         <label>Background Color:</label>
                         <div className="color-flex">
                             <div className="left">
@@ -87,7 +87,7 @@ const AddScheduleModal = (props) => {
                         </div>
 
 
-                    </div>
+                    </div> */}
                     <div className="add-sched-btn">
                         <button type="submit">Add Schedule</button>
                     </div>
