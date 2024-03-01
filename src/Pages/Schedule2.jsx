@@ -18,6 +18,7 @@ const Schedule2 = () => {
         axiosClient.get('/schedule')
             .then(({ data }) => {
                 console.log(data.data);
+                setEvents(data.data);
             }).catch(err => {
 
             })
@@ -27,7 +28,6 @@ const Schedule2 = () => {
       };
 
     const handleDateClick = (info) => {
-        console.log('date clicked: ' + info.date.toLocaleDateString('en-US'));
         setStartDate(info.date.toISOString().split('T')[0]);
         setOpen(!open);
       };
@@ -35,12 +35,12 @@ const Schedule2 = () => {
 
     const eventRender = ({ event }) => {
 
-
         if (event.end) {
             return (
                 <div className='event-content'>
                     <strong>{event.title}</strong>
                     <br />
+                    
                     {formatTime(event.start)} - {formatTime(event.end)}
                 </div>
             )
@@ -74,9 +74,7 @@ const Schedule2 = () => {
                         plugins={[dayGridPlugin, interactionPlugin]}
                         initialView="dayGridMonth"
                         selectable
-                        events={[
-                            { title: 'Thesis Defense', color: '#677186', start: '2024-02-29T10:30:00', end: '2024-02-29T18:35:00' },
-                        ]}
+                        events={events}
                         dateClick={handleDateClick}
                        // eventClick={handleEventClick}
                         eventContent={eventRender}
