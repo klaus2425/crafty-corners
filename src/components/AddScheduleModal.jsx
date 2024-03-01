@@ -13,14 +13,11 @@ const AddScheduleModal = (props) => {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        console.log(`${props.startDate+'T'+startingTimeRef.current.value}`);
+        console.log(`${props.startDate+' '+startingTimeRef.current.value}`);
         const formData = new FormData();
         formData.append('title', scheduleNameRef.current.value);
-        // formData.append('schedule_description', scheduleDescriptionRef.current.value);
-        formData.append('start', props.startDate+'T'+startingTimeRef.current.value);
-        formData.append('end', props.startDate+'T'+endTimeRef.current.value);
-        // formData.append('schedule_day', props.day);
-        // formData.append('schedule_color', color);
+        formData.append('start', props.startDate+' '+startingTimeRef.current.value);
+        formData.append('end', props.startDate+' '+endTimeRef.current.value);
 
         axiosClient.post('/schedule', formData)
             .then(({ data }) => {
