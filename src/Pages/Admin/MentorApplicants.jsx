@@ -61,7 +61,7 @@ const MentorApplicants = () => {
     <div className="communities-container">
       <Toaster />
       <div className="top-section">
-        <div className='user-count'>5 <br />Pending Mentor Applicants</div>
+        <div className='user-count'>{applicants.length} <br />Pending Mentor Applicants</div>
       </div>
       <div className='users-table'>
         {loading ? <Loading /> :
@@ -71,21 +71,17 @@ const MentorApplicants = () => {
                 <div className="community-details-top">
                   <span id='user-img-span'><img src={`${storageBaseUrl + a.user.profile_picture}`} alt="" /></span>
                   <span><strong>Full Name:  <br /> </strong> {a.user.first_name} {a.user.middle_name} {a.user.last_name}</span>
-                  <span><strong>  <br /></strong></span>
-                  <span><strong>Email:  <br /></strong> {a.user.email}</span>
-                  <span><strong>Date of Application:  <br /></strong>{a.user.updated_at}</span>
+                  <span><strong>Status:  <br/></strong> {a.status}</span>
+                  <span><strong>Date of Application:  <br /></strong>{a.date_of_Assessment}</span>
                 </div>
                 <div className="buttons-community">
-                  <Link to={`/mentor-applicants/${a.id}`} className="orange-button">View Details</Link>
+                  <Link to={`/mentor-applicants/${a.id}`} className="orange-button">View Details</Link> 
                   <button className="red-button" onClick={ev => onDeleteClick(1)}>Delete Application</button>
                 </div>
               </div>
             </div>
           ))
-
         }
-
-
       </div>
 
     </div>
