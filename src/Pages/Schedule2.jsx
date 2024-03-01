@@ -8,10 +8,11 @@ import Loading from '../components/utils/Loading';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"
-import toast, {Toaster} from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Schedule2 = () => {
     const [open, setOpen] = useState(false);
+    const [editOpen, setEditOpen] = useState(false);
     const [events, setEvents] = useState({});
     const [startDate, setStartDate] = useState();
     const getSchedule = () => {
@@ -25,12 +26,28 @@ const Schedule2 = () => {
     }
     const formatTime = (date) => {
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-      };
+    };
 
+    const handleEventClick = (info) => {
+        console.log(new Intl.DateTimeFormat('en-CA', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+          }).format(info.date).replace(/\//g, '-'))
+    }
     const handleDateClick = (info) => {
-        setStartDate(info.date.toISOString().split('T')[0]);
+        setStartDate(new Intl.DateTimeFormat('en-CA', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+          }).format(info.date).replace(/\//g, '-'));
+        console.log(new Intl.DateTimeFormat('en-CA', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+          }).format(info.date).replace(/\//g, '-'));
         setOpen(!open);
-      };
+    };
 
 
     const eventRender = ({ event }) => {
@@ -40,7 +57,7 @@ const Schedule2 = () => {
                 <div className='event-content'>
                     <strong>{event.title}</strong>
                     <br />
-                    
+
                     {formatTime(event.start)} - {formatTime(event.end)}
                 </div>
             )
@@ -68,15 +85,15 @@ const Schedule2 = () => {
                     <h3>Schedule</h3>
                 </div>
                 <div className="card" id="schedule-card">
-                <AddScheduleModal isOpen={open} startDate={startDate}  setOpen={setOpen} />
+                    <AddScheduleModal isOpen={open} getAllSched={getSchedule} startDate={startDate} setOpen={setOpen} />
 
                     <FullCalendar
                         plugins={[dayGridPlugin, interactionPlugin]}
                         initialView="dayGridMonth"
                         selectable
-                        events={events}
+                        events={{events}}
                         dateClick={handleDateClick}
-                       // eventClick={handleEventClick}
+                        eventClick={handleEventClick}
                         eventContent={eventRender}
                     />
                 </div>
