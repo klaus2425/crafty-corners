@@ -8,24 +8,18 @@ import Loading from '../components/utils/Loading';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"
+import toast, {Toaster} from 'react-hot-toast';
 
 const Schedule2 = () => {
     const [open, setOpen] = useState(false);
-
+    const [events, setEvents] = useState({});
+    const [startDate, setStartDate] = useState();
     const getSchedule = () => {
-        setLoading(true);
         axiosClient.get('/schedule')
             .then(({ data }) => {
-                setLoading(false);
-                setSchedule(data.data);
+                console.log(data.data);
             }).catch(err => {
-                setLoading(false);
-                const response = err.response;
-                Swal.fire({
-                    title: "Error",
-                    text: `${Object.values(response.data.errors)[0]}`,
-                    icon: "warning"
-                });
+
             })
     }
     const formatTime = (date) => {
@@ -34,6 +28,7 @@ const Schedule2 = () => {
 
     const handleDateClick = (info) => {
         console.log('date clicked: ' + info.date.toLocaleDateString('en-US'));
+        setStartDate(info.date.toISOString().split('T')[0]);
         setOpen(!open);
       };
 
@@ -59,8 +54,12 @@ const Schedule2 = () => {
         );
     }
 
+    useEffect(() => {
+        getSchedule();
+    }, [])
     return (
         <div className="authenticated-container">
+            <Toaster />
             <div className="feed">
                 <div className='section-header'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -69,7 +68,7 @@ const Schedule2 = () => {
                     <h3>Schedule</h3>
                 </div>
                 <div className="card" id="schedule-card">
-                <AddScheduleModal isOpen={open}  setOpen={setOpen} />
+                <AddScheduleModal isOpen={open} startDate={startDate}  setOpen={setOpen} />
 
                     <FullCalendar
                         plugins={[dayGridPlugin, interactionPlugin]}
