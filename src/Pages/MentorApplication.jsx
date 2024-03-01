@@ -6,7 +6,7 @@ import { useStateContext } from "../context/ContextProvider";
 import toast, { Toaster } from 'react-hot-toast';
 
 const MentorApplication = () => {
-  const {user} = useStateContext();
+  const { user } = useStateContext();
   const [communities, setCommunities] = useState([]);
   const [loading, setLoading] = useState(false);
   const chosenCommunityRef = useRef();
@@ -19,39 +19,38 @@ const MentorApplication = () => {
     const formData = new FormData();
     formData.append('community_id', chosenCommunityRef.current.value);
     formData.append('specialization', specializationRef.current.value);
-    formData.append('date_of_assessment', assessmentDateRef.current.value);
     formData.append('program', 'placeholder'); // Replace
     formData.append('student_id', '20-00000'); // Replace
     formData.append('user_id', user.id);
-
     axiosClient.post('/apply-for-mentorship', formData)
-    .then((res) => {
-      console.log(res.data);
-      toast('Application Sent', {
-        duration: 1500,
-        position: "bottom-center",
-        icon: "✅",
-        style: {
+      .then((res) => {
+        console.log(res);
+        toast('Application Sent', {
+          duration: 1500,
+          position: "bottom-center",
+          icon: "✅",
+          style: {
             borderRadius: "100px",
             border: 0,
             boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-        }
+          }
 
-    })
-    })
-    .catch((err) => 
-    toast(err.response.data.message, {
-      duration: 1500,
-      position: "bottom-center",
-      icon: "❌",
-      style: {
-          borderRadius: "100px",
-          border: 0,
-          boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+        })
+      })
+      .catch((err) => {
+        toast(err.response.data.message, {
+          duration: 1500,
+          position: "bottom-center",
+          icon: "❌",
+          style: {
+            borderRadius: "100px",
+            border: 0,
+            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+          }
+
+        })
       }
-
-  })
-    );
+      );
 
   }
 
@@ -101,10 +100,6 @@ const MentorApplication = () => {
             </select>
             <span>What's your Specialization in this community?</span>
             <input ref={specializationRef} className="mentor-apply-input" type="text" placeholder="E.g. baking, painting, cycling" required />
-            <span>Select appointment for assessment</span>
-            <section className="mentor-appointment">
-              <input ref={assessmentDateRef} type="date" min={today} onClick={console.log(today)} required/>
-            </section>
             <button onClick={applyForMentorShip}>
               Apply
             </button>
