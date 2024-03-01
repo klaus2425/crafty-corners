@@ -14,30 +14,30 @@ const AddScheduleModal = (props) => {
     const onSubmit = (ev) => {
         ev.preventDefault();
         console.log(`${props.startDate+'T'+startingTimeRef.current.value}`);
-        // const formData = new FormData();
-        // formData.append('schedule_name', scheduleNameRef.current.value);
+        const formData = new FormData();
+        formData.append('title', scheduleNameRef.current.value);
         // formData.append('schedule_description', scheduleDescriptionRef.current.value);
-        // formData.append('start_time', startingTimeRef.current.value);
-        // formData.append('end_time', endTimeRef.current.value);
+        formData.append('start', props.startDate+'T'+startingTimeRef.current.value);
+        formData.append('end', props.startDate+'T'+endTimeRef.current.value);
         // formData.append('schedule_day', props.day);
         // formData.append('schedule_color', color);
 
-        // axiosClient.post('/schedule', formData)
-        //     .then(({ data }) => {
-        //         console.log(data);
-        //         props.getAllSched();
-        //         props.setOpen(false);
-        //     })
-        //     .catch(err => {
-        //         const response = err.response;
-        //         if (response && response.status === 422) {
-        //             Swal.fire({
-        //                 title: "Error",
-        //                 text: `${Object.values(response.data.errors)[0]}`,
-        //                 icon: "warning"
-        //             });
-        //         }
-        //     })
+        axiosClient.post('/schedule', formData)
+            .then(({ data }) => {
+                console.log(data);
+                props.getAllSched();
+                props.setOpen(false);
+            })
+            .catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    Swal.fire({
+                        title: "Error",
+                        text: `${Object.values(response.data.errors)[0]}`,
+                        icon: "warning"
+                    });
+                }
+            })
     }
 
 
