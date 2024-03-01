@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axiosClient from "../../axios-client";
 import { useParams } from "react-router-dom";
 
@@ -6,7 +6,19 @@ const ViewMentorApplication = () => {
   const {id} = useParams();
   const [applicant, setApplicant] = useState({});
   const [community, setCommunity] = useState({});
+  const dateTimeRef = useRef();
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
+  const handleSubmit = () => {
+    console.log(dateTimeRef.current.value);
+    const formData = new FormData();
+    formData.append('date_of_assessment', dateTimeRef.current.value)
+    axiosClient.post(`/mentor/${id}/set-assessment_date`, formData)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch(err => console.log(err.response))
+  }
+
   const getApplicant = () => {
     axiosClient.get(`/mentorship-application/${id}`)
     .then((res) => {
@@ -42,17 +54,17 @@ const ViewMentorApplication = () => {
         </div>
         <div className="right">
           <div>Program</div>
-          <input type="text" name="" id="" readOnly value={applicant.Program}/>
+          <input type="text" name="" id="" readOnly value={applicant.program}/>
           <div>Community Applying For</div>
-          <input type="text" name="" id="" readOnly />
+          <input type="text" name="" id="" readOnly value={applicant.community?.name}/>
           <div>Specialization</div>
-          <input type="text" name="" id="" readOnly />
+          <input type="text" name="" id="" readOnly value={applicant.specialization} />
           <div>Select Date for Assessment</div>
-          <input type="date" name="" id="" />
-        </div>
+          <input ref={dateTimeRef} type="datetime-local" name="" id="" value={applicant?.date_of_assessment} />
+        </div> 
       </div>
       <div className="application-bottom">
-        <button className="purple-button">
+        <button className="purple-button" onClick={handleSubmit}>
           Confirm Application
         </button>
         <button className="red-button">
