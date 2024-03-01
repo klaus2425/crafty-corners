@@ -10,15 +10,36 @@ import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"
 
 const Schedule2 = () => {
-    const handleEventClick = (info) => {
-        // 'info' contains information about the clicked event
-        console.log('Event clicked:', info.event);
-        // Add your custom logic here
+    const [open, setOpen] = useState(false);
+
+    const getSchedule = () => {
+        setLoading(true);
+        axiosClient.get('/schedule')
+            .then(({ data }) => {
+                setLoading(false);
+                setSchedule(data.data);
+            }).catch(err => {
+                setLoading(false);
+                const response = err.response;
+                Swal.fire({
+                    title: "Error",
+                    text: `${Object.values(response.data.errors)[0]}`,
+                    icon: "warning"
+                });
+            })
+    }
+    const formatTime = (date) => {
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
       };
+
+    const handleDateClick = (info) => {
+        console.log('date clicked: ' + info.date.toLocaleDateString('en-US'));
+        setOpen(!open);
+      };
+
+
     const eventRender = ({ event }) => {
-        const formatTime = (date) => {
-            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-          };
+
 
         if (event.end) {
             return (
@@ -48,17 +69,17 @@ const Schedule2 = () => {
                     <h3>Schedule</h3>
                 </div>
                 <div className="card" id="schedule-card">
+                <AddScheduleModal isOpen={open}  setOpen={setOpen} />
+
                     <FullCalendar
                         plugins={[dayGridPlugin, interactionPlugin]}
                         initialView="dayGridMonth"
                         selectable
                         events={[
-                            { title: 'Thesis Defense', start: '2024-02-29T12:30:00', end: '2024-02-29T12:35:00' },
+                            { title: 'Thesis Defense', color: '#677186', start: '2024-02-29T10:30:00', end: '2024-02-29T18:35:00' },
                         ]}
-                        dateClick={() => {
-                            alert('Clicked on: ')
-                        }}
-                        eventClick={handleEventClick}
+                        dateClick={handleDateClick}
+                       // eventClick={handleEventClick}
                         eventContent={eventRender}
                     />
                 </div>
