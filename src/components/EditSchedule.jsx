@@ -139,8 +139,8 @@ const EditSchedule = (props) => {
                             <label>Background Color:</label>
                             <div className="color-flex">
                                 <div className="left">
-                                    <div className='radio-input'><input style={{ accentColor: "#0aaa3f" }} checked={schedule.schedule_color === '#0aaa3f'} onChange={ev => setSchedule({ ...schedule, schedule_color: ev.target.value })} name='color' className='sched-radio' type="radio" value='#0aaa3f' required /> Green</div>
-                                    <div className='radio-input'><input style={{ accentColor: "#e97100" }} checked={schedule.schedule_color === '#e97100'} onChange={ev => setSchedule({ ...schedule, schedule_color: ev.target.value })} name='color' className='sched-radio' type="radio" value='#e97100' required /> Orange</div>
+                                    <div className='radio-input'><input style={{ accentColor: "#0aaa3f" }} checked={schedule.schedule_color === '#0AAA3f'} onChange={ev => setSchedule({ ...schedule, schedule_color: ev.target.value })} name='color' className='sched-radio' type="radio" value='#0aaa3f' required /> Green</div>
+                                    <div className='radio-input'><input style={{ accentColor: "#e97100" }} checked={schedule.schedule_color === '#E97100'} onChange={ev => setSchedule({ ...schedule, schedule_color: ev.target.value })} name='color' className='sched-radio' type="radio" value='#e97100' required /> Orange</div>
                                 </div>
                                 <div className="right">
                                     <div className='radio-input'><input style={{ accentColor: "#6528F7" }} checked={schedule.schedule_color === '#6528F7'} onChange={ev => setSchedule({ ...schedule, schedule_color: ev.target.value })} name='color' className='sched-radio' value='#6528F7' type="radio" required /> Purple</div>
