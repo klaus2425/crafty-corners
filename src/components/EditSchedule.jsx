@@ -85,7 +85,6 @@ const EditSchedule = (props) => {
         formData.append('title', schedule.title);
         formData.append('start', dateStart + ' ' + startTime);
         formData.append('end', dateStart + ' ' + endTime);
-
         axiosClient.post(`/schedule/${props.id}`, formData)
             .then(({ data }) => {
                 console.log(data);
