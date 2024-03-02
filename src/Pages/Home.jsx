@@ -14,6 +14,9 @@ const UserFeed = () => {
         axiosClient.get('/homepage-post?page=1')
             .then(res => {
                 setPosts(res.data.data);
+                if(res.data.data.length === 0) {
+                    setHasMore(false);
+                }   
             })
     }
 
@@ -25,6 +28,7 @@ const UserFeed = () => {
         axiosClient.get(`/homepage-post?page=${pageIndex + 1}`)
             .then((res) => {
                 setPosts(posts.concat(res.data.data))
+                console.log(res.data.data);
                 if (posts.length === res.data.meta.total) {
                     setHasMore(false);
                 }

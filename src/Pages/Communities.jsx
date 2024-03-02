@@ -58,7 +58,7 @@ const Communities = () => {
           {loading ? <Loading /> :
             <div className="list-card-items">
               {communities.map(c => (
-                <LoadCommunity c={c} />
+                <LoadCommunity key={c.id} c={c} />
               ))}
             </div>
           }

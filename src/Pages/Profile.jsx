@@ -45,6 +45,9 @@ const UserFeed = () => {
             .then((res) => {
                 setUserPosts(res.data.data);
                 console.log(res.data.data);
+                if(res.data.data.length === 0) {
+                    setHasMore(false);
+                }
             })
     }
 
@@ -81,7 +84,7 @@ const UserFeed = () => {
                                     <div className='display-name'>
                                         <h2>{user.first_name || <Skeleton />}</h2>
                                         {user.user_name ? `@${user.user_name}` : <Skeleton />}
-                                        {user.id ? <JoinedCommunityCount id={user.id} /> : <Skeleton className='skeleton' />}
+                                        {user.id ? <JoinedCommunityCount id={user?.id} /> : <Skeleton className='skeleton' />}
 
                                     </div>
                                 </div>
