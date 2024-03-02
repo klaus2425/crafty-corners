@@ -45,6 +45,9 @@ const ViewCommunity = () => {
       .then(res => {
         setPosts(res.data.data)
         console.log(res.data.data);
+        if (res.data.data.length === 0) {
+          setHasMore(false);
+        }
       })
   }
 
