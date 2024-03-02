@@ -78,8 +78,7 @@ const EditSchedule = (props) => {
     const onSubmit = (ev) => {
         ev.preventDefault();
         const dateStart = schedule.start.split(' ')[0];
-        console.log('Original:', schedule.start);
-        console.log('New:', dateStart + ' ' + startTime);
+        console.log('format', dateStart + ' ' + startTime);
         const formData = new FormData();
         formData.append("_method", "PUT");
         formData.append('title', schedule.title);
@@ -90,7 +89,6 @@ const EditSchedule = (props) => {
                 console.log(data);
                 props.setOpen(false);
                 props.getAllSched();
-
             })
             .catch(err => {
                 console.log(err);
@@ -131,11 +129,11 @@ const EditSchedule = (props) => {
 
                         <div className="schedule-input">
                             <label>Starting time:</label>
-                            <input value={startTime} onChange={ev => setStartTime(ev.target.value)} type="time" required />
+                            <input value={startTime} step={60} onChange={ev => setStartTime(ev.target.value+':00')} type="time" required />
                         </div>
                         <div className="schedule-input">
                             <label>End Time:</label>
-                            <input value={endTime} onChange={ev => setEndTime(ev.target.value)} type="time" required />
+                            <input value={endTime} step={60} onChange={ev => setEndTime(ev.target.value+':00')} type="time" required />
                         </div>
                         <div className="schedule-input">
                             <label>Background Color:</label>
