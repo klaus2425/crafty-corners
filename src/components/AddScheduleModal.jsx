@@ -5,7 +5,6 @@ import { useRef, useState } from 'react';
 const AddScheduleModal = (props) => {
 
     const scheduleNameRef = useRef();
-    const scheduleDescriptionRef = useRef();
     const startingTimeRef = useRef();
     const endTimeRef = useRef();
     const [color, setColor] = useState();
@@ -18,7 +17,7 @@ const AddScheduleModal = (props) => {
         formData.append('title', scheduleNameRef.current.value);
         formData.append('start', props.startDate + ' ' + startingTimeRef.current.value);
         formData.append('end', props.startDate + ' ' + endTimeRef.current.value);
-
+        formData.append('color', color);
         axiosClient.post('/schedule', formData)
             .then(({ data }) => {
                 console.log(data);
@@ -59,10 +58,6 @@ const AddScheduleModal = (props) => {
                         <input ref={scheduleNameRef} type="text" required />
                     </div>
                     <div className="schedule-input">
-                        <label>Schedule Description:</label>
-                        <input ref={scheduleDescriptionRef} type="text" />
-                    </div>
-                    <div className="schedule-input">
                         <label>Starting time:</label>
                         <input ref={startingTimeRef} type="time" required />
                     </div>
@@ -70,7 +65,7 @@ const AddScheduleModal = (props) => {
                         <label>End Time:</label>
                         <input ref={endTimeRef} type="time" required />
                     </div>
-                    {/* <div className="schedule-input">
+                    <div className="schedule-input">
                         <label>Background Color:</label>
                         <div className="color-flex">
                             <div className="left">
@@ -82,9 +77,7 @@ const AddScheduleModal = (props) => {
                                 <div className='radio-input'><input style={{ accentColor: "#677186" }} onChange={ev => setColor(ev.target.value)} name='color' className='sched-radio' value='#677186' type="radio" required /> Gray</div>
                             </div>
                         </div>
-
-
-                    </div> */}
+                    </div>
                     <div className="add-sched-btn">
                         <button type="submit">Add Schedule</button>
                     </div>
