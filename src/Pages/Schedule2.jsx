@@ -55,7 +55,7 @@ const Schedule2 = () => {
 
 
     const eventRender = ({ event }) => {
-
+        console.log(event.color);
         if (event.end) {
             return (
                 <div className='event-content'>
@@ -95,7 +95,15 @@ const Schedule2 = () => {
                         plugins={[dayGridPlugin, interactionPlugin]}
                         initialView="dayGridMonth"
                         selectable
-                        events={{events}}
+                        // events={[
+                        //     {
+                        //       title: "✔️",
+                        //       allDay: true,
+                        //       start: "2024-03-01",
+                        //       color: "#0aaa3f",
+                        //     },
+                        //   ]}
+                        events={events}
                         dateClick={handleDateClick}
                         eventClick={handleEventClick}
                         eventContent={eventRender}
