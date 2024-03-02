@@ -5,66 +5,82 @@ import { useState, useEffect } from 'react'
 import AddScheduleModal from '../components/AddScheduleModal';
 import EditSchedule from '../components/EditSchedule';
 import Loading from '../components/utils/Loading';
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import interactionPlugin from "@fullcalendar/interaction"
+import toast, { Toaster } from 'react-hot-toast';
 
-
-const Schedule = () => {
-
-    const [editOpen, setEditOpen] = useState(false);
-    const [schedID, setSchedID] = useState('');
+const Schedule2 = () => {
     const [open, setOpen] = useState(false);
-    const [day, setDay] = useState('');
-    const [schedule, setSchedule] = useState([]);
-    const [loading, setLoading] = useState(false);
-
+    const [editOpen, setEditOpen] = useState(false);
+    const [schedId, setSchedId] = useState();
+    const [events, setEvents] = useState({});
+    const [startDate, setStartDate] = useState();
     const getSchedule = () => {
-        setLoading(true);
         axiosClient.get('/schedule')
             .then(({ data }) => {
-                setLoading(false);
-                setSchedule(data.data);
+                console.log(data.data);
+                setEvents(data.data);
             }).catch(err => {
-                setLoading(false);
-                const response = err.response;
-                Swal.fire({
-                    title: "Error",
-                    text: `${Object.values(response.data.errors)[0]}`,
-                    icon: "warning"
-                });
+
             })
     }
+    const formatTime = (date) => {
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+    };
 
-    const addSchedule = (weekday) => {
-        setDay(weekday);
+    const handleEventClick = (info) => {
+        console.log(info.event.id);
+        setSchedId(info.event.id);
+        console.log(new Intl.DateTimeFormat('en-CA', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+          }).format(info.date).replace(/\//g, '-'))
+          setEditOpen(true);
+    }
+    const handleDateClick = (info) => {
+        setStartDate(new Intl.DateTimeFormat('en-CA', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+          }).format(info.date).replace(/\//g, '-'));
+        console.log(new Intl.DateTimeFormat('en-CA', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+          }).format(info.date).replace(/\//g, '-'));
         setOpen(!open);
-    }
+    };
 
-    const editSchedule = (id) => {
-        setEditOpen(!editOpen);
-        setSchedID(id);
-    }
 
+    const eventRender = ({ event }) => {
+        console.log(event.backgroundColor);
+        if (event.end) {
+            return (
+                <div className='event-content' style={{backgroundColor: event.backgroundColor}}>
+                    <strong>{event.title}</strong>
+                    <br />
+
+                    {formatTime(event.start)} - {formatTime(event.end)}
+                </div>
+            )
+        }
+        return (
+            <div className='event-content'>
+                <strong>{event.title}</strong>
+                <br />
+                {event.start.toLocaleTimeString()} -
+            </div>
+        );
+    }
 
     useEffect(() => {
         getSchedule();
     }, [])
-
-    const convertTime = (time24h) => {
-        let time = time24h
-            .toString()
-            .match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time24h];
-
-        if (time.length > 1) {
-            time = time.slice(1, -1);
-            time[5] = +time[0] < 12 ? ' AM' : ' PM';
-            time[0] = +time[0] % 12 || 12;
-        }
-        return time.join('');
-    };
-
     return (
         <div className="authenticated-container">
-
-
+            <Toaster />
             <div className="feed">
                 <div className='section-header'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -72,169 +88,26 @@ const Schedule = () => {
                     </svg>
                     <h3>Schedule</h3>
                 </div>
-                <div className="card" id='schedule-card'>
-                    <div className="schedule-container">
-                        <div className='schedule-header'>
-                            <h1>Your schedule for this week</h1>
-                        </div>
-                        <AddScheduleModal isOpen={open} getAllSched={getSchedule} day={day} setOpen={setOpen} />
-                        <EditSchedule isOpen={editOpen} setOpen={setEditOpen} id={schedID} getAllSched={getSchedule} />
-                        {loading ? <Loading /> :
-                            <div className="schedules">
-                                <div className='weekday'>
-                                    <div className="weekday-title">
-                                        <span>Monday</span>
-                                        <FontAwesomeIcon id='add-schedule' onClick={() => addSchedule('Monday')} icon={faPlus} />
-                                    </div>
-                                    {
-                                        schedule &&
-                                        schedule.filter((sched) => {
-                                            return sched.schedule_day.includes('Monday')
-                                        })
-                                            .map((sched, index) => (
-                                                <div key={index} style={{ backgroundColor: sched.schedule_color }} onClick={() => editSchedule(sched.id)} className='schedule'>
-                                                    <div className='schedule-top'>
-                                                        <strong>{sched.schedule_name}</strong> <span className='time'>
-                                                            {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
-                                                    </div>
-                                                    <div className='schedule-bottom'>{sched.schedule_description}</div>
-                                                </div>
-                                            )
-                                            )
-                                    }
-                                </div>
-                                <div className='weekday'>
-                                    <div className="weekday-title">
-                                        <span>Tuesday</span>
-                                        <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Tuesday')} />
-                                    </div>
-                                    {
-                                        schedule &&
-                                        schedule.filter((sched) => {
-                                            return sched.schedule_day.includes('Tuesday')
-                                        })
-                                            .map((sched, index) => (
-                                                <div key={index} style={{ backgroundColor: sched.schedule_color }} onClick={() => editSchedule(sched.id)} className='schedule'>
-                                                    <div className='schedule-top'>
-                                                        <strong>{sched.schedule_name}</strong> <span className='time'>
-                                                            {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
-                                                    </div>
-                                                    <div className='schedule-bottom'>{sched.schedule_description}</div>
-                                                </div>
-                                            )
-                                            )
-                                    }
-                                </div>
-                                <div className='weekday'>
-                                    <div className="weekday-title">
-                                        <span>Wednesday</span>
-                                        <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Wednesday')} />
-                                    </div>
-                                    {
-                                        schedule &&
-                                        schedule.filter((sched) => {
-                                            return sched.schedule_day.includes('Wednesday')
-                                        })
-                                            .map((sched, index) => (
-                                                <div key={index} style={{ backgroundColor: sched.schedule_color }} onClick={() => editSchedule(sched.id)} className='schedule'>
-                                                    <div className='schedule-top'>
-                                                        <strong>{sched.schedule_name}</strong> <span className='time'>
-                                                            {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
-                                                    </div>
-                                                    <div className='schedule-bottom'>{sched.schedule_description}</div>
-                                                </div>
-                                            )
-                                            )
-                                    }
-                                </div>
-                                <div className='weekday'>
-                                    <div className="weekday-title">
-                                        <span>Thursday</span>
-                                        <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Thursday')} />
-                                    </div>
-                                    {
-                                        schedule &&
-                                        schedule.filter((sched) => {
-                                            return sched.schedule_day.includes('Thursday')
-                                        })
-                                            .map((sched, index) => (
-                                                <div style={{ backgroundColor: sched.schedule_color }} onClick={() => editSchedule(sched.id)} className='schedule'>
-                                                    <div className='schedule-top'>
-                                                        <strong>{sched.schedule_name}</strong> <span className='time'>
-                                                            {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
-                                                    </div>
-                                                    <div className='schedule-bottom'>{sched.schedule_description}</div>
-                                                </div>
-                                            )
-                                            )
-                                    }
-                                </div>                            <div className='weekday'>
-                                    <div className="weekday-title">
-                                        <span>Friday</span>
-                                        <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Friday')} />
-                                    </div>
-                                    {
-                                        schedule &&
-                                        schedule.filter((sched) => {
-                                            return sched.schedule_day.includes('Friday')
-                                        })
-                                            .map((sched, index) => (
-                                                <div style={{ backgroundColor: sched.schedule_color }} onClick={() => editSchedule(sched.id)} className='schedule'>
-                                                    <div className='schedule-top'>
-                                                        <strong>{sched.schedule_name}</strong> <span className='time'>
-                                                            {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
-                                                    </div>
-                                                    <div className='schedule-bottom'>{sched.schedule_description}</div>
-                                                </div>
-                                            )
-                                            )
-                                    }
-                                </div>                            <div className='weekday'>
-                                    <div className="weekday-title">
-                                        <span>Saturday</span>
-                                        <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Saturday')} />
-                                    </div>
-                                    {
-                                        schedule &&
-                                        schedule.filter((sched) => {
-                                            return sched.schedule_day.includes('Saturday')
-                                        })
-                                            .map((sched, index) => (
-                                                <div style={{ backgroundColor: sched.schedule_color }} onClick={() => editSchedule(sched.id)} className='schedule'>
-                                                    <div className='schedule-top'>
-                                                        <strong>{sched.schedule_name}</strong> <span className='time'>
-                                                            {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
-                                                    </div>
-                                                    <div className='schedule-bottom'>{sched.schedule_description}</div>
-                                                </div>
-                                            )
-                                            )
-                                    }
-                                </div>
-                                <div className='weekday'>
-                                    <div className="weekday-title">
-                                        <span>Sunday</span>
-                                        <FontAwesomeIcon id='add-schedule' icon={faPlus} onClick={() => addSchedule('Sunday')} />
-                                    </div>
-                                    {
-                                        schedule &&
-                                        schedule.filter((sched) => {
-                                            return sched.schedule_day.includes('Sunday')
-                                        })
-                                            .map((sched, index) => (
-                                                <div style={{ backgroundColor: sched.schedule_color }} onClick={() => editSchedule(sched.id)} className='schedule'>
-                                                    <div className='schedule-top'>
-                                                        <strong>{sched.schedule_name}</strong> <span className='time'>
-                                                            {convertTime(sched.start_time)} to {convertTime(sched.end_time)}</span>
-                                                    </div>
-                                                    <div className='schedule-bottom'>{sched.schedule_description}</div>
-                                                </div>
-                                            )
-                                            )
-                                    }
-                                </div>
-                            </div>}
-                    </div>
+                <div className="card" id="schedule-card">
+                    <AddScheduleModal isOpen={open} getAllSched={getSchedule} startDate={startDate} setOpen={setOpen} />
+                    <EditSchedule isOpen={editOpen} setOpen={setEditOpen} id={schedId} getAllSched={getSchedule} />
+                    <FullCalendar
+                        plugins={[dayGridPlugin, interactionPlugin]}
+                        initialView="dayGridMonth"
+                        selectable
+                        // events={[
+                        //     {
+                        //       title: "✔️",
+                        //       allDay: true,
+                        //       start: "2024-03-01",
+                        //       color: "#0aaa3f",
+                        //     },
+                        //   ]}
+                        events={events}
+                        dateClick={handleDateClick}
+                        eventClick={handleEventClick}
+                        eventContent={eventRender}
+                    />
                 </div>
             </div>
             <div className="recommended">
@@ -243,4 +116,4 @@ const Schedule = () => {
     )
 }
 
-export default Schedule;
+export default Schedule2;

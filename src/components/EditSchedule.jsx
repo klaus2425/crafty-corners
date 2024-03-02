@@ -84,14 +84,15 @@ const EditSchedule = (props) => {
         formData.append('title', schedule.title);
         formData.append('start', dateStart + ' ' + startTime);
         formData.append('end', dateStart + ' ' + endTime);
+        formData.append('backgroundColor', schedule.backgroundColor);
+
         axiosClient.post(`/schedule/${props.id}`, formData)
             .then(({ data }) => {
-                console.log(data);
+                console.log('edit', data);
                 props.setOpen(false);
                 props.getAllSched();
             })
             .catch(err => {
-                console.log(err);
                 const response = err.response;
                 if (response && response.status === 422) {
                     Swal.fire({
@@ -139,12 +140,12 @@ const EditSchedule = (props) => {
                             <label>Background Color:</label>
                             <div className="color-flex">
                                 <div className="left">
-                                    <div className='radio-input'><input style={{ accentColor: "#0aaa3f" }} checked={schedule.schedule_color === '#0AAA3f'} onChange={ev => setSchedule({ ...schedule, schedule_color: ev.target.value })} name='color' className='sched-radio' type="radio" value='#0aaa3f' required /> Green</div>
-                                    <div className='radio-input'><input style={{ accentColor: "#e97100" }} checked={schedule.schedule_color === '#E97100'} onChange={ev => setSchedule({ ...schedule, schedule_color: ev.target.value })} name='color' className='sched-radio' type="radio" value='#e97100' required /> Orange</div>
+                                    <div className='radio-input'><input style={{ accentColor: "#0AAA3f" }} checked={schedule.backgroundColor === '#0AAA3f'} onChange={ev => setSchedule({ ...schedule, backgroundColor: ev.target.value })} name='color' className='sched-radio' type="radio" value='#0AAA3f' required /> Green</div>
+                                    <div className='radio-input'><input style={{ accentColor: "#E97100" }} checked={schedule.backgroundColor === '#E97100'} onChange={ev => setSchedule({ ...schedule, backgroundColor: ev.target.value })} name='color' className='sched-radio' type="radio" value='#E97100' required /> Orange</div>
                                 </div>
                                 <div className="right">
-                                    <div className='radio-input'><input style={{ accentColor: "#6528F7" }} checked={schedule.schedule_color === '#6528F7'} onChange={ev => setSchedule({ ...schedule, schedule_color: ev.target.value })} name='color' className='sched-radio' value='#6528F7' type="radio" required /> Purple</div>
-                                    <div className='radio-input'><input style={{ accentColor: "#677186" }} checked={schedule.schedule_color === '#677186'} onChange={ev => setSchedule({ ...schedule, schedule_color: ev.target.value })} name='color' className='sched-radio' value='#677186' type="radio" required /> Gray</div>
+                                    <div className='radio-input'><input style={{ accentColor: "#6528F7" }} checked={schedule.backgroundColor === '#6528F7'} onChange={ev => setSchedule({ ...schedule, backgroundColor: ev.target.value })} name='color' className='sched-radio' value='#6528F7' type="radio" required /> Purple</div>
+                                    <div className='radio-input'><input style={{ accentColor: "#677186" }} checked={schedule.backgroundColor === '#677186'} onChange={ev => setSchedule({ ...schedule, backgroundColor: ev.target.value })} name='color' className='sched-radio' value='#677186' type="radio" required /> Gray</div>
                                 </div>
                             </div>
                         </div>
