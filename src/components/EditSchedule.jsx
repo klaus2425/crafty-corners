@@ -6,12 +6,41 @@ import Loading from "./utils/Loading";
 const EditSchedule = (props) => {
     const [schedule, setSchedule] = useState({});
     const [loading, setLoading] = useState(false);
+    const [startTime, setStartTime] = useState();
+    const [endTime, setEndTime] = useState();
+
     const getSchedule = () => {
         setLoading(true);
         axiosClient.get(`/schedule/${props.id}`)
             .then(({ data }) => {
+                const startTime = new Date(data.data.start);
+                const endTime = new Date(data.data.end);
                 setLoading(false);
                 setSchedule(data.data);
+                setStartTime(startTime.toLocaleTimeString('en-US', {
+                    hour12: false,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                }));
+                setEndTime(endTime.toLocaleTimeString('en-US', {
+                    hour12: false,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                }))
+                console.log(startTime.toLocaleTimeString('en-US', {
+                    hour12: false,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                }));
+                console.log(endTime.toLocaleTimeString('en-US', {
+                    hour12: false,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                }));
             })
             .catch(err => {
                 const response = err.response;
@@ -29,7 +58,7 @@ const EditSchedule = (props) => {
         axiosClient.delete(`schedule/${props.id}`)
             .then(() => {
                 props.getAllSched();
-                props.setOpen(false)
+                props.setOpen(false);
             })
             .catch(err => {
                 const response = err.response;
@@ -48,11 +77,14 @@ const EditSchedule = (props) => {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
+        const dateStart = schedule.start.split(' ')[0];
+        console.log('Original:', schedule.start);
+        console.log('New:', dateStart + ' ' + startTime);
         const formData = new FormData();
         formData.append("_method", "PUT");
-        for (const key in schedule) {
-            formData.append(key, schedule[key]);
-        }
+        formData.append('title', schedule.title);
+        formData.append('start', dateStart + ' ' + startTime);
+        formData.append('end', dateStart + ' ' + endTime);
 
         axiosClient.post(`/schedule/${props.id}`, formData)
             .then(({ data }) => {
@@ -62,6 +94,7 @@ const EditSchedule = (props) => {
 
             })
             .catch(err => {
+                console.log(err);
                 const response = err.response;
                 if (response && response.status === 422) {
                     Swal.fire({
@@ -94,19 +127,16 @@ const EditSchedule = (props) => {
                     <form onSubmit={onSubmit}>
                         <div className="schedule-input">
                             <label>Schedule Name:</label>
-                            <input value={schedule.schedule_name} onChange={ev => setSchedule({ ...schedule, schedule_name: ev.target.value })} type="text" required />
+                            <input value={schedule.title} onChange={ev => setSchedule({ ...schedule, title: ev.target.value })} type="text" required />
                         </div>
-                        <div className="schedule-input">
-                            <label>Schedule Description:</label>
-                            <input value={schedule.schedule_description} onChange={ev => setSchedule({ ...schedule, schedule_description: ev.target.value })} type="text" />
-                        </div>
+
                         <div className="schedule-input">
                             <label>Starting time:</label>
-                            <input value={schedule.start_time} onChange={ev => setSchedule({ ...schedule, start_time: ev.target.value })} type="time" required />
+                            <input value={startTime} onChange={ev => setStartTime(ev.target.value)} type="time" required />
                         </div>
                         <div className="schedule-input">
                             <label>End Time:</label>
-                            <input value={schedule.end_time} onChange={ev => setSchedule({ ...schedule, end_time: ev.target.value })} type="time" required />
+                            <input value={endTime} onChange={ev => setEndTime(ev.target.value)} type="time" required />
                         </div>
                         <div className="schedule-input">
                             <label>Background Color:</label>

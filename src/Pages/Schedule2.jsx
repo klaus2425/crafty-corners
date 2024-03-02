@@ -13,6 +13,7 @@ import toast, { Toaster } from 'react-hot-toast';
 const Schedule2 = () => {
     const [open, setOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
+    const [schedId, setSchedId] = useState();
     const [events, setEvents] = useState({});
     const [startDate, setStartDate] = useState();
     const getSchedule = () => {
@@ -29,11 +30,14 @@ const Schedule2 = () => {
     };
 
     const handleEventClick = (info) => {
+        console.log(info.event.id);
+        setSchedId(info.event.id);
         console.log(new Intl.DateTimeFormat('en-CA', {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit'
           }).format(info.date).replace(/\//g, '-'))
+          setEditOpen(true);
     }
     const handleDateClick = (info) => {
         setStartDate(new Intl.DateTimeFormat('en-CA', {
@@ -86,7 +90,7 @@ const Schedule2 = () => {
                 </div>
                 <div className="card" id="schedule-card">
                     <AddScheduleModal isOpen={open} getAllSched={getSchedule} startDate={startDate} setOpen={setOpen} />
-
+                    <EditSchedule isOpen={editOpen} setOpen={setEditOpen} id={schedId} getAllSched={getSchedule} />
                     <FullCalendar
                         plugins={[dayGridPlugin, interactionPlugin]}
                         initialView="dayGridMonth"
