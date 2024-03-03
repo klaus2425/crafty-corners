@@ -34,7 +34,8 @@ const AdminLayout = () => {
                         <Link id="2" className={active === "2" ? "active" : undefined} to="/admin-communities" onClick={handleClick}><FontAwesomeIcon icon={faGroupArrowsRotate} /> Communities</Link>
                         <Link id="3" className={active === "3" ? "active" : undefined} to="/admin-articles" onClick={handleClick}><FontAwesomeIcon icon={faNewspaper} /> Articles</Link>
                         <Link id="4" className={active === "4" ? "active" : undefined} to="/admin-videos" onClick={handleClick}><FontAwesomeIcon icon={faFilm} /> Videos</Link>
-                        <Link id="5" className={active === "5" ? "active" : undefined} to="/reported-posts" onClick={handleClick}><FontAwesomeIcon icon={faClipboard} /> Posts</Link>
+                        <a style={{cursor: 'pointer'}}><FontAwesomeIcon icon={faClipboard} /> Posts</a>
+                        {/* <Link id="5" className={active === "5" ? "active" : undefined} to="/reported-posts" onClick={handleClick}><FontAwesomeIcon icon={faClipboard} /> Posts</Link> */}
                         <Link id="6" className={active === "6" ? "active" : undefined} to="/mentor-applicants" onClick={handleClick}><FontAwesomeIcon icon={faChalkboardUser} /> Mentors</Link>
                     </div>
                 </div>
