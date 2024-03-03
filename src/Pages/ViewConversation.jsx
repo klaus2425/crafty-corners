@@ -91,18 +91,9 @@ const ViewConversation = (props) => {
             <div className="conversation-item-user">
               <img className='chat-img' src="/Jaycie.png" alt="" />
               <span className="chat">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, eaque, expedita dicta accusamus fugit, ipsum eligendi minima officiis veritatis iste numquam nulla inventore alias quaerat similique animi illum quia deserunt!</span>
-              <span className='chat-timestamp'>12:00</span>
-            </div>
-            <div className="conversation-item-user">
-              <img className='chat-img' src="/Jaycie.png" alt="" />
-              <span className="chat">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, eaque, expedita dicta accusamus fugit, ipsum eligendi minima officiis veritatis iste numquam nulla inventore alias quaerat similique animi illum quia deserunt!</span>
               <span className='chat-timestamp'>13:00</span>
             </div>
-            <div className="conversation-item-user">
-              <img className='chat-img' src="/Jaycie.png" alt="" />
-              <span className="chat">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, eaque, expedita dicta accusamus fugit, ipsum eligendi minima officiis veritatis iste numquam nulla inventore alias quaerat similique animi illum quia deserunt!</span>
-              <span className='chat-timestamp'>13:00</span>
-            </div>
+
             <div ref={conversationEndRef} />
 
           </div>
