@@ -3,10 +3,12 @@ import { useEffect, useRef, useState, } from 'react';
 import { useNavigate } from 'react-router-dom'
 import Pusher from 'pusher-js';
 import axiosClient from '../axios-client';
+import { useStateContext } from '../context/ContextProvider';
 
 const ViewConversation = (props) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
+  const { user } = useStateContext();
   let allMessages = [];
   const { id } = useParams();
   const navigate = useNavigate();
@@ -16,25 +18,35 @@ const ViewConversation = (props) => {
   }
 
   const submit = async () => {
-    console.log('submit');
-    axiosClient.get('/messages')
+    console.log(message);
+    const formData = new FormData();
+    formData.append('from_user_id', user.id);
+    formData.append('to_user_id', id);
+    formData.append('message', message);
+    axiosClient.post('message/send', formData)
+      .then(res => {
+        console.log(res.data);
+        setMessage('')
+
+      })
+      .catch(err => console.log(err.response.data))
+
   }
 
   useEffect(() => {
     conversationEndRef.current?.scrollIntoView();
     Pusher.logToConsole = true;
-
     const pusher = new Pusher('dc6423124445d7b08415', {
       cluster: 'ap1'
     });
-
-    const channel = pusher.subscribe('chat');
+    const channel = pusher.subscribe('chat-');
     channel.bind('message', function (data) {
       alert(JSON.stringify(data));
       allMessages.push(data);
       setMessages(allMessages);
     });
   }, [])
+
 
   return (
     <div className="authenticated-container">
@@ -67,11 +79,7 @@ const ViewConversation = (props) => {
                 )
               })
             }
-            <div className="conversation-item-sender">
-              <img className='chat-img' src="/kafka.jpg" alt="" />
-              <span className="chat">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, eaque, expedita dicta accusamus fugit, ipsum eligendi minima officiis veritatis iste numquam nulla inventore alias quaerat similique animi illum quia deserunt!</span>
-              <span className='chat-timestamp'>12:00</span>
-            </div>
+
             <div className="conversation-item-user">
               <img className='chat-img' src="/Jaycie.png" alt="" />
               <span className="chat">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, eaque, expedita dicta accusamus fugit, ipsum eligendi minima officiis veritatis iste numquam nulla inventore alias quaerat similique animi illum quia deserunt!</span>
