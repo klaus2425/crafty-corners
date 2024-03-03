@@ -19,6 +19,7 @@ const ViewConversation = (props) => {
 
   const submit = async () => {
     console.log(message);
+
     const formData = new FormData();
     formData.append('from_user_id', user.id);
     formData.append('to_user_id', id);
@@ -37,12 +38,19 @@ const ViewConversation = (props) => {
     conversationEndRef.current?.scrollIntoView();
     Pusher.logToConsole = true;
     const pusher = new Pusher('dc6423124445d7b08415', {
-      cluster: 'ap1'
+      cluster: 'ap1',
+      encrypted: true,
+
     });
-    const channel = pusher.subscribe('chat-');
-    channel.bind('message', function (data) {
-      alert(JSON.stringify(data));
+    const channel = pusher.subscribe(`chat-${id}`);
+    channel.bind('pusher:subscription_succeeded', function (data) {
+      console.log('Subscription Successful');
+    });
+    channel.bind('MessageSent', function (data) {
       allMessages.push(data);
+      console.log(allMessages);
+      console.log('successfully subscribed!');
+
       setMessages(allMessages);
     });
   }, [])
@@ -71,9 +79,9 @@ const ViewConversation = (props) => {
             {
               messages.map(message => {
                 return (
-                  <div className="conversation-item-sender">
+                  <div key={message.id} className="conversation-item-sender">
                     <img className='chat-img' src="/kafka.jpg" alt="" />
-                    <span className="chat">.{message.message}sdads</span>
+                    <span className="chat">.{message.message}</span>
                     <span className='chat-timestamp'>12:00</span>
                   </div>
                 )
