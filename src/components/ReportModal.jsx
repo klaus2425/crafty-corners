@@ -1,5 +1,17 @@
+import { useEffect, useRef } from "react";
 
 const ReportModal = (props) => {
+
+  const descriptionRef = useRef();
+  const reasonRef = useRef();
+  const sendReport = () => {
+    console.log('Report Clicked');  
+    console.log('Post ID:', props.postId);
+    console.log('Reason:', reasonRef.current.value);
+    console.log('Description:', descriptionRef.current.value);
+  }
+
+
 
 
   const handleClose = () => {
@@ -18,9 +30,17 @@ const ReportModal = (props) => {
           </svg>
         </div>
         Reason for reporting: 
-        <select name="reason">
-          <option value="">Spam</option>
+        <select ref={reasonRef} name="reason">
+          <option value="Spam">Spam</option>
+          <option value="Violence">Violence</option>
+          <option value="Hate Speech">Hate Speech</option>
+          <option value="False Information">False Information</option>
+          <option value="Harrasment">Harrasment</option>
+          <option value="Nudity">Nudity</option>
         </select>
+        Describe the problem:
+        <textarea ref={descriptionRef} required></textarea>
+        <button onClick={sendReport} className="red-button">Send Report</button>
       </div>
     </div>
   ) :
