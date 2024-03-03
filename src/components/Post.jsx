@@ -117,12 +117,11 @@ const Post = (props) => {
         navigator.clipboard.writeText(`${import.meta.env.VITE_HOME_URL}p/${post.id}`);
         notify();
     }
-
     if (post.post_type === 'image') {
         return (
             <div className="post">
                 <Toaster />
-                <ReportModal isOpen={reportOpen} setIsOpen={setReportOpen} />
+                <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                 <div className="post-header" id="posts">
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
@@ -192,7 +191,7 @@ const Post = (props) => {
         return (
             <div className="post">
                 <div className="post-header" id="posts">
-                <ReportModal isOpen={reportOpen} setIsOpen={setReportOpen} />
+                <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
                         <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
@@ -259,7 +258,7 @@ const Post = (props) => {
         return (
             <div className="post">
                 <div className="post-header" id="posts">
-                <ReportModal isOpen={reportOpen} setIsOpen={setReportOpen} />
+                <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
                         <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} onLoad={() => setLoadingProfile(false)} />
@@ -328,7 +327,7 @@ const Post = (props) => {
             <div className="post">
                 <div className="post-header" id="posts">
                     <div className="left">
-                <ReportModal isOpen={reportOpen} setIsOpen={setReportOpen} />
+                    <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                         
                         {loadingProfile && <Skeleton circle className="post-image" />}
                         <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} onLoad={() => setLoadingProfile(false)} />
