@@ -3,7 +3,11 @@ import { useStateContext } from "../context/ContextProvider";
 import { Navigate, Outlet, Link } from "react-router-dom";
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTableColumns, faUsers, faGroupArrowsRotate, faNewspaper, faFilm, faClipboard, faChalkboardUser } from '@fortawesome/free-solid-svg-icons'
+import {
+    faTableColumns, faUsers, faGroupArrowsRotate,
+    faNewspaper, faFilm, faClipboard, faChalkboardUser,
+    faFlag, faBoxArchive
+} from '@fortawesome/free-solid-svg-icons'
 const AdminLayout = () => {
     const { user, token } = useStateContext();
     const [isOpen, setIsOpen] = useState(false);
@@ -39,8 +43,8 @@ const AdminLayout = () => {
                             console.log(!isOpen);
                         }} style={{ cursor: 'pointer' }}><FontAwesomeIcon icon={faClipboard} /> Posts</a>
                         <div className={`collapsible ${isOpen ? 'open' : ''}`}>
-                            <Link id="5" className={active === "5" ? "active" : undefined} to="/reported-posts" onClick={handleClick}><FontAwesomeIcon icon={faClipboard} /> Reports</Link>
-                            <Link id="5" className={active === "5" ? "active" : undefined} to="/reported-posts" onClick={handleClick}><FontAwesomeIcon icon={faClipboard} /> Archived</Link>
+                            <Link id="5" className={active === "5" ? "active" : undefined} to="/reported-posts" onClick={handleClick}><FontAwesomeIcon icon={faFlag} /> Reports</Link>
+                            <Link id="5" className={active === "5" ? "active" : undefined} to="/reported-posts" onClick={handleClick}><FontAwesomeIcon icon={faBoxArchive} /> Archived</Link>
                         </div>
                         <Link id="6" className={active === "6" ? "active" : undefined} to="/mentor-applicants" onClick={handleClick}><FontAwesomeIcon icon={faChalkboardUser} /> Mentors</Link>
                     </div>

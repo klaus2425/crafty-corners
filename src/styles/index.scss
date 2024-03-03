@@ -2127,7 +2127,7 @@ input::-webkit-inner-spin-button {
     background-color: #FFF;
     border-radius: 25px;
     padding: 1rem;
-    height: clamp(5rem, 60vh, 40rem);
+    height: fit-content;
     position: fixed;
 
     .admin-header {
@@ -2147,7 +2147,7 @@ input::-webkit-inner-spin-button {
       gap: 1rem;
 
       a {
-        font-size: clamp(0.4em, 1.86vw, 1.4rem);
+        font-size: clamp(0.4rem, 1.25vw, 1.4rem);
         color: $grey;
         padding: 0.4rem;
         border-radius: 10px;
