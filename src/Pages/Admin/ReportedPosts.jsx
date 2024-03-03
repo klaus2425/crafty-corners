@@ -1,5 +1,12 @@
+import axiosClient from "../../axios-client";
 
 const ReportedPosts = () => {
+
+
+  const getPosts = () => {
+    axiosClient.get();
+    
+  }
   return (
     <div className="communities-container">
       <div className="top-section">
