@@ -2968,8 +2968,9 @@ input::-webkit-inner-spin-button {
       }
 
       .chat-img {
-        width: 4.25rem;
-        height: 4.25rem;
+        width: clamp(1rem, 10vw, 4.25rem);
+        height: clamp(1rem, 10vh, 4.25rem);
+        aspect-ratio: 1 / 1;  
         border-radius: 1000px;
         object-fit: cover;
       }
@@ -2997,8 +2998,9 @@ input::-webkit-inner-spin-button {
       }
 
       .chat-img {
-        width: 4.25rem;
-        height: 4.25rem;
+        width: clamp(1rem, 10vw, 4.25rem);
+        height: clamp(1rem, 10vh, 4.25rem);
+        aspect-ratio: 1 / 1;
         border-radius: 1000px;
         object-fit: cover;
       }
