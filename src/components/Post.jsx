@@ -8,6 +8,7 @@ import { useStateContext } from "../context/ContextProvider";
 import toast, { Toaster } from 'react-hot-toast';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ReportModal from "./ReportModal";
 
 
 
@@ -25,6 +26,7 @@ const Post = (props) => {
     const navigate = useNavigate();
     const Menu = ['Report Post'];
     const [open, setOpen] = useState(false);
+    const [reportOpen, setReportOpen] = useState(false);
 
     const viewPost = () => {
         navigate(`/p/${post.id}`)
@@ -51,30 +53,35 @@ const Post = (props) => {
             })
     }
 
-    const handleReport = () => {
-        setOpen(!open);
-        Swal.fire({
-            title: "Are you sure?",
-            text: "A report will be submitted to the admins",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                toast('Report submitted', {
-                    duration: 1500,
-                    position: "bottom-center",
-                    style: {
-                        borderRadius: "100px",
-                        border: 0,
-                        boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-                    }
+    // const handleReport = () => {
+    //     setOpen(!open);
+    //     Swal.fire({
+    //         title: "Are you sure?",
+    //         text: "A report will be submitted to the admins",
+    //         icon: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonColor: "#3085d6",
+    //         cancelButtonColor: "#d33",
+    //         confirmButtonText: "Yes"
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             toast('Report submitted', {
+    //                 duration: 1500,
+    //                 position: "bottom-center",
+    //                 style: {
+    //                     borderRadius: "100px",
+    //                     border: 0,
+    //                     boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+    //                 }
+    //             })
+    //         }
+    //     });
+    // }
 
-                })
-            }
-        });
+    const handleReport = () => {
+        setReportOpen(!reportOpen);
+        setOpen(!open);
+        console.log(!reportOpen);
     }
     const handleLike = (id) => {
         console.log(liked);
@@ -115,6 +122,7 @@ const Post = (props) => {
         return (
             <div className="post">
                 <Toaster />
+                <ReportModal isOpen={reportOpen} setIsOpen={setReportOpen} />
                 <div className="post-header" id="posts">
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
@@ -184,6 +192,7 @@ const Post = (props) => {
         return (
             <div className="post">
                 <div className="post-header" id="posts">
+                <ReportModal isOpen={reportOpen} setIsOpen={setReportOpen} />
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
                         <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
@@ -250,6 +259,7 @@ const Post = (props) => {
         return (
             <div className="post">
                 <div className="post-header" id="posts">
+                <ReportModal isOpen={reportOpen} setIsOpen={setReportOpen} />
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
                         <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} onLoad={() => setLoadingProfile(false)} />
@@ -318,6 +328,8 @@ const Post = (props) => {
             <div className="post">
                 <div className="post-header" id="posts">
                     <div className="left">
+                <ReportModal isOpen={reportOpen} setIsOpen={setReportOpen} />
+                        
                         {loadingProfile && <Skeleton circle className="post-image" />}
                         <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
