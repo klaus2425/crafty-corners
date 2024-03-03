@@ -655,6 +655,7 @@ input::-webkit-inner-spin-button {
   height: 100%;
   max-height: 1080px;
 
+  
   .overlay {
     position: fixed;
     top: 0;
@@ -677,6 +678,7 @@ input::-webkit-inner-spin-button {
     z-index: 1000;
     padding: 1.46rem;
     width: clamp(20rem, 50vw + 2rem, 45rem);
+
 
     form {
       text-align: end;
@@ -853,6 +855,26 @@ input::-webkit-inner-spin-button {
       background-color: #FFF;
       color: $purple;
       outline: 1px solid $purple;
+    }
+  }
+  #report-modal {
+    width: clamp(15rem, 35vw, 30rem);
+    select {
+      width: 100%;
+      height: 2.425rem;
+      border-radius: 3.125rem;
+      border: 2px solid #D8DCE3;
+      background: #FFF;
+      color: #677186;
+      font-family: Helvetica;
+      font-size: 1.20rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      outline: 0;
+      transition: 0.5s;
+      padding-left: 0.4rem;
+      margin-bottom: 1rem;
     }
   }
 
