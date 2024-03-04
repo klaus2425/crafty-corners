@@ -1,15 +1,22 @@
 import { useEffect, useRef } from "react";
+import axiosClient from "../axios-client";
 
 const ReportModal = (props) => {
 
   const descriptionRef = useRef();
   const reasonRef = useRef();
   const sendReport = () => {
-    console.log('Report Clicked');
-    console.log('Post ID:', props.postId);
-    console.log('Reason:', reasonRef.current.value);
-    console.log('Description:', descriptionRef.current.value);
-    props.setIsOpen(false);
+    const formData = new FormData();
+    formData.append('reason', reasonRef.current.value);
+    formData.append('description', descriptionRef.current.value);
+
+    axiosClient.post(`/report-post/${props.postId}`, formData)
+      .then(res => {
+        console.log(res.data);
+        props.setIsOpen(false);
+
+      })
+      .catch(err => console.log(err))
   }
 
   const handleClose = () => {

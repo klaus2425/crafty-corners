@@ -2406,6 +2406,15 @@ input::-webkit-inner-spin-button {
   font-weight: bolder;
 }
 
+.report-post-details {
+  width: 100%;
+  display: flex;
+  font-size: 1.4rem;
+  .report-details {
+
+  }
+}
+
 .loading {
   text-align: center;
 }
