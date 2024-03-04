@@ -25,7 +25,7 @@ const Messages = () => {
             </svg>
           </div>
 
-          <div onClick={() => viewConversation(14)} className="list-card-items">
+          <div onClick={() => viewConversation(12)} className="list-card-items">
             <div className="list-card-item">
               <div className="list-card-item-image">
                 <img src="/Jaycie.png" alt="" />
