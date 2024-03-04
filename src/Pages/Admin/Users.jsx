@@ -77,8 +77,6 @@ const Users = () => {
                   <Link to={'/edit-user/' + u.id} className="orange-button">View User</Link>
                   <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete User</button>
                 </div>
-
-
               </div>
             </div>
           ))
