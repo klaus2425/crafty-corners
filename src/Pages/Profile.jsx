@@ -53,6 +53,7 @@ const UserFeed = () => {
 
     useEffect(() => {
         getPosts();
+        console.log(`${storageBaseUrl}/${user.profile_picture}`);
     }, [user])
 
 

@@ -3,7 +3,7 @@ import LoginModal from "./LoginModal";
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client";
 import DropDownItem from "./DropDownItem";
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 const Navbar = () => {
@@ -31,8 +31,6 @@ const Navbar = () => {
                 })
         }, []);
     }
-
-
 
     if (token) {
         const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
