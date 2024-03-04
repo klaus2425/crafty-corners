@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import Pusher from 'pusher-js';
 import axiosClient from '../axios-client';
 import { useStateContext } from '../context/ContextProvider';
+import Echo from 'laravel-echo';
+import axios from 'axios';
 
 const ViewConversation = (props) => {
   const [messages, setMessages] = useState([]);
@@ -17,6 +19,8 @@ const ViewConversation = (props) => {
     navigate('/messages')
   }
 
+
+
   const submit = async () => {
     console.log(message);
 
@@ -29,31 +33,40 @@ const ViewConversation = (props) => {
         setMessage('')
       })
       .catch(err => console.log(err.response.data))
-
   }
 
   useEffect(() => {
     conversationEndRef.current?.scrollIntoView();
-    Pusher.logToConsole = true;
-    const pusher = new Pusher('dc6423124445d7b08415', {
+    const echo = new Echo({
+      broadcaster: 'pusher',
+      key: 'dc6423124445d7b08415',
       cluster: 'ap1',
       encrypted: true,
+    });
+  
+    echo.private(`chat-${user.id}`)
+      .listen('.MessageSent', (e) => {
+        console.log(e);
+      });
+    // const pusher = new Pusher('dc6423124445d7b08415', {
+    //   cluster: 'ap1',
+    //   encrypted: true,
 
-    });
-    const channel = pusher.subscribe(`private-chat-${user.id}`);
-    channel.bind('pusher:subscription_succeeded', function (data) {
-      console.log('Subscription Successful');
-    });
-    channel.bind('pusher:subscription_error', function (data) {
-      console.log(data);
-    });
-    channel.bind('MessageSent', function (data) {
-      allMessages.push(data);
-      console.log(allMessages);
-      console.log('successfully subscribed!');
+    // });
+    // const channel = pusher.subscribe(`chat-${user.id}`);
+    // channel.bind('pusher:subscription_succeeded', function (data) {
+    //   console.log('Subscription Successful');
+    // });
+    // channel.bind('pusher:subscription_error', function (data) {
+    //   console.log(data);
+    // });
+    // channel.bind('MessageSent', function (data) {
+    //   allMessages.push(data);
+    //   console.log(allMessages);
+    //   console.log('successfully subscribed!');
 
-      setMessages(allMessages);
-    });
+    //   setMessages(allMessages);
+    // });
   }, [])
 
 
