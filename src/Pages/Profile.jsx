@@ -53,7 +53,7 @@ const UserFeed = () => {
 
     useEffect(() => {
         getPosts();
-        console.log(`${storageBaseUrl}/${user.profile_picture}`);
+        console.log(`${storageBaseUrl}${user.profile_picture}`);
     }, [user])
 
 
@@ -81,7 +81,7 @@ const UserFeed = () => {
                             <div className='left'>
                                 <div className='upper-details'>
                                     {imageLoading && <Skeleton className='profile-picture' circle={true} />}
-                                    <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} className='profile-picture' src={`${storageBaseUrl}/${user.profile_picture}`} alt='Profile Picture' />
+                                    <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} className='profile-picture' src={`${storageBaseUrl}${user.profile_picture}`} alt='Profile Picture' />
                                     <div className='display-name'>
                                         <h2>{user.first_name || <Skeleton />}</h2>
                                         {user.user_name ? `@${user.user_name}` : <Skeleton />}
