@@ -24,14 +24,14 @@ const ViewReportedPost = () => {
   }
 
   const suspendClick = () => {
-
+    
   }
   const removePostClick = () => {
 
   }
 
   const removeReportClick = () => {
-    
+
   }
 
   useEffect(() => {

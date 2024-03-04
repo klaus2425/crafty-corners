@@ -21,14 +21,12 @@ const ViewConversation = (props) => {
     console.log(message);
 
     const formData = new FormData();
-    formData.append('from_user_id', user.id);
     formData.append('to_user_id', id);
     formData.append('message', message);
-    axiosClient.post('message/send', formData)
+    axiosClient.post('chat/send', formData)
       .then(res => {
         console.log(res.data);
         setMessage('')
-
       })
       .catch(err => console.log(err.response.data))
 
@@ -42,9 +40,12 @@ const ViewConversation = (props) => {
       encrypted: true,
 
     });
-    const channel = pusher.subscribe(`chat-${id}`);
+    const channel = pusher.subscribe(`private-chat-${user.id}`);
     channel.bind('pusher:subscription_succeeded', function (data) {
       console.log('Subscription Successful');
+    });
+    channel.bind('pusher:subscription_error', function (data) {
+      console.log(data);
     });
     channel.bind('MessageSent', function (data) {
       allMessages.push(data);
