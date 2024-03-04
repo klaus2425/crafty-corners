@@ -2408,10 +2408,31 @@ input::-webkit-inner-spin-button {
 
 .report-post-details {
   width: 100%;
+  height: 80%;
   display: flex;
-  font-size: 1.4rem;
-  .report-details {
+  gap: 1rem;
+  flex-direction: column;
+  font-size: 1.26rem;
+  justify-content: space-between;
+  .top-report {
+    display: flex;
+    .left {
+      width: 50%;
+    }
+    .right {
+      width: 50%;
+    }
 
+  }
+
+  .bottom-report {
+    display: flex;
+    gap: 1rem;
+    justify-content: end;
+  }
+  
+  .report-details {
+  
   }
 }
 
