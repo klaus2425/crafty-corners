@@ -31,29 +31,16 @@ const Messages = () => {
                 <img src="/Jaycie.png" alt="" />
               </div>
               <div className="list-card-item-text">
-                <text>Jaycie</text>
+                <span>Jaycie</span>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat aliquam quisquam, deserunt ab vitae, eius nesciunt alias quia quo a, fuga corporis praesentium debitis quas deleniti soluta assumenda temporibus et.</p>
               </div>
               <div className="list-card-item-time">
-                <text>2h</text>
+                <span>2h</span>
               </div>
             </div>
           </div>
 
-          <div className="list-card-items">
-            <div className="list-card-item">
-              <div className="list-card-item-image">
-                <img src="/kafka.jpg" alt="" />
-              </div>
-              <div className="list-card-item-text">
-                <text>Kafka</text>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat aliquam quisquam, deserunt ab vitae, eius nesciunt alias quia quo a, fuga corporis praesentium debitis quas deleniti soluta assumenda temporibus et.</p>
-              </div>
-              <div className="list-card-item-time">
-                <text>4h</text>
-              </div>
-            </div>
-          </div>
+
         </div>
 
       </div>
