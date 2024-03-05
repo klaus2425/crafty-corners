@@ -9,15 +9,17 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"
 import toast, { Toaster } from 'react-hot-toast';
+import { useStateContext } from '../context/ContextProvider';
 
 const Schedule2 = () => {
+    const { user } = useStateContext();
     const [open, setOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
     const [schedId, setSchedId] = useState();
     const [events, setEvents] = useState({});
     const [startDate, setStartDate] = useState();
     const getSchedule = () => {
-        axiosClient.get('/schedule')
+        axiosClient.get(`/schedule`)
             .then(({ data }) => {
                 console.log(data.data);
                 setEvents(data.data);
@@ -36,20 +38,20 @@ const Schedule2 = () => {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit'
-          }).format(info.date).replace(/\//g, '-'))
-          setEditOpen(true);
+        }).format(info.date).replace(/\//g, '-'))
+        setEditOpen(true);
     }
     const handleDateClick = (info) => {
         setStartDate(new Intl.DateTimeFormat('en-CA', {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit'
-          }).format(info.date).replace(/\//g, '-'));
+        }).format(info.date).replace(/\//g, '-'));
         console.log(new Intl.DateTimeFormat('en-CA', {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit'
-          }).format(info.date).replace(/\//g, '-'));
+        }).format(info.date).replace(/\//g, '-'));
         setOpen(!open);
     };
 
@@ -58,7 +60,7 @@ const Schedule2 = () => {
         console.log(event.backgroundColor);
         if (event.end) {
             return (
-                <div className='event-content' style={{backgroundColor: event.backgroundColor}}>
+                <div className='event-content' style={{ backgroundColor: event.backgroundColor }}>
                     <strong>{event.title}</strong>
                     <br />
 
