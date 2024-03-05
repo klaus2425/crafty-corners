@@ -46,9 +46,9 @@ const ViewConversation = (props) => {
       encrypted: true,
     });
 
-    echo.channel(`chat-${user.id}`)
-      .listen('.MessageSent', (e) => {
-        console.log(e);
+    echo.channel(`chat`)
+      .listen('PublicChat', (e) => {
+        alert('Message Received');
       });
     // const pusher = new Pusher('dc6423124445d7b08415', {
     //   cluster: 'ap1',
