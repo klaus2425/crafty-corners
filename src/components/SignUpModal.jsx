@@ -18,6 +18,8 @@ export default function SignUpModal(props) {
     const userNameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
+    const studentIdRef = useRef();
+    const programRef = useRef();
     const passwordConfirmationRef = useRef();
     const birthdayRef = useRef();
     const [gender, setGender] = useState('');
@@ -39,7 +41,8 @@ export default function SignUpModal(props) {
         formData.append('profile_picture', profilePictureRef.current.files[0]);
         formData.append('phone_number', numberRef.current.value);
         formData.append('gender', gender);
-
+        formData.append('program', programRef.current.value);
+        formData.append('student_id', studentIdRef.current.value)
         axiosClient.post('/register', formData)
             .then(({ data }) => {
                 setUser(data.user);
@@ -78,7 +81,7 @@ export default function SignUpModal(props) {
                             <div className="upload-picture">
                                 <img id='update-picture' src={image} />
                                 <input ref={profilePictureRef} id='upload-button' type="file" onChange={handleChange} />
-                                <label for='upload-button'>Upload File</label>
+                                <label htmlFor='upload-button'>Upload File</label>
                                 Maximum file size: 2MB
                             </div>
                             <div className="signup-inputs">
@@ -91,9 +94,61 @@ export default function SignUpModal(props) {
                                     <input ref={lastNameRef} ></input>
                                     <label>Username:</label>
                                     <input ref={userNameRef} ></input>
+                                    <label>Password:</label>
+                                    <input ref={passwordRef} type='password' ></input>
+                                    <label>Confirm Password:</label>
+                                    <input ref={passwordConfirmationRef} type='password' ></input>
 
+                                </div>
+                                <div className="right">
+                                    <label>Birthday:</label>
+                                    <input ref={birthdayRef} type='date' placeholder='Birthday' required></input>
+                                    <label>Phone Number:</label>
+                                    <input type="number" ref={numberRef} required />
+                                    <label>Email Address:</label>
+                                    <input ref={emailRef} type='email' ></input>
+                                    <label>Student ID: <em>(Format: 20-00000)</em></label>
+                                    <input ref={studentIdRef} type='text' pattern='^\d{2}-\d{5}$' ></input>
+                                    <label>Program: </label>
+                                    <select ref={programRef} >
+                                        <option value="Bachelor of Science in Agriculture">Bachelor of Science in Agriculture</option>
+                                        <option value="Bachelor of Technical-Vocational Teacher Education">Bachelor of Technical-Vocational Teacher Education</option>
+                                        <option value="BS Agricultural and Biosystem Engineering">BS Agricultural and Biosystem Engineering</option>
+                                        <option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
+                                        <option value="Bachelor of Science in Industrial Technology">Bachelor of Science in Industrial Technology</option>
+                                        <option value="Bachelor in Secondary Education">Bachelor in Secondary Education</option>
+                                        <option value="Bachelor in Public Administration">Bachelor in Public Administration</option>
+                                        <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy</option>
+                                        <option value="Bachelor of Science in Business Administration">Bachelor of Science in Business Administration</option>
+                                        <option value="Bachelor of Science in Psychology">Bachelor of Science in Psychology</option>
+                                        <option value="Bachelor of Arts in Psychology">Bachelor of Arts in Psychology</option>
+                                        <option value="Bachelor of Early Childhood Education">Bachelor of Early Childhood Education</option>
+                                        <option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
+                                        <option value="Bachelor in Secondary Education">Bachelor in Secondary Education</option>
+                                        <option value="Bachelor of Science in Architecture">Bachelor of Science in Architecture</option>
+                                        <option value="Bachelor of Science in Civil Engineering">Bachelor of Science in Civil Engineering</option>
+                                        <option value="Bachelor of Science in Electrical Engineering">Bachelor of Science in Electrical Engineering</option>
+                                        <option value="Bachelor of Science in Electronics Engineering">Bachelor of Science in Electronics Engineering</option>
+                                        <option value="Bachelor of Science in Mechanical Engineering">Bachelor of Science in Mechanical Engineering</option>
+                                        <option value="Bachelor of Science in Industrial Engineering">Bachelor of Science in Industrial Engineering</option>
+                                        <option value="Bachelor of Science in Nursing">Bachelor of Science in Nursing</option>
+                                        <option value="Bachelor of Science in Hospitality Management">Bachelor of Science in Hospitality Management</option>
+                                        <option value="Bachelor of Science in Tourism Management">Bachelor of Science in Tourism Management</option>
+                                        <option value="Bachelor of Arts in Communication">Bachelor of Arts in Communication</option>
+                                        <option value="Bachelor of Science in Midwifery">Bachelor of Science in Midwifery</option>
+                                        <option value="Bachelor of Technical-Vocational Teacher Education">Bachelor of Technical-Vocational Teacher Education</option>
+                                        <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
+                                        <option value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</option>
+                                        <option value="BS Entertainment & Multimedia Computing">BS Entertainment & Multimedia Computing</option>
+                                        <option value="Bachelor of Industrial Technology">Bachelor of Industrial Technology</option>
+                                        <option value="Bachelor of Sscience in Fisheries">Bachelor of Science in Fisheries</option>
+                                        <option value="Bachelor of Technical Livelihood Education">Bachelor of Technical Livelihood Education</option>
+                                        <option value="Bachelor of Physical Education">Bachelor of Physical Education</option>
+                                        <option value="Bachelor of Science in Exercise and Sports Science">Bachelor of Science in Exercise and Sports Science</option>
+                                    
+                                    </select>
                                     <div className="gender-label">
-                                        Gender
+                                        Gender:
                                     </div>
                                     <div className="gender-field-holder">
 
@@ -113,20 +168,8 @@ export default function SignUpModal(props) {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                </div>
-                                <div className="right">
-                                    <label>Birthday:</label>
-                                    <input ref={birthdayRef} type='date' placeholder='Birthday' required></input>
-                                    <label>Phone Number:</label>
-                                    <input type="number" ref={numberRef} required />
-                                    <label>Email Address:</label>
-                                    <input ref={emailRef} type='email' ></input>
-                                    <label>Password:</label>
-                                    <input ref={passwordRef} type='password' ></input>
-                                    <label>Confirm Password:</label>
-                                    <input ref={passwordConfirmationRef} type='password' ></input>
+                                    </div>
                                 </div>
                             </div>
 

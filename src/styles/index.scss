@@ -2722,43 +2722,52 @@ input::-webkit-inner-spin-button {
   justify-content: center;
   gap: 1rem;
   margin-bottom: 0.65rem;
+  select {
+    outline: 0;
+    font-size: 1rem;
+    border: 2px solid $light_grey;
+    color: $grey;
+    padding: 1rem;
+  }
+
+  .gender-field-holder {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    .gender-radio {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+
+      input[type=radio] {
+        border: 0px;
+        height: 1rem;
+        min-width: 0;
+        width: 2rem;
+      }
+    }
+  }
+
+  .gender-container {
+    display: flex;
+    flex-direction: row;
+    width: clamp(4rem, 6vw, 8rem);
+    justify-content: center;
+    align-items: flex-start;
+
+    input[type=radio] {
+      border: 0px;
+      margin: 0;
+    }
+  }
   .left {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 
-    .gender-field-holder {
-      display: flex;
-      width: 100%;
-      justify-content: center;
 
-      .gender-radio {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        align-items: center;
-
-        input[type=radio] {
-          border: 0px;
-          height: 1rem;
-          min-width: 0;
-          width: 2rem;
-        }
-      }
-    }
-
-    .gender-container {
-      display: flex;
-      flex-direction: row;
-      width: clamp(4rem, 6vw, 8rem);
-      justify-content: center;
-      align-items: flex-start;
-
-      input[type=radio] {
-        border: 0px;
-        margin: 0;
-      }
-    }
   }
 
   .right {
@@ -2788,13 +2797,14 @@ input::-webkit-inner-spin-button {
   display: flex;
   flex-direction: column;
 
-  input {
+  input, select {
     margin-bottom: 0.8rem;
     width: 20rem;
     border-width: 2px;
     padding-left: 2rem;
     border-radius: 10px;
   }
+
 
 
 }
