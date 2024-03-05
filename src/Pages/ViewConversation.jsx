@@ -37,38 +37,38 @@ const ViewConversation = (props) => {
 
   useEffect(() => {
     conversationEndRef.current?.scrollIntoView();
-    // const echo = new Echo({
-    //   broadcaster: 'pusher',
-    //   key: 'dc6423124445d7b08415',
-    //   cluster: 'ap1',
-    //   encrypted: true,
-    // });
-
-    // echo.channel(`chat-${user.id}`)
-    //   .listen('.MessageSent', (e) => {
-    //     console.log(e);
-    //   });
     Pusher.logToConsole = true;
-    const pusher = new Pusher('dc6423124445d7b08415', {
+
+    const echo = new Echo({
+      broadcaster: 'pusher',
+      key: 'dc6423124445d7b08415',
       cluster: 'ap1',
       encrypted: true,
     });
 
-    const channel = pusher.subscribe(`chat-${user.id}`);
-    channel.bind('pusher:subscription_succeeded', function (data) {
-      console.log('Subscription Successful');
-    });
+    echo.channel(`chat-${user.id}`)
+      .listen('.MessageSent', (e) => {
+        console.log(e);
+      });
+    // const pusher = new Pusher('dc6423124445d7b08415', {
+    //   cluster: 'ap1',
+    //   encrypted: true,
+    // });
 
-    channel.bind('pusher:subscription_error', function (data) {
-      console.log(data);
-    });
-    
-    channel.bind('MessageSent', function (data) {
-      allMessages.push(data);
-      console.log(allMessages);
-      console.log('successfully subscribed!');
-      setMessages(allMessages);
-    });
+    // const channel = pusher.subscribe(`chat-${user.id}`);
+    // channel.bind('pusher:subscription_succeeded', function (data) {
+    //   console.log('Subscription Successful');
+    // });
+
+    // channel.bind('pusher:subscription_error', function (data) {
+    //   console.log(data);
+    // });
+
+    // channel.bind('MessageSent', function (data) {
+    //   allMessages.push(data);
+    //   console.log(allMessages);
+    //   setMessages(allMessages);
+    // });
   }, [])
 
 
