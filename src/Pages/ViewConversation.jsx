@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { useEffect, useRef, useState, } from 'react';
+import { useEffect, useRef, useState, exper } from 'react';
 import { useNavigate } from 'react-router-dom'
 import Pusher from 'pusher-js';
 import axiosClient from '../axios-client';
@@ -10,6 +10,8 @@ import axios from 'axios';
 const ViewConversation = (props) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
+  const [receiver, setReceiver] =useState();
+  const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
   const { user } = useStateContext();
   const [allMessages, setAllMessage] = useState();
   const { id } = useParams();
@@ -26,6 +28,13 @@ const ViewConversation = (props) => {
         console.log(res.data.messages);
         setMessages(res.data.messages);
       })
+  }
+
+  const getReceiver = () => {
+    axiosClient.get(`/users/${id}`)
+    .then(res => {
+      setReceiver(res.data.data);
+    })
   }
 
   const submit = async () => {
@@ -51,6 +60,7 @@ const ViewConversation = (props) => {
 
   useEffect(() => {
     getMessages();
+    getReceiver();
     Pusher.logToConsole = true;
 
     const echo = new Echo({
@@ -90,7 +100,7 @@ const ViewConversation = (props) => {
 
   useEffect(() => {
     conversationEndRef.current?.scrollIntoView();
-  },[messages])
+  }, [messages])
 
 
 
@@ -109,8 +119,8 @@ const ViewConversation = (props) => {
               <path d="M4 8L3.64645 8.35355L3.29289 8L3.64645 7.64645L4 8ZM9 19.5C8.72386 19.5 8.5 19.2761 8.5 19C8.5 18.7239 8.72386 18.5 9 18.5L9 19.5ZM8.64645 13.3536L3.64645 8.35355L4.35355 7.64645L9.35355 12.6464L8.64645 13.3536ZM3.64645 7.64645L8.64645 2.64645L9.35355 3.35355L4.35355 8.35355L3.64645 7.64645ZM4 7.5L14.5 7.5L14.5 8.5L4 8.5L4 7.5ZM14.5 19.5L9 19.5L9 18.5L14.5 18.5L14.5 19.5ZM20.5 13.5C20.5 16.8137 17.8137 19.5 14.5 19.5L14.5 18.5C17.2614 18.5 19.5 16.2614 19.5 13.5L20.5 13.5ZM14.5 7.5C17.8137 7.5 20.5 10.1863 20.5 13.5L19.5 13.5C19.5 10.7386 17.2614 8.5 14.5 8.5L14.5 7.5Z" fill="#222222" />
             </svg>
             <div className='c-name-type'>
-              <span className='c-username'>Kafka</span>
-              <span>Hobbyist</span>
+              <span className='c-username'>{receiver?.first_name}</span>
+              <span>{receiver?.type}</span>
             </div>
           </div>
           <div className="conversation-container">
@@ -118,26 +128,26 @@ const ViewConversation = (props) => {
               messages.map(message => {
                 if (message.from_user_id === user.id) {
                   return (
-                    <>
-                      <div key={message.id} className="conversation-item-user">
-                        <img className='chat-img' src="/kafka.jpg" alt="" />
+                    <div key={message.id}>
+                      <div  className="conversation-item-user">
+                        <img className='chat-img' src={`${storageBaseUrl}${user?.profile_picture}`} alt="" />
                         <span className="chat">{message.message}</span>
                         <span className='chat-timestamp'>12:00</span>
                       </div>
                       <div ref={conversationEndRef} />
-                    </>
+                    </div>
                   )
                 }
                 else {
                   return (
-                    <>
+                    <div key={message.id}>
                       <div key={message.id} className="conversation-item-sender">
-                        <img className='chat-img' src="/kafka.jpg" alt="" />
+                        <img className='chat-img' src={`${storageBaseUrl}${receiver?.profile_picture}`} alt="" />
                         <span className="chat">{message.message}</span>
                         <span className='chat-timestamp'>12:00</span>
                       </div>
                       <div ref={conversationEndRef} />
-                    </>
+                    </div>
                   )
                 }
               })
@@ -145,7 +155,7 @@ const ViewConversation = (props) => {
           </div>
           <div>
             <div className="textbox">
-              <div className='text-icon-container'> 
+              <div className='text-icon-container'>
                 <input value={message} onKeyDown={handleKeyDown} onChange={ev => setMessage(ev.target.value)} type="text" placeholder='Send a message' />
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path fillRule="evenodd" clipRule="evenodd" d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM12 18C11.4477 18 11 17.5523 11 17V13H7C6.44772 13 6 12.5523 6 12C6 11.4477 6.44772 11 7 11H11V7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7V11H17C17.5523 11 18 11.4477 18 12C18 12.5523 17.5523 13 17 13H13V17C13 17.5523 12.5523 18 12 18Z" fill="#222222" />

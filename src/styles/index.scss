@@ -2721,7 +2721,7 @@ input::-webkit-inner-spin-button {
   display: flex;
   justify-content: center;
   gap: 1rem;
-
+  margin-bottom: 0.65rem;
   .left {
     display: flex;
     flex-direction: column;
@@ -2772,7 +2772,7 @@ input::-webkit-inner-spin-button {
 .signup-main {
   display: flex;
   height: fit-content;
-
+ ;
   h2 {
     padding-left: 0.3rem;
     color: black;
@@ -3086,6 +3086,9 @@ input::-webkit-inner-spin-button {
       }
 
       .chat {
+        word-break: break-all;
+        height: fit-content;
+        text-wrap: wrap;
         border-radius: 25px;
         background-color: $lighter_grey;
         padding: 1rem;
@@ -3117,10 +3120,14 @@ input::-webkit-inner-spin-button {
 
       .chat {
         border-radius: 25px;
+        word-break: break-all;
+        height: fit-content;
+        text-wrap: wrap;
         background-color: $purple;
         padding: 1rem;
         color: #FFF;
         max-width: 70ch;
+
       }
     }
   }
