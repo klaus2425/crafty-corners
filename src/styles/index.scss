@@ -202,6 +202,14 @@ input::-webkit-inner-spin-button {
   box-sizing: border-box;
 }
 
+.red {
+  color: $red;
+}
+
+.green {
+  color: $green;
+}
+  
 .red-button {
   border: none;
   border-radius: 1000px;
