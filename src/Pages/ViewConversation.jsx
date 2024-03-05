@@ -11,7 +11,7 @@ const ViewConversation = (props) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const { user } = useStateContext();
-  let allMessages = [];
+  const [allMessages, setAllMessage] = useState();
   const { id } = useParams();
   const navigate = useNavigate();
   const conversationEndRef = useRef(null);
@@ -20,23 +20,37 @@ const ViewConversation = (props) => {
   }
 
 
+  const getMessages = () => {
+    axiosClient.get(`/chat/messages/${id}`)
+      .then(res => {
+        console.log(res.data.messages);
+        setMessages(res.data.messages);
+      })
+  }
 
   const submit = async () => {
-    console.log(message);
-
     const formData = new FormData();
     formData.append('to_user_id', id);
+    formData.append('from_user_id', user.id);
+
     formData.append('message', message);
-    axiosClient.post('chat/send', formData)
+    axiosClient.post(`chat/send/${id}`, formData)
       .then(res => {
         console.log(res.data);
         setMessage('')
+        getMessages();
       })
       .catch(err => console.log(err.response.data))
   }
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      submit();
+    }
+  }
+
   useEffect(() => {
-    conversationEndRef.current?.scrollIntoView();
+    getMessages();
     Pusher.logToConsole = true;
 
     const echo = new Echo({
@@ -47,9 +61,12 @@ const ViewConversation = (props) => {
     });
 
     echo.channel(`chat`)
-      .listen('PublicChat', (e) => {
-        alert('Message Received');
+      .listen('PublicChat', (data) => {
+        console.log(data);
+        getMessages();
+
       });
+    // 
     // const pusher = new Pusher('dc6423124445d7b08415', {
     //   cluster: 'ap1',
     //   encrypted: true,
@@ -64,12 +81,17 @@ const ViewConversation = (props) => {
     //   console.log(data);
     // });
 
-    // channel.bind('MessageSent', function (data) {
+    // channel.bind('PublicChat', function (data) {
     //   allMessages.push(data);
-    //   console.log(allMessages);
+    //   console.log('all messages',allMessages);
     //   setMessages(allMessages);
     // });
   }, [])
+
+  useEffect(() => {
+    conversationEndRef.current?.scrollIntoView();
+  },[messages])
+
 
 
   return (
@@ -94,29 +116,37 @@ const ViewConversation = (props) => {
           <div className="conversation-container">
             {
               messages.map(message => {
-                return (
-                  <div key={message.id} className="conversation-item-sender">
-                    <img className='chat-img' src="/kafka.jpg" alt="" />
-                    <span className="chat">.{message.message}</span>
-                    <span className='chat-timestamp'>12:00</span>
-                  </div>
-                )
+                if (message.from_user_id === user.id) {
+                  return (
+                    <>
+                      <div key={message.id} className="conversation-item-user">
+                        <img className='chat-img' src="/kafka.jpg" alt="" />
+                        <span className="chat">{message.message}</span>
+                        <span className='chat-timestamp'>12:00</span>
+                      </div>
+                      <div ref={conversationEndRef} />
+                    </>
+                  )
+                }
+                else {
+                  return (
+                    <>
+                      <div key={message.id} className="conversation-item-sender">
+                        <img className='chat-img' src="/kafka.jpg" alt="" />
+                        <span className="chat">{message.message}</span>
+                        <span className='chat-timestamp'>12:00</span>
+                      </div>
+                      <div ref={conversationEndRef} />
+                    </>
+                  )
+                }
               })
             }
-
-            <div className="conversation-item-user">
-              <img className='chat-img' src="/Jaycie.png" alt="" />
-              <span className="chat">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, eaque, expedita dicta accusamus fugit, ipsum eligendi minima officiis veritatis iste numquam nulla inventore alias quaerat similique animi illum quia deserunt!</span>
-              <span className='chat-timestamp'>13:00</span>
-            </div>
-
-            <div ref={conversationEndRef} />
-
           </div>
           <div>
             <div className="textbox">
-              <div className='text-icon-container'>
-                <input value={message} onChange={ev => setMessage(ev.target.value)} type="text" placeholder='Send a message' />
+              <div className='text-icon-container'> 
+                <input value={message} onKeyDown={handleKeyDown} onChange={ev => setMessage(ev.target.value)} type="text" placeholder='Send a message' />
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path fillRule="evenodd" clipRule="evenodd" d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM12 18C11.4477 18 11 17.5523 11 17V13H7C6.44772 13 6 12.5523 6 12C6 11.4477 6.44772 11 7 11H11V7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7V11H17C17.5523 11 18 11.4477 18 12C18 12.5523 17.5523 13 17 13H13V17C13 17.5523 12.5523 18 12 18Z" fill="#222222" />
                 </svg>
