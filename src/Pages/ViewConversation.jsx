@@ -67,6 +67,8 @@ const ViewConversation = (props) => {
       broadcaster: 'pusher',
       key: 'dc6423124445d7b08415',
       cluster: 'ap1',
+      forceTLS: true,
+      authEndPoint: "/pusher/auth",
       encrypted: true,
     });
 
@@ -75,7 +77,7 @@ const ViewConversation = (props) => {
         console.log(data);
         getMessages();
 
-      });
+      }).error((error) => {console.error(error)});
     // 
     // const pusher = new Pusher('dc6423124445d7b08415', {
     //   cluster: 'ap1',
