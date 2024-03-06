@@ -10,7 +10,7 @@ import axios from 'axios';
 const ViewConversation = (props) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-  const [receiver, setReceiver] =useState();
+  const [receiver, setReceiver] = useState();
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
   const { user } = useStateContext();
   const [allMessages, setAllMessage] = useState();
@@ -32,9 +32,9 @@ const ViewConversation = (props) => {
 
   const getReceiver = () => {
     axiosClient.get(`/users/${id}`)
-    .then(res => {
-      setReceiver(res.data.data);
-    })
+      .then(res => {
+        setReceiver(res.data.data);
+      })
   }
 
   const submit = async () => {
@@ -70,7 +70,7 @@ const ViewConversation = (props) => {
       encrypted: true,
     });
 
-    echo.channel(`chat`)
+    echo.private(`chat-${user?.id}`)
       .listen('PublicChat', (data) => {
         console.log(data);
         getMessages();
@@ -129,7 +129,7 @@ const ViewConversation = (props) => {
                 if (message.from_user_id === user.id) {
                   return (
                     <div key={message.id}>
-                      <div  className="conversation-item-user">
+                      <div className="conversation-item-user">
                         <img className='chat-img' src={`${storageBaseUrl}${user?.profile_picture}`} alt="" />
                         <span className="chat">{message.message}</span>
                         <span className='chat-timestamp'>12:00</span>
