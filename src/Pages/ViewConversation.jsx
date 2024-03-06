@@ -73,7 +73,7 @@ const ViewConversation = (props) => {
     });
 
     echo.private(`chat-${user?.id}`)
-      .listen('PublicChat', (data) => {
+      .listen('MesageSent', (data) => {
         console.log(data);
         getMessages();
 
