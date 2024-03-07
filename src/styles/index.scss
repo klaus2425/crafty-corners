@@ -392,6 +392,7 @@ input::-webkit-inner-spin-button {
     align-items: center;
     justify-content: start;
     font-family: Helvetica, Arial, sans-serif;
+    
   }
 
   .modal {
@@ -529,7 +530,7 @@ input::-webkit-inner-spin-button {
 .authenticated-navbar {
   position: fixed;
   width: 100%;
-  height: 4.5rem;
+  height: 5rem;
   box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
   background: #FDFDFD;
   display: flex;
@@ -658,7 +659,10 @@ input::-webkit-inner-spin-button {
     align-items: center;
     justify-content: start;
     width: auto;
-    padding: 1rem;
+    font-weight: bold;
+    color: #000;
+    font-size: 1.125rem;
+    margin-right: 1rem;
   }
 
 }

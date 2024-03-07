@@ -45,8 +45,16 @@ export default function SignUpModal(props) {
         formData.append('student_id', studentIdRef.current.value)
         axiosClient.post('/register', formData)
             .then(({ data }) => {
-                setUser(data.user);
-                setToken(data.token);
+                toast('Verification sent to email address', {
+                    duration: 1500,
+                    position: "bottom-center",
+                    icon: "❕",
+                    style: {
+                      borderRadius: "100px",
+                      border: 0,
+                      boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+                    }
+                  })
                 props.setIsOpen(false);
             })
             .catch(err => {

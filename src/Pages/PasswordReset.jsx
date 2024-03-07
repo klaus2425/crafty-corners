@@ -51,7 +51,7 @@ const PasswordReset = () => {
         })
       }
       else
-      toast(err.response.data.message, {
+      toast(Object.values(err.response.data.errors)[0], {
         duration: 1500,
         position: "bottom-center",
         icon: "❗",
