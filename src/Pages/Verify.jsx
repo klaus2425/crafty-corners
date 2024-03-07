@@ -23,6 +23,7 @@ const Verify = () => {
         setExpired(true);
       });
   }, [id, hash, expires, signature]);
+  
   if (!loading) {
     return expired ? (
       <div className="verify-container">
