@@ -66,7 +66,7 @@ const Navbar = () => {
         return (
             <div className='navbar'>
                 <div className='navbar title'>
-                    <img src='Logo.png' />
+                    <img src='/Logo.png' />
                     <h1>Crafty Corners</h1>
                 </div>
                 <div className="guest-buttons">

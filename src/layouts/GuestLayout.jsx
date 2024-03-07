@@ -10,7 +10,6 @@ const GuestLayout = () => {
     if (token) {
         return <Navigate to='/' />
     };
-
     return (
         <div>
             <Navbar />

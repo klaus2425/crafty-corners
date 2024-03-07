@@ -1,5 +1,4 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import Login from './Pages/Login';
 import Home from './Pages/Home';
 import NotFound from './Pages/NotFound';
 import Landing from './Pages/Landing';
@@ -39,6 +38,7 @@ import MentorApplicants from "./Pages/Admin/MentorApplicants";
 import ViewMentorApplication from "./Pages/Admin/ViewMentorApplication";
 import ReportedPosts from "./Pages/Admin/ReportedPosts";
 import ViewReportedPost from "./Pages/Admin/ViewReportedPost";
+import Verify from "./Pages/Verify";
 
 const router = createBrowserRouter([
     {
@@ -206,14 +206,13 @@ const router = createBrowserRouter([
         element: <GuestLayout />,
         children: [
             {
-                path: '/login',
-                element: <Login />
-            },
-
-            {
                 path: '/landing',
                 element: <Landing />
             },
+            {
+                path: '/verify-email/:id/:hash',
+                element: <Verify />
+            }
         ],
     },
     {

@@ -47,6 +47,7 @@ export default function SignUpModal(props) {
             .then(({ data }) => {
                 setUser(data.user);
                 setToken(data.token);
+                props.setIsSignUpOpen(false);
             })
             .catch(err => {
                 const response = err.response;

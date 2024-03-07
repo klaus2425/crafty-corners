@@ -20,6 +20,7 @@ export default function LoginModal(props) {
       .then(({ data }) => {
         setUser(data.user);
         setToken(data.token);
+        props.setIsOpen(false);
       })
       .catch((err) => {
         const response = err.response;
@@ -47,9 +48,10 @@ export default function LoginModal(props) {
   };
 
   if (!props.isOpen) return null;
+
   return (
     <>
-      <div className="overlay">
+      <div className="overlay" onClick={() => props.setIsOpen(false)}>
         <div className="modal">
           <div className="close-login">
             <svg onClick={() => props.setIsOpen(false)}

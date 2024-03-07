@@ -3668,7 +3668,25 @@ input::-webkit-inner-spin-button {
   margin-bottom: 1rem;
 }
 
-
+.verify-container {
+  display: flex;
+  width: 100%;
+  height: 93vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  .card {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    height: fit-content;
+    border-radius: 15px;
+    box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
+    min-width: fit-content;
+    margin-bottom: 0.5rem;
+    padding: 1rem;
+  }
+}
 
 .react-player {
   position: absolute;
