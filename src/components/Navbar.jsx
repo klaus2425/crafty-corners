@@ -5,12 +5,16 @@ import axiosClient from "../axios-client";
 import DropDownItem from "./DropDownItem";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const { isOpen, setIsOpen, setUser, setToken, user, token } = useStateContext();
     const [openDropDown, setOpenDropDown] = useState(false);
     const [loading, setLoading] = useState(true);
-
+    const navigate = useNavigate();
+    const handleNavigateHome = () => {
+        navigate('/Landing');
+    }
     const onLogout = () => {
         axiosClient.post('/logout')
             .then(() => {
@@ -65,7 +69,7 @@ const Navbar = () => {
     else {
         return (
             <div className='navbar'>
-                <div className='navbar title'>
+                <div style={{cursor: 'pointer'}} onClick={handleNavigateHome} className='navbar title'>
                     <img src='/Logo.png' />
                     <h1>Crafty Corners</h1>
                 </div>
