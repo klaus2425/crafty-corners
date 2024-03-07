@@ -10,7 +10,7 @@ const Verify = () => {
   const signature = params.get('signature');
   const [expired, setExpired] = useState();
   const [loading, setLoading] = useState();
-
+  const [error, setError] = useState();
   useEffect(() => {
     setLoading(true)
     axiosClient.get(`verify-email/${id}/${hash}?expires=${expires}&signature=${signature}`)
@@ -19,6 +19,8 @@ const Verify = () => {
         console.log(response.data);
       })
       .catch(error => {
+        console.log(error);
+        setError(error.response.data.message)
         setLoading(false);
         setExpired(true);
       });
@@ -32,9 +34,7 @@ const Verify = () => {
             <circle cx="116" cy="116" r="83.1333" fill="#A076F9" stroke="#222222" strokeWidth="11.6" />
             <path d="M159.5 116H118.417C117.082 116 116 114.918 116 113.583V82.1667" stroke="#222222" strokeWidth="11.6" strokeLinecap="round" />
           </svg>
-          <div className="top"><h1>Link Expired</h1></div>
-          <div className="sub">Resend verification email?</div>
-          <button className="purple-button">Resend email</button>
+          <div className="top"><h1>{error}</h1></div>
         </div>
       </div>
     ) :

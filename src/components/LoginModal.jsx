@@ -3,6 +3,7 @@ import { useStateContext } from "../context/ContextProvider";
 import axiosClient from "../axios-client";
 import Swal from 'sweetalert2';
 import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 
 export default function LoginModal(props) {
   const { setUser, setToken } = useStateContext();
@@ -50,9 +51,33 @@ export default function LoginModal(props) {
     axiosClient
       .post("/login", payload)
       .then(({ data }) => {
-        setUser(data.user);
-        setToken(data.token);
-        props.setIsOpen(false);
+        console.log(`Bearer ${data.token}`);
+        if(data.user.email_verified_at === null) {
+          console.log(data);
+          toast('Verify your account first!', {
+            duration: 1500,
+            position: "bottom-center",
+            icon: "❗",
+            style: {
+              borderRadius: "100px",
+              border: 0,
+              boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+            }
+          })
+          axios.post(`${import.meta.env.VITE_API_BASE_URL}/send-email-verification`,null, {headers: {
+            
+            'Authorization' : `Bearer ${data.token}`,
+            'Content-Type': 'application/json'
+          }})
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => console.log(err));
+        }
+        else {
+          setUser(data.user);
+          setToken(data.token);
+        }
       })
       .catch((err) => {
         const response = err.response;
