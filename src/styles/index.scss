@@ -209,7 +209,7 @@ input::-webkit-inner-spin-button {
 .green {
   color: $green;
 }
-  
+
 .red-button {
   border: none;
   border-radius: 1000px;
@@ -345,6 +345,7 @@ input::-webkit-inner-spin-button {
   align-items: center;
   justify-content: space-between;
   border-bottom: 2px $light_grey solid;
+
   h1 {
     color: #000;
     font-family: Archivo;
@@ -487,8 +488,10 @@ input::-webkit-inner-spin-button {
       margin: 0.125rem;
 
       .purple-button {
-        font-size: 1.24rem;
+        font-size: 1rem;
+        padding: 0.6rem;
         width: (1.24rem, 3vw, 5rem);
+        border-radius: 20px;
       }
     }
   }
@@ -2423,11 +2426,14 @@ input::-webkit-inner-spin-button {
   flex-direction: column;
   font-size: 1.26rem;
   justify-content: space-between;
+
   .top-report {
     display: flex;
+
     .left {
       width: 50%;
     }
+
     .right {
       width: 50%;
     }
@@ -2439,10 +2445,8 @@ input::-webkit-inner-spin-button {
     gap: 1rem;
     justify-content: end;
   }
-  
-  .report-details {
-  
-  }
+
+  .report-details {}
 }
 
 .loading {
@@ -2683,7 +2687,8 @@ input::-webkit-inner-spin-button {
   }
 
   .landing-container {
-    min-height: calc(100vh - 4.5rem);;
+    min-height: calc(100vh - 4.5rem);
+    ;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
@@ -2722,6 +2727,7 @@ input::-webkit-inner-spin-button {
   justify-content: center;
   gap: 1rem;
   margin-bottom: 0.65rem;
+
   select {
     outline: 0;
     font-size: 1rem;
@@ -2762,6 +2768,7 @@ input::-webkit-inner-spin-button {
       margin: 0;
     }
   }
+
   .left {
     display: flex;
     flex-direction: column;
@@ -2781,7 +2788,8 @@ input::-webkit-inner-spin-button {
 .signup-main {
   display: flex;
   height: fit-content;
- ;
+  ;
+
   h2 {
     padding-left: 0.3rem;
     color: black;
@@ -2797,7 +2805,8 @@ input::-webkit-inner-spin-button {
   display: flex;
   flex-direction: column;
 
-  input, select {
+  input,
+  select {
     margin-bottom: 0.8rem;
     width: 20rem;
     border-width: 2px;
@@ -3196,6 +3205,7 @@ input::-webkit-inner-spin-button {
   font-size: 1.125rem;
   margin-right: 1rem;
   margin-left: 0.25rem;
+
   svg {
     padding: 0.5rem;
   }
@@ -3679,6 +3689,7 @@ input::-webkit-inner-spin-button {
   width: 100vw;
   justify-content: center;
   align-items: center;
+
   .card {
     display: flex;
     flex-direction: column;
@@ -3691,10 +3702,50 @@ input::-webkit-inner-spin-button {
     font-size: 1.25 rem;
     padding: 5rem;
     align-items: center;
+
     .sub {
       margin-bottom: 1rem;
     }
+
   }
+
+}
+
+
+.reset-password-container {
+  display: flex;
+  width: 100%;
+  height: 93vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    height: fit-content;
+    border-radius: 15px;
+    box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
+    width: 20rem;
+    height: fit-content;
+    margin-bottom: 0.5rem;
+    font-size: 1.25 rem;
+    padding: 1rem;
+
+    .inputs {
+      margin-bottom: 1rem;
+    }
+    input {
+      border: 1px $light_grey solid;
+      border-radius: 1000px;
+      width: 100%;
+      padding: 0.75rem 0.87rem;
+    }
+
+  }
+
+
 
 }
 

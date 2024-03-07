@@ -26,7 +26,20 @@ export default function LoginModal(props) {
           boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
         }
       })
-    });
+    })
+    .catch(err => {
+      toast(err.response.data.message, {
+        duration: 1500,
+        position: "bottom-center",
+        icon: "❗",
+        style: {
+          borderRadius: "100px",
+          border: 0,
+          boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+        }
+      })
+    })
+    ;
   }
   const onSubmit = (ev) => {
     ev.preventDefault();
@@ -71,7 +84,6 @@ export default function LoginModal(props) {
     (
       <>
         <div className="overlay" >
-          <Toaster />
           <div className="modal">
             <div className="close-login">
               <svg onClick={() => {
@@ -97,7 +109,6 @@ export default function LoginModal(props) {
               <div className="login-main">
                 <h2>Forgot Password</h2>
                 <input ref={emailRef} placeholder="Email Address"/>
-
               </div>
               <div className="login-button">
                 <button className="purple-button" onClick={onForgotSubmit}>Send reset link</button>

@@ -39,6 +39,7 @@ import ViewMentorApplication from "./Pages/Admin/ViewMentorApplication";
 import ReportedPosts from "./Pages/Admin/ReportedPosts";
 import ViewReportedPost from "./Pages/Admin/ViewReportedPost";
 import Verify from "./Pages/Verify";
+import PasswordReset from "./Pages/PasswordReset";
 
 const router = createBrowserRouter([
     {
@@ -212,6 +213,10 @@ const router = createBrowserRouter([
             {
                 path: '/verify-email/:id/:hash',
                 element: <Verify />
+            },
+            {
+                path: '/reset-password',
+                element: <PasswordReset />
             }
         ],
     },
