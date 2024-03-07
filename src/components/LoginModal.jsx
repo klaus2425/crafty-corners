@@ -41,7 +41,6 @@ export default function LoginModal(props) {
               showConfirmButton: false,
               timer: 2500
             });
-
           }
         }
       });
