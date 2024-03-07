@@ -344,7 +344,7 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  border-bottom: 2px $light_grey solid;
   h1 {
     color: #000;
     font-family: Archivo;
@@ -655,6 +655,7 @@ input::-webkit-inner-spin-button {
     align-items: center;
     justify-content: start;
     width: auto;
+    padding: 1rem;
   }
 
 }
@@ -2682,18 +2683,17 @@ input::-webkit-inner-spin-button {
   }
 
   .landing-container {
-    min-height: calc(100vh - 4.5rem);
-    ;
+    min-height: calc(100vh - 4.5rem);;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
-    padding-top: 14.5rem;
+    padding-top: 12.5rem;
     text-align: center;
     align-items: center;
 
     .landing-title {
       font-size: clamp(1rem, 5vw, 20rem);
-      color: $dark_purple;
+      color: #222222;
       font-weight: bold;
       line-height: clamp(2rem, 4vw + 1rem, 6rem);
       font-family: Archivo;
@@ -3195,6 +3195,10 @@ input::-webkit-inner-spin-button {
   color: #000;
   font-size: 1.125rem;
   margin-right: 1rem;
+  margin-left: 0.25rem;
+  svg {
+    padding: 0.5rem;
+  }
 }
 
 .community-title {
