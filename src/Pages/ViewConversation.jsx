@@ -25,6 +25,7 @@ const ViewConversation = (props) => {
   const getMessages = () => {
     axiosClient.get(`/chat/messages/${id}`)
       .then(res => {
+        console.log('method called');
         setMessages(res.data.messages);
       })
   }
@@ -86,8 +87,8 @@ const ViewConversation = (props) => {
       }
     });
 
-    const channel = echo.private(`chat-${user?.id}`);
-    channel.listen('MesageSent', (data) => {
+    echo.private(`chat-${user?.id}`)
+    .listen('MessageSent', (data) => {
       console.log(data);
       getMessages();
 
@@ -113,9 +114,8 @@ const ViewConversation = (props) => {
     //   setMessages(allMessages);
     // });
     return () => {
-      channel.stopListening(`chat-${user?.id}`)
       echo.leave(`chat-${user?.id}`);
-      console.log('unmount', );
+      console.log('unmount',);
     }
   }, [])
 
