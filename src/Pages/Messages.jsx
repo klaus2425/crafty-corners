@@ -1,10 +1,25 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axiosClient from "../axios-client";
 
 const Messages = () => {
   const navigate = useNavigate();
+  const [conversations, setConversations] = useState();
   const viewConversation = (id) => {
     navigate(`/conversation/${id}`);
   }
+
+  const getConversations = () => {
+    axiosClient.get('chat/conversations')
+      .then(res => {
+        console.log(res.data);
+        setConversations(res.data);
+      });
+  }
+
+  useEffect(() => {
+    getConversations()
+  }, [])
 
   return (
     <div className="authenticated-container">
