@@ -21,6 +21,18 @@ const ViewConversation = (props) => {
     navigate('/messages')
   }
 
+  const getTimestamp = (date) => {
+    const dateObject = new Date(date);
+  
+    const hours = dateObject.getHours();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
+    const minutes = dateObject.getMinutes().toString().padStart(2, '0');
+  
+    const formattedTime = `${formattedHours}:${minutes} ${ampm}`;
+  
+    return formattedTime;
+  }
 
   const getMessages = () => {
     axiosClient.get(`/chat/messages/${id}`)
@@ -153,7 +165,7 @@ const ViewConversation = (props) => {
                       <div className="conversation-item-user">
                         <img className='chat-img' src={`${storageBaseUrl}${user?.profile_picture}`} alt="" />
                         <span className="chat">{message.message}</span>
-                        <span className='chat-timestamp'>12:00</span>
+                        <span className='chat-timestamp'>{getTimestamp(message.updated_at)}</span>
                       </div>
                       <div ref={conversationEndRef} />
                     </div>
@@ -165,7 +177,7 @@ const ViewConversation = (props) => {
                       <div key={message.id} className="conversation-item-sender">
                         <img className='chat-img' src={`${storageBaseUrl}${receiver?.profile_picture}`} alt="" />
                         <span className="chat">{message.message}</span>
-                        <span className='chat-timestamp'>12:00</span>
+                        <span className='chat-timestamp'>{getTimestamp(message.updated_at)}</span>
                       </div>
                       <div ref={conversationEndRef} />
                     </div>
