@@ -25,7 +25,6 @@ const ViewConversation = (props) => {
   const getMessages = () => {
     axiosClient.get(`/chat/messages/${id}`)
       .then(res => {
-        console.log(res.data.messages);
         setMessages(res.data.messages);
       })
   }
@@ -45,7 +44,6 @@ const ViewConversation = (props) => {
     formData.append('message', message);
     axiosClient.post(`chat/send/${id}`, formData)
       .then(res => {
-        console.log(res.data);
         setMessage('')
         getMessages();
       })
@@ -92,7 +90,6 @@ const ViewConversation = (props) => {
     channel.listen('MesageSent', (data) => {
       console.log(data);
       getMessages();
-      echo.unsubscribe()
 
     }).error((error) => { console.error(error) });
     // 
