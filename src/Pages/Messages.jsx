@@ -12,8 +12,8 @@ const Messages = () => {
   const getConversations = () => {
     axiosClient.get('chat/conversations')
       .then(res => {
-        console.log(res.data);
-        setConversations(res.data);
+        console.log(res.data.conversations);
+        setConversations(res.data.conversations);
       });
   }
 
@@ -40,20 +40,27 @@ const Messages = () => {
             </svg>
           </div>
 
-          <div onClick={() => viewConversation(14)} className="list-card-items">
-            <div className="list-card-item">
-              <div className="list-card-item-image">
-                <img src="/Jaycie.png" alt="" />
-              </div>
-              <div className="list-card-item-text">
-                <span>Jaycie</span>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat aliquam quisquam, deserunt ab vitae, eius nesciunt alias quia quo a, fuga corporis praesentium debitis quas deleniti soluta assumenda temporibus et.</p>
-              </div>
-              <div className="list-card-item-time">
-                <span>2h</span>
-              </div>
-            </div>
-          </div>
+          {
+            conversations.map(conversation => {
+              return (
+                <div onClick={() => viewConversation(14)} className="list-card-items">
+                  <div className="list-card-item">
+                    <div className="list-card-item-image">
+                      <img src="/Jaycie.png" alt="" />
+                    </div>
+                    <div className="list-card-item-text">
+                      <span>Jaycie</span>
+                      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat aliquam quisquam, deserunt ab vitae, eius nesciunt alias quia quo a, fuga corporis praesentium debitis quas deleniti soluta assumenda temporibus et.</p>
+                    </div>
+                    <div className="list-card-item-time">
+                      <span>2h</span>
+                    </div>
+                  </div>
+                </div>
+              )
+            })
+          }
+
 
 
         </div>
