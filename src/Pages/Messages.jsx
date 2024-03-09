@@ -10,10 +10,10 @@ const Messages = () => {
   }
 
   const getConversations = () => {
-    axiosClient.get('/conversations')
+    axiosClient.get('chat/conversations')
       .then(res => {
-        console.log(res.data.data);
-        setConversations(res.data.data);
+        console.log(res.data.conversations);
+        setConversations(res.data.conversations);
       });
   }
 
@@ -40,8 +40,8 @@ const Messages = () => {
             </svg>
           </div>
 
-          {/* {
-            conversations?.map(conversation => {
+          {
+            conversations.map(conversation => {
               return (
                 <div onClick={() => viewConversation(14)} className="list-card-items">
                   <div className="list-card-item">
@@ -59,7 +59,7 @@ const Messages = () => {
                 </div>
               )
             })
-          } */}
+          }
 
 
 
