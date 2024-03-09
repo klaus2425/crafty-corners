@@ -4,16 +4,19 @@ import SignUpModal from "./SignUpModal";
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client";
 import DropDownItem from "./DropDownItem";
+import { useNavigate } from "react-router-dom";
 
 const AdminNavbar = () => {
-    const { isOpen, setIsOpen, isSignUpOpen, setIsSignUpOpen, setUser, setToken, user, token } = useStateContext();
+    const { setUser, setToken, user, token } = useStateContext();
     const [openDropDown, setOpenDropDown] = useState(false);
+    const navigate = useNavigate();
     const onLogout = () => {
         axiosClient.post('/logout')
             .then(() => {
                 setUser({});
                 setToken(null);
-                window.location.reload();
+                setOpenDropDown(false);
+                navigate('/');
             })
     }
     const handleDropDown = () => {

@@ -80,6 +80,7 @@ export default function LoginModal(props) {
         else {
           setUser(data.user);
           setToken(data.token);
+          props.setIsOpen(false);
         }
       })
       .catch((err) => {

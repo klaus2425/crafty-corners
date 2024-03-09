@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import axiosClient from "../axios-client";
 
 const ResolveReport = (props) => {
   const selectRef = useRef();
@@ -10,6 +11,10 @@ const ResolveReport = (props) => {
 
   const handleSubmit =  () => {
     console.log(selectRef.current.value);
+    axiosClient.post(`/resolve/${props.postId}`)
+    .then(res => {
+      console.log(res.data);
+    })
   }
   return props.resolveOpen ? (
     <div className="overlay">

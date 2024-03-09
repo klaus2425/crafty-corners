@@ -40,7 +40,7 @@ const ViewReportedPost = () => {
   if (post?.post_type === 'text') {
     return (
       <div className="communities-container">
-        <ResolveReport resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} />
+        <ResolveReport resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} postId={postId} />
         <div className="top-section">
           <h2>Report Details</h2>
         </div>

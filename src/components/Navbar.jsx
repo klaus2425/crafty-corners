@@ -21,7 +21,7 @@ const Navbar = () => {
             .then(() => {
                 setUser({});
                 setToken(null);
-                window.location.reload();
+                navigate('/');
             })
     }
     const handleDropDown = () => {

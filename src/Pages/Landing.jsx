@@ -3,7 +3,7 @@ import { useStateContext } from "../context/ContextProvider";
 
 
 const Landing = () => {
-    const { isOpen, setIsOpen, isSignUpOpen, setIsSignUpOpen, setUser, setToken, user, token } = useStateContext();
+    const {isSignUpOpen, setIsSignUpOpen} = useStateContext();
     return (
         <div className='landing-bg'>
             <div className="landing-container">
