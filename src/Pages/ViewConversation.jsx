@@ -13,7 +13,6 @@ const ViewConversation = (props) => {
   const [receiver, setReceiver] = useState();
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
   const { user } = useStateContext();
-  const [allMessages, setAllMessage] = useState();
   const { id } = useParams();
   const navigate = useNavigate();
   const conversationEndRef = useRef(null);
@@ -35,10 +34,10 @@ const ViewConversation = (props) => {
   }
 
   const getMessages = () => {
-    axiosClient.get(`/chat/messages/${id}`)
+    axiosClient.get(`/conversation/message/${id}`)
       .then(res => {
-        console.log('method called');
-        setMessages(res.data.messages);
+        console.log(res.data.data);
+        setMessages(res.data.data.messages);
       })
   }
 
@@ -55,9 +54,10 @@ const ViewConversation = (props) => {
     formData.append('from_user_id', user.id);
 
     formData.append('message', message);
-    axiosClient.post(`chat/send/${id}`, formData)
+    axiosClient.post(`/conversation/${id}/message`, formData)
       .then(res => {
-        setMessage('')
+        setMessage('');
+        console.log(res.data);
         getMessages();
       })
       .catch(err => console.log(err.response.data))
@@ -159,13 +159,13 @@ const ViewConversation = (props) => {
           <div className="conversation-container">
             {
               messages.map(message => {
-                if (message.from_user_id === user.id) {
+                if (message.user_id === user.id) {
                   return (
                     <div key={message.id}>
                       <div className="conversation-item-user">
                         <img className='chat-img' src={`${storageBaseUrl}${user?.profile_picture}`} alt="" />
                         <span className="chat">{message.message}</span>
-                        <span className='chat-timestamp'>{getTimestamp(message.updated_at)}</span>
+                        <span className='chat-timestamp'>{getTimestamp(message.created_at)}</span>
                       </div>
                       <div ref={conversationEndRef} />
                     </div>
@@ -177,7 +177,7 @@ const ViewConversation = (props) => {
                       <div key={message.id} className="conversation-item-sender">
                         <img className='chat-img' src={`${storageBaseUrl}${receiver?.profile_picture}`} alt="" />
                         <span className="chat">{message.message}</span>
-                        <span className='chat-timestamp'>{getTimestamp(message.updated_at)}</span>
+                        <span className='chat-timestamp'>{getTimestamp(message.created_at)}</span>
                       </div>
                       <div ref={conversationEndRef} />
                     </div>
