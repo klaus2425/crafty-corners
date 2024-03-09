@@ -80,9 +80,8 @@ const ViewReportedPost = () => {
             </div>
           </div>
           <div className="bottom-report">
-            <button onClick={suspendClick} className="red-button">Suspend User</button>
-            <button onClick={removePostClick} className="green-button">Remove Post</button>
-            <button onClick={removeReportClick} className="orange-button">Remove Report</button>
+            <button onClick={suspendClick} className="purple-button">Resolve Post</button>
+
 
           </div>
         </div>
