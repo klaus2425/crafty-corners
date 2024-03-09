@@ -6,7 +6,7 @@ const Messages = () => {
   const navigate = useNavigate();
   const [conversations, setConversations] = useState();
   const viewConversation = (id) => {
-    navigate(`/conversation/${id}`);
+    navigate(`/conversation/${id}/14`);
   }
 
   const getConversations = () => {
@@ -40,7 +40,7 @@ const Messages = () => {
             </svg>
           </div>
 
-          <div onClick={() => viewConversation(14)} className="list-card-items">
+          <div onClick={() => viewConversation(1)} className="list-card-items">
             <div className="list-card-item">
               <div className="list-card-item-image">
                 <img src="/Jaycie.png" alt="" />
