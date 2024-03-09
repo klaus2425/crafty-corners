@@ -23,21 +23,21 @@ const ViewConversation = (props) => {
 
   const getTimestamp = (date) => {
     const dateObject = new Date(date);
-  
+
     const hours = dateObject.getHours();
     const ampm = hours >= 12 ? 'PM' : 'AM';
     const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
     const minutes = dateObject.getMinutes().toString().padStart(2, '0');
-  
+
     const formattedTime = `${formattedHours}:${minutes} ${ampm}`;
-  
+
     return formattedTime;
   }
 
   const getMessages = () => {
-    axiosClient.get(`/conversation/message/${conversation_id}`)
+    axiosClient.get(`/conversation/message/${receiver_id}`)
       .then(res => {
-        console.log('method called');
+        console.log('Messages Retrieved:', res.data);
         setMessages(res.data.messages);
       })
   }
@@ -55,9 +55,9 @@ const ViewConversation = (props) => {
     axiosClient.post(`conversation/${receiver_id}/message`, formData)
       .then(res => {
         setMessage('')
-        console.log(res.data);
+        console.log('Messages sent:', res.data);
         getMessages();
-        
+
       })
       .catch(err => console.log(err))
   }
@@ -102,11 +102,11 @@ const ViewConversation = (props) => {
       }
     });
     echo.private(`conversation-${conversation_id}`)
-    .listen('MessageSent', (data) => {
-      console.log(data);
-      getMessages();
+      .listen('MessageSent', (data) => {
+        console.log(data);
+        getMessages();
 
-    }).error((error) => { console.error(error) });
+      }).error((error) => { console.error(error) });
 
 
     return () => {
