@@ -14,7 +14,7 @@ const ViewConversation = (props) => {
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
   const { user } = useStateContext();
   const [allMessages, setAllMessage] = useState();
-  const { id } = useParams();
+  const { conversation_id, receiver_id } = useParams();
   const navigate = useNavigate();
   const conversationEndRef = useRef(null);
   const handleBack = () => {
@@ -35,7 +35,7 @@ const ViewConversation = (props) => {
   }
 
   const getMessages = () => {
-    axiosClient.get(`/chat/messages/${id}`)
+    axiosClient.get(`/conversation/message/${conversation_id}`)
       .then(res => {
         console.log('method called');
         setMessages(res.data.messages);
@@ -43,7 +43,7 @@ const ViewConversation = (props) => {
   }
 
   const getReceiver = () => {
-    axiosClient.get(`/users/${id}`)
+    axiosClient.get(`/users/${receiver_id}`)
       .then(res => {
         setReceiver(res.data.data);
       })
@@ -51,22 +51,30 @@ const ViewConversation = (props) => {
 
   const submit = async () => {
     const formData = new FormData();
-    formData.append('to_user_id', id);
-    formData.append('from_user_id', user.id);
-
     formData.append('message', message);
-    axiosClient.post(`chat/send/${id}`, formData)
+    axiosClient.post(`conversation/${receiver_id}/message`, formData)
       .then(res => {
         setMessage('')
+        console.log(res.data);
         getMessages();
+        
       })
-      .catch(err => console.log(err.response.data))
+      .catch(err => console.log(err))
   }
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       submit();
     }
+  }
+
+  const subscribeConversation = () => {
+        echo.private(`conversation-${conversation_id}`)
+    .listen('MessageSent', (data) => {
+      console.log(data);
+      getMessages();
+
+    }).error((error) => { console.error(error) });
   }
 
   useEffect(() => {
@@ -99,32 +107,8 @@ const ViewConversation = (props) => {
       }
     });
 
-    echo.private(`chat-${user?.id}`)
-    .listen('MessageSent', (data) => {
-      console.log(data);
-      getMessages();
 
-    }).error((error) => { console.error(error) });
-    // 
-    // const pusher = new Pusher('dc6423124445d7b08415', {
-    //   cluster: 'ap1',
-    //   encrypted: true,
-    // });
 
-    // const channel = pusher.subscribe(`chat-${user.id}`);
-    // channel.bind('pusher:subscription_succeeded', function (data) {
-    //   console.log('Subscription Successful');
-    // });
-
-    // channel.bind('pusher:subscription_error', function (data) {
-    //   console.log(data);
-    // });
-
-    // channel.bind('PublicChat', function (data) {
-    //   allMessages.push(data);
-    //   console.log('all messages',allMessages);
-    //   setMessages(allMessages);
-    // });
     return () => {
       echo.leave(`chat-${user?.id}`);
       console.log('unmount',);
@@ -157,7 +141,7 @@ const ViewConversation = (props) => {
             </div>
           </div>
           <div className="conversation-container">
-            {
+            {/* {
               messages.map(message => {
                 if (message.from_user_id === user.id) {
                   return (
@@ -184,7 +168,7 @@ const ViewConversation = (props) => {
                   )
                 }
               })
-            }
+            } */}
           </div>
           <div>
             <div className="textbox">
