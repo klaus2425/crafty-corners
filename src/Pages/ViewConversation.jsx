@@ -110,7 +110,7 @@ const ViewConversation = (props) => {
 
 
     return () => {
-      echo.leave(`chat-${user?.id}`);
+      echo.leave(`conversation-${conversation_id}`);
       console.log('unmount',);
     }
   }, [])
