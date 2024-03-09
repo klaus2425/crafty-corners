@@ -67,8 +67,8 @@ const Users = () => {
             <div key={u.id} className="community-item">
               <div className="community-item-details" >
                 <div className="community-details-top">
-                  <span id='user-img-span'><img src={storageBaseUrl + u.profile_picture} alt="" /></span>
-                  <span><strong>Full Name: <br /> </strong>{`${u.first_name} ${u.middle_name} ${u.last_name}  `} </span>
+                  <span id='user-img-span'><img src={storageBaseUrl + u.profile_picture} /></span>
+                  <span style={{wordBreak: 'break-word'}}><strong>Full Name: <br /> </strong>{`${u.first_name} ${u.middle_name} ${u.last_name}  `} </span>
                   <span><strong>Username:  <br /></strong>{u.user_name}</span>
                   <span><strong>Email:  <br /></strong>{u.email}</span>
                   <span><strong>Date Created:  <br /></strong>{u.created_at}</span>

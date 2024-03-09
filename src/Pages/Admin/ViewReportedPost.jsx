@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosClient from "../../axios-client";
 import Loading from "../../components/utils/Loading";
+import ResolveReport from "../../components/ResolveReport";
 
 const ViewReportedPost = () => {
   const { postId, reportId } = useParams();
   const [report, setReport] = useState();
   const [post, setPost] = useState();
   const [loading, setLoading] = useState();
+  const [resolveOpen, setResolveOpen] = useState(false);
   const getReport = () => {
     setLoading(true);
     axiosClient.get(`/show-report/${postId}/${reportId}`)
@@ -23,16 +25,10 @@ const ViewReportedPost = () => {
       })
   }
 
-  const suspendClick = () => {
-    
-  }
-  const removePostClick = () => {
-
+  const handleResolve = () => {
+    setResolveOpen(!resolveOpen);
   }
 
-  const removeReportClick = () => {
-
-  }
 
   useEffect(() => {
     getReport();
@@ -44,6 +40,7 @@ const ViewReportedPost = () => {
   if (post?.post_type === 'text') {
     return (
       <div className="communities-container">
+        <ResolveReport resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} />
         <div className="top-section">
           <h2>Report Details</h2>
         </div>
@@ -69,7 +66,7 @@ const ViewReportedPost = () => {
 
               <div className="report-details">
                 <strong>Reported by: </strong>
-                {report.user.first_name} {report.user.middle_name} {report.user.last_name}
+                {report?.user.first_name} {report?.user.middle_name} {report?.user.last_name}
               </div>
             </div>
             <div className="right">
@@ -80,7 +77,7 @@ const ViewReportedPost = () => {
             </div>
           </div>
           <div className="bottom-report">
-            <button onClick={suspendClick} className="purple-button">Resolve Post</button>
+            <button onClick={handleResolve} className="purple-button">Resolve Post</button>
 
 
           </div>

@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2';
 import Loading from "../../components/utils/Loading";
-import { useStateContext } from "../../context/ContextProvider";
 import { AdminPosts, UserPost } from "../../components/Post";
 import { Toaster } from "react-hot-toast";
 
@@ -27,8 +26,6 @@ const EditUser = () => {
                 setE_User(data.data);
                 setLoading(false);
                 setImage(storageBaseUrl + data.data.profile_picture);
-                setUserPosts(data.data.posts);
-                console.log(data.data.posts);
             })
             .catch((err) => {
                 setLoading(false);
@@ -44,6 +41,7 @@ const EditUser = () => {
         axiosClient.get(`/user/${id}/posts`)
             .then(({ data }) => {
                 setUserPosts(data.data)
+                console.log(data.data);
             })
             .catch((err) => {
                 const response = err.response;
