@@ -69,12 +69,7 @@ const ViewConversation = (props) => {
   }
 
   const subscribeConversation = () => {
-        echo.private(`conversation-${conversation_id}`)
-    .listen('MessageSent', (data) => {
-      console.log(data);
-      getMessages();
 
-    }).error((error) => { console.error(error) });
   }
 
   useEffect(() => {
@@ -106,7 +101,12 @@ const ViewConversation = (props) => {
         }
       }
     });
+    echo.private(`conversation-${conversation_id}`)
+    .listen('MessageSent', (data) => {
+      console.log(data);
+      getMessages();
 
+    }).error((error) => { console.error(error) });
 
 
     return () => {
