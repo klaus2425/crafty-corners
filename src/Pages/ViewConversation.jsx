@@ -81,56 +81,58 @@ const ViewConversation = (props) => {
       submit();
     }
   }
+  console.log(user);
 
-
-if (user) {
-  console.log(user.id);
-  useEffect(() => {
-    getReceiver()
-    Pusher.logToConsole = true;
-    const echo = new Echo({
-      broadcaster: 'pusher',
-      key: 'dc6423124445d7b08415',
-      cluster: 'ap1',
-      forceTLS: true,
-      authEndPoint: "/pusher/auth",
-      encrypted: true,
-      authorizer: (channel) => {
-        return {
-          authorize: (socketId, callback) => {
-            axiosClient.post('broadcasting/auth', {
-              socket_id: socketId,
-              channel_name: channel.name
-            })
-              .then(response => {
-                callback(false, response.data);
+  if (user) {
+    console.log(user.id);
+    useEffect(() => {
+      getReceiver()
+      Pusher.logToConsole = true;
+      const echo = new Echo({
+        broadcaster: 'pusher',
+        key: 'dc6423124445d7b08415',
+        cluster: 'ap1',
+        forceTLS: true,
+        authEndPoint: "/pusher/auth",
+        encrypted: true,
+        authorizer: (channel) => {
+          return {
+            authorize: (socketId, callback) => {
+              axiosClient.post('broadcasting/auth', {
+                socket_id: socketId,
+                channel_name: channel.name
               })
-              .catch(error => {
-                callback(true, error);
-              });
+                .then(response => {
+                  callback(false, response.data);
+                })
+                .catch(error => {
+                  callback(true, error);
+                });
+            }
           }
         }
+      });
+      echo.private(`conversation-${conversation_id}`)
+        .listen('MessageSent', (data) => {
+          console.log(data.user);
+          if (data.user !== user.id) {
+            getMessages(data.user);
+          }
+
+        }).error((error) => { console.error(error) });
+
+
+      return () => {
+        echo.leave(`conversation-${conversation_id}`);
+        if (messages.length === null) {
+          axiosClient.post(`/conversation/${props.id}`)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err));
+        }
+        console.log('unmount');
       }
-    });
-    echo.private(`conversation-${conversation_id}`)
-      .listen('MessageSent', (data) => {
-        console.log(data.user);
-        getMessages(data.user);
-
-      }).error((error) => { console.error(error) });
-
-
-    return () => {
-      echo.leave(`conversation-${conversation_id}`);
-      if (messages.length === null) {
-        axiosClient.post(`/conversation/${props.id}`)
-          .then(res => console.log(res.data))
-          .catch(err => console.log(err));
-      }
-      console.log('unmount');
-    }
-  }, [])
-} 
+    }, [])
+  }
 
   useEffect(() => {
     conversationEndRef.current?.scrollIntoView();
@@ -201,7 +203,7 @@ if (user) {
           <div>
             <div className="textbox">
               <div className='text-icon-container'>
-                <input ref={messageRef}  onKeyDown={handleKeyDown}  type="text" placeholder='Send a message' />
+                <input ref={messageRef} onKeyDown={handleKeyDown} type="text" placeholder='Send a message' />
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path fillRule="evenodd" clipRule="evenodd" d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM12 18C11.4477 18 11 17.5523 11 17V13H7C6.44772 13 6 12.5523 6 12C6 11.4477 6.44772 11 7 11H11V7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7V11H17C17.5523 11 18 11.4477 18 12C18 12.5523 17.5523 13 17 13H13V17C13 17.5523 12.5523 18 12 18Z" fill="#222222" />
                 </svg>
