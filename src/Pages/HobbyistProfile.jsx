@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
 import Loading from '../components/utils/Loading';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import SendMessageModal from '../components/SendMessageModal';
 
 const HobbyistProfile = () => {
   const { user } = useStateContext();
