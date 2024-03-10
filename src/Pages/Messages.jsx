@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client";
+import { useStateContext } from "../context/ContextProvider";
 
 const Messages = () => {
   const navigate = useNavigate();
   const [conversations, setConversations] = useState();
-  const viewConversation = (conversation_id, receiver_id) => {
-    navigate(`/conversation/${conversation_id}/${receiver_id}`);
+  const { user } = useStateContext(); 
+
+  const viewConversation = (conversation_id, id1, id2) => {
+      navigate(`/conversation/${conversation_id}/${id1}/${id2}`);
   }
   const storageBaseUrl = import.meta.env.VITE_STORAGE_URL;
 
@@ -42,9 +45,9 @@ const Messages = () => {
           </div>
 
           {conversations?.map(c => {
-            if (c.receiver.receiver_id === c.user_id) {
+            if (c.receiver.receiver_id === user.id) {
               return (
-                <div key={c.id} onClick={() => viewConversation(c.id, c.sender.sender_id)} className="list-card-items">
+                <div key={c.id} onClick={() => viewConversation(c.id, c.receiver.receiver_id, c.sender.sender_id)} className="list-card-items">
                   <div className="list-card-item">
                     <div className="list-card-item-image">
                       <img src={`${storageBaseUrl}${c.sender?.profile_picture}`} alt="" />
@@ -59,10 +62,9 @@ const Messages = () => {
                   </div>
                 </div>
               )
-
             }
             else return (
-              <div key={c.id} onClick={() => viewConversation(c.id, c.receiver.receiver_id)} className="list-card-items">
+              <div key={c.id} onClick={() => viewConversation(c.id, c.receiver.receiver_id, c.sender.sender_id)} className="list-card-items">
               <div className="list-card-item">
                 <div className="list-card-item-image">
                   <img src={`${storageBaseUrl}${c.receiver?.profile_picture}`} alt="" />
