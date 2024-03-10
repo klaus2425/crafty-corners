@@ -5,6 +5,7 @@ import Pusher from 'pusher-js';
 import axiosClient from '../axios-client';
 import { useStateContext } from '../context/ContextProvider';
 import Echo from 'laravel-echo';
+import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 
 const ViewConversation = (props) => {
   const [messages, setMessages] = useState([]);
@@ -18,7 +19,7 @@ const ViewConversation = (props) => {
   const handleBack = () => {
     navigate('/messages')
   }
-
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const getTimestamp = (date) => {
     const dateObject = new Date(date);
 
@@ -26,7 +27,6 @@ const ViewConversation = (props) => {
     const ampm = hours >= 12 ? 'PM' : 'AM';
     const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
     const minutes = dateObject.getMinutes().toString().padStart(2, '0');
-
     const formattedTime = `${formattedHours}:${minutes} ${ampm}`;
 
     return formattedTime;
@@ -105,12 +105,18 @@ const ViewConversation = (props) => {
 
     return () => {
       echo.leave(`conversation-${conversation_id}`);
+      if (messages.length === null) {
+          axiosClient.post(`/conversation/${props.id}`)
+          .then(res => console.log(res.data))
+          .catch(err => console.log(err));
+      }
       console.log('unmount',);
     }
   }, [])
 
   useEffect(() => {
     conversationEndRef.current?.scrollIntoView();
+    
   }, [messages])
 
 
@@ -118,6 +124,7 @@ const ViewConversation = (props) => {
   return (
     <div className="authenticated-container">
       <div className="feed">
+        <ConfirmDeleteModal id={conversation_id} deleteOpen={deleteOpen} setDeleteOpen={setDeleteOpen} />
         <div className='section-header'>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path fillRule="evenodd" clipRule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21H16.5C17.8978 21 18.5967 21 19.1481 20.7716C19.8831 20.4672 20.4672 19.8831 20.7716 19.1481C21 18.5967 21 17.8978 21 16.5V12C21 7.02944 16.9706 3 12 3ZM8 11C8 10.4477 8.44772 10 9 10H15C15.5523 10 16 10.4477 16 11C16 11.5523 15.5523 12 15 12H9C8.44772 12 8 11.5523 8 11ZM11 15C11 14.4477 11.4477 14 12 14H15C15.5523 14 16 14.4477 16 15C16 15.5523 15.5523 16 15 16H12C11.4477 16 11 15.5523 11 15Z" fill="#222222" />
@@ -134,8 +141,13 @@ const ViewConversation = (props) => {
               <span>{receiver?.type}</span>
             </div>
 
-            <div>
-              asdasd
+            <div onClick={() => setDeleteOpen(true)} className='conversation-trash'>
+              <svg width="30" height="30" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.8333 23.75L15.8333 19" stroke="#FF5C5C" stroke-width="1.9" stroke-linecap="round" />
+                <path d="M22.1667 23.75L22.1667 19" stroke="#FF5C5C" stroke-width="1.9" stroke-linecap="round" />
+                <path d="M4.75 11.0833H33.25V11.0833C31.7745 11.0833 31.0368 11.0833 30.4548 11.3244C29.6789 11.6458 29.0624 12.2622 28.741 13.0382C28.5 13.6201 28.5 14.3579 28.5 15.8333V25.3333C28.5 28.3189 28.5 29.8117 27.5725 30.7392C26.645 31.6667 25.1522 31.6667 22.1667 31.6667H15.8333C12.8478 31.6667 11.355 31.6667 10.4275 30.7392C9.5 29.8117 9.5 28.3189 9.5 25.3333V15.8333C9.5 14.3579 9.5 13.6201 9.25895 13.0382C8.93755 12.2622 8.32109 11.6458 7.54516 11.3244C6.96322 11.0833 6.22548 11.0833 4.75 11.0833V11.0833Z" fill="#7E869E" fill-opacity="0.25" stroke="#FF5C5C" stroke-width="1.9" stroke-linecap="round" />
+                <path d="M15.9412 5.33677C16.1216 5.16843 16.5192 5.01969 17.0722 4.9136C17.6253 4.8075 18.3029 4.75 19 4.75C19.6971 4.75 20.3747 4.8075 20.9277 4.9136C21.4808 5.01969 21.8783 5.16843 22.0588 5.33677" stroke="#FF5C5C" stroke-width="1.9" stroke-linecap="round" />
+              </svg>
             </div>
           </div>
           <div className="conversation-container">
