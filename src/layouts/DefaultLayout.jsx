@@ -28,9 +28,9 @@ const DefaultLayout = () => {
     }
 
     return (
-        <div  style={{ height: "100dvh" }}>
+        <div id={theme}  style={{ height: "100dvh" }}>
             <Navbar />
-            <div className="authenticated-container" id={theme}>
+            <div className="authenticated-container" >
                 <Sidebar />
                 <Outlet />
             </div>

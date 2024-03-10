@@ -3,10 +3,10 @@ import { createContext, useContext, useState } from "react";
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('');
+  const [theme, setTheme] = useState('light-theme');
 
   const toggleTheme = () => {
-    setTheme((current) => (current === 'light' ? 'dark' : 'light'));
+    setTheme((current) => (current === 'light-theme' ? 'dark-theme' : 'light'));
   }
 
   return (
