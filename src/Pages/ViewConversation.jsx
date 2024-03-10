@@ -114,8 +114,8 @@ if (user) {
     });
     echo.private(`conversation-${conversation_id}`)
       .listen('MessageSent', (data) => {
-        console.log(data);
-        getMessages();
+        console.log(data.user);
+        getMessages(data.user);
 
       }).error((error) => { console.error(error) });
 
