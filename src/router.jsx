@@ -104,7 +104,7 @@ const router = createBrowserRouter([
                 element: <ViewCommunity />
             },
             {
-                path: 'conversation/:conversation_id/:receiver_id',
+                path: 'conversation/:conversation_id/:user_id0/:user_id1',
                 element: <ViewConversation />
             },
             {

@@ -13,7 +13,7 @@ const ViewConversation = (props) => {
   const [receiver, setReceiver] = useState();
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
   const { user } = useStateContext();
-  const { conversation_id, receiver_id } = useParams();
+  const { conversation_id, user_id0, user_id1 } = useParams();
   const navigate = useNavigate();
   const conversationEndRef = useRef(null);
   const handleBack = () => {
@@ -32,25 +32,42 @@ const ViewConversation = (props) => {
     return formattedTime;
   }
 
-  const getMessages = () => {
-    axiosClient.get(`/conversation/message/${receiver_id}`)
+  const getMessages = (rec_id) => {
+    axiosClient.get(`/conversation/message/${rec_id}`)
       .then(res => {
-        console.log('Messages Retrieved:', res.data.data.messages);
+        console.log(`Receiver id posted:`, rec_id);
+        console.log('Messages Retrieved:', res.data.data);
         setMessages(res.data.data.messages);
       })
   }
 
-  const getReceiver = () => {
-    axiosClient.get(`/users/${receiver_id}`)
-      .then(res => {
-        setReceiver(res.data.data);
-      })
+  const getReceiver = async () => {
+    console.log(`${user_id0} !== ${user.id}`);
+    if (user_id0 != user.id) {
+      axiosClient.get(`/users/${user_id0}`)
+        .then(res => {
+          console.log(res.data.data);
+          setReceiver(res.data.data);
+          getMessages(res.data.data.id);
+
+        })
+    }
+    else if (user_id1 !== user.id) {
+      console.log(`user_id1 !== user.id true`);
+      axiosClient.get(`/users/${user_id1}`)
+        .then(res => {
+          setReceiver(res.data.data);
+          getMessages();
+
+        })
+    }
+
   }
 
   const submit = async () => {
     const formData = new FormData();
     formData.append('message', message);
-    axiosClient.post(`conversation/${conversation_id}/message/${receiver_id}`, formData)
+    axiosClient.post(`conversation/message/${receiver.id}`, formData)
       .then(res => {
         setMessage('')
         console.log('Messages sent:', res.data);
@@ -68,8 +85,7 @@ const ViewConversation = (props) => {
 
 
   useEffect(() => {
-    getReceiver();
-    getMessages();
+    getReceiver()
     Pusher.logToConsole = true;
     const echo = new Echo({
       broadcaster: 'pusher',
@@ -106,7 +122,7 @@ const ViewConversation = (props) => {
     return () => {
       echo.leave(`conversation-${conversation_id}`);
       if (messages.length === null) {
-          axiosClient.post(`/conversation/${props.id}`)
+        axiosClient.post(`/conversation/${props.id}`)
           .then(res => console.log(res.data))
           .catch(err => console.log(err));
       }
@@ -116,7 +132,7 @@ const ViewConversation = (props) => {
 
   useEffect(() => {
     conversationEndRef.current?.scrollIntoView();
-    
+
   }, [messages])
 
 
