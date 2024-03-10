@@ -41,22 +41,43 @@ const Messages = () => {
             </svg>
           </div>
 
-          {conversations?.map(c => (
-            <div key={c.id} onClick={() => viewConversation(c.id, c.receiver.receiver_id)} className="list-card-items">
+          {conversations?.map(c => {
+            if (c.receiver.receiver_id === c.user_id) {
+              return (
+                <div key={c.id} onClick={() => viewConversation(c.id, c.sender.sender_id)} className="list-card-items">
+                  <div className="list-card-item">
+                    <div className="list-card-item-image">
+                      <img src={`${storageBaseUrl}${c.sender?.profile_picture}`} alt="" />
+                    </div>
+                    <div className="list-card-item-text">
+                      <span>{c.sender.first_name}</span>
+                      <p>{c.message?.length > 0 && c.message[0].message}</p>
+                    </div>
+                    <div className="list-card-item-time">
+                      <span>2h</span>
+                    </div>
+                  </div>
+                </div>
+              )
+
+            }
+            else {
+              <div key={c.id} onClick={() => viewConversation(c.id, c.sender.sender_id)} className="list-card-items">
               <div className="list-card-item">
                 <div className="list-card-item-image">
                   <img src={`${storageBaseUrl}${c.receiver?.profile_picture}`} alt="" />
                 </div>
                 <div className="list-card-item-text">
                   <span>{c.receiver.first_name}</span>
-                  <p>{c.message.length > 0 && c.message[0].message}</p>
+                  <p>{c.message?.length > 0 && c.message[0].message}</p>
                 </div>
                 <div className="list-card-item-time">
                   <span>2h</span>
                 </div>
               </div>
             </div>
-          ))}
+            }
+          })}
         </div>
       </div>
       <div className="recommended">
