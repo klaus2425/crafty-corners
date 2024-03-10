@@ -3123,6 +3123,7 @@ input::-webkit-inner-spin-button {
 
   .conversation-name {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     background-color: $lighter_grey;
     border-radius: 1000px;
@@ -3136,7 +3137,6 @@ input::-webkit-inner-spin-button {
       display: flex;
       flex-direction: column;
       width: 100%;
-      padding-right: 3rem;
       text-align: center;
 
       .c-username {
