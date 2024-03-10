@@ -32,13 +32,12 @@ const ViewConversation = (props) => {
     return formattedTime;
   }
 
-  const getMessages = (rec_id) => {
-    axiosClient.get(`/conversation/message/${rec_id}`)
+  const getMessages = (rec) => {
+    axiosClient.get(`/conversation/message/${rec}`)
       .then(res => {
-        console.log(`Receiver id posted:`, rec_id);
-        console.log('Messages Retrieved:', res.data.data);
         setMessages(res.data.data.messages);
       })
+      .catch(err => console.log(err))
   }
 
   const getReceiver = async () => {
@@ -57,7 +56,7 @@ const ViewConversation = (props) => {
       axiosClient.get(`/users/${user_id1}`)
         .then(res => {
           setReceiver(res.data.data);
-          getMessages();
+          getMessages(res.data.data.id);
 
         })
     }
@@ -84,6 +83,8 @@ const ViewConversation = (props) => {
   }
 
 
+if (user) {
+  console.log(user.id);
   useEffect(() => {
     getReceiver()
     Pusher.logToConsole = true;
@@ -129,6 +130,7 @@ const ViewConversation = (props) => {
       console.log('unmount');
     }
   }, [])
+} 
 
   useEffect(() => {
     conversationEndRef.current?.scrollIntoView();

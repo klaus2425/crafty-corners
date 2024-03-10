@@ -28,14 +28,14 @@ const Navbar = () => {
         openDropDown ? setOpenDropDown(false) : setOpenDropDown(true);
     }
 
-    if (token) {
-        useEffect(() => {
-            axiosClient.get('/user')
-                .then(({ data }) => {
-                    setUser(data)
-                })
-        }, []);
-    }
+    // if (token) {
+    //     useEffect(() => {
+    //         axiosClient.get('/user')
+    //             .then(({ data }) => {
+    //                 setUser(data)
+    //             })
+    //     }, []);
+    // }
 
     if (token) {
         const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;

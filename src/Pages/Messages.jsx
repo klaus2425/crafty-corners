@@ -6,10 +6,10 @@ import { useStateContext } from "../context/ContextProvider";
 const Messages = () => {
   const navigate = useNavigate();
   const [conversations, setConversations] = useState();
-  const { user } = useStateContext(); 
+  const { user } = useStateContext();
 
   const viewConversation = (conversation_id, id1, id2) => {
-      navigate(`/conversation/${conversation_id}/${id1}/${id2}`);
+    navigate(`/conversation/${conversation_id}/${id1}/${id2}`);
   }
   const storageBaseUrl = import.meta.env.VITE_STORAGE_URL;
 
@@ -50,7 +50,7 @@ const Messages = () => {
                 <div key={c.id} onClick={() => viewConversation(c.id, c.receiver.receiver_id, c.sender.sender_id)} className="list-card-items">
                   <div className="list-card-item">
                     <div className="list-card-item-image">
-                      <img src={`${storageBaseUrl}${c.sender?.profile_picture}`} alt="" />
+                      <img src={`${storageBaseUrl}${c.user?.profile_picture}`} alt="" />
                     </div>
                     <div className="list-card-item-text">
                       <span>{c.sender.first_name}</span>
@@ -65,19 +65,19 @@ const Messages = () => {
             }
             else return (
               <div key={c.id} onClick={() => viewConversation(c.id, c.receiver.receiver_id, c.sender.sender_id)} className="list-card-items">
-              <div className="list-card-item">
-                <div className="list-card-item-image">
-                  <img src={`${storageBaseUrl}${c.receiver?.profile_picture}`} alt="" />
-                </div>
-                <div className="list-card-item-text">
-                  <span>{c.receiver.first_name}</span>
-                  <p>{c.message?.length > 0 && c.message[0].message}</p>
-                </div>
-                <div className="list-card-item-time">
-                  <span>2h</span>
+                <div className="list-card-item">
+                  <div className="list-card-item-image">
+                    <img src={`${storageBaseUrl}${c.user?.profile_picture}`} alt="" />
+                  </div>
+                  <div className="list-card-item-text">
+                    <span>{c.receiver.first_name}</span>
+                    <p>{c.message?.length > 0 && c.message[0].message}</p>
+                  </div>
+                  <div className="list-card-item-time">
+                    <span>2h</span>
+                  </div>
                 </div>
               </div>
-            </div>
             )
           })}
         </div>
