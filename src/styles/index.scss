@@ -907,6 +907,35 @@ input::-webkit-inner-spin-button {
     padding: 1.46rem;
     width: clamp(20rem, 17vw + 2rem, 35rem);
 
+    input {
+      width: 100%;
+      height: 1rem;
+      border-radius: 3.125rem;
+      font-size: 2rem;
+      border: 2px solid #D8DCE3;
+      background: #FFF;
+      color: #677186;
+      font-family: Helvetica;
+      font-size: 1rem;
+      font-style: normal;
+      font-weight: 400;
+      padding: 1rem;
+      transition: 0.4s;
+      outline: none;
+      margin-bottom: 0.5rem;
+    }
+
+    #message-close {
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 1rem;
+      span {
+        font-weight: bold;
+      }
+
+    }
+
+
     .close {
       display: flex;
       justify-content: flex-end;
@@ -2497,6 +2526,7 @@ input::-webkit-inner-spin-button {
         align-items: end;
       }
     }
+
     select {
       border: 2px $light_grey solid !important;
       border-radius: 1000px;

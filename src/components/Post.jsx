@@ -78,6 +78,7 @@ const Post = (props) => {
     //     });
     // }
 
+
     const handleReport = () => {
         setReportOpen(!reportOpen);
         setOpen(!open);
@@ -125,7 +126,7 @@ const Post = (props) => {
                 <div className="post-header" id="posts">
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
-                        <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                        <img onClick={() => {navigate(`/u/${post_user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
                             <span id='post-time'>{ago} ago</span>
@@ -136,10 +137,10 @@ const Post = (props) => {
                     </div>
                 </div>
                 <div className="title-content-container" onClick={() => viewPost()}>
-                    <span className="post-title">{post.title}</span>
+                    <span  className="post-title">{post.title}</span>
                     <div className="post-content">
                         {loading && <Skeleton className="post-image" />}
-                        <img className={loading ? 'hide' : 'post-image'} src={`${storagePostUrl}${post.image}`} alt="" onLoad={() => setLoading(false)} />
+                        <img  className={loading ? 'hide' : 'post-image'} src={`${storagePostUrl}${post.image}`} alt="" onLoad={() => setLoading(false)} />
                     </div>
                 </div>
                 <div className="post-footer">
