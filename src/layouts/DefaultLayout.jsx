@@ -3,11 +3,13 @@ import { useStateContext } from "../context/ContextProvider";
 import '../styles/index.scss'
 import Navbar from '../components/Navbar';
 import { Sidebar } from "../components/Sidebar";
+import { useThemeContext } from "../context/ThemeProvider";
 
 
 const DefaultLayout = () => {
-    const { user, token, setToken } = useStateContext();
+    const { user, token } = useStateContext();
 
+    const { theme } = useThemeContext();
     if (!token || !user) {
         return <Navigate to='/Landing' />;
     }
@@ -16,11 +18,10 @@ const DefaultLayout = () => {
     }
 
 
-
     return (
-        <div style={{ height: "100dvh" }}>
+        <div  style={{ height: "100dvh" }}>
             <Navbar />
-            <div className="authenticated-container">
+            <div className="authenticated-container" id={theme}>
                 <Sidebar />
                 <Outlet />
             </div>

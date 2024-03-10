@@ -19,21 +19,6 @@ html {
   box-sizing: border-box;
 }
 
-.light-theme {
-  --primary-color: #FFFFFF;
-  --secondary-color: #6528F7;
-  --font-color: #757579;
-  --bg-color: #fff;
-  --heading-color: #6528F7;
-}
-
-.dark-theme {
-  --primary-color: #9a97f3;
-  --secondary-color: #818cab;
-  --font-color: #e1e1ff;
-  --bg-color: #161625;
-  --heading-color: #818cab;
-}
 
 :root {
   font-family: Helvetica, system-ui, Avenir, Arial, sans-serif;
@@ -703,7 +688,6 @@ input::-webkit-inner-spin-button {
   width: 100%;
   height: 100%;
   max-height: 1080px;
-
 
   .overlay {
     position: fixed;
@@ -3875,6 +3859,42 @@ input::-webkit-inner-spin-button {
   left: 0;
   border-radius: 25px;
   overflow: hidden;
+}
+
+
+#light-theme {
+  --primary-color: #FFFFFF;
+  --secondary-color: #6528F7;
+  --font-color: #757579;
+  --bg-color: #fff;
+  --heading-color: #6528F7;
+}
+
+#dark-theme {
+  --primary-color: #9a97f3;
+  --secondary-color: #818cab;
+  --font-color: #e1e1ff;
+  --bg-color: #161625;
+  --heading-color: #818cab;
+  background-color: #0c0c0d;
+  color: #f9fafc;
+
+  .sidebar {
+    a {
+      color: #f9fafc;
+    } 
+
+    svg {
+      filter: #f9fafc;
+    }
+    path {
+      fill: #f9fafc;
+      stroke: #f9fafc;
+    }
+    circle {
+      fill: #f9fafc;
+    }
+  }
 }
 
 @media screen and (max-width: 900px) {
