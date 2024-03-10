@@ -110,7 +110,7 @@ const ViewConversation = (props) => {
           .then(res => console.log(res.data))
           .catch(err => console.log(err));
       }
-      console.log('unmount',);
+      console.log('unmount');
     }
   }, [])
 

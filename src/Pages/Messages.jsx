@@ -8,12 +8,13 @@ const Messages = () => {
   const viewConversation = (id) => {
     navigate(`/conversation/${id}/14`);
   }
+  const storageBaseUrl = import.meta.env.VITE_STORAGE_URL;
 
   const getConversations = () => {
-    axiosClient.get('chat/conversations')
+    axiosClient.get('/conversations')
       .then(res => {
-        console.log(res.data);
-        setConversations(res.data);
+        console.log(res.data.data);
+        setConversations(res.data.data);
       });
   }
 
@@ -40,20 +41,23 @@ const Messages = () => {
             </svg>
           </div>
 
-          <div onClick={() => viewConversation(1)} className="list-card-items">
-            <div className="list-card-item">
-              <div className="list-card-item-image">
-                <img src="/Jaycie.png" alt="" />
-              </div>
-              <div className="list-card-item-text">
-                <span>Jaycie</span>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat aliquam quisquam, deserunt ab vitae, eius nesciunt alias quia quo a, fuga corporis praesentium debitis quas deleniti soluta assumenda temporibus et.</p>
-              </div>
-              <div className="list-card-item-time">
-                <span>2h</span>
+          {conversations?.map(c => (
+            <div key={c.id} onClick={() => viewConversation(1)} className="list-card-items">
+              <div className="list-card-item">
+                <div className="list-card-item-image">
+                  <img src={`${storageBaseUrl}${c.receiver?.profile_picture}`} alt="" />
+                </div>
+                <div className="list-card-item-text">
+                  <span>Jaycie</span>
+                  <p>{c.message.length > 0 && c.message[0].message}</p>
+                </div>
+                <div className="list-card-item-time">
+                  <span>2h</span>
+                </div>
               </div>
             </div>
-          </div>
+          ))}
+
 
 
         </div>
