@@ -81,58 +81,54 @@ const ViewConversation = (props) => {
       submit();
     }
   }
-  console.log(user);
 
-  if (user) {
-    console.log(user.id);
-    useEffect(() => {
-      getReceiver()
-      Pusher.logToConsole = true;
-      const echo = new Echo({
-        broadcaster: 'pusher',
-        key: 'dc6423124445d7b08415',
-        cluster: 'ap1',
-        forceTLS: true,
-        authEndPoint: "/pusher/auth",
-        encrypted: true,
-        authorizer: (channel) => {
-          return {
-            authorize: (socketId, callback) => {
-              axiosClient.post('broadcasting/auth', {
-                socket_id: socketId,
-                channel_name: channel.name
+  useEffect(() => {
+    Pusher.logToConsole = true;
+    const echo = new Echo({
+      broadcaster: 'pusher',
+      key: 'dc6423124445d7b08415',
+      cluster: 'ap1',
+      forceTLS: true,
+      authEndPoint: "/pusher/auth",
+      encrypted: true,
+      authorizer: (channel) => {
+        return {
+          authorize: (socketId, callback) => {
+            axiosClient.post('broadcasting/auth', {
+              socket_id: socketId,
+              channel_name: channel.name
+            })
+              .then(response => {
+                callback(false, response.data);
               })
-                .then(response => {
-                  callback(false, response.data);
-                })
-                .catch(error => {
-                  callback(true, error);
-                });
-            }
+              .catch(error => {
+                callback(true, error);
+              });
           }
         }
-      });
-      echo.private(`conversation-${conversation_id}`)
-        .listen('MessageSent', (data) => {
-          console.log(data.user);
-          if (data.user !== user.id) {
-            getMessages(data.user);
-          }
-
-        }).error((error) => { console.error(error) });
-
-
-      return () => {
-        echo.leave(`conversation-${conversation_id}`);
-        if (messages.length === null) {
-          axiosClient.post(`/conversation/${props.id}`)
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err));
-        }
-        console.log('unmount');
       }
-    }, [])
-  }
+    });
+    echo.private(`conversation-${conversation_id}`)
+      .listen('MessageSent', (data) => {
+        console.log(data.user);
+        if (data.user !== user.id) {
+          getMessages(data.user);
+        }
+
+      }).error((error) => { console.error(error) });
+
+    getReceiver()
+
+    return () => {
+      echo.leave(`conversation-${conversation_id}`);
+      if (messages.length === null) {
+        axiosClient.post(`/conversation/${props.id}`)
+          .then(res => console.log(res.data))
+          .catch(err => console.log(err));
+      }
+      console.log('unmount');
+    }
+  }, [user])
 
   useEffect(() => {
     conversationEndRef.current?.scrollIntoView();
@@ -156,10 +152,14 @@ const ViewConversation = (props) => {
             <svg className='message-back' onClick={handleBack} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M4 8L3.64645 8.35355L3.29289 8L3.64645 7.64645L4 8ZM9 19.5C8.72386 19.5 8.5 19.2761 8.5 19C8.5 18.7239 8.72386 18.5 9 18.5L9 19.5ZM8.64645 13.3536L3.64645 8.35355L4.35355 7.64645L9.35355 12.6464L8.64645 13.3536ZM3.64645 7.64645L8.64645 2.64645L9.35355 3.35355L4.35355 8.35355L3.64645 7.64645ZM4 7.5L14.5 7.5L14.5 8.5L4 8.5L4 7.5ZM14.5 19.5L9 19.5L9 18.5L14.5 18.5L14.5 19.5ZM20.5 13.5C20.5 16.8137 17.8137 19.5 14.5 19.5L14.5 18.5C17.2614 18.5 19.5 16.2614 19.5 13.5L20.5 13.5ZM14.5 7.5C17.8137 7.5 20.5 10.1863 20.5 13.5L19.5 13.5C19.5 10.7386 17.2614 8.5 14.5 8.5L14.5 7.5Z" fill="#222222" />
             </svg>
-            <div className='c-name-type'>
-              <span className='c-username'>{receiver?.first_name}</span>
-              <span>{receiver?.type}</span>
-            </div>
+            {
+              messages.length !== 0 ? (<div className='c-name-type'>
+                <span className='c-username'>{receiver?.first_name}</span>
+                <span>{receiver?.type}</span>
+              </div>)
+                : null
+            }
+
 
             <div onClick={() => setDeleteOpen(true)} className='conversation-trash'>
               <svg width="30" height="30" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
