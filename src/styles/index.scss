@@ -1276,7 +1276,8 @@ input::-webkit-inner-spin-button {
 
       .user-img-comment {
         width: 3.125rem;
-        object-fit: scale-down;
+        object-fit: cover;
+        aspect-ratio: 1 / 1;
         border-radius: 100%;
       }
     }

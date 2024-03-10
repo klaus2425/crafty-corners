@@ -13,6 +13,7 @@ const UserFeed = () => {
     const getPosts = () => {
         axiosClient.get('/homepage-post?page=1')
             .then(res => {
+                console.log(res.data.data);
                 setPosts(res.data.data);
                 if(res.data.data.length === 0) {
                     setHasMore(false);

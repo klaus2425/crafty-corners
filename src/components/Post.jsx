@@ -195,7 +195,7 @@ const Post = (props) => {
                 <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
-                        <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                        <img onClick={() => {navigate(`/u/${post_user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
                             <span id='post-time'>{ago} ago</span>
@@ -262,7 +262,7 @@ const Post = (props) => {
                 <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
-                        <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} onLoad={() => setLoadingProfile(false)} />
+                        <img onClick={() => {navigate(`/u/${post_user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
                             <span id='post-time'>{ago} ago</span>
@@ -331,7 +331,7 @@ const Post = (props) => {
                     <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                         
                         {loadingProfile && <Skeleton circle className="post-image" />}
-                        <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} onLoad={() => setLoadingProfile(false)} />
+                        <img onClick={() => {navigate(`/u/${post_user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
                             <span id='post-time'>{ago} ago</span>
