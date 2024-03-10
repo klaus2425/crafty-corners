@@ -1,6 +1,6 @@
 import { Navigate, Outlet, } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
-import '../styles/index.scss';
+import '../styles/index.scss'
 import Navbar from '../components/Navbar';
 import { Sidebar } from "../components/Sidebar";
 
