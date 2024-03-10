@@ -37,6 +37,7 @@ const ViewConversation = (props) => {
       .then(res => {
         console.log('Messages Retrieved:', res.data.data.messages);
         setMessages(res.data.data.messages);
+        getReceiver()
       })
   }
 
@@ -68,7 +69,6 @@ const ViewConversation = (props) => {
 
 
   useEffect(() => {
-    getReceiver();
     getMessages();
     Pusher.logToConsole = true;
     const echo = new Echo({
