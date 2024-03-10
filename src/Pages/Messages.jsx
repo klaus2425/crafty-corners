@@ -61,7 +61,7 @@ const Messages = () => {
               )
 
             }
-            else {
+            else return (
               <div key={c.id} onClick={() => viewConversation(c.id, c.sender.sender_id)} className="list-card-items">
               <div className="list-card-item">
                 <div className="list-card-item-image">
@@ -76,7 +76,7 @@ const Messages = () => {
                 </div>
               </div>
             </div>
-            }
+            )
           })}
         </div>
       </div>
