@@ -41,9 +41,9 @@ const AdminLayout = () => {
                         <a onClick={() => {
                             setIsOpen(!isOpen);
                             console.log(!isOpen);
-                        }} style={{ cursor: 'pointer' }}><FontAwesomeIcon icon={faClipboard} /> Posts</a>
+                        }} style={{ cursor: 'pointer' }}><FontAwesomeIcon icon={faFlag} /> Reports</a>
                         <div className={`collapsible ${isOpen ? 'open' : ''}`}>
-                            <Link id="5" className={active === "5" ? "active" : undefined} to="/reported-posts" onClick={handleClick}><FontAwesomeIcon icon={faFlag} /> Reports</Link>
+                            <Link id="5" className={active === "5" ? "active" : undefined} to="/reported-posts" onClick={handleClick}><FontAwesomeIcon icon={faClipboard} /> Posts</Link>
                             <Link id="5" className={active === "5" ? "active" : undefined} to="/reported-posts" onClick={handleClick}><FontAwesomeIcon icon={faBoxArchive} /> Archived</Link>
                         </div>
                         <Link id="6" className={active === "6" ? "active" : undefined} to="/mentor-applicants" onClick={handleClick}><FontAwesomeIcon icon={faChalkboardUser} /> Mentors</Link>
