@@ -5,8 +5,8 @@ import axiosClient from "../axios-client";
 const Messages = () => {
   const navigate = useNavigate();
   const [conversations, setConversations] = useState();
-  const viewConversation = (id) => {
-    navigate(`/conversation/${id}/14`);
+  const viewConversation = (conversation_id, receiver_id) => {
+    navigate(`/conversation/${conversation_id}/${receiver_id}`);
   }
   const storageBaseUrl = import.meta.env.VITE_STORAGE_URL;
 
@@ -42,13 +42,13 @@ const Messages = () => {
           </div>
 
           {conversations?.map(c => (
-            <div key={c.id} onClick={() => viewConversation(1)} className="list-card-items">
+            <div key={c.id} onClick={() => viewConversation(c.id, c.receiver.receiver_id)} className="list-card-items">
               <div className="list-card-item">
                 <div className="list-card-item-image">
                   <img src={`${storageBaseUrl}${c.receiver?.profile_picture}`} alt="" />
                 </div>
                 <div className="list-card-item-text">
-                  <span>Jaycie</span>
+                  <span>{c.receiver.first_name}</span>
                   <p>{c.message.length > 0 && c.message[0].message}</p>
                 </div>
                 <div className="list-card-item-time">
@@ -57,11 +57,7 @@ const Messages = () => {
               </div>
             </div>
           ))}
-
-
-
         </div>
-
       </div>
       <div className="recommended">
       </div>

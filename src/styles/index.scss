@@ -3141,7 +3141,7 @@ input::-webkit-inner-spin-button {
     background-color: $lighter_grey;
     border-radius: 1000px;
     padding: 0.25rem;
-
+    min-height: 4rem;
     svg {
       margin-left: 1rem;
     }
