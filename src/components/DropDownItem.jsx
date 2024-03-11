@@ -7,8 +7,7 @@ import { useThemeContext } from '../context/ThemeProvider';
 
 
 const DropDownItem = (props) => {
-    const {theme, toggleTheme} = useThemeContext();
-    const [isDarkMode, setDarkMode] = useState(false);
+    const {theme, toggleTheme, isDarkMode} = useThemeContext();
 
     return (
         <div className="dropdown-menu">
