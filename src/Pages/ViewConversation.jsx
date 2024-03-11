@@ -107,6 +107,7 @@ const ViewConversation = (props) => {
 
   useEffect(() => {
     getReceiver()
+    console.log('I fire once');
 
     // Pusher.logToConsole = true;
     const echo = new Echo({
@@ -144,17 +145,15 @@ const ViewConversation = (props) => {
     conversationEndRef.current?.scrollIntoView();
 
 
+
+
     return () => {
       echo.leave(`conversation-${conversation_id}`);
-      if (messages.length === null) {
-        axiosClient.post(`/conversation/${props.id}`)
-          .then(res => console.log(res.data))
-          .catch(err => console.log(err));
+      if (messages.length == 0) {
+        axiosClient.delete(`/conversation/${conversation_id}`).catch(err => console.log(err));
       }
-      console.log('unmount');
-    }
-  }, [])
-
+    };
+  }, []);
 
 
 
