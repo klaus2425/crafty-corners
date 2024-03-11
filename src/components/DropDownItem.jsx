@@ -7,7 +7,7 @@ import { useThemeContext } from '../context/ThemeProvider';
 
 
 const DropDownItem = (props) => {
-    const {theme} = useThemeContext();
+    const {theme, toggleTheme} = useThemeContext();
     const [isDarkMode, setDarkMode] = useState(false);
 
     return (
@@ -17,7 +17,11 @@ const DropDownItem = (props) => {
             <span>{props.type}</span>
 
             {props.type !== 'admin' && <div><FontAwesomeIcon icon={faGears} /><Link to={'/account-settings'}>Account Settings</Link></div>}
-            <DarkModeSwitch />
+            <DarkModeSwitch 
+                  checked={isDarkMode}
+                  onChange={toggleTheme}
+                  size={50}
+            />
             <button id='logout_button' onClick={props.logout}>Log Out</button>
         </div>
     );
