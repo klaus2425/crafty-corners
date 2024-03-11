@@ -9,7 +9,7 @@ const Messages = () => {
   const { user } = useStateContext();
 
   const viewConversation = (conversation_id, id1, id2) => {
-    navigate(`/conversation/${conversation_id}/${id1}/${id2}`);
+    navigate(`/conversation/${conversation_id}?user_id0=${id1}&user_id1=${id2}&lid=${user.id}`);
   }
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
 

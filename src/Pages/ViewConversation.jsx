@@ -6,14 +6,22 @@ import axiosClient from '../axios-client';
 import { useStateContext } from '../context/ContextProvider';
 import Echo from 'laravel-echo';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
+import InfiniteScroll from 'react-infinite-scroll-component'
+import Loading from '../components/utils/Loading';
 
 const ViewConversation = (props) => {
+  const [pageIndex, setPageIndex] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
   const [messages, setMessages] = useState([]);
   const messageRef = useRef();
+  const params = new URLSearchParams(window.location.search);
+  const user_id0 = params.get('user_id0');
+  const user_id1 = params.get('user_id1');
+  const my_user_id = params.get('lid')
   const [receiver, setReceiver] = useState();
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
   const { user } = useStateContext();
-  const { conversation_id, user_id0, user_id1 } = useParams();
+  const { conversation_id } = useParams();
   const navigate = useNavigate();
   const conversationEndRef = useRef(null);
   const handleBack = () => {
@@ -32,27 +40,43 @@ const ViewConversation = (props) => {
     return formattedTime;
   }
 
+  const fetchNext = () => {
+    console.log('Fetch Next called');
+    console.log(messages.length);
+    axiosClient.get(`/conversation/message/${receiver.id}?page=${pageIndex + 1}`)
+      .then((res) => {
+        console.log(res.data.data.meta);
+        setMessages(messages.concat(res.data.data.messages))
+        if (res.data.data.meta.current_page >= res.data.data.meta.last_page) {
+          setHasMore(false);
+          console.log('last page');
+        }
+        setPageIndex(pageIndex + 1)
+
+      })
+  }
+
   const getMessages = (rec) => {
-    axiosClient.get(`/conversation/message/${rec}`)
+    axiosClient.get(`/conversation/message/${rec}?page=${1}`)
       .then(res => {
+        setPageIndex(1)
+        setHasMore(true)
+        conversationEndRef.current?.scrollIntoView();
         setMessages(res.data.data.messages);
       })
       .catch(err => console.log(err))
   }
 
-  const getReceiver = async () => {
-    console.log(`${user_id0} !== ${user.id}`);
-    if (user_id0 != user.id) {
+  const getReceiver = () => {
+    if (user_id0 != my_user_id) {
       axiosClient.get(`/users/${user_id0}`)
         .then(res => {
           console.log(res.data.data);
           setReceiver(res.data.data);
           getMessages(res.data.data.id);
-
         })
     }
-    else if (user_id1 !== user.id) {
-      console.log(`user_id1 !== user.id true`);
+    else if (user_id1 !== my_user_id) {
       axiosClient.get(`/users/${user_id1}`)
         .then(res => {
           setReceiver(res.data.data);
@@ -63,14 +87,13 @@ const ViewConversation = (props) => {
 
   }
 
-  const submit = async () => {
+  const submit = () => {
     const formData = new FormData();
     formData.append('message', messageRef.current.value);
     axiosClient.post(`/conversation/message/${receiver.id}`, formData)
       .then(res => {
-        console.log('Messages sent:', res.data.data.receiver.receiver_id);
-        getMessages(res.data.data.receiver.receiver_id);
         messageRef.current.value = "";
+        getMessages(res.data.data.receiver.receiver_id);
 
       })
       .catch(err => console.log(err))
@@ -83,7 +106,9 @@ const ViewConversation = (props) => {
   }
 
   useEffect(() => {
-    Pusher.logToConsole = true;
+    getReceiver()
+
+    // Pusher.logToConsole = true;
     const echo = new Echo({
       broadcaster: 'pusher',
       key: 'dc6423124445d7b08415',
@@ -111,13 +136,13 @@ const ViewConversation = (props) => {
     echo.private(`conversation-${conversation_id}`)
       .listen('MessageSent', (data) => {
         console.log(data.user);
-        if (data.user !== user.id) {
+        if (data.user !== my_user_id) {
           getMessages(data.user);
         }
 
       }).error((error) => { console.error(error) });
+    conversationEndRef.current?.scrollIntoView();
 
-    getReceiver()
 
     return () => {
       echo.leave(`conversation-${conversation_id}`);
@@ -128,12 +153,9 @@ const ViewConversation = (props) => {
       }
       console.log('unmount');
     }
-  }, [user])
+  }, [])
 
-  useEffect(() => {
-    conversationEndRef.current?.scrollIntoView();
 
-  }, [messages])
 
 
 
@@ -152,53 +174,53 @@ const ViewConversation = (props) => {
             <svg className='message-back' onClick={handleBack} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M4 8L3.64645 8.35355L3.29289 8L3.64645 7.64645L4 8ZM9 19.5C8.72386 19.5 8.5 19.2761 8.5 19C8.5 18.7239 8.72386 18.5 9 18.5L9 19.5ZM8.64645 13.3536L3.64645 8.35355L4.35355 7.64645L9.35355 12.6464L8.64645 13.3536ZM3.64645 7.64645L8.64645 2.64645L9.35355 3.35355L4.35355 8.35355L3.64645 7.64645ZM4 7.5L14.5 7.5L14.5 8.5L4 8.5L4 7.5ZM14.5 19.5L9 19.5L9 18.5L14.5 18.5L14.5 19.5ZM20.5 13.5C20.5 16.8137 17.8137 19.5 14.5 19.5L14.5 18.5C17.2614 18.5 19.5 16.2614 19.5 13.5L20.5 13.5ZM14.5 7.5C17.8137 7.5 20.5 10.1863 20.5 13.5L19.5 13.5C19.5 10.7386 17.2614 8.5 14.5 8.5L14.5 7.5Z" fill="#222222" />
             </svg>
-            {
-              messages.length !== 0 ? (<div className='c-name-type'>
-                <span className='c-username'>{receiver?.first_name}</span>
-                <span>{receiver?.type}</span>
-              </div>)
-                : null
-            }
-
-
+            <div className='c-name-type'>
+              <span className='c-username'>{receiver?.first_name}</span>
+              <span>{receiver?.type}</span>
+            </div>
             <div onClick={() => setDeleteOpen(true)} className='conversation-trash'>
               <svg width="30" height="30" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15.8333 23.75L15.8333 19" stroke="#FF5C5C" stroke-width="1.9" stroke-linecap="round" />
-                <path d="M22.1667 23.75L22.1667 19" stroke="#FF5C5C" stroke-width="1.9" stroke-linecap="round" />
-                <path d="M4.75 11.0833H33.25V11.0833C31.7745 11.0833 31.0368 11.0833 30.4548 11.3244C29.6789 11.6458 29.0624 12.2622 28.741 13.0382C28.5 13.6201 28.5 14.3579 28.5 15.8333V25.3333C28.5 28.3189 28.5 29.8117 27.5725 30.7392C26.645 31.6667 25.1522 31.6667 22.1667 31.6667H15.8333C12.8478 31.6667 11.355 31.6667 10.4275 30.7392C9.5 29.8117 9.5 28.3189 9.5 25.3333V15.8333C9.5 14.3579 9.5 13.6201 9.25895 13.0382C8.93755 12.2622 8.32109 11.6458 7.54516 11.3244C6.96322 11.0833 6.22548 11.0833 4.75 11.0833V11.0833Z" fill="#7E869E" fill-opacity="0.25" stroke="#FF5C5C" stroke-width="1.9" stroke-linecap="round" />
-                <path d="M15.9412 5.33677C16.1216 5.16843 16.5192 5.01969 17.0722 4.9136C17.6253 4.8075 18.3029 4.75 19 4.75C19.6971 4.75 20.3747 4.8075 20.9277 4.9136C21.4808 5.01969 21.8783 5.16843 22.0588 5.33677" stroke="#FF5C5C" stroke-width="1.9" stroke-linecap="round" />
+                <path d="M15.8333 23.75L15.8333 19" stroke="#FF5C5C" strokeWidth="1.9" strokeLinecap="round" />
+                <path d="M22.1667 23.75L22.1667 19" stroke="#FF5C5C" strokeWidth="1.9" strokeLinecap="round" />
+                <path d="M4.75 11.0833H33.25V11.0833C31.7745 11.0833 31.0368 11.0833 30.4548 11.3244C29.6789 11.6458 29.0624 12.2622 28.741 13.0382C28.5 13.6201 28.5 14.3579 28.5 15.8333V25.3333C28.5 28.3189 28.5 29.8117 27.5725 30.7392C26.645 31.6667 25.1522 31.6667 22.1667 31.6667H15.8333C12.8478 31.6667 11.355 31.6667 10.4275 30.7392C9.5 29.8117 9.5 28.3189 9.5 25.3333V15.8333C9.5 14.3579 9.5 13.6201 9.25895 13.0382C8.93755 12.2622 8.32109 11.6458 7.54516 11.3244C6.96322 11.0833 6.22548 11.0833 4.75 11.0833V11.0833Z" fill="#7E869E" fillOpacity="0.25" stroke="#FF5C5C" strokeWidth="1.9" strokeLinecap="round" />
+                <path d="M15.9412 5.33677C16.1216 5.16843 16.5192 5.01969 17.0722 4.9136C17.6253 4.8075 18.3029 4.75 19 4.75C19.6971 4.75 20.3747 4.8075 20.9277 4.9136C21.4808 5.01969 21.8783 5.16843 22.0588 5.33677" stroke="#FF5C5C" strokeWidth="1.9" strokeLinecap="round" />
               </svg>
             </div>
           </div>
           <div className="conversation-container">
-            {
-              messages.map(message => {
-                if (message.sender_id === user.id) {
-                  return (
-                    <div key={message.id}>
-                      <div className="conversation-item-user">
-                        <img className='chat-img' src={`${storageBaseUrl}${user?.profile_picture}`} alt="" />
-                        <span className="chat">{message.message}</span>
-                        <span className='chat-timestamp'>{getTimestamp(message.created_at)}</span>
-                      </div>
-                      <div ref={conversationEndRef} />
-                    </div>
-                  )
+            <div id='conversation-scroll' >
+              <InfiniteScroll style={{ display: 'flex', flexDirection: 'column-reverse' }} inverse={true}
+                scrollableTarget='conversation-scroll' dataLength={messages.length} next={fetchNext} hasMore={hasMore} loader={<Loading />}
+                endMessage={
+                  <div style={{ textAlign: 'center' }}>
+                    <h2>Start of Conversation</h2>
+                  </div>
+                }>
+                {
+                  messages.map(message => {
+                    if (message.sender_id == my_user_id) {
+                      return (
+                        <div key={message.id} className="conversation-item-user">
+                          <span className="chat">{message.message}</span>
+                          <span className='chat-timestamp'>{getTimestamp(message.created_at)}</span>
+                        </div>
+                      )
+                    }
+                    else {
+                      return (
+                        <div key={message.id} className="conversation-item-sender">
+                          <img className='chat-img' src={`${storageBaseUrl}${receiver?.profile_picture}`} alt="" />
+                          <span className="chat">{message.message}</span>
+                          <span className='chat-timestamp'>{getTimestamp(message.created_at)}</span>
+                        </div>
+                      )
+                    }
+                  })
                 }
-                else {
-                  return (
-                    <div key={message.id}>
-                      <div key={message.id} className="conversation-item-sender">
-                        <img className='chat-img' src={`${storageBaseUrl}${receiver?.profile_picture}`} alt="" />
-                        <span className="chat">{message.message}</span>
-                        <span className='chat-timestamp'>{getTimestamp(message.created_at)}</span>
-                      </div>
-                      <div ref={conversationEndRef} />
-                    </div>
-                  )
-                }
-              })
-            }
+              </InfiniteScroll>
+            </div>
+            <div className='end' ref={conversationEndRef}></div>
+
           </div>
           <div>
             <div className="textbox">

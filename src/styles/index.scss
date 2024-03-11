@@ -538,13 +538,13 @@ input::-webkit-inner-spin-button {
   display: flex;
   background-color: #FFF;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   z-index: 3;
 
   h1 {
     color: #000;
     font-family: Archivo;
-    font-size: 2.21763rem;
+    font-size: clamp(1.5rem, 4vw, 2.21763rem);
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -564,7 +564,7 @@ input::-webkit-inner-spin-button {
     justify-content: center;
 
     input {
-      width: clamp(10rem, 40vw + 5rem, 50rem);
+      width: clamp(5rem, 40vw, 50rem);
 
       height: 2.125rem;
       border-radius: 3.125rem;
@@ -1924,13 +1924,25 @@ input::-webkit-inner-spin-button {
 
 }
 
-.scroll {
+#scroll {
   height: 100%;
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
+  overflow: auto;
 }
+#scroll::-webkit-scrollbar {
+  display: none;
+}
+
+#conversation-scroll {
+  overflow: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+
+}
+.infinite-scroll-component::-webkit-scrollbar {
+  display: none;
+}
+
 
 .post {
   margin: 0.2rem;
@@ -3182,24 +3194,18 @@ input::-webkit-inner-spin-button {
   }
 
   .conversation-container {
+    display: flex;
     width: 100%;
     height: 100%;
     max-height: 50vh;
-    overflow-y: auto;
-    gap: 3rem;
-    padding-top: 2rem;
-    padding-right: 0.25rem;
-    padding-bottom: 1.25rem;
     margin-top: 0.56rem;
-    margin-bottom: 0.56rem;
-    display: flex;
     flex-direction: column;
 
     .conversation-item-sender {
       display: flex;
       width: 100%;
       gap: 1rem;
-
+      margin: 1rem 0;
       .chat-timestamp {
         display: flex;
         font-size: 0.8rem;
@@ -3218,6 +3224,7 @@ input::-webkit-inner-spin-button {
       .chat {
         word-break: break-all;
         height: fit-content;
+        width: fit-content;
         text-wrap: wrap;
         border-radius: 25px;
         background-color: $lighter_grey;
@@ -3233,7 +3240,8 @@ input::-webkit-inner-spin-button {
       gap: 1rem;
       justify-content: flex-start;
       flex-direction: row-reverse;
-
+      margin: 1rem 0;
+      padding-right: 0.5rem;
       .chat-timestamp {
         display: flex;
         font-size: 0.8rem;
@@ -4045,6 +4053,24 @@ input::-webkit-inner-spin-button {
     textarea {
       background-color: #242526;
       border: #242526;
+      color: #e4e6eb;
+    }
+    .post-input {
+      input,
+      textarea,
+      select {
+        background-color: #242526;
+        border: 0;
+        color: #e4e6eb;
+      }
+      .media-upload-container {
+        border: 0;
+        background-color: #242526;
+
+      }
+    }
+    .react-tabs__tab{
+      background-color: #242526;
       color: #e4e6eb;
     }
   }
