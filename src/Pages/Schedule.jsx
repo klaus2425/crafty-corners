@@ -97,6 +97,7 @@ const Schedule2 = () => {
                         plugins={[dayGridPlugin, interactionPlugin]}
                         initialView="dayGridMonth"
                         selectable
+                        themeSystem='custom'
                         // events={[
                         //     {
                         //       title: "✔️",

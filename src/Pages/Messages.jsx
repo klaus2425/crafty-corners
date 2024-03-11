@@ -11,7 +11,7 @@ const Messages = () => {
   const viewConversation = (conversation_id, id1, id2) => {
     navigate(`/conversation/${conversation_id}/${id1}/${id2}`);
   }
-  const storageBaseUrl = import.meta.env.VITE_STORAGE_URL;
+  const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
 
   const getConversations = () => {
     axiosClient.get('/conversations')
@@ -45,15 +45,19 @@ const Messages = () => {
           </div>
 
           {conversations?.map(c => {
-            if (c.receiver.receiver_id === user.id) {
+            console.log('User 0', c.user_0.id);
+            console.log('User 1', c.user_1.id);
+            console.log('User ID', user.id);;
+            console.log(c.user_0 == user.id);
+            if (c.user_0.id == user.id) {
               return (
-                <div key={c.id} onClick={() => viewConversation(c.id, c.receiver.receiver_id, c.sender.sender_id)} className="list-card-items">
+                <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
                   <div className="list-card-item">
                     <div className="list-card-item-image">
-                      <img src={`${storageBaseUrl}${c.user?.profile_picture}`} alt="" />
+                      <img src={`${storageBaseUrl}${c.receiver_profile_picture}`} alt="" />
                     </div>
                     <div className="list-card-item-text">
-                      <span>{c.sender.first_name}</span>
+                      <span>{c.user_1.first_name}</span>
                       <p>{c.message?.length > 0 && c.message[0].message}</p>
                     </div>
                     <div className="list-card-item-time">
@@ -64,13 +68,13 @@ const Messages = () => {
               )
             }
             else return (
-              <div key={c.id} onClick={() => viewConversation(c.id, c.receiver.receiver_id, c.sender.sender_id)} className="list-card-items">
+              <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
                 <div className="list-card-item">
                   <div className="list-card-item-image">
-                    <img src={`${storageBaseUrl}${c.user?.profile_picture}`} alt="" />
+                    <img src={`${storageBaseUrl}${c.receiver_profile_picture}`} alt="" />
                   </div>
                   <div className="list-card-item-text">
-                    <span>{c.receiver.first_name}</span>
+                    <span>{c.user_0.first_name}</span>
                     <p>{c.message?.length > 0 && c.message[0].message}</p>
                   </div>
                   <div className="list-card-item-time">
@@ -79,6 +83,8 @@ const Messages = () => {
                 </div>
               </div>
             )
+
+
           })}
         </div>
       </div>

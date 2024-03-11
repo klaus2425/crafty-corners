@@ -8,8 +8,10 @@ import {
     faNewspaper, faFilm, faClipboard, faChalkboardUser,
     faFlag, faBoxArchive
 } from '@fortawesome/free-solid-svg-icons'
+import { useThemeContext } from "../context/ThemeProvider";
 const AdminLayout = () => {
     const { user, token } = useStateContext();
+    const { theme } = useThemeContext();
     const [isOpen, setIsOpen] = useState(false);
 
     if (user.type === 'hobbyist' || user.type === 'mentor') {
@@ -27,7 +29,7 @@ const AdminLayout = () => {
 
 
     return (
-        <div>
+        <div id={theme}>
             <AdminNavbar />
             <div className="admin-dashboard">
                 <div className="dashboard-sidebar">
