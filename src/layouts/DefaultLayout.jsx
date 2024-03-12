@@ -28,7 +28,7 @@ const DefaultLayout = () => {
     }
 
     return (
-        <div className="body-container" id={theme}  style={{ height: "100dvh" }}>
+        <div className="body-container" id={theme}  style={{ height: "100dvh", overflowY: 'scroll' }}>
             <Navbar />
             <div className="authenticated-container" >
                 <Sidebar />

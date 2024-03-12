@@ -1934,7 +1934,7 @@ input::-webkit-inner-spin-button {
 }
 
 #scroll {
-  height: 100%;
+  height: fit-content;
   overflow: auto;
 }
 
