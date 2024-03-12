@@ -29,7 +29,7 @@ const AdminLayout = () => {
 
 
     return (
-        <div id={theme}>
+        <div style={{ height: "100dvh" }} id={theme}>
             <AdminNavbar />
             <div className="admin-dashboard">
                 <div className="dashboard-sidebar">
@@ -54,7 +54,7 @@ const AdminLayout = () => {
                 <div className="dashboard-right">
                     <div className="admin-container">
 
-                        <div className="bottom">
+                        <div className="admin-container-card">
                             <Outlet />
                         </div>
                     </div>

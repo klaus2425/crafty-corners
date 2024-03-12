@@ -65,6 +65,7 @@ html {
 #admin-navbar {
   justify-content: space-between;
 }
+
 .event-content {
   color: #FFF;
   border-radius: 5px;
@@ -347,7 +348,6 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 2px $light_grey solid;
 
   h1 {
     color: #000;
@@ -540,6 +540,7 @@ input::-webkit-inner-spin-button {
   align-items: center;
   justify-content: space-between;
   z-index: 3;
+  transition: 0.3s;
 
   h1 {
     color: #000;
@@ -578,7 +579,7 @@ input::-webkit-inner-spin-button {
       line-height: normal;
       font-size: 1rem;
       padding: 1.2rem;
-      transition: 0.5s;
+      transition: 0.3s;
     }
 
     input[type]:focus {
@@ -677,6 +678,10 @@ input::-webkit-inner-spin-button {
     display: flex;
     flex-direction: column;
   }
+}
+
+.body-container {
+  transition: 0.3s;
 }
 
 .authenticated-container {
@@ -1042,6 +1047,7 @@ input::-webkit-inner-spin-button {
       display: flex;
       justify-content: center;
       width: clamp(5rem, 10vw + 7rem, 16rem);
+      transition: 0.3s;
 
       h3 {
         font-size: clamp(0.8rem, 1vw, 3rem);
@@ -1623,6 +1629,7 @@ input::-webkit-inner-spin-button {
       flex-wrap: wrap;
       width: 100%;
       min-width: 0;
+      transition: 0.3s;
 
       .edit-header {
         display: flex;
@@ -1899,6 +1906,7 @@ input::-webkit-inner-spin-button {
   padding: 10px;
   width: 15rem;
   gap: 0.5rem;
+  transition: 0.3s;
 
   h3 {
     border-bottom: 2px solid gray;
@@ -1928,6 +1936,7 @@ input::-webkit-inner-spin-button {
   height: 100%;
   overflow: auto;
 }
+
 #scroll::-webkit-scrollbar {
   display: none;
 }
@@ -1939,6 +1948,7 @@ input::-webkit-inner-spin-button {
   flex-direction: column-reverse;
 
 }
+
 .infinite-scroll-component::-webkit-scrollbar {
   display: none;
 }
@@ -1952,7 +1962,7 @@ input::-webkit-inner-spin-button {
   box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
   border-radius: 15px;
   width: clamp(2rem, 40vw + 2rem, 50rem);
-
+  transition: 0.3s;
   padding: 1rem;
   margin-bottom: 1.5rem;
   gap: 0.5rem;
@@ -2152,10 +2162,15 @@ input::-webkit-inner-spin-button {
 
 
 .admin-dashboard {
-  height: 100svh;
   padding-top: 6rem;
   padding-left: 2rem;
   display: flex;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
 
   .dashboard-sidebar {
     width: 16%;
@@ -2205,6 +2220,7 @@ input::-webkit-inner-spin-button {
       width: clamp(45rem, 60vw, 250rem);
       flex-direction: column;
       justify-content: center;
+      transition: 0.3s;
 
       .admin-posts {
         margin-top: 1rem;
@@ -2214,33 +2230,8 @@ input::-webkit-inner-spin-button {
         align-items: center;
       }
 
-      .top {
-        display: flex;
-        background-color: $light_grey;
-        padding: 2rem;
-        gap: clamp(0.1rem, 0.3vw + 0.4rem, 3rem);
-        word-wrap: break-word;
-        width: 100%;
 
-        a {
-          text-decoration: none;
-          color: $dark_grey;
-          font-size: clamp(1.5rem, 2vw, 1.5rem);
-          font-weight: bold;
-          border-radius: 15px;
-          padding: 0.45rem;
-        }
-
-        a:hover {
-          background-color: $light_grey;
-        }
-
-        .active {
-          background-color: $light_grey;
-        }
-      }
-
-      .bottom {
+      .admin-container-card {
         overflow: auto;
         background-color: #FFF;
         border-radius: 25px;
@@ -2249,6 +2240,7 @@ input::-webkit-inner-spin-button {
         justify-content: center;
         width: 100%;
         min-height: 60vh;
+        transition: 0.3s;
 
         .users-table {
           display: flex;
@@ -2390,7 +2382,20 @@ input::-webkit-inner-spin-button {
         margin-left: 1rem;
         width: 30%;
         flex-direction: column;
-
+        input,
+        textarea,
+        select {
+          border-radius: 10px;
+          border: 2px solid #D8DCE3;
+          background: #FFF;
+          color: #677186;
+          font-size: 1rem;
+          font-family: Helvetica, Arial, sans-serif;
+          padding: 0.75rem;
+          resize: none;
+          margin-left: 1rem;
+          transition: 0.5s;
+        }
         .gender-container {
           display: flex;
           align-items: center;
@@ -2544,6 +2549,7 @@ input::-webkit-inner-spin-button {
     z-index: 1000;
     padding: 1.46rem;
     width: 50rem;
+    transition: 0.3s;
 
     .close {
       width: 100%;
@@ -2761,6 +2767,7 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     border-radius: 25px;
     position: fixed;
+    transition: 0.3s;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -3201,11 +3208,15 @@ input::-webkit-inner-spin-button {
     margin-top: 0.56rem;
     flex-direction: column;
 
+
+
     .conversation-item-sender {
       display: flex;
       width: 100%;
       gap: 1rem;
       margin: 1rem 0;
+      animation: slideUp 0.3s ease-in-out;
+
       .chat-timestamp {
         display: flex;
         font-size: 0.8rem;
@@ -3221,6 +3232,8 @@ input::-webkit-inner-spin-button {
         object-fit: cover;
       }
 
+
+
       .chat {
         word-break: break-all;
         height: fit-content;
@@ -3231,6 +3244,7 @@ input::-webkit-inner-spin-button {
         padding: 1rem;
         color: #000000;
         max-width: 70ch;
+
       }
     }
 
@@ -3242,6 +3256,8 @@ input::-webkit-inner-spin-button {
       flex-direction: row-reverse;
       margin: 1rem 0;
       padding-right: 0.5rem;
+      animation: slideUp 0.3s ease-in-out;
+
       .chat-timestamp {
         display: flex;
         font-size: 0.8rem;
@@ -3411,6 +3427,7 @@ input::-webkit-inner-spin-button {
   padding: 1rem;
   overflow: auto;
   height: 20rem;
+  transition: 0.3s;
 
   .card-search {
     position: relative;
@@ -3739,12 +3756,20 @@ input::-webkit-inner-spin-button {
   gap: 2rem;
   justify-content: center;
 
-  input {
-    padding-left: 1rem;
-    border: 1px solid $light_grey;
-    width: 15rem;
-    padding: 0.65rem;
-    border-radius: 2px;
+  input,
+  textarea,
+  select {
+    border-radius: 10px;
+    width: clamp(5rem, 20vw, 20rem);
+    border: 2px solid #D8DCE3;
+    background: #FFF;
+    color: #677186;
+    font-size: 1rem;
+    font-family: Helvetica, Arial, sans-serif;
+    padding: 0.75rem;
+    resize: none;
+    margin-left: 1rem;
+    transition: 0.5s;
   }
 
   .left {
@@ -3895,6 +3920,16 @@ input::-webkit-inner-spin-button {
   background-color: #18191a;
   color: #e4e6eb;
 
+  .notification-card {
+    background-color: #242526;
+    color: #e4e6eb;
+    transition: 0.3s;
+
+    #bold {
+      color: #e4e6eb;
+
+    }
+  }
 
   .authenticated-navbar {
     background-color: #242526;
@@ -3926,11 +3961,13 @@ input::-webkit-inner-spin-button {
     transition: 0.2s;
     background-color: #242526;
   }
-  .schedule-card{
+
+  .schedule-card {
     .fc-col-header-cell-cushion {
       color: #e4e6eb;
     }
   }
+
   .dropdown-menu {
     background-color: #242526;
     border: 0;
@@ -3968,7 +4005,9 @@ input::-webkit-inner-spin-button {
 
   .card {
     background-color: #242526;
-    select, input {
+
+    select,
+    input {
       background-color: #18191a;
       border: 0;
       color: #e4e6eb;
@@ -3976,12 +4015,14 @@ input::-webkit-inner-spin-button {
   }
 
   .fc-col-header-cell-cushion {
-    color: #e4e6eb; /* Change the font color of the day headers */
+    color: #e4e6eb;
+    /* Change the font color of the day headers */
   }
 
   .fc-daygrid-day-number {
     color: #e4e6eb;
   }
+
   .ellipsis-dropdown {
     background-color: #18191a;
     color: #e4e6eb;
@@ -4055,7 +4096,9 @@ input::-webkit-inner-spin-button {
       border: #242526;
       color: #e4e6eb;
     }
+
     .post-input {
+
       input,
       textarea,
       select {
@@ -4063,13 +4106,15 @@ input::-webkit-inner-spin-button {
         border: 0;
         color: #e4e6eb;
       }
+
       .media-upload-container {
         border: 0;
         background-color: #242526;
 
       }
     }
-    .react-tabs__tab{
+
+    .react-tabs__tab {
       background-color: #242526;
       color: #e4e6eb;
     }
@@ -4298,6 +4343,7 @@ input::-webkit-inner-spin-button {
     .mentor-item-card {
       background-color: #18191a;
       border: 0;
+
       .mentor-name {
         color: #e4e6eb;
       }
@@ -4306,9 +4352,10 @@ input::-webkit-inner-spin-button {
 
   .modal {
     background-color: #242526;
+
     h2 {
       color: #e4e6eb;
-      }
+    }
 
     .close {
       path {
@@ -4320,6 +4367,71 @@ input::-webkit-inner-spin-button {
       background-color: #18191a;
     }
 
+  }
+
+  .admin-container-card {
+    background-color: #242526;
+
+    .community-item {
+      background-color: #18191a;
+      border-color: #18191a;
+      color: #e4e6eb;
+
+    }
+  }
+
+  .navbar {
+    background-color: #242526;
+  }
+
+  .dashboard-sidebar {
+    background-color: #242526;
+
+    .admin-header {
+      color: #e4e6eb;
+    }
+
+    a {
+      color: #e4e6eb;
+
+    }
+  }
+
+  .applicant-info-container {
+    input {
+      background-color: #18191a;
+      color: #e4e6eb;
+      border: 0;
+    }
+  }
+
+  .community-inputs, .article-input, .edit-inputs {
+
+    input,
+    textarea, select {
+      background-color: #18191a;
+      border-color: #18191a;
+      color: #e4e6eb;
+      transition: 0.3s;
+    }
+  }
+
+  
+
+  .community-labels {
+    color: #e4e6eb;
+  }
+
+  .upload-picture {
+    color: #e4e6eb;
+
+  }
+
+  .add-community-container {
+    h1 {
+      color: #e4e6eb;
+
+    }
   }
 }
 
@@ -4359,4 +4471,20 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
   }
 
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  1% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

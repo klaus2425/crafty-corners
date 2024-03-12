@@ -13,7 +13,7 @@ const EditUser = () => {
     const [imageChange, setImageChange] = useState(false);
     const [loading, setLoading] = useState(false);
     const [image, setImage] = useState();
-    const [userPosts, setUserPosts] = useState([]);
+    // const [userPosts, setUserPosts] = useState([]);
     
 
 
@@ -37,26 +37,26 @@ const EditUser = () => {
                 });
             })
     }
-    const getUserPosts = () => {
-        axiosClient.get(`/user/${id}/posts`)
-            .then(({ data }) => {
-                setUserPosts(data.data)
-                console.log(data.data);
-            })
-            .catch((err) => {
-                const response = err.response;
-                Swal.fire({
-                    title: "Error",
-                    text: `${Object.values(response.data)[0]}`,
-                    icon: "warning"
-                });
-            })
-    }
+    // const getUserPosts = () => {
+    //     axiosClient.get(`/user/${id}/posts`)
+    //         .then(({ data }) => {
+    //             setUserPosts(data.data)
+    //             console.log(data.data);
+    //         })
+    //         .catch((err) => {
+    //             const response = err.response;
+    //             Swal.fire({
+    //                 title: "Error",
+    //                 text: `${Object.values(response.data)[0]}`,
+    //                 icon: "warning"
+    //             });
+    //         })
+    // }
 
     if (id) {
         useEffect(() => {
             getUser();
-            getUserPosts();
+            // getUserPosts();
         }, []);
     }
 
@@ -199,7 +199,7 @@ const EditUser = () => {
                             </div>
                         </div>
                     </form>
-                    <div className="admin-user-posts">
+                    {/* <div className="admin-user-posts">
                         <h1>User Posts</h1>
                         {userPosts &&
                             userPosts.map(p => (
@@ -208,7 +208,7 @@ const EditUser = () => {
                                 </div>
                             ))
                         }
-                    </div>
+                    </div> */}
                 </div>
             }
 

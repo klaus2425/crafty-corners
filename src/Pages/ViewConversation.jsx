@@ -61,8 +61,10 @@ const ViewConversation = (props) => {
       .then(res => {
         setPageIndex(1)
         setHasMore(true)
+        console.log(res.data);
         conversationEndRef.current?.scrollIntoView();
         setMessages(res.data.data.messages);
+        
       })
       .catch(err => console.log(err))
   }
@@ -94,7 +96,6 @@ const ViewConversation = (props) => {
       .then(res => {
         messageRef.current.value = "";
         getMessages(res.data.data.receiver.receiver_id);
-
       })
       .catch(err => console.log(err))
   }
@@ -136,9 +137,13 @@ const ViewConversation = (props) => {
     });
     echo.private(`conversation-${conversation_id}`)
       .listen('MessageSent', (data) => {
+        console.log('listen triggered');
         console.log(data.user);
-        if (data.user !== my_user_id) {
-          getMessages(data.user);
+        if (data.conversation.receiver_id != my_user_id) {
+          getMessages(data.conversation.receiver_id);
+        }
+        else if (data.conversation.sender_id != my_user_id){
+          getMessages(data.conversation.sender_id);
         }
 
       }).error((error) => { console.error(error) });

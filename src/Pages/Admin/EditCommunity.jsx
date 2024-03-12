@@ -14,7 +14,6 @@ const EditCommunity = () => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState();
   const [communityName, setCommunityName] = useState();
-  const [posts, setPosts] = useState([]);
   const [communityDescription, setCommunityDescription] = useState();
   const handleChange = (ev) => {
     setImage(URL.createObjectURL(ev.target.files[0]));
@@ -26,7 +25,6 @@ const EditCommunity = () => {
     setLoading(true);
     axiosClient.get(`/communities/${id}`)
       .then(({ data }) => {
-        setPosts(data.data.posts)
         console.log(data.data.posts);
         setCommunity(data.data);
         setLoading(false);
@@ -48,7 +46,6 @@ const EditCommunity = () => {
   const getCommunityPosts = () => {
     axiosClient.get(`/communities/${id}`)
       .then(({ data }) => {
-        setPosts(data.data.posts)
       })
       .catch((err) => {
         Swal.fire({
@@ -193,47 +190,39 @@ const EditCommunity = () => {
     <div>
       {loading ? (
         <div className="loading-container">
-                <Loading />
+          <Loading />
         </div>
-            ) : 
-      <div className="add-community-container">
-        <form encType="multipart/form-data" onSubmit={onSubmit}>
-          <h1>Edit {communityName} Community</h1>
-          <div className="community-form">
-            <div className="community-input-label">
-              <div className="community-labels">
-                <label htmlFor="community-name">Community Name</label>
-                <label htmlFor="community-name">Community Description</label>
+      ) :
+        <div className="add-community-container">
+          <form encType="multipart/form-data" onSubmit={onSubmit}>
+            <h1>Edit {communityName} Community</h1>
+            <div className="community-form">
+              <div className="community-input-label">
+                <div className="community-labels">
+                  <label htmlFor="community-name">Community Name</label>
+                  <label htmlFor="community-name">Community Description</label>
+                </div>
+                <div className="community-inputs">
+                  <input value={community.name} type="text" name="community-name" id="community-name" onChange={ev => setCommunity({ ...community, name: ev.target.value })} required />
+                  <textarea value={community.description} name="community-name" onChange={ev => setCommunity({ ...community, description: ev.target.value })} rows={6} cols={20} required />
+                </div>
               </div>
-              <div className="community-inputs">
-                <input value={community.name} type="text" name="community-name" id="community-name" onChange={ev => setCommunity({ ...community, name: ev.target.value })} required />
-                <textarea value={community.description} name="community-name" onChange={ev => setCommunity({ ...community, description: ev.target.value })} rows={6} cols={20} required />
-              </div>
-            </div>
-            <div>
-              <div className="community-right">
-                <div className="upload-picture">
-                  <img id='update-picture' src={image} />
-                  <input id='upload-button' type="file" onChange={handleChange} />
-                  <label htmlFor='upload-button'>Upload File</label>
-                  <span className="edit-text">File size: maximum 2 MB</span>
-                  <span className="edit-text">File extension: .JPEG, .PNG, .JPG</span>
+              <div>
+                <div className="community-right">
+                  <div className="upload-picture">
+                    <img id='update-picture' src={image} />
+                    <input id='upload-button' type="file" onChange={handleChange} />
+                    <label htmlFor='upload-button'>Upload File</label>
+                    <span className="edit-text">File size: maximum 2 MB</span>
+                    <span className="edit-text">File extension: .JPEG, .PNG, .JPG</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <button className="button">Submit</button>
-        </form>
-        <div className="community-posts">
-        <h1>Posts</h1>
-        {
-          posts && posts.map(p => (
-            <AdminPosts getCommunity={getCommunityPosts} community={community} post={p} user={p.user} />
-          ))
-        }
-      </div>
-      </div>
-    }
+            <button className="button">Submit</button>
+          </form>
+        </div>
+      }
     </div>
   )
 }
