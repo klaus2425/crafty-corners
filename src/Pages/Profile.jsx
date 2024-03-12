@@ -53,7 +53,6 @@ const UserFeed = () => {
 
     useEffect(() => {
         getPosts();
-        console.log(`${storageBaseUrl}/${user.profile_picture}`);
     }, [user])
 
 
@@ -85,7 +84,7 @@ const UserFeed = () => {
                                     <div className='display-name'>
                                         <h2>{user.first_name || <Skeleton />}</h2>
                                         {user.user_name ? `@${user.user_name}` : <Skeleton />}
-                                        {user.id ? <JoinedCommunityCount id={user?.id} /> : <Skeleton className='skeleton' />}
+                                        {user.id ? 1 : <Skeleton className='skeleton' />}
 
                                     </div>
                                 </div>
