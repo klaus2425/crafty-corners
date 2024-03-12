@@ -38,7 +38,7 @@ const UserFeed = () => {
     const getPosts = async () => {
         await axiosClient.get(`/users/${user.id}`)
             .then(res => {
-                console.log(res.data.data);
+                console.log('Current User', res.data.data.id);
                 setCurrentUser(res.data.data);
             })
         axiosClient.get(`/user/${user.id}/posts`)
@@ -83,8 +83,8 @@ const UserFeed = () => {
                                     <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} className='profile-picture' src={`${storageBaseUrl}/${user.profile_picture}`} alt='Profile Picture' />
                                     <div className='display-name'>
                                         <h2>{user.first_name || <Skeleton />}</h2>
-                                        {user.user_name ? `@${user.user_name}` : <Skeleton />}
-                                        {user.id ? 1 : <Skeleton className='skeleton' />}
+                                        {user.user_name ? `@${user.user_name}` : <Skeleton />} <br/>
+                                        {currentUser.id ? `${currentUser.communities.length} Communities` : <Skeleton className='skeleton' />}
 
                                     </div>
                                 </div>

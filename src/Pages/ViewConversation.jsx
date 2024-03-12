@@ -66,7 +66,11 @@ const ViewConversation = (props) => {
         setMessages(res.data.data.messages);
         if (res.data.data.messages.length == 0) {
           setHasMessage(false);
+          console.log();
           setHasMore(false);
+        } else {
+          console.log('setHasMessage', true);
+          setHasMessage(true)
         }
       })
       .catch(err => console.log(err))
@@ -155,6 +159,7 @@ const ViewConversation = (props) => {
 
     return () => {
       echo.leave(`conversation-${conversation_id}`);
+      console.log(hasMessage);
       if (!hasMessage) {
         axiosClient.delete(`/conversation/${conversation_id}`).catch(err => console.log(err));
       }

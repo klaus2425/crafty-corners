@@ -1,15 +1,19 @@
 import { useStateContext } from "../context/ContextProvider";
 import LoginModal from "./LoginModal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axiosClient from "../axios-client";
 import DropDownItem from "./DropDownItem";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { Navigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const Navbar = () => {
     const { isOpen, setIsOpen, setUser, setToken, user, token } = useStateContext();
+
+
     const [openDropDown, setOpenDropDown] = useState(false);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();

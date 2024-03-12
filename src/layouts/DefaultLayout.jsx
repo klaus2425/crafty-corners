@@ -14,18 +14,22 @@ const DefaultLayout = () => {
     const { user, token, setUser } = useStateContext();
 
     const { theme } = useThemeContext();
-    const userData = useQuery({queryKey: ['user'], queryFn: () => axiosClient.get('/user').then((res) => res)})
+    const { data, error, isLoading } = useQuery({queryKey: ['user'], queryFn: () => axiosClient.get('/user')
+    .then((res) => res)})
 
-    if (!userData.isLoading) {
-        console.log(userData.data.data);
-        setUser(userData.data.data);
-        if (!token) {
-            return <Navigate to='/Landing' />;
+
+    useEffect(() => {
+        if (!isLoading) {
+            console.log(data.data);
+            setUser(data.data);
+            if (!token) {
+                return <Navigate to='/Landing' />;
+            }
+            else if (data?.data?.type === 'admin') {
+                return <Navigate to='/Users' />
+            }
         }
-        else if (userData.data?.type === 'admin') {
-            return <Navigate to='/Users' />
-        }
-    }
+    },[data])
 
 
     // if (token) {
