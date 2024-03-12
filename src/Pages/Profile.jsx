@@ -111,12 +111,13 @@ const UserFeed = () => {
                     </div>
                     <div className='posts-col'>
                         <div className="scroll" id="scroll">
-                            <InfiniteScroll
-                                dataLength={userPosts.length}
-                                next={fetchNext}
-                                hasMore={hasMore}
-                                loader={<Loading />}
-                            >
+                    <InfiniteScroll scrollableTarget='scroll' dataLength={userPosts.length} next={fetchNext} hasMore={hasMore} loader={<Loading />}
+                        endMessage={
+                            <div style={{ textAlign: 'center' }}>
+                                <h2>End of Feed</h2>
+                            </div>
+
+                        }>
                                 {userPosts &&
                                     userPosts.map(p => (
                                         <UserPost key={p.id} post={p} user={currentUser} />

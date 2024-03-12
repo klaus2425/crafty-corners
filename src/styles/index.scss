@@ -1774,7 +1774,7 @@ input::-webkit-inner-spin-button {
 
   .user-posts {
     width: 100%;
-
+    height: 100%;
     .section-header {
       img {
         width: 1.5rem;
@@ -1786,6 +1786,7 @@ input::-webkit-inner-spin-button {
 
     .posts-col {
       display: flex;
+      height: 100%;
       flex-direction: column;
       align-items: center;
     }
@@ -4259,6 +4260,19 @@ input::-webkit-inner-spin-button {
 
       path {
         fill: #e4e6eb;
+      }
+    }
+  }
+
+  .video-card {
+    background-color: #242526;
+    border-color: #242526;
+    .video-title {
+      color: #e4e6eb;
+    }
+    .v-likes {
+      path {
+        stroke: #e4e6eb;
       }
     }
   }
