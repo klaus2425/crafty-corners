@@ -7,6 +7,8 @@ const Messages = () => {
   const navigate = useNavigate();
   const [conversations, setConversations] = useState();
   const { user } = useStateContext();
+  const params = new URLSearchParams(window.location.search);
+  const uid = params.get('uid')
 
   const viewConversation = (conversation_id, id1, id2) => {
     navigate(`/conversation/${conversation_id}?user_id0=${id1}&user_id1=${id2}&lid=${user.id}`);
@@ -49,7 +51,7 @@ const Messages = () => {
             console.log('User 1', c.user_1.id);
             console.log('User ID', user.id);;
             console.log(c.user_0 == user.id);
-            if (c.user_0.id == user.id) {
+            if (c.user_0.id == uid) {
               return (
                 <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
                   <div className="list-card-item">
@@ -58,7 +60,7 @@ const Messages = () => {
                     </div>
                     <div className="list-card-item-text">
                       <span>{c.user_1.first_name}</span>
-                      <p>{c.message?.length > 0 && c.message[0].message}</p>
+                      <p>{c.user_1.id == c.message.sender_id ? c.user_1.first_name : c.user_0.first_name }: {c.message.message}</p>
                     </div>
                     <div className="list-card-item-time">
                       <span>2h</span>
@@ -75,7 +77,7 @@ const Messages = () => {
                   </div>
                   <div className="list-card-item-text">
                     <span>{c.user_0.first_name}</span>
-                    <p>{c.message?.length > 0 && c.message[0].message}</p>
+                    <p>{c.user_0.id == c.message.sender_id ? c.user_0.first_name : c.user_1.first_name }: {c.message.message}</p>
                   </div>
                   <div className="list-card-item-time">
                     <span>2h</span>
