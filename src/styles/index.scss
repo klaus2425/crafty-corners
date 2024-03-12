@@ -1774,7 +1774,7 @@ input::-webkit-inner-spin-button {
 
   .user-posts {
     width: 100%;
-
+    height: 100%;
     .section-header {
       img {
         width: 1.5rem;
@@ -1786,7 +1786,7 @@ input::-webkit-inner-spin-button {
 
     .posts-col {
       display: flex;
-      height: 40rem;
+      height: 100%;
       flex-direction: column;
       align-items: center;
       overflow: auto;
@@ -1935,7 +1935,7 @@ input::-webkit-inner-spin-button {
 }
 
 #scroll {
-  height: 100%;
+  height: fit-content;
   overflow: auto;
 }
 
