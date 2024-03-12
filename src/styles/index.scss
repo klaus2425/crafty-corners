@@ -1786,8 +1786,10 @@ input::-webkit-inner-spin-button {
 
     .posts-col {
       display: flex;
+      height: 40rem;
       flex-direction: column;
       align-items: center;
+      overflow: auto;
     }
   }
 
@@ -4259,6 +4261,19 @@ input::-webkit-inner-spin-button {
 
       path {
         fill: #e4e6eb;
+      }
+    }
+  }
+
+  .video-card {
+    background-color: #242526;
+    border-color: #242526;
+    .video-title {
+      color: #e4e6eb;
+    }
+    .v-likes {
+      path {
+        stroke: #e4e6eb;
       }
     }
   }

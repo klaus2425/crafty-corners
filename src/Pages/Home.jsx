@@ -54,7 +54,6 @@ const UserFeed = () => {
                             <div style={{ textAlign: 'center' }}>
                                 <h2>End of Feed</h2>
                             </div>
-
                         }>
                         {posts.map(p => (
                             <Post key={p.id} post={p} community={p.community} />

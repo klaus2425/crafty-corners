@@ -10,6 +10,7 @@ import { JoinedCommunityCount } from '../components/utils/Membership';
 import axiosClient from '../axios-client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../components/utils/Loading';
+import { useQuery } from '@tanstack/react-query';
 
 const UserFeed = () => {
 
@@ -21,9 +22,28 @@ const UserFeed = () => {
     const [currentUser, setCurrentUser] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [pageIndex, setPageIndex] = useState(1);
+    const usePosts = useQuery({
+        queryKey: ['posts'], queryFn: () => axiosClient.get(`/user/${user.id}/posts`)
+            .then((res) => {
+                if (res.data.data.length === 0) {
+                    console.log('length', res.data.data.length);
+                    setHasMore(false);
+                }
+                return res;
+            })
+    })
+
+
+    useEffect(() => {
+        if (!usePosts.isLoading) {
+            setUserPosts(usePosts.data.data.data);
+            console.log(usePosts.data.data.data);
+        }
+    })
 
 
     const fetchNext = () => {
+        console.log('fetching next');
         axiosClient.get(`/user/${user.id}/posts?page=${pageIndex + 1}`)
             .then((res) => {
                 setUserPosts(userPosts.concat(res.data.data))
@@ -31,24 +51,15 @@ const UserFeed = () => {
                     setHasMore(false);
                 }
             })
-
         setPageIndex(pageIndex + 1)
     }
 
-    const getPosts = async () => {
-        await axiosClient.get(`/users/${user.id}`)
-            .then(res => {
-                console.log('Current User', res.data.data.id);
-                setCurrentUser(res.data.data);
-            })
-        axiosClient.get(`/user/${user.id}/posts`)
-            .then((res) => {
-                setUserPosts(res.data.data);
-                console.log(res.data.data);
-                if (res.data.data.length === 0) {
-                    setHasMore(false);
-                }
-            })
+    const getPosts = () => {
+        axiosClient.get(`/users/${user.id}`)
+        .then(res => {
+            console.log('Current User', res.data.data.id);
+            setCurrentUser(res.data.data);
+        })
     }
 
     useEffect(() => {
@@ -83,9 +94,8 @@ const UserFeed = () => {
                                     <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} className='profile-picture' src={`${storageBaseUrl}/${user.profile_picture}`} alt='Profile Picture' />
                                     <div className='display-name'>
                                         <h2>{user.first_name || <Skeleton />}</h2>
-                                        {user.user_name ? `@${user.user_name}` : <Skeleton />} <br/>
-                                        {currentUser.id ? `${currentUser.communities.length} Communities` : <Skeleton className='skeleton' />}
-
+                                        {user.user_name ? `@${user.user_name}` : <Skeleton />} <br />
+                                        {!usePosts.isLoading ? `${currentUser?.communities?.length} Communities` : '0 Communities'}
                                     </div>
                                 </div>
                                 <div className='lower-details'>
@@ -115,6 +125,7 @@ const UserFeed = () => {
                                 next={fetchNext}
                                 hasMore={hasMore}
                                 loader={<Loading />}
+                                scrollableTarget={scroll}
                             >
                                 {userPosts &&
                                     userPosts.map(p => (
@@ -122,9 +133,7 @@ const UserFeed = () => {
                                     ))
                                 }
                             </InfiniteScroll>
-
                         </div>
-
                     </div>
                 </div>
             </div>
