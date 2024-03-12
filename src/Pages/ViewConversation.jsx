@@ -21,7 +21,6 @@ const ViewConversation = (props) => {
   const my_user_id = params.get('lid')
   const [receiver, setReceiver] = useState();
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
-  const { user } = useStateContext();
   const { conversation_id } = useParams();
   const navigate = useNavigate();
   const conversationEndRef = useRef(null);

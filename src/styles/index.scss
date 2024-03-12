@@ -4169,6 +4169,9 @@ input::-webkit-inner-spin-button {
 
     .list-card-item {
       .list-card-item-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
         span {
           color: #e4e6eb;
         }
