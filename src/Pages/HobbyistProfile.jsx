@@ -42,6 +42,9 @@ const HobbyistProfile = () => {
       .then(res => {
         console.log(`User ${id}`, res.data.data)
         setUserPosts(res.data.data);
+        if (res.data.data.length === 0) {
+          setHasMore(false);
+        }
       })
   }
 
