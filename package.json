@@ -19,6 +19,7 @@
     "@fullcalendar/react": "^6.1.11",
     "@fullcalendar/timegrid": "^6.1.11",
     "@jlln/ago": "^1.0.1",
+    "@tanstack/react-query": "^5.27.3",
     "axios": "^1.6.0",
     "laravel-echo": "^1.16.0",
     "pusher-js": "^8.4.0-rc2",
