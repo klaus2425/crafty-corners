@@ -14,6 +14,7 @@ const ViewConversation = (props) => {
   const [hasMore, setHasMore] = useState(true);
   const [messages, setMessages] = useState([]);
   const messageRef = useRef();
+  const [hasMessage , setHasMessage] = useState(false);
   const params = new URLSearchParams(window.location.search);
   const user_id0 = params.get('user_id0');
   const user_id1 = params.get('user_id1');
@@ -64,7 +65,10 @@ const ViewConversation = (props) => {
         console.log(res.data);
         conversationEndRef.current?.scrollIntoView();
         setMessages(res.data.data.messages);
-        
+        if (res.data.data.messages.length == 0) {
+          setHasMessage(false);
+          setHasMore(false);
+        }
       })
       .catch(err => console.log(err))
   }
@@ -108,9 +112,7 @@ const ViewConversation = (props) => {
 
   useEffect(() => {
     getReceiver()
-    console.log('I fire once');
-
-    // Pusher.logToConsole = true;
+    Pusher.logToConsole = true;
     const echo = new Echo({
       broadcaster: 'pusher',
       key: 'dc6423124445d7b08415',
@@ -154,7 +156,7 @@ const ViewConversation = (props) => {
 
     return () => {
       echo.leave(`conversation-${conversation_id}`);
-      if (messages.length == 0) {
+      if (!hasMessage) {
         axiosClient.delete(`/conversation/${conversation_id}`).catch(err => console.log(err));
       }
     };
@@ -196,7 +198,7 @@ const ViewConversation = (props) => {
               <InfiniteScroll style={{ display: 'flex', flexDirection: 'column-reverse' }} inverse={true}
                 scrollableTarget='conversation-scroll' dataLength={messages.length} next={fetchNext} hasMore={hasMore} loader={<Loading />}
                 endMessage={
-                  <div style={{ textAlign: 'center' }}>
+                  <div style={{ textAlign: 'center', marginBottom: '8rem' }}>
                     <h2>Start of Conversation</h2>
                   </div>
                 }>
