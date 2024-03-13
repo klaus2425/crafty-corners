@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 import axiosClient from "../axios-client";
 import DropDownItem from "./DropDownItem";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AdminNavbar = () => {
     const { setUser, setToken, user, token } = useStateContext();
+    const queryClient = useQueryClient();
     const [openDropDown, setOpenDropDown] = useState(false);
     const navigate = useNavigate();
     const onLogout = () => {
@@ -16,6 +18,7 @@ const AdminNavbar = () => {
                 setUser({});
                 setToken(null);
                 setOpenDropDown(false);
+                queryClient.removeQueries('user');
                 navigate('/');
             })
     }

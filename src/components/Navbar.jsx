@@ -8,12 +8,11 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { Navigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Navbar = () => {
     const { isOpen, setIsOpen, setUser, setToken, user, token } = useStateContext();
-
-
+    const queryClient = useQueryClient();
     const [openDropDown, setOpenDropDown] = useState(false);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -25,6 +24,7 @@ const Navbar = () => {
             .then(() => {
                 setUser({});
                 setToken(null);
+                queryClient.removeQueries('user');
                 navigate('/');
             })
     }

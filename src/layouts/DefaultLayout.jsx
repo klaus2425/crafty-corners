@@ -10,27 +10,28 @@ import { useQuery } from "@tanstack/react-query";
 
 const DefaultLayout = () => {
 
-    const { token, setUser } = useStateContext();
+    const { user, token, setUser } = useStateContext();
     const { theme } = useThemeContext();
     const { data, isLoading } = useQuery({
         queryKey: ['user'], queryFn: () => axiosClient.get('/user')
             .then((res) => res)
     })
 
-
     useEffect(() => {
         if (!isLoading) {
             setUser(data.data);
-            if (!token) {
-                return <Navigate to='/Landing' />;
-            }
-            else if (data?.data?.type === 'admin') {
+            if (data?.data?.type === 'admin') {
                 return <Navigate to='/Users' />
             }
         }
     }, [data])
 
-
+    if (!token || !user) {
+        return <Navigate to='/Landing' />;
+    }
+    if (user.type === 'admin') {
+        return <Navigate to='/Users' />
+    } else
     return (
         <div className="body-container" id={theme} style={{ height: "100dvh", overflowY: 'scroll' }}>
             <Navbar />

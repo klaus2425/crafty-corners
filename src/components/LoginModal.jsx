@@ -16,31 +16,31 @@ export default function LoginModal(props) {
     const formData = new FormData();
     formData.append('email', emailRef.current.value)
     axiosClient.post('/forgot-password', formData)
-    .then((res) => {
-      toast('Password reset link sent to email', {
-        duration: 1500,
-        position: "bottom-center",
-        icon: "✅",
-        style: {
-          borderRadius: "100px",
-          border: 0,
-          boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-        }
+      .then((res) => {
+        toast('Password reset link sent to email', {
+          duration: 1500,
+          position: "bottom-center",
+          icon: "✅",
+          style: {
+            borderRadius: "100px",
+            border: 0,
+            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+          }
+        })
       })
-    })
-    .catch(err => {
-      toast(err.response.data.message, {
-        duration: 1500,
-        position: "bottom-center",
-        icon: "❗",
-        style: {
-          borderRadius: "100px",
-          border: 0,
-          boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-        }
+      .catch(err => {
+        toast(err.response.data.message, {
+          duration: 1500,
+          position: "bottom-center",
+          icon: "❗",
+          style: {
+            borderRadius: "100px",
+            border: 0,
+            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+          }
+        })
       })
-    })
-    ;
+      ;
   }
   const onSubmit = (ev) => {
     ev.preventDefault();
@@ -49,13 +49,13 @@ export default function LoginModal(props) {
       password: passwordRef.current.value,
     };
     axios.get('http://localhost:8000/sanctum/csrf-cookie', {
-    withCredentials: true,
-  } ).then((res) => console.log(res))
+      withCredentials: true,
+    }).then((res) => console.log(res))
     axiosClient
       .post("/login", payload)
       .then(({ data }) => {
         console.log(`Bearer ${data.token}`);
-        if(data.user.email_verified_at === null) {
+        if (data.user.email_verified_at === null) {
           console.log(data);
           toast('Verify your account first!', {
             duration: 1500,
@@ -67,20 +67,26 @@ export default function LoginModal(props) {
               boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
             }
           })
-          axios.post(`${import.meta.env.VITE_API_BASE_URL}/send-email-verification`,null, {headers: {
-            
-            'Authorization' : `Bearer ${data.token}`,
-            'Content-Type': 'application/json'
-          }})
-          .then(res => {
-            console.log(res);
+          axios.post(`${import.meta.env.VITE_API_BASE_URL}/send-email-verification`, null, {
+            headers: {
+
+              'Authorization': `Bearer ${data.token}`,
+              'Content-Type': 'application/json'
+            }
           })
-          .catch(err => console.log(err));
+            .then(res => {
+              console.log(res);
+            })
+            .catch(err => console.log(err));
         }
         else {
           setUser(data.user);
           setToken(data.token);
+          console.log(data);
           props.setIsOpen(false);
+          if (data.roles === 'admin') {
+            return <Navigate to='/Users' />
+          }
         }
       })
       .catch((err) => {
@@ -116,7 +122,7 @@ export default function LoginModal(props) {
           <div className="modal">
             <div className="close-login">
               <svg onClick={() => {
-                props.setIsOpen(false); 
+                props.setIsOpen(false);
                 setOpenForgotPassword(false);
               }}
                 xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +143,7 @@ export default function LoginModal(props) {
             <form>
               <div className="login-main">
                 <h2>Forgot Password</h2>
-                <input ref={emailRef} placeholder="Email Address"/>
+                <input ref={emailRef} placeholder="Email Address" />
               </div>
               <div className="login-button">
                 <button className="purple-button" onClick={onForgotSubmit}>Send reset link</button>
