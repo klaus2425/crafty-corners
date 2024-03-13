@@ -121,14 +121,8 @@ const ViewConversation = (props) => {
       .listen('MessageSent', (data) => {
         console.log('listen triggered');
         console.log(data);
-        // if (data.message.receiver_id != uid) {
-        //   getMessages(data.conversation.receiver_id);
-        // }
-        // else if (data.conversation.sender_id != uid){
-        //   getMessages(data.conversation.sender_id);
-        // }
-        getMessages(data.user)
-
+        if (data.user != uid) getMessages(data.user)
+        
       }).error((error) => { console.error(error) });
     conversationEndRef.current?.scrollIntoView();
 
