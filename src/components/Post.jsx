@@ -31,7 +31,6 @@ const Post = (props) => {
     const viewPost = () => {
         navigate(`/p/${post.id}`)
     }
-    console.log(props.post);
 
     const notify = () => toast('Link Copied', {
         duration: 1500,
@@ -111,6 +110,7 @@ const Post = (props) => {
     }
 
     useEffect(() => {
+        console.log('Post ID: ' + post.id +' ' +post.liked_by_user);
         setLiked(post.liked_by_user);
     }, [])
 
@@ -445,7 +445,7 @@ export const UserPost = (props) => {
         // const ip = props.post.likes;
         // console.log(props);
         // setLiked(ip.some(item => item.user_id == user.id));
-        setLiked(true);
+        setLiked(post.liked_by_user);
     }, [])
 
 
