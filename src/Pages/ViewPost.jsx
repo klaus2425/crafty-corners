@@ -126,6 +126,7 @@ const ViewPost = () => {
       .then(() => {
         notifyComment();
         getPost();
+        commentRef.current.value = '';
       })
       .catch(err => {
         console.log(err);
