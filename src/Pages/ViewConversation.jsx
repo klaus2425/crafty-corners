@@ -25,7 +25,7 @@ const ViewConversation = (props) => {
   const navigate = useNavigate();
   const conversationEndRef = useRef(null);
   const handleBack = () => {
-    navigate('/messages')
+    navigate(`/messages?uid=${my_user_id}`)
   }
   const [deleteOpen, setDeleteOpen] = useState(false);
   const getTimestamp = (date) => {
