@@ -27,8 +27,10 @@ const UserFeed = () => {
 
     const getPosts = async ({ pageParam }) => {
         console.log(pageParam);
-        await axiosClient.get(`/user/${user.id}/posts?page=${pageParam}`)
-            .then((res) => ({...res, prevPage: pageParam}))
+        const fetchedData  = await axiosClient.get(`/user/${user.id}/posts?page=${pageParam}`)
+            .then((res) => res)
+            console.log(fetchedData);
+        return ({...fetchedData, prevPage: pageParam})
     }
 
 
@@ -36,16 +38,18 @@ const UserFeed = () => {
         queryKey: ['posts'],
         queryFn: getPosts,
         initialPageParam: 1,
-        getNextPageParam: (lastPage, allPages, lastPageParama) => {
-            // if (lastPage.data.meta.currentPage + 1 > lastPage.data.meta.last_page) {
-            //     return false
-            // }
-            // return lastPage.data.meta.currentPage + 1
-            console.log(lastPage);
+        getNextPageParam: (lastPage, allPages, lastPageParam) => {
+            console.log(lastPage.data.meta);
+            if (lastPage.data.meta.current_page + 1 > lastPage.data.meta.last_page) {
+                return false
+            }
+
+            return lastPage.data.meta.current_page + 1
+          
         }
     })
 
-    console.log(data);
+    console.log('GetPost', data);
 
 
     const fetchNext = () => {
