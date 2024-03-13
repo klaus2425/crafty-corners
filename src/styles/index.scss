@@ -1147,6 +1147,8 @@ input::-webkit-inner-spin-button {
   .feed {
     display: flex;
     width: 50%;
+    height: 100%;
+    overflow-y: scroll;
     align-items: center;
     flex-direction: column;
     margin-left: clamp(20rem, 30vw, 30rem);
@@ -1942,7 +1944,9 @@ input::-webkit-inner-spin-button {
 #scroll::-webkit-scrollbar {
   display: none;
 }
-
+#feed::-webkit-scrollbar {
+  display: none;
+} 
 #conversation-scroll {
   overflow: auto;
   height: 100%;
