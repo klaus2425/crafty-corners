@@ -1,5 +1,6 @@
 import Echo from 'laravel-echo';
 import axiosClient from '../axios-client';
+import Pusher from 'pusher-js';
 
 const echo = new Echo({
   broadcaster: 'pusher',
