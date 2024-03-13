@@ -7,15 +7,12 @@ import { useThemeContext } from "../context/ThemeProvider";
 import { useEffect } from "react";
 import axiosClient from "../axios-client";
 import { useQuery } from "@tanstack/react-query";
-import echo from "../components/Echo";
-import Pusher from 'pusher-js';
 
 const DefaultLayout = () => {
 
-    const { user, token, setUser } = useStateContext();
-    Pusher.logToConsole = true;
+    const { token, setUser } = useStateContext();
     const { theme } = useThemeContext();
-    const { data, error, isLoading } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['user'], queryFn: () => axiosClient.get('/user')
             .then((res) => res)
     })
@@ -23,16 +20,7 @@ const DefaultLayout = () => {
 
     useEffect(() => {
         if (!isLoading) {
-            console.log(data.data);
             setUser(data.data);
-            echo.private(`user-${data.data.id}`)
-                .listen('MessageSent', (data) => {
-                    console.log('listen triggered');
-                    console.log(data);
-   
-
-                }).error((error) => { console.error(error) });
-            
             if (!token) {
                 return <Navigate to='/Landing' />;
             }
@@ -41,16 +29,6 @@ const DefaultLayout = () => {
             }
         }
     }, [data])
-
-
-    // if (token) {
-    //     useEffect(() => {
-    //         axiosClient.get('/user')
-    //             .then(({ data }) => {
-    //                 setUser(data)
-    //             })
-    //     }, []);
-    // }
 
 
     return (

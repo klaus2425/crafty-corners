@@ -1936,6 +1936,8 @@ input::-webkit-inner-spin-button {
 
 }
 
+
+
 #scroll {
   height: fit-content;
   overflow: auto;
@@ -1947,7 +1949,9 @@ input::-webkit-inner-spin-button {
 #feed::-webkit-scrollbar {
   display: none;
 } 
-
+.body-container::-webkit-scrollbar {
+  display: none;
+} 
 .feed::-webkit-scrollbar {
   display: none;
 } 
@@ -4459,6 +4463,9 @@ input::-webkit-inner-spin-button {
 
     }
   }
+  #notification-circle {
+     fill: #FF4646;
+   }
 }
 
 @media screen and (max-width: 900px) {
