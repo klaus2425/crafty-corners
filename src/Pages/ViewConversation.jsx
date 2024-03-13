@@ -3,13 +3,13 @@ import { useEffect, useRef, useState, } from 'react';
 import { useNavigate } from 'react-router-dom'
 import Pusher from 'pusher-js';
 import axiosClient from '../axios-client';
-import { useStateContext } from '../context/ContextProvider';
-import Echo from 'laravel-echo';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Loading from '../components/utils/Loading';
+import echo  from '../components/Echo';
 
 const ViewConversation = (props) => {
+  
   const [pageIndex, setPageIndex] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [messages, setMessages] = useState([]);
@@ -18,14 +18,14 @@ const ViewConversation = (props) => {
   const params = new URLSearchParams(window.location.search);
   const user_id0 = params.get('user_id0');
   const user_id1 = params.get('user_id1');
-  const my_user_id = params.get('lid')
+  const uid = params.get('lid')
   const [receiver, setReceiver] = useState();
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
   const { conversation_id } = useParams();
   const navigate = useNavigate();
   const conversationEndRef = useRef(null);
   const handleBack = () => {
-    navigate(`/messages?uid=${my_user_id}`)
+    navigate(`/messages?uid=${uid}`)
   }
   const [deleteOpen, setDeleteOpen] = useState(false);
   const getTimestamp = (date) => {
@@ -57,7 +57,7 @@ const ViewConversation = (props) => {
   }
 
   const getMessages = (rec) => {
-    axiosClient.get(`/conversation/message/${rec}?page=${1}`)
+    axiosClient.get(`/conversation/message/${rec}`)
       .then(res => {
         setPageIndex(1)
         setHasMore(true)
@@ -77,7 +77,7 @@ const ViewConversation = (props) => {
   }
 
   const getReceiver = () => {
-    if (user_id0 != my_user_id) {
+    if (user_id0 != uid) {
       axiosClient.get(`/users/${user_id0}`)
         .then(res => {
           console.log(res.data.data);
@@ -85,7 +85,7 @@ const ViewConversation = (props) => {
           getMessages(res.data.data.id);
         })
     }
-    else if (user_id1 !== my_user_id) {
+    else if (user_id1 !== uid) {
       axiosClient.get(`/users/${user_id1}`)
         .then(res => {
           setReceiver(res.data.data);
@@ -116,38 +116,15 @@ const ViewConversation = (props) => {
   useEffect(() => {
     getReceiver()
     Pusher.logToConsole = true;
-    const echo = new Echo({
-      broadcaster: 'pusher',
-      key: 'dc6423124445d7b08415',
-      cluster: 'ap1',
-      forceTLS: true,
-      authEndPoint: "/pusher/auth",
-      encrypted: true,
-      authorizer: (channel) => {
-        return {
-          authorize: (socketId, callback) => {
-            axiosClient.post('broadcasting/auth', {
-              socket_id: socketId,
-              channel_name: channel.name
-            })
-              .then(response => {
-                callback(false, response.data);
-              })
-              .catch(error => {
-                callback(true, error);
-              });
-          }
-        }
-      }
-    });
+
     echo.private(`conversation-${conversation_id}`)
       .listen('MessageSent', (data) => {
         console.log('listen triggered');
         console.log(data);
-        // if (data.message.receiver_id != my_user_id) {
+        // if (data.message.receiver_id != uid) {
         //   getMessages(data.conversation.receiver_id);
         // }
-        // else if (data.conversation.sender_id != my_user_id){
+        // else if (data.conversation.sender_id != uid){
         //   getMessages(data.conversation.sender_id);
         // }
         getMessages(data.user)
@@ -209,7 +186,7 @@ const ViewConversation = (props) => {
                 }>
                 {
                   messages.map(message => {
-                    if (message.sender_id == my_user_id) {
+                    if (message.sender_id == uid) {
                       return (
                         <div key={message.id} className="conversation-item-user">
                           <span className="chat">{message.message}</span>
