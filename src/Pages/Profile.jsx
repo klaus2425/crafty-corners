@@ -26,7 +26,6 @@ const UserFeed = () => {
 
 
     const getPosts = async ({ pageParam }) => {
-        console.log(pageParam);
         const fetchedData  = await axiosClient.get(`/user/${user.id}/posts?page=${pageParam}`)
             .then((res) => res)
             console.log(fetchedData);
@@ -49,21 +48,26 @@ const UserFeed = () => {
         }
     })
 
-    console.log('GetPost', data);
+    const posts = data?.pages.reduce((acc, page) => {
+        console.log(acc);
+        console.log(page.data.data);
+        return [...acc, page.data.data];
+    }, [])
+    console.log('GetPost', posts);
 
 
-    const fetchNext = () => {
-        console.log('fetching next');
-        axiosClient.get(`/user/${user.id}/posts?page=${pageIndex + 1}`)
-            .then((res) => {
-                console.log('fetchnext');
-                setUserPosts(userPosts.concat(res.data.data))
-                if (posts.length === res.data.meta.total) {
-                    setHasMore(false);
-                }
-            })
-        setPageIndex(pageIndex + 1)
-    }
+    // const fetchNext = () => {
+    //     console.log('fetching next');
+    //     axiosClient.get(`/user/${user.id}/posts?page=${pageIndex + 1}`)
+    //         .then((res) => {
+    //             console.log('fetchnext');
+    //             setUserPosts(userPosts.concat(res.data.data))
+    //             if (posts.length === res.data.meta.total) {
+    //                 setHasMore(false);
+    //             }
+    //         })
+    //     setPageIndex(pageIndex + 1)
+    // }
 
 
 
