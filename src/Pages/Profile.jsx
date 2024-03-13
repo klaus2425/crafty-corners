@@ -10,7 +10,7 @@ import { JoinedCommunityCount } from '../components/utils/Membership';
 import axiosClient from '../axios-client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../components/utils/Loading';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 const UserFeed = () => {
 
@@ -22,24 +22,30 @@ const UserFeed = () => {
     const [currentUser, setCurrentUser] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [pageIndex, setPageIndex] = useState(1);
-    const usePosts = useQuery({
-        queryKey: ['posts'], queryFn: () => axiosClient.get(`/user/${user.id}/posts`)
-            .then((res) => {
-                if (res.data.data.length === 0) {
-                    console.log('length', res.data.data.length);
-                    setHasMore(false);
-                }
-                return res;
-            })
-    })
 
 
-    useEffect(() => {
-        if (!usePosts.isLoading) {
-            setUserPosts(usePosts.data.data.data);
-            console.log(usePosts.data.data.data);
+
+    const getPosts = async ({ pageParam }) => {
+        console.log(pageParam);
+        await axiosClient.get(`/user/${user.id}/posts?page=${pageParam}`)
+            .then((res) => ({...res, prevPage: pageParam}))
+    }
+
+
+    const {data, fetchNextPage, hasNextpage } = useInfiniteQuery({
+        queryKey: ['posts'],
+        queryFn: getPosts,
+        initialPageParam: 1,
+        getNextPageParam: (lastPage, allPages, lastPageParama) => {
+            // if (lastPage.data.meta.currentPage + 1 > lastPage.data.meta.last_page) {
+            //     return false
+            // }
+            // return lastPage.data.meta.currentPage + 1
+            console.log(lastPage);
         }
     })
+
+    console.log(data);
 
 
     const fetchNext = () => {
@@ -55,22 +61,28 @@ const UserFeed = () => {
         setPageIndex(pageIndex + 1)
     }
 
-    const getPosts = () => {
+
+
+    const getUser = () => {
         axiosClient.get(`/users/${user.id}`)
-        .then(res => {
-            console.log('Current User', res.data.data.id);
-            setCurrentUser(res.data.data);
-        })
+            .then(res => {
+                console.log('Current User', res.data.data.id);
+                setCurrentUser(res.data.data);
+            })
     }
-
-    useEffect(() => {
-        getPosts();
-    }, [user])
-
 
     const handleEdit = () => {
         navigate('/edit-profile')
     }
+
+    useEffect(() => {
+        getPosts();
+        getUser();
+    }, [])
+
+
+
+
 
 
     return (
@@ -96,7 +108,7 @@ const UserFeed = () => {
                                     <div className='display-name'>
                                         <h2>{user.first_name || <Skeleton />}</h2>
                                         {user.user_name ? `@${user.user_name}` : <Skeleton />} <br />
-                                        {!usePosts.isLoading ? `${currentUser?.communities?.length} Communities` : '0 Communities'}
+                                        {/* {!usePosts.isLoading ? `${currentUser?.communities?.length} Communities` : '0 Communities'} */}
                                     </div>
                                 </div>
                                 <div className='lower-details'>
@@ -120,19 +132,19 @@ const UserFeed = () => {
                         <h3>Posts</h3>
                     </div>
                     <div className='posts-col' >
-                    <InfiniteScroll scrollableTarget='feed' dataLength={userPosts.length} next={fetchNext} hasMore={hasMore} loader={<Loading />}
-                        endMessage={
-                            <div style={{ textAlign: 'center' }}>
-                                <h2>End of Feed</h2>
-                            </div>
+                        <InfiniteScroll scrollableTarget='feed' dataLength={userPosts.length} next={fetchNextPage} hasMore={hasNextpage} loader={<Loading />}
+                            endMessage={
+                                <div style={{ textAlign: 'center' }}>
+                                    <h2>End of Feed</h2>
+                                </div>
 
-                        }>
-                                {userPosts &&
-                                    userPosts.map(p => (
-                                        <UserPost key={p.id} post={p} user={currentUser} />
-                                    ))
-                                }
-                            </InfiniteScroll>
+                            }>
+                            {userPosts &&
+                                userPosts.map(p => (
+                                    <UserPost key={p.id} post={p} user={currentUser} />
+                                ))
+                            }
+                        </InfiniteScroll>
                     </div>
                 </div>
             </div>
