@@ -1151,7 +1151,8 @@ input::-webkit-inner-spin-button {
     overflow-y: scroll;
     align-items: center;
     flex-direction: column;
-    margin-left: clamp(20rem, 30vw, 30rem);
+    margin-left: clamp(12rem, 30vw, 30rem);
+    padding: 0.5rem;
   }
 
   .acc-settings-feed {
