@@ -26,25 +26,24 @@ const UserFeed = () => {
 
 
     const getPosts = async ({ pageParam }) => {
-        const fetchedData  = await axiosClient.get(`/user/${user.id}/posts?page=${pageParam}`)
+        const fetchedData = await axiosClient.get(`/user/${user.id}/posts?page=${pageParam}`)
             .then((res) => res)
-            console.log(fetchedData);
-        return ({...fetchedData, prevPage: pageParam})
+        console.log(fetchedData);
+        return ({ ...fetchedData, prevPage: pageParam })
     }
 
 
-    const {data, fetchNextPage, hasNextpage } = useInfiniteQuery({
+    const { data, fetchNextPage, hasNextpage } = useInfiniteQuery({
         queryKey: ['posts'],
         queryFn: getPosts,
         initialPageParam: 1,
         getNextPageParam: (lastPage, allPages, lastPageParam) => {
-            console.log(lastPage.data.meta);
             if (lastPage.data.meta.current_page + 1 > lastPage.data.meta.last_page) {
                 return false
             }
 
             return lastPage.data.meta.current_page + 1
-          
+
         }
     })
 
@@ -140,7 +139,12 @@ const UserFeed = () => {
                         <h3>Posts</h3>
                     </div>
                     <div className='posts-col' >
-                        <InfiniteScroll scrollableTarget='feed' dataLength={userPosts.length} next={fetchNextPage} hasMore={hasNextpage} loader={<Loading />}
+                        <InfiniteScroll
+                            scrollableTarget='feed'
+                            dataLength={posts ? posts.length : 0}
+                            next={() => fetchNextPage()}
+                            hasMore={hasNextpage}
+                            loader={<Loading />}
                             endMessage={
                                 <div style={{ textAlign: 'center' }}>
                                     <h2>End of Feed</h2>
