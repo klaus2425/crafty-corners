@@ -25,7 +25,7 @@ const ViewConversation = (props) => {
   const navigate = useNavigate();
   const conversationEndRef = useRef(null);
   const handleBack = () => {
-    navigate('/messages')
+    navigate(`/messages?uid=${my_user_id}`)
   }
   const [deleteOpen, setDeleteOpen] = useState(false);
   const getTimestamp = (date) => {
@@ -143,13 +143,14 @@ const ViewConversation = (props) => {
     echo.private(`conversation-${conversation_id}`)
       .listen('MessageSent', (data) => {
         console.log('listen triggered');
-        console.log(data.user);
-        if (data.conversation.receiver_id != my_user_id) {
-          getMessages(data.conversation.receiver_id);
-        }
-        else if (data.conversation.sender_id != my_user_id){
-          getMessages(data.conversation.sender_id);
-        }
+        console.log(data);
+        // if (data.message.receiver_id != my_user_id) {
+        //   getMessages(data.conversation.receiver_id);
+        // }
+        // else if (data.conversation.sender_id != my_user_id){
+        //   getMessages(data.conversation.sender_id);
+        // }
+        getMessages(data.user)
 
       }).error((error) => { console.error(error) });
     conversationEndRef.current?.scrollIntoView();

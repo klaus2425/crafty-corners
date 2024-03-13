@@ -1946,6 +1946,10 @@ input::-webkit-inner-spin-button {
 #feed::-webkit-scrollbar {
   display: none;
 } 
+
+.feed::-webkit-scrollbar {
+  display: none;
+} 
 #conversation-scroll {
   overflow: auto;
   height: 100%;
