@@ -6,11 +6,10 @@ import { UserPost } from '../components/Post';
 import { useNavigate } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { JoinedCommunityCount } from '../components/utils/Membership';
 import axiosClient from '../axios-client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../components/utils/Loading';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 const UserFeed = () => {
 
@@ -18,62 +17,44 @@ const UserFeed = () => {
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     const [imageLoading, setImageLoading] = useState(true);
     const navigate = useNavigate();
-    const [userPosts, setUserPosts] = useState([]);
     const [currentUser, setCurrentUser] = useState([]);
-    const [hasMore, setHasMore] = useState(true);
-    const [pageIndex, setPageIndex] = useState(1);
+    const params = new URLSearchParams(window.location.search);
+    const uid = params.get('uid')
 
 
-
-    const getPosts = async ({ pageParam }) => {
-        const fetchedData = await axiosClient.get(`/user/${user.id}/posts?page=${pageParam}`)
-            .then((res) => res)
-        console.log(fetchedData);
-        return ({ ...fetchedData, prevPage: pageParam })
+    const getPosts = async (page) => {
+        console.log('Page param', page);
+        const fetchedData = await axiosClient.get(`/user/${uid}/posts?page=${page}`)
+        return { ...fetchedData.data, prevPage: page }
     }
-
-
-    const { data, fetchNextPage, hasNextpage } = useInfiniteQuery({
+    const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
         queryKey: ['posts'],
-        queryFn: getPosts,
+        queryFn: ({ pageParam }) => getPosts(pageParam),
         initialPageParam: 1,
-        getNextPageParam: (lastPage, allPages, lastPageParam) => {
-            if (lastPage.data.meta.current_page + 1 > lastPage.data.meta.last_page) {
-                return false
+        getNextPageParam: (lastPage) => {
+            if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
+                console.log('NO MORE PAGES');
+            
+                return null;
             }
-
-            return lastPage.data.meta.current_page + 1
-
+            console.log('Page call', lastPage.meta.current_page + 1);
+            return lastPage.meta.current_page + 1
         }
-    })
+    });
+    
+
 
     const posts = data?.pages.reduce((acc, page) => {
-        console.log(acc);
-        console.log(page.data.data);
-        return [...acc, page.data.data];
+        return [...acc, page.data];
     }, [])
-    console.log('GetPost', posts);
+    console.log('Posts', posts);
 
-
-    // const fetchNext = () => {
-    //     console.log('fetching next');
-    //     axiosClient.get(`/user/${user.id}/posts?page=${pageIndex + 1}`)
-    //         .then((res) => {
-    //             console.log('fetchnext');
-    //             setUserPosts(userPosts.concat(res.data.data))
-    //             if (posts.length === res.data.meta.total) {
-    //                 setHasMore(false);
-    //             }
-    //         })
-    //     setPageIndex(pageIndex + 1)
-    // }
 
 
 
     const getUser = () => {
-        axiosClient.get(`/users/${user.id}`)
+        axiosClient.get(`/users/${uid}`)
             .then(res => {
-                console.log('Current User', res.data.data.id);
                 setCurrentUser(res.data.data);
             })
     }
@@ -83,7 +64,6 @@ const UserFeed = () => {
     }
 
     useEffect(() => {
-        getPosts();
         getUser();
     }, [])
 
@@ -142,8 +122,8 @@ const UserFeed = () => {
                         <InfiniteScroll
                             scrollableTarget='feed'
                             dataLength={posts ? posts.length : 0}
-                            next={() => fetchNextPage()}
-                            hasMore={hasNextpage}
+                            next={fetchNextPage}
+                            hasMore={hasNextPage}
                             loader={<Loading />}
                             endMessage={
                                 <div style={{ textAlign: 'center' }}>
@@ -151,9 +131,13 @@ const UserFeed = () => {
                                 </div>
 
                             }>
-                            {userPosts &&
-                                userPosts.map(p => (
-                                    <UserPost key={p.id} post={p} user={currentUser} />
+                            {console.log(posts)}
+                            {
+                                posts &&
+                                posts.map((post) => (
+                                    post.map(p => (
+                                        <UserPost key={p.id} post={p} user={user} />
+                                    ))
                                 ))
                             }
                         </InfiniteScroll>

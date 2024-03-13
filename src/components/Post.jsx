@@ -31,7 +31,7 @@ const Post = (props) => {
     const viewPost = () => {
         navigate(`/p/${post.id}`)
     }
-
+    console.log(props.post);
 
     const notify = () => toast('Link Copied', {
         duration: 1500,
@@ -398,7 +398,6 @@ const Post = (props) => {
 export const UserPost = (props) => {
     const post = props.post;
     const post_user = props.user;
-
     const community = post.community;
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
     const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
