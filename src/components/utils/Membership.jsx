@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2';
 import Skeleton from "react-loading-skeleton";
+import { useQuery } from "@tanstack/react-query";
 
 const MembershipCheck = (props) => {
   const [isMember, setIsMember] = useState(false);
-  console.log(props.user_id);
 
   const getCommunity = () => {
     axiosClient.get(`/communities/${props.community_id}/users`)
@@ -15,6 +15,7 @@ const MembershipCheck = (props) => {
         setIsMember(members.some(member => member.id == props.user_id));
       })
   }
+
 
   const joinCommunity = (id) => {
     axiosClient.post(`/join-community/${id}`)
@@ -61,7 +62,8 @@ const MembershipCheck = (props) => {
   }
 
   useEffect(() => {
-    getCommunity();
+    const members = props.members;
+    setIsMember(members.some(member => member.id == props.user_id));
   }, [])
 
   if (isMember)
@@ -70,16 +72,16 @@ const MembershipCheck = (props) => {
         <span onClick={() => leaveCommunity(props.community_id)} className="com-button-text">Joined</span>
       </button>
     )
-    
-    return (
-      <button className="purple-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M12 6L12 18" stroke="#FFFFFF" strokeWidth="4" strokeLinecap="round" />
-          <path d="M18 12L6 12" stroke="#FFFFFF" strokeWidth="4" strokeLinecap="round" />
-        </svg>
-        <span onClick={() => joinCommunity(props.community_id)} className="com-button-text">Join</span>
-      </button>
-    )
+
+  return (
+    <button className="purple-button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M12 6L12 18" stroke="#FFFFFF" strokeWidth="4" strokeLinecap="round" />
+        <path d="M18 12L6 12" stroke="#FFFFFF" strokeWidth="4" strokeLinecap="round" />
+      </svg>
+      <span onClick={() => joinCommunity(props.community_id)} className="com-button-text">Join</span>
+    </button>
+  )
 
 }
 
@@ -87,20 +89,20 @@ const MembershipCheck = (props) => {
 
 export const JoinedCommunityCount = (user) => {
   const [count, setCount] = useState(0);
-  
+
   const getJoinedCommunity = () => {
     axiosClient.get(`/users/${user.id}`)
-    .then(res => {
-      setCount(res.data.data.communities.length);
-    })
+      .then(res => {
+        setCount(res.data.data.communities.length);
+      })
   }
 
   useEffect(() => {
     getJoinedCommunity()
   }, [])
-  
-  return count > 0 ? ( count === 1 ? (<div><span className="community-count">{count}</span>Community</div>) 
-  : (<div><span className="community-count">{count}</span>Communities</div>)) : <Skeleton className="community-count"/>
+
+  return count > 0 ? (count === 1 ? (<div><span className="community-count">{count}</span>Community</div>)
+    : (<div><span className="community-count">{count}</span>Communities</div>)) : <Skeleton className="community-count" />
 }
 
 
@@ -115,9 +117,9 @@ export const IsAMember = (props) => {
         const members = data.members;
         setIsMember(members.some(member => member.id === props.user_id));
       })
-    
-  
-}
+
+
+  }
 
   useEffect(() => {
     getCommunity();
