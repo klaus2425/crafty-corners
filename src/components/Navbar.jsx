@@ -1,24 +1,27 @@
 import { useStateContext } from "../context/ContextProvider";
 import LoginModal from "./LoginModal";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axiosClient from "../axios-client";
 import DropDownItem from "./DropDownItem";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import { Navigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 
 const Navbar = () => {
     const { isOpen, setIsOpen, setUser, setToken, user, token } = useStateContext();
     const queryClient = useQueryClient();
+    const [openSearch, setOpenSearch] = useState(false);
+    const [searchResult, setSearchResult] = useState();
     const [openDropDown, setOpenDropDown] = useState(false);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const handleNavigateHome = () => {
         navigate('/Landing');
     }
+
+
     const onLogout = () => {
         axiosClient.post('/logout')
             .then(() => {
@@ -28,9 +31,31 @@ const Navbar = () => {
                 navigate('/');
             })
     }
+
+    const handleSearch = (ev) => {
+        console.log(ev.target.value);
+        axiosClient.get(`/search?search=${ev.target.value}`)
+            .then(res => {
+                console.log(res.data)
+                setSearchResult(res.data)
+            })
+    }
+
     const handleDropDown = () => {
         openDropDown ? setOpenDropDown(false) : setOpenDropDown(true);
     }
+    const resultRef = useRef();
+
+    useEffect(() => {
+        let listener = (ev) => {
+            if (!resultRef?.current?.contains(ev.target)) {
+                setOpenSearch(false)
+            }
+        }
+
+        document.addEventListener("mousedown", listener)
+        return () => document.removeEventListener("mousedown", listener)
+    }, [])
 
     if (token) {
         const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
@@ -93,8 +118,26 @@ const Navbar = () => {
                     </svg>
                     <h1>Crafty Corners</h1>
                 </div>
-                <div className="search-post">
-                    <input type='text' placeholder="Search for Discussions or Topics" />
+                <div className="search-post" onClick={() => setOpenSearch(!openSearch)}>
+                    <input onChange={handleSearch} type='text' placeholder="Search for Discussions or Topics" />
+                    {openSearch &&
+                        <div ref={resultRef} className="search-card">
+                            <span className="search-category">/Communities</span>
+                            {searchResult?.community.length > 0 ? searchResult.community.map(((community, index) => (
+                                <span key={index} onClick={() => navigate(`/c/${community.id}?uid=${user.id}`)} className="search-result">{community.name}</span>
+                            )))
+                                :
+                                <span className="search-no-matches">No Matches</span>
+                            }
+                            <span className="search-category">/Users</span>
+                            {searchResult?.user.length > 0 ? searchResult.user.map(((user,index) => (
+                                <span key={index} onClick={() => navigate(`/u/${user.id}`)} className="search-result">{user.first_name} {user.middle_name} {user.last_name}</span>
+                            ))) :
+                                <span className="search-no-matches">No Matches</span>
+                            }
+                            
+                        </div>
+                    }
                 </div>
                 <div className="profile">
                     <button className='add-post'>
@@ -171,12 +214,10 @@ const Navbar = () => {
                             </clipPath>
                         </defs>
                     </svg>
-
                     <h1>Crafty Corners</h1>
                 </div>
                 <div className="guest-buttons">
                     <button className="guest-login" onClick={() => setIsOpen(true)}>Log In</button>
-
                     <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
                 </div>
 

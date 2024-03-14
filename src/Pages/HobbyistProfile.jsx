@@ -21,9 +21,7 @@ const HobbyistProfile = () => {
   const [hasMore, setHasMore] = useState(true);
   const [pageIndex, setPageIndex] = useState(1);
   const { id } = useParams();
-  if (user.id == id) {
-    navigate('/profile');
-  }
+
 
   const fetchNext = () => {
     axiosClient.get(`/user/${id}/posts?page=${pageIndex + 1}`)
@@ -65,6 +63,9 @@ const HobbyistProfile = () => {
   }
 
   useEffect(() => {
+    if (user.id == id) {
+      navigate(`/profile?uid=${id}`);
+    }
     getUser();
     getPosts();
   }, [])
