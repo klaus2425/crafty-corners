@@ -17,9 +17,6 @@ const DefaultLayout = () => {
             .then((res) => res)
     })
     
-    if (!token || !user) {
-        return <Navigate to='/Landing' />;
-    }
 
     useEffect(() => {
         if (!isLoading) {
@@ -30,6 +27,9 @@ const DefaultLayout = () => {
         }
     }, [data])
 
+    if (!token || !user) {
+        return <Navigate to='/Landing' />;
+    }
 
     if (user.type === 'admin') {
         return <Navigate to='/Users' />

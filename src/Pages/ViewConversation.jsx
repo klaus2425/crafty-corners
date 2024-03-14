@@ -118,7 +118,6 @@ const ViewConversation = (props) => {
 
     echo.private(`conversation-${conversation_id}`)
       .listen('MessageSent', (data) => {
-        console.log('listen triggered');
         console.log(data);
         if (data.user != uid) getMessages(data.user)
         

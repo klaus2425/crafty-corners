@@ -25,6 +25,24 @@ const MentorAddArticle = () => {
     }
   )
 
+  const handleSubmit = (ev) => {
+    ev.preventDefault()
+    console.log('Submit');
+    const formData = new FormData();
+    formData.append('title', titleRef.current.value);
+    formData.append('author', authorRef.current.value);
+    formData.append('description', descriptionRef.current.value);
+    formData.append('community_id', selected);
+    formData.append('user_id', user.id);
+    formData.append('link', linkRef.current.value);
+    axiosClient.post('/articles', formData).then(({data}) => {
+      console.log(data);
+      navigate(`/articles`)
+    })
+    .catch((err) => console.log(err.response.data))
+
+
+  }
 
 
   const handleChange = (ev) => {
@@ -82,7 +100,7 @@ const MentorAddArticle = () => {
                   ))}
                 </select>
               </div>
-              <button className='purple-button'>Submit</button>
+              <button onClick={handleSubmit} className='purple-button'>Submit</button>
             </form>
           </div>
         </div>

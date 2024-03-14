@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import axiosClient from "../../axios-client";
 import { useParams } from "react-router-dom";
 import toast, {Toaster} from 'react-hot-toast';
-
+import Swal from "sweetalert2";
 
 const ViewMentorApplication = () => {
   const {id} = useParams();
@@ -10,6 +10,7 @@ const ViewMentorApplication = () => {
   const [community, setCommunity] = useState({});
   const dateTimeRef = useRef();
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
+
   const handleSubmit = () => {
     console.log(dateTimeRef.current.value);
     const formData = new FormData();
@@ -18,7 +19,7 @@ const ViewMentorApplication = () => {
     axiosClient.post(`/mentor/${id}/set-assessment_date`, formData)
     .then((res) => {
       console.log(res.data);
-      toast('Asessment confirmed', {
+      toast('Asessment date set!', {
         duration: 1500,
         position: "bottom-center",
         icon: "✅",
@@ -41,6 +42,47 @@ const ViewMentorApplication = () => {
       }
 
     }))
+  }
+
+  const handleConfirmMentor = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Pressing yes will promote this user to mentor.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosClient.post(`/accept-mentorship-application/`)
+        Swal.fire({
+          title: "Success!",
+          text: "User promoted to Mentor.",
+          icon: "success"
+        });
+      }
+    });
+  }
+
+  const handleRejectMentor = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Pressing yes will remove this user's application.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Success!",
+          text: "Application has been rejected.",
+          icon: "success"
+        });
+      }
+    });
   }
 
   const getApplicant = () => {
@@ -91,10 +133,10 @@ const ViewMentorApplication = () => {
         <button className="purple-button" onClick={handleSubmit}>
           Set Assessment
         </button>
-        <button className="green-button">
+        <button onClick={handleConfirmMentor} className="green-button">
           Confirm Application
         </button>
-        <button className="red-button">
+        <button onClick={handleRejectMentor} className="red-button">
           Reject Application
         </button>
       </div>
