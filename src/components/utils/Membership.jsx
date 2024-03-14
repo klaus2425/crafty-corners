@@ -5,17 +5,18 @@ import Skeleton from "react-loading-skeleton";
 
 const MembershipCheck = (props) => {
   const [isMember, setIsMember] = useState(false);
+  console.log(props.user_id);
 
   const getCommunity = () => {
     axiosClient.get(`/communities/${props.community_id}/users`)
       .then(({ data }) => {
         const members = data.members;
-        setIsMember(members.some(member => member.id === props.user_id));
+        console.log(members);
+        setIsMember(members.some(member => member.id == props.user_id));
       })
   }
 
   const joinCommunity = (id) => {
-
     axiosClient.post(`/join-community/${id}`)
       .then(() => {
         getCommunity();
@@ -69,7 +70,7 @@ const MembershipCheck = (props) => {
         <span onClick={() => leaveCommunity(props.community_id)} className="com-button-text">Joined</span>
       </button>
     )
-  else
+    
     return (
       <button className="purple-button">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

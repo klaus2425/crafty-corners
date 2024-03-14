@@ -23,7 +23,8 @@ const ViewCommunity = () => {
   const [posts, setPosts] = useState([]);
   const [pageIndex, setPageIndex] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-
+  const params = new URLSearchParams(window.location.search);
+  const uid = params.get('uid')
 
   const getMembers = () => {
     axiosClient.get(`/communities/${id}/users`)
@@ -71,7 +72,7 @@ const ViewCommunity = () => {
 
   return (
     <div className="authenticated-container">
-      <div className="feed">
+      <div className="feed" id='feed'>
         <div className='section-header'>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="9" r="4" fill="#33363F" />
@@ -97,7 +98,7 @@ const ViewCommunity = () => {
                 </div>
                 <div className='community-join'>
                   {!loading &&
-                    <MembershipCheck community_id={community.id} user_id={user.id} />
+                    <MembershipCheck community_id={id} user_id={uid} />
                   }
                 </div>
               </div>
@@ -119,22 +120,19 @@ const ViewCommunity = () => {
               }
             </div>
           </div>
-          <div id='scroll' className='scroll'>
-            <InfiniteScroll dataLength={posts.length} next={fetchNext} hasMore={hasMore} loader={<Loading />}
-              endMessage={
-                <div style={{ textAlign: 'center' }}>
-                  <h2>End of Feed</h2>
-                </div>
-              }
-            >
-              {posts.map(p => (
-                <Post key={p.id} post={p} community={community} />
-              )
-              )
-              }
-            </InfiniteScroll>
-
-          </div>
+          <InfiniteScroll scrollableTarget='feed' dataLength={posts.length} next={fetchNext} hasMore={hasMore} loader={<Loading />}
+            endMessage={
+              <div style={{ textAlign: 'center' }}>
+                <h2>End of Feed</h2>
+              </div>
+            }
+          >
+            {posts.map(p => (
+              <Post key={p.id} post={p} community={community} />
+            )
+            )
+            }
+          </InfiniteScroll>
           <PostModal getCommunity={getCommunity} isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
       </div>

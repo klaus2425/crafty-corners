@@ -18,7 +18,7 @@ const Communities = () => {
 
   }
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['post'],
     queryFn: getCommunities
   })
@@ -53,7 +53,7 @@ const Communities = () => {
               <path d="M28.333 28.3333L24.083 24.0833" stroke="#677186" strokeWidth="1.41667" strokeLinecap="round" />
             </svg>
           </div>
-          {loading ? <Loading /> :
+          {isLoading ? <Loading /> :
             <div className="list-card-items">
               {data?.data.map(c => (
                 <LoadCommunity key={c.id} c={c} />
