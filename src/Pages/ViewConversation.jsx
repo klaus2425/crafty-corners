@@ -69,7 +69,6 @@ const ViewConversation = (props) => {
           console.log();
           setHasMore(false);
         } else {
-          console.log('setHasMessage', true);
           setHasMessage(true)
         }
       })
