@@ -40,7 +40,9 @@ const Messages = () => {
     axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
       .then(res => {
         console.log('Marked as read', res)
-      });
+      })
+      .catch(err => {const mute = err})
+      ;
     navigate(`/conversation/${conversation_id}?user_id0=${id1}&user_id1=${id2}&lid=${user.id}`);
   }
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
@@ -92,17 +94,17 @@ const Messages = () => {
                     </div>
                     <div className="list-card-item-text">
                       <span>{c.user_1.first_name}</span>
-                      {uid != c.message.sender_id && !c.message.read ?
-                        <p><strong>{c.user_1.id == c.message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {c.message.message}</strong>
+                      {uid != c?.latest_message.sender_id && !c?.latest_message.read ?
+                        <p><strong>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {c.latest_message.message}</strong>
 
                         </p>
                         :
-                        <p>{c.user_1.id == c.message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {c.message.message}</p>
+                        <p>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {c.latest_message.message}</p>
                       }
                     </div>
                     <div className="list-card-item-time">
-                      {getTimePassedSince(c.message.created_at)}
-                      {uid != c.message.sender_id && !c.message.read &&
+                      {getTimePassedSince(c.latest_message.created_at)}
+                      {uid != c.latest_message.sender_id && !c.latest_message.read &&
                         <span>
                           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="7" cy="7" r="7" fill="#FF4646" />
@@ -122,15 +124,15 @@ const Messages = () => {
                   </div>
                   <div className="list-card-item-text">
                     <span>{c.user_0.first_name}</span>
-                    {uid != c.message.sender_id && !c.message.read ?
-                      <p><strong>{c.user_0.id == c.message.sender_id ? c.user_0.first_name : c.user_1.first_name}: {c.message.message}</strong></p>
+                    {uid != c.latest_message.sender_id && !c.latest_message.read ?
+                      <p><strong>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}: {c.latest_message.message}</strong></p>
                       :
-                      <p>{c.user_0.id == c.message.sender_id ? c.user_0.first_name : c.user_1.first_name}: {c.message.message}</p>
+                      <p>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}: {c.latest_message.message}</p>
                     }
                   </div>
                   <div className="list-card-item-time">
-                  {getTimePassedSince(c.message.created_at)}
-                      {uid != c.message.sender_id && !c.message.read &&
+                  {getTimePassedSince(c.latest_message.created_at)}
+                      {uid != c.latest_message.sender_id && !c.latest_message.read &&
                         <span>
                           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="7" cy="7" r="7" fill="#FF4646" />
