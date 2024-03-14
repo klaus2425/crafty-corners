@@ -1,22 +1,23 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useStateContext } from '../context/ContextProvider';
 import { useEffect, useState } from 'react';
 import echo from './Echo';
 
 export const Sidebar = () => {
+    const location = useLocation();
     const navigate = useNavigate();
     const { user } = useStateContext();
     const [messageNotify, setMessageNotify] = useState(false);
 
     useEffect(() => {
-
         echo.private(`user-${user.id}`)
             .listen('MessageSent', (data) => {
-                console.log('listen triggered');
-                setMessageNotify(true);
-                console.log(data);
-            }).error((error) => { console.error(error) });
+                if(!location.pathname === '/messages'){
+                    setMessageNotify(true);
+                    console.log(data);
+                } 
 
+            }).error((error) => { console.error(error) });
     }, [user])
 
 

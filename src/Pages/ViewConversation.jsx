@@ -6,15 +6,15 @@ import axiosClient from '../axios-client';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Loading from '../components/utils/Loading';
-import echo  from '../components/Echo';
+import echo from '../components/Echo';
 
 const ViewConversation = (props) => {
-  
+
   const [pageIndex, setPageIndex] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [messages, setMessages] = useState([]);
   const messageRef = useRef();
-  const [hasMessage , setHasMessage] = useState(false);
+  const [hasMessage, setHasMessage] = useState(false);
   const params = new URLSearchParams(window.location.search);
   const user_id0 = params.get('user_id0');
   const user_id1 = params.get('user_id1');
@@ -30,13 +30,11 @@ const ViewConversation = (props) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const getTimestamp = (date) => {
     const dateObject = new Date(date);
-
     const hours = dateObject.getHours();
     const ampm = hours >= 12 ? 'PM' : 'AM';
     const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
     const minutes = dateObject.getMinutes().toString().padStart(2, '0');
     const formattedTime = `${formattedHours}:${minutes} ${ampm}`;
-
     return formattedTime;
   }
 
@@ -120,19 +118,18 @@ const ViewConversation = (props) => {
       .listen('MessageSent', (data) => {
         console.log(data);
         if (data.user != uid) getMessages(data.user)
-        
+
       }).error((error) => { console.error(error) });
     conversationEndRef.current?.scrollIntoView();
 
-
-
-
     return () => {
       echo.leave(`conversation-${conversation_id}`);
-      console.log(hasMessage);
-      // if (!hasMessage) {
-      //   axiosClient.delete(`/conversation/${conversation_id}`).catch(err => console.log(err));
-      // }
+      axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
+        .then(res => {
+          console.log('Marked as read', res)
+        })
+        .catch(err => { const mute = err })
+        ;
     };
   }, []);
 
@@ -200,7 +197,6 @@ const ViewConversation = (props) => {
               </InfiniteScroll>
             </div>
             <div className='end' ref={conversationEndRef}></div>
-
           </div>
           <div>
             <div className="textbox">
@@ -218,7 +214,6 @@ const ViewConversation = (props) => {
         </div>
       </div>
       <div className="recommended">
-
       </div>
     </div>
 

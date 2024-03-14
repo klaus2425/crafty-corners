@@ -4271,10 +4271,17 @@ input::-webkit-inner-spin-button {
         span {
           color: #e4e6eb;
         }
+        p {
+          display: flex;
+          justify-content: space-between;
+        }
       }
 
       .list-card-item-time {
-
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
         .white-button {
           background-color: #18191a;
           color: #e4e6eb;

@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../context/ContextProvider";
+import echo from "../components/Echo";
+import Pusher from 'pusher-js'
+
+
 
 const Messages = () => {
   const navigate = useNavigate();
@@ -10,11 +14,33 @@ const Messages = () => {
   const params = new URLSearchParams(window.location.search);
   const uid = params.get('uid')
 
+  function getTimePassedSince(dateString) {
+    const currentDate = new Date();
+    const timestamp = new Date(dateString.replace(/-/g, '/')).getTime();
+    const currentTimestamp = currentDate.getTime();
+    const timeDifference = currentTimestamp - timestamp;
+
+    const seconds = Math.floor(timeDifference / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) {
+      return `${days}d`;
+    } else if (hours > 0) {
+      return `${hours}h`;
+    } else if (minutes > 0) {
+      return `${minutes}m`;
+    } else {
+      return `${seconds}s`;
+    }
+  }
+
   const viewConversation = (conversation_id, id1, id2) => {
     axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
-    .then(res => {
-      console.log('Marked as read', res)
-    });
+      .then(res => {
+        console.log('Marked as read', res)
+      });
     navigate(`/conversation/${conversation_id}?user_id0=${id1}&user_id1=${id2}&lid=${user.id}`);
   }
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
@@ -29,6 +55,12 @@ const Messages = () => {
 
   useEffect(() => {
     getConversations()
+    Pusher.logToConsole = true;
+    echo.private(`user-${uid}`)
+    .listen('MessageSent', (data) => {
+        getConversations();
+        console.log(data);
+    }).error((error) => { console.error(error) });
   }, [])
 
   return (
@@ -60,10 +92,23 @@ const Messages = () => {
                     </div>
                     <div className="list-card-item-text">
                       <span>{c.user_1.first_name}</span>
-                      <p>{c.user_1.id == c.message.sender_id ? c.user_1.first_name : c.user_0.first_name }: {c.message.message}</p>
+                      {uid != c.message.sender_id && !c.message.read ?
+                        <p><strong>{c.user_1.id == c.message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {c.message.message}</strong>
+
+                        </p>
+                        :
+                        <p>{c.user_1.id == c.message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {c.message.message}</p>
+                      }
                     </div>
                     <div className="list-card-item-time">
-                      <span>2h</span>
+                      {getTimePassedSince(c.message.created_at)}
+                      {uid != c.message.sender_id && !c.message.read &&
+                        <span>
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="7" cy="7" r="7" fill="#FF4646" />
+                          </svg>
+                        </span>
+                      }
                     </div>
                   </div>
                 </div>
@@ -77,10 +122,21 @@ const Messages = () => {
                   </div>
                   <div className="list-card-item-text">
                     <span>{c.user_0.first_name}</span>
-                    <p>{c.user_0.id == c.message.sender_id ? c.user_0.first_name : c.user_1.first_name }: {c.message.message}</p>
+                    {uid != c.message.sender_id && !c.message.read ?
+                      <p><strong>{c.user_0.id == c.message.sender_id ? c.user_0.first_name : c.user_1.first_name}: {c.message.message}</strong></p>
+                      :
+                      <p>{c.user_0.id == c.message.sender_id ? c.user_0.first_name : c.user_1.first_name}: {c.message.message}</p>
+                    }
                   </div>
                   <div className="list-card-item-time">
-                    <span>2h</span>
+                  {getTimePassedSince(c.message.created_at)}
+                      {uid != c.message.sender_id && !c.message.read &&
+                        <span>
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="7" cy="7" r="7" fill="#FF4646" />
+                          </svg>
+                        </span>
+                      }
                   </div>
                 </div>
               </div>

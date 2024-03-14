@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 const ViewMentorApplication = () => {
   const {id} = useParams();
   const [applicant, setApplicant] = useState({});
-  const [community, setCommunity] = useState({});
   const dateTimeRef = useRef();
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
 
@@ -55,7 +54,7 @@ const ViewMentorApplication = () => {
       confirmButtonText: "Yes"
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosClient.post(`/accept-mentorship-application/`)
+        axiosClient.post(`/accept-mentorship-application/${applicant.id}`)
         Swal.fire({
           title: "Success!",
           text: "User promoted to Mentor.",
