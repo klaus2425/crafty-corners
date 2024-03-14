@@ -50,6 +50,7 @@ const HobbyistProfile = () => {
     axiosClient.get(`/users/${id}`)
       .then(res => {
         setCurrentUser(res.data.data)
+        console.log(res.data.data);
       })
   }
   const sendMessage = () => {
@@ -92,7 +93,7 @@ const HobbyistProfile = () => {
                   <div className='display-name'>
                     <h2>{currentUser.first_name || <Skeleton />}</h2>
                     {currentUser.user_name ? `@${currentUser.user_name}` : <Skeleton />}
-                    {currentUser.id ? <JoinedCommunityCount id={currentUser.id} /> : <Skeleton className='skeleton' />}
+                    <span>{currentUser.id ? `${currentUser.communities?.length} Communities` : <Skeleton className='skeleton' />}</span>
                   </div>
                 </div>
                 <div className='lower-details'>
