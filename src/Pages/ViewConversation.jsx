@@ -132,9 +132,9 @@ const ViewConversation = (props) => {
     return () => {
       echo.leave(`conversation-${conversation_id}`);
       console.log(hasMessage);
-      if (!hasMessage) {
-        axiosClient.delete(`/conversation/${conversation_id}`).catch(err => console.log(err));
-      }
+      // if (!hasMessage) {
+      //   axiosClient.delete(`/conversation/${conversation_id}`).catch(err => console.log(err));
+      // }
     };
   }, []);
 

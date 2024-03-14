@@ -3,14 +3,22 @@ import Article from "../components/Article";
 import axiosClient from "../axios-client";
 import Loading from "../components/utils/Loading";
 import Swal from 'sweetalert2';
+import { useNavigate } from "react-router-dom";
+import { useStateContext } from "../context/ContextProvider";
 
 const UserFeed = () => {
+    const {user} = useStateContext();
     const [active, setActive] = useState("1");
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     const handleClick = (ev) => {
         ev.preventDefault();
         setActive(ev.target.id);
+    }
+
+    const handleAddArticle = () => {
+        navigate(`/mentor/add-article/?uid=${user.id}`)
     }
 
     const getArticles = () => {
@@ -47,8 +55,11 @@ const UserFeed = () => {
                         <h3>Articles</h3>
                     </div>
                     <div className="round-card">
-                        <span id="1" className={active === "1" ? "active" : undefined} onClick={handleClick}>All</span>
-                        <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
+                        <div>
+                            <span id="1" className={active === "1" ? "active" : undefined} onClick={handleClick}>All</span>
+                            <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
+                        </div>
+                        <button onClick={handleAddArticle} className="purple-button round">Add Article</button>
                     </div>
                 </div>
                 <div className="card">

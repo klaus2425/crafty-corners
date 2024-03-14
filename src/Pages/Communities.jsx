@@ -5,29 +5,27 @@ import Loading from "../components/utils/Loading";
 import { useStateContext } from "../context/ContextProvider";
 import { useNavigate } from 'react-router-dom';
 import LoadCommunity from "../components/utils/LoadCommunity";
+import { useQuery } from "@tanstack/react-query";
 
 const Communities = () => {
   const [communities, setCommunities] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const getCommunities = () => {
-    setLoading(true);
-    axiosClient.get('/communities')
-      .then(res => {
-        setLoading(false);
-        setCommunities(res.data.data);
-      })
-      .catch(err => {
-        const response = err.response;
-        if (response && response.status === 422) {
-          Swal.fire({
-            title: "Error",
-            text: `${Object.values(response.data.errors)[0]}`,
-            icon: "warning"
-          });
-        }
-      })
+  const getCommunities = async () => {
+    // setLoading(true);
+    const fetchedData = await axiosClient.get('/communities')
+    return fetchedData.data;
+
   }
+
+  const { data } = useQuery({
+    queryKey: ['post'],
+    queryFn: getCommunities
+  })
+
+  
+
+
 
   useEffect(() => {
     getCommunities();
@@ -57,9 +55,12 @@ const Communities = () => {
           </div>
           {loading ? <Loading /> :
             <div className="list-card-items">
-              {communities.map(c => (
+              {data?.data.map(c => (
                 <LoadCommunity key={c.id} c={c} />
               ))}
+              {
+                console.log(data)
+              }
             </div>
           }
         </div>
