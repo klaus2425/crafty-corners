@@ -7,6 +7,7 @@ import { useThemeContext } from "../context/ThemeProvider";
 import { useEffect } from "react";
 import axiosClient from "../axios-client";
 import { useQuery } from "@tanstack/react-query";
+import { Toaster } from "react-hot-toast";
 
 const DefaultLayout = () => {
 
@@ -36,6 +37,7 @@ const DefaultLayout = () => {
     } else
     return (
         <div className="body-container" id={theme} style={{ height: "100dvh", overflowY: 'scroll' }}>
+            <Toaster />
             <Navbar />
             <div className="authenticated-container" >
                 <Sidebar />

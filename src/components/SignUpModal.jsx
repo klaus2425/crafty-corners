@@ -2,15 +2,16 @@ import Swal from 'sweetalert2';
 import React, { useRef, useState } from 'react';
 import axiosClient from '../axios-client';
 import { useStateContext } from '../context/ContextProvider';
-export default function SignUpModal(props) {
+import toast from 'react-hot-toast';
 
+
+export default function SignUpModal(props) {
+    const [disabled, setDisabled] = useState(false);
     const [image, setImage] = useState();
     if (!image) { setImage('/avatar.jpg') }
     const handleChange = (e) => {
         setImage(URL.createObjectURL(e.target.files[0]));
     };
-
-
 
     const firstNameRef = useRef();
     const lastNameRef = useRef();
@@ -29,6 +30,7 @@ export default function SignUpModal(props) {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
+        setDisabled(true);
         const formData = new FormData();
         formData.append('first_name', firstNameRef.current.value);
         formData.append('middle_name', middleNameRef.current.value);
@@ -45,6 +47,7 @@ export default function SignUpModal(props) {
         formData.append('student_id', studentIdRef.current.value)
         axiosClient.post('/register', formData)
             .then(({ data }) => {
+                setDisabled(false);
                 toast('Verification sent to email address', {
                     duration: 1500,
                     position: "bottom-center",
@@ -59,6 +62,8 @@ export default function SignUpModal(props) {
             })
             .catch(err => {
                 const response = err.response;
+                console.log(err);
+                setDisabled(false);
                 if (response && response.status === 422) {
                     Swal.fire({
                         title: "Error",
@@ -181,11 +186,9 @@ export default function SignUpModal(props) {
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                         <div className="sign-up-button-container">
-                            <button className='sign-up'>Sign Up</button>
+                            <button className='sign-up' disabled={disabled ? true : false}>Sign Up</button>
                         </div>
                     </form>
                 </div>

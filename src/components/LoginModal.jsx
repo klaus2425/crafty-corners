@@ -50,13 +50,11 @@ export default function LoginModal(props) {
     };
     axios.get('http://localhost:8000/sanctum/csrf-cookie', {
       withCredentials: true,
-    }).then((res) => console.log(res))
+    })
     axiosClient
       .post("/login", payload)
       .then(({ data }) => {
-        console.log(`Bearer ${data.token}`);
         if (data.user.email_verified_at === null) {
-          console.log(data);
           toast('Verify your account first!', {
             duration: 1500,
             position: "bottom-center",
@@ -74,9 +72,6 @@ export default function LoginModal(props) {
               'Content-Type': 'application/json'
             }
           })
-            .then(res => {
-              console.log(res);
-            })
             .catch(err => console.log(err));
         }
         else {
