@@ -65,7 +65,7 @@ const UserFeed = () => {
                 <div className="card">
                     {loading ? <Loading /> :
                         articles.map(a => (
-                            <Article author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name} />
+                            <Article key={a.id} author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name} />
                         ))
                     }
                 </div>
