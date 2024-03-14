@@ -110,7 +110,6 @@ const Post = (props) => {
     }
 
     useEffect(() => {
-        console.log('Post ID: ' + post.id +' ' +post.liked_by_user);
         setLiked(post.liked_by_user);
     }, [])
 
