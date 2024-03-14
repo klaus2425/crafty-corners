@@ -9,7 +9,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import axiosClient from '../axios-client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../components/utils/Loading';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 const UserFeed = () => {
 
@@ -42,7 +42,10 @@ const UserFeed = () => {
         }
     });
     
-
+    const userData = useQuery({
+        queryKey: ['user-profile'], queryFn: () => axiosClient.get(`/users/${uid}`)
+            .then((res) => res)
+    })
 
     const posts = data?.pages.reduce((acc, page) => {
         return [...acc, page.data];
@@ -56,6 +59,7 @@ const UserFeed = () => {
         axiosClient.get(`/users/${uid}`)
             .then(res => {
                 setCurrentUser(res.data.data);
+                console.log(userData.data.data.data.communities.length);
             })
     }
 
@@ -94,8 +98,9 @@ const UserFeed = () => {
                                     <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} className='profile-picture' src={`${storageBaseUrl}/${user.profile_picture}`} alt='Profile Picture' />
                                     <div className='display-name'>
                                         <h2>{user.first_name || <Skeleton />}</h2>
-                                        {user.user_name ? `@${user.user_name}` : <Skeleton />} <br />
-                                        {/* {!usePosts.isLoading ? `${currentUser?.communities?.length} Communities` : '0 Communities'} */}
+                                        <span>{user.user_name ? `@${user.user_name}` : <Skeleton />}</span>
+                                        <span>{ !userData.isLoading ? `${userData.data.data.data.communities.length} Communities` : <Skeleton />}</span>
+                                        
                                     </div>
                                 </div>
                                 <div className='lower-details'>
