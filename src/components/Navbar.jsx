@@ -123,14 +123,14 @@ const Navbar = () => {
                     {openSearch &&
                         <div ref={resultRef} className="search-card">
                             <span className="search-category">/Communities</span>
-                            {searchResult?.community.length > 0 ? searchResult.community.map(((community, index) => (
+                            {searchResult?.community?.length > 0 ? searchResult.community.map(((community, index) => (
                                 <span key={index} onClick={() => navigate(`/c/${community.id}?uid=${user.id}`)} className="search-result">{community.name}</span>
                             )))
                                 :
                                 <span className="search-no-matches">No Matches</span>
                             }
                             <span className="search-category">/Users</span>
-                            {searchResult?.user.length > 0 ? searchResult.user.map(((user,index) => (
+                            {searchResult?.user?.length > 0 ? searchResult.user.map(((user,index) => (
                                 <span key={index} onClick={() => navigate(`/u/${user.id}`)} className="search-result">{user.first_name} {user.middle_name} {user.last_name}</span>
                             ))) :
                                 <span className="search-no-matches">No Matches</span>

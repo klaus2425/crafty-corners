@@ -7,6 +7,7 @@ import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Loading from '../components/utils/Loading';
 import echo from '../components/Echo';
+import ConfirmDeleteMessageModal from '../components/ConfirmDeleteMessageModal';
 
 const ViewConversation = (props) => {
 
@@ -14,6 +15,7 @@ const ViewConversation = (props) => {
   const [hasMore, setHasMore] = useState(true);
   const [messages, setMessages] = useState([]);
   const messageRef = useRef();
+  const [message_id, setMessage_id] = useState();
   const [hasMessage, setHasMessage] = useState(false);
   const params = new URLSearchParams(window.location.search);
   const user_id0 = params.get('user_id0');
@@ -28,6 +30,8 @@ const ViewConversation = (props) => {
     navigate(`/messages?uid=${uid}`)
   }
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteMessageOpen, setDeleteMessageOpen] = useState(false);
+
   const getTimestamp = (date) => {
     const dateObject = new Date(date);
     const hours = dateObject.getHours();
@@ -140,6 +144,7 @@ const ViewConversation = (props) => {
     <div className="authenticated-container">
       <div className="feed">
         <ConfirmDeleteModal id={conversation_id} deleteOpen={deleteOpen} setDeleteOpen={setDeleteOpen} />
+        <ConfirmDeleteMessageModal id={message_id} receiver_id={receiver?.id} getMessages={getMessages} deleteMessageOpen={deleteMessageOpen} setDeleteMessageOpen={setDeleteMessageOpen} />
         <div className='section-header'>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path fillRule="evenodd" clipRule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21H16.5C17.8978 21 18.5967 21 19.1481 20.7716C19.8831 20.4672 20.4672 19.8831 20.7716 19.1481C21 18.5967 21 17.8978 21 16.5V12C21 7.02944 16.9706 3 12 3ZM8 11C8 10.4477 8.44772 10 9 10H15C15.5523 10 16 10.4477 16 11C16 11.5523 15.5523 12 15 12H9C8.44772 12 8 11.5523 8 11ZM11 15C11 14.4477 11.4477 14 12 14H15C15.5523 14 16 14.4477 16 15C16 15.5523 15.5523 16 15 16H12C11.4477 16 11 15.5523 11 15Z" fill="#222222" />
@@ -180,6 +185,15 @@ const ViewConversation = (props) => {
                         <div key={message.id} className="conversation-item-user">
                           <span className="chat">{message.message}</span>
                           <span className='chat-timestamp'>{getTimestamp(message.created_at)}</span>
+                          <span onClick={() => {
+                            setMessage_id(message.id);
+                            setDeleteMessageOpen(true);
+                          }} className='delete-message'>
+                            <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path fillRule="evenodd" clipRule="evenodd" d="M25.4688 7.8125H4.28125V11.3438C5.58142 11.3438 6.63542 12.3977 6.63542 13.6979V18.4062C6.63542 21.7355 6.63542 23.4002 7.6697 24.4345C8.70398 25.4688 10.3686 25.4688 13.6979 25.4688H16.0521C19.3814 25.4688 21.046 25.4688 22.0803 24.4345C23.1146 23.4002 23.1146 21.7355 23.1146 18.4062V13.6979C23.1146 12.3977 24.1686 11.3438 25.4688 11.3438V7.8125ZM13.1094 13.6979C13.1094 13.0479 12.5824 12.5209 11.9323 12.5209C11.2822 12.5209 10.7552 13.0479 10.7552 13.6979V19.5834C10.7552 20.2335 11.2822 20.7604 11.9323 20.7604C12.5824 20.7604 13.1094 20.2335 13.1094 19.5834V13.6979ZM18.9948 13.6979C18.9948 13.0479 18.4678 12.5209 17.8177 12.5209C17.1677 12.5209 16.6407 13.0479 16.6407 13.6979V19.5834C16.6407 20.2335 17.1677 20.7604 17.8177 20.7604C18.4678 20.7604 18.9948 20.2335 18.9948 19.5834V13.6979Z" fill="#222222" />
+                              <path d="M12.6011 4.71747C12.7353 4.59232 13.0308 4.48174 13.442 4.40287C13.8531 4.324 14.3568 4.28125 14.8751 4.28125C15.3933 4.28125 15.8971 4.324 16.3082 4.40287C16.7193 4.48174 17.0149 4.59232 17.149 4.71747" stroke="#222222" strokeWidth="2.35417" strokeLinecap="round" />
+                            </svg>
+                          </span>
                         </div>
                       )
                     }
@@ -189,6 +203,15 @@ const ViewConversation = (props) => {
                           <img className='chat-img' src={`${storageBaseUrl}${receiver?.profile_picture}`} alt="" />
                           <span className="chat">{message.message}</span>
                           <span className='chat-timestamp'>{getTimestamp(message.created_at)}</span>
+                          <span onClick={() => {
+                            setMessage_id(message.id);
+                            setDeleteMessageOpen(true);
+                          }} className='delete-message'>
+                            <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path fillRule="evenodd" clipRule="evenodd" d="M25.4688 7.8125H4.28125V11.3438C5.58142 11.3438 6.63542 12.3977 6.63542 13.6979V18.4062C6.63542 21.7355 6.63542 23.4002 7.6697 24.4345C8.70398 25.4688 10.3686 25.4688 13.6979 25.4688H16.0521C19.3814 25.4688 21.046 25.4688 22.0803 24.4345C23.1146 23.4002 23.1146 21.7355 23.1146 18.4062V13.6979C23.1146 12.3977 24.1686 11.3438 25.4688 11.3438V7.8125ZM13.1094 13.6979C13.1094 13.0479 12.5824 12.5209 11.9323 12.5209C11.2822 12.5209 10.7552 13.0479 10.7552 13.6979V19.5834C10.7552 20.2335 11.2822 20.7604 11.9323 20.7604C12.5824 20.7604 13.1094 20.2335 13.1094 19.5834V13.6979ZM18.9948 13.6979C18.9948 13.0479 18.4678 12.5209 17.8177 12.5209C17.1677 12.5209 16.6407 13.0479 16.6407 13.6979V19.5834C16.6407 20.2335 17.1677 20.7604 17.8177 20.7604C18.4678 20.7604 18.9948 20.2335 18.9948 19.5834V13.6979Z" fill="#222222" />
+                              <path d="M12.6011 4.71747C12.7353 4.59232 13.0308 4.48174 13.442 4.40287C13.8531 4.324 14.3568 4.28125 14.8751 4.28125C15.3933 4.28125 15.8971 4.324 16.3082 4.40287C16.7193 4.48174 17.0149 4.59232 17.149 4.71747" stroke="#222222" strokeWidth="2.35417" strokeLinecap="round" />
+                            </svg>
+                          </span>
                         </div>
                       )
                     }

@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useStateContext } from '../context/ContextProvider';
 import { useEffect, useState } from 'react';
 import echo from './Echo';
+import Pusher from 'pusher-js';
 
 export const Sidebar = () => {
     const location = useLocation();
@@ -9,15 +10,23 @@ export const Sidebar = () => {
     const { user } = useStateContext();
     const [messageNotify, setMessageNotify] = useState(false);
 
+    
     useEffect(() => {
         echo.private(`user-${user.id}`)
-            .listen('MessageSent', (data) => {
-                if(!location.pathname === '/messages'){
-                    setMessageNotify(true);
-                    console.log(data);
-                } 
+        .listen('MessageSent', (data) => {
+            if(!(location.pathname == '/messages') && !(location.pathname == `/conversation/${data.message.conversation_id}`)){
+                setMessageNotify(true);
+            console.log('hehehe');
+            } 
+            console.log(data.message.conversation_id);
 
-            }).error((error) => { console.error(error) });
+        }).error((error) => {});
+        Pusher.logToConsole = true;
+        if (user.unread_messages_count > 0 && window.location.pathname != '/messages') {
+            setMessageNotify(true);
+        } else setMessageNotify(false);
+        console.log('Notification', user.unread_messages_count);
+
     }, [user])
 
 

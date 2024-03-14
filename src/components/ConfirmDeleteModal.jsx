@@ -3,7 +3,9 @@ import axiosClient from "../axios-client";
 
 const ConfirmDeleteModal = (props) => {
 
-
+  const deleteConversation = () => {
+    
+  }
 
   return props.deleteOpen ? (
     <div className="overlay">
