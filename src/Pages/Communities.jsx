@@ -12,7 +12,6 @@ const Communities = () => {
   const [loading, setLoading] = useState(false);
 
   const getCommunities = async () => {
-    // setLoading(true);
     const fetchedData = await axiosClient.get('/communities')
     return fetchedData.data;
 
@@ -24,12 +23,6 @@ const Communities = () => {
   })
 
   
-
-
-
-  useEffect(() => {
-    getCommunities();
-  }, [])
   return (
     <div className="authenticated-container">
       <div className="feed">
