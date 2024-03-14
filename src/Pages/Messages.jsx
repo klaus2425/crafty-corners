@@ -11,6 +11,10 @@ const Messages = () => {
   const uid = params.get('uid')
 
   const viewConversation = (conversation_id, id1, id2) => {
+    axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
+    .then(res => {
+      console.log('Marked as read', res)
+    });
     navigate(`/conversation/${conversation_id}?user_id0=${id1}&user_id1=${id2}&lid=${user.id}`);
   }
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
@@ -47,10 +51,6 @@ const Messages = () => {
           </div>
 
           {conversations?.map(c => {
-            console.log('User 0', c.user_0.id);
-            console.log('User 1', c.user_1.id);
-            console.log('User ID', user.id);;
-            console.log(c.user_0 == user.id);
             if (c.user_0.id == uid) {
               return (
                 <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
