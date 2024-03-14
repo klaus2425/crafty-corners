@@ -9,6 +9,8 @@ const LoadCommunity = (c) => {
   const [imageLoading, setImageLoading] = useState(true);
   const storageBaseUrl = import.meta.env.VITE_API_COMMUNITIES_URL;
   const navigate = useNavigate();
+  const params = new URLSearchParams(window.location.search);
+  const uid = params.get('uid')
   const { user } = useStateContext();
   const openCommunity = (id) => {
     navigate(`/c/${id}?uid=${user.id}`)
@@ -28,7 +30,7 @@ const LoadCommunity = (c) => {
       </div>
 
       <div className="list-card-item-time">
-        <MembershipCheck community_id={c.c.id} user_id={user.id} />
+        <MembershipCheck members={c.c.members} community_id={c.c.id} user_id={uid} />
       </div>
     </div>
   )
