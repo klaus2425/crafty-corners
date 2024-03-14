@@ -40,6 +40,7 @@ import ReportedPosts from "./Pages/Admin/ReportedPosts";
 import ViewReportedPost from "./Pages/Admin/ViewReportedPost";
 import Verify from "./Pages/Verify";
 import PasswordReset from "./Pages/PasswordReset";
+import MentorAddArticle from "./Pages/MentorAddArticle";
 
 const router = createBrowserRouter([
     {
@@ -126,6 +127,10 @@ const router = createBrowserRouter([
             {
                 path: '/u/:id',
                 element: <HobbyistProfile />
+            },
+            {
+                path: '/mentor/add-article',
+                element: <MentorAddArticle />
             }
 
 
