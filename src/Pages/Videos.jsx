@@ -3,13 +3,21 @@ import Video from "../components/Video";
 import Loading from "../components/utils/Loading";
 import axiosClient from "../axios-client";
 import Swal from 'sweetalert2';
+import { useStateContext } from "../context/ContextProvider";
+import { useNavigate } from "react-router-dom";
 
 
 const UserFeed = () => {
 
+    const { user } = useStateContext();
     const [active, setActive] = useState("1");
     const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    
+    const handleAddVideo = () => {
+        navigate(`/mentor/add-video/?uid=${user.id}`)
+    };
 
     const handleClick = (ev) => {
         ev.preventDefault();
@@ -50,8 +58,16 @@ const UserFeed = () => {
                         <h3>Videos</h3>
                     </div>
                     <div className="round-card">
-                        <span id="1" className={active === "1" ? "active" : undefined} onClick={handleClick}>All</span>
-                        <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
+                        <div className="tabs">
+                            <span id="1" className={active === "1" ? "active" : undefined} onClick={handleClick}>All</span>
+                            <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
+                        </div>
+
+                        {
+                            user?.type === 'hobbyist' && //Change to mentor later
+                            <button onClick={handleAddVideo} className="purple-button round">Add Video</button>
+
+                        }
                     </div>
                 </div>
                 <div className="card">

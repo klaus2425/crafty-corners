@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 
 const UserFeed = () => {
-    const {user} = useStateContext();
+    const { user } = useStateContext();
     const [active, setActive] = useState("1");
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -58,8 +58,12 @@ const UserFeed = () => {
                         <div className="tabs">
                             <span id="1" className={active === "1" ? "active" : undefined} onClick={handleClick}>All</span>
                             <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
-                        </div>  
-                        <button onClick={handleAddArticle} className="purple-button round">Add Article</button>
+                        </div>
+                        {
+                            user?.type === 'hobbyist' && //Change to mentor later
+                            <button onClick={handleAddArticle} className="purple-button round">Add Article</button>
+
+                        }
                     </div>
                 </div>
                 <div className="card">

@@ -9,6 +9,7 @@ import {
     faFlag, faBoxArchive
 } from '@fortawesome/free-solid-svg-icons'
 import { useThemeContext } from "../context/ThemeProvider";
+import { Toaster } from "react-hot-toast";
 const AdminLayout = () => {
     const { user, token } = useStateContext();
     const { theme } = useThemeContext();

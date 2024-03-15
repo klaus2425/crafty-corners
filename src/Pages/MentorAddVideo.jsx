@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { useStateContext } from "../context/ContextProvider";
-import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axiosClient from "../axios-client";
+import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
+import { useStateContext } from "../context/ContextProvider";
 
-const MentorAddArticle = () => {
+const MentorAddVideo = () => {
 
   const { user } = useStateContext();
   const [selected, setSelected] = useState();
@@ -24,30 +24,28 @@ const MentorAddArticle = () => {
     }
   )
 
+  const handleChange = (ev) => {
+    setSelected(ev.target.value);
+  }
+
   const handleSubmit = (ev) => {
     ev.preventDefault()
     console.log('Submit');
     const formData = new FormData();
-    formData.append('title', titleRef.current.value);
-    formData.append('author', authorRef.current.value);
-    formData.append('description', descriptionRef.current.value);
+    formData.append('video_title', titleRef.current.value);
+    formData.append('creator', authorRef.current.value);
+    formData.append('video_description', descriptionRef.current.value);
     formData.append('community_id', selected);
     formData.append('user_id', user.id);
-    formData.append('link', linkRef.current.value);
-    axiosClient.post('/articles', formData).then(({data}) => {
+    formData.append('video_url', linkRef.current.value);
+    axiosClient.post('/videos', formData).then(({data}) => {
       console.log(data);
-      navigate(`/articles`)
+      navigate(`/videos`)
     })
     .catch((err) => console.log(err.response.data))
 
 
   }
-
-
-  const handleChange = (ev) => {
-    setSelected(ev.target.value);
-  }
-
   const titleRef = useRef();
   const authorRef = useRef();
   const descriptionRef = useRef();
@@ -64,7 +62,7 @@ const MentorAddArticle = () => {
           </div>
           <div className="round-card">
             <div>
-              Add new article
+              Add new video
             </div>
           </div>
         </div>
@@ -72,11 +70,11 @@ const MentorAddArticle = () => {
           <div className="mentor-article-form">
             <form>
               <div className="article-input">
-                <label><strong>Article Title:</strong></label>
+                <label><strong>Video Title:</strong></label>
                 <input ref={titleRef} type="text" />
               </div>
               <div className="article-input">
-                <label><strong>Article Author:</strong></label>
+                <label><strong>Video Creator:</strong></label>
                 <input ref={authorRef} type="text" />
               </div>
               <div className="article-input">
@@ -87,7 +85,7 @@ const MentorAddArticle = () => {
                 </div>
               </div>
               <div className="article-input">
-                <label><strong>Link:</strong></label>
+                <label><strong>Video Link:</strong></label>
                 <input ref={linkRef} type="textarea" />
               </div>
               <div className="article-input">
@@ -103,8 +101,6 @@ const MentorAddArticle = () => {
             </form>
           </div>
         </div>
-
-
       </div>
       <div className="recommended">
       </div>
@@ -112,4 +108,5 @@ const MentorAddArticle = () => {
   )
 }
 
-export default MentorAddArticle;
+export default MentorAddVideo;
+
