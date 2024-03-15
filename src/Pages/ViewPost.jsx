@@ -15,12 +15,10 @@ const ViewPost = () => {
   const { id } = useParams();
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [comments, setComments] = useState([]);
   const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
   const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
   const [isOpen, setIsOpen] = useState(false);
   const [open, setOpen] = useState(false);
-
   const commentRef = useRef();
   const Menu = ['Report Post'];
 
@@ -140,6 +138,9 @@ const ViewPost = () => {
     queryFn: getComments,
   })
 
+  // const postCommunity = useQuery({
+  //   queryKey: [`post-community-${}`]
+  // })
 
   const usePost = useQuery(
     {
@@ -276,10 +277,10 @@ const ViewPost = () => {
           </div>
         </div>
         <div className="recommended">
-          {/* <div className="card">
-            <span className='side-community-name'>c/{community.name}</span>
+          <div className="card">
+            <span className='side-community-name'>/{community.name}</span>
 
-          </div> */}
+          </div>
         </div>
       </div>
     )
@@ -603,6 +604,7 @@ const ViewPost = () => {
           </div>
         </div>
         <div className="recommended">
+
         </div>
       </div>
     )
