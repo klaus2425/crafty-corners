@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import MembershipCheck from '../components/utils/Membership';
 import axiosClient from '../axios-client';
 import { useEffect, useState } from 'react';
@@ -9,6 +9,7 @@ import PostModal from '../components/PostModal';
 import Post from '../components/Post';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../components/utils/Loading';
+import { useQuery } from '@tanstack/react-query';
 
 
 const ViewCommunity = () => {
@@ -25,6 +26,8 @@ const ViewCommunity = () => {
   const [hasMore, setHasMore] = useState(true);
   const params = new URLSearchParams(window.location.search);
   const uid = params.get('uid')
+  const navigate = useNavigate();
+
 
   const getMembers = () => {
     axiosClient.get(`/communities/${id}/users`)
@@ -65,9 +68,21 @@ const ViewCommunity = () => {
     setPageIndex(pageIndex + 1)
   }
 
+  const getMentors = async () => {
+    const fetchedData = await axiosClient.get(`show-mentors-of-community/${id}`);
+    console.log(fetchedData.data.data);
+    return fetchedData.data.data;
+  }
+
+  const useMentors = useQuery({
+    queryKey: ['mentors'],
+    queryFn: getMentors,
+  })
+
   useEffect(() => {
     getMembers();
     getCommunity();
+    console.log(useMentors.data);
   }, [])
 
   return (
@@ -137,7 +152,19 @@ const ViewCommunity = () => {
         </div>
       </div>
       <div className="recommended">
-
+            <div className="card">
+              <h3>Community Mentors</h3>
+              {
+                useMentors ? useMentors.data?.map((mentor, index) => (
+                  <div onClick={() => navigate(`/u/${mentor.user_id}`)} className='community-mentor-item'>
+                    <span className='mentor-name-top'>{index + 1}. {mentor.user.first_name} {mentor.user.last_name}</span>
+                    <span className='mentor-specialization-bottom'> {mentor.specialization}</span>
+                  </div>
+                ))
+                :
+                <span>No mentors for this Community yet</span>
+              }
+            </div>
       </div>
     </div>
 

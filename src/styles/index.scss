@@ -1088,7 +1088,28 @@ input::-webkit-inner-spin-button {
         font-size: clamp(0.8rem, 1vw, 3rem);
       }
 
+      .community-mentor-item {
+        padding: 0.25rem;
+        cursor: pointer;
+        display: flex;
+        border-radius: 10px;
+        transition: 0.3s;
+        flex-direction: column;
+        .mentor-name-top {
+          font-weight: bold;
+          font-size: clamp(0.5rem, 2vw, 1rem);
+        }
+        .mentor-specialization-bottom {
+          padding-left: 1rem;
+          font-size: clamp(0.5rem, 2vw, 1rem);
 
+        }
+      }
+
+      .community-mentor-item:hover {
+        background-color: $light_grey;
+      }
+      
       .rec-community-item {
         display: flex;
         border-top: 2px solid $light_grey;
@@ -4626,7 +4647,10 @@ input::-webkit-inner-spin-button {
 
     }
   }
-
+  .community-mentor-item:hover {
+    background-color: #18191a;
+  }
+  
   #notification-circle {
     fill: #FF4646;
   }
