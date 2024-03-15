@@ -138,9 +138,6 @@ const ViewPost = () => {
     queryFn: getComments,
   })
 
-  // const postCommunity = useQuery({
-  //   queryKey: [`post-community-${}`]
-  // })
 
   const usePost = useQuery(
     {
@@ -166,14 +163,6 @@ const ViewPost = () => {
   const postUser = usePost?.data?.user;
 
   console.log(usePost?.data);
-  console.log(useComments?.data);
-
-
-  useEffect(() => {
-
-  }, [])
-
-
 
   if (post?.post_type === 'image') {
     return (
@@ -279,6 +268,8 @@ const ViewPost = () => {
         <div className="recommended">
           <div className="card">
             <span className='side-community-name'>/{community.name}</span>
+            {/* <MembershipCheck members={members} community_id={c.c.id} user_id={uid} /> */}
+
             <span className='side-community-description'>{community.description}</span>
           </div>
         </div>
