@@ -39,6 +39,9 @@ const Navbar = () => {
                 console.log(res.data)
                 setSearchResult(res.data)
             })
+            .catch (err => {
+                if (err.response.status === 404) setSearchResult({community: null, user: null })
+            })
     }
 
     const handleDropDown = () => {
