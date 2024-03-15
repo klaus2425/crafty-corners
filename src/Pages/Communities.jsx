@@ -1,13 +1,10 @@
-import { useState } from "react";
 import axiosClient from "../axios-client";
-import Swal from 'sweetalert2';
 import Loading from "../components/utils/Loading";
 import LoadCommunity from "../components/utils/LoadCommunity";
 import { useQuery } from "@tanstack/react-query";
 
 const Communities = () => {
-  const [communities, setCommunities] = useState([]);
-  const [loading, setLoading] = useState(false);
+
 
   const getCommunities = async () => {
     const fetchedData = await axiosClient.get('/communities')
@@ -16,7 +13,7 @@ const Communities = () => {
   }
 
   const { data, isLoading } = useQuery({
-    queryKey: ['post'],
+    queryKey: ['communities'],
     queryFn: getCommunities
   })
 

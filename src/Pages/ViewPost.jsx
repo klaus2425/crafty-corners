@@ -279,7 +279,7 @@ const ViewPost = () => {
         <div className="recommended">
           <div className="card">
             <span className='side-community-name'>/{community.name}</span>
-
+            <span className='side-community-description'>{community.description}</span>
           </div>
         </div>
       </div>

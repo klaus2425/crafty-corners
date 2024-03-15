@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2';
 import Skeleton from "react-loading-skeleton";
-import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const MembershipCheck = (props) => {
   const [isMember, setIsMember] = useState(false);
+  const queryClient = useQueryClient();
 
   const getCommunity = () => {
     axiosClient.get(`/communities/${props.community_id}/users`)
       .then(({ data }) => {
         const members = data.members;
-        console.log(members);
         setIsMember(members.some(member => member.id == props.user_id));
+
+        queryClient.refetchQueries('communities');
       })
   }
 
@@ -64,6 +66,7 @@ const MembershipCheck = (props) => {
   useEffect(() => {
     const members = props.members;
     setIsMember(members.some(member => member.id == props.user_id));
+
   }, [])
 
   if (isMember)
