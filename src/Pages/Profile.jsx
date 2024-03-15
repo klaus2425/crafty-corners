@@ -17,7 +17,6 @@ const UserFeed = () => {
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     const [imageLoading, setImageLoading] = useState(true);
     const navigate = useNavigate();
-    const [currentUser, setCurrentUser] = useState([]);
     const params = new URLSearchParams(window.location.search);
     const uid = params.get('uid')
 
@@ -47,6 +46,7 @@ const UserFeed = () => {
             .then((res) => res)
     })
 
+
     const posts = data?.pages.reduce((acc, page) => {
         return [...acc, page.data];
     }, [])
@@ -55,21 +55,11 @@ const UserFeed = () => {
 
 
 
-    const getUser = () => {
-        axiosClient.get(`/users/${uid}`)
-            .then(res => {
-                setCurrentUser(res.data.data);
-                console.log(userData.data.data.data.communities.length);
-            })
-    }
-
     const handleEdit = () => {
         navigate('/edit-profile')
     }
 
-    useEffect(() => {
-        getUser();
-    }, [])
+
 
 
 
@@ -90,7 +80,7 @@ const UserFeed = () => {
                     <div className='profile-card'>
                         <div className='edit-profile-button'>
                             <span onClick={handleEdit} className='purple-button'><FontAwesomeIcon icon={faPenToSquare} size="lg" /> <span className="button-text">Edit Profile</span></span>
-                        </div>
+                        </div> 
                         <div className='profile-details'>
                             <div className='left'>
                                 <div className='upper-details'>
@@ -98,7 +88,7 @@ const UserFeed = () => {
                                     <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} className='profile-picture' src={`${storageBaseUrl}/${user.profile_picture}`} alt='Profile Picture' />
                                     <div className='display-name'>
                                         <h2>{user.first_name || <Skeleton />}</h2>
-                                        <span>{user.user_name ? `@${user.user_name}` : <Skeleton />}</span>
+                                        <span>{!userData.isLoading ? `@${userData?.data?.data?.data?.user_name}` : <Skeleton />}</span>
                                         <span>{ !userData.isLoading ? `${userData.data.data.data.communities.length} Communities` : <Skeleton />}</span>
                                         
                                     </div>
