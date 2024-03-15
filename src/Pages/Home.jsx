@@ -4,6 +4,7 @@ import RecommendedCommunities from '../components/RecommendedCommunities'
 import axiosClient from '../axios-client';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Loading from '../components/utils/Loading';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 const UserFeed = () => {
 
@@ -13,13 +14,37 @@ const UserFeed = () => {
     const getPosts = () => {
         axiosClient.get('/homepage-post?page=1')
             .then(res => {
-                console.log(res.data);
                 setPosts(res.data.data);
                 if (res.data.data.length === 0) {
                     setHasMore(false);
                 }
             })
     }
+
+    const getUserPosts = async (pageParam) => {
+        const fetchedData = await axiosClient.get(`/homepage-post?page=${pageParam}`)
+        return { ...fetchedData.data, prevPage: pageParam };
+    }
+
+    const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+        queryKey: ['posts'],
+        queryFn: ({ pageParam }) => getUserPosts(pageParam),
+        initialPageParam: 1,
+        getNextPageParam: (lastPage) => {
+            if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
+                console.log('NO MORE PAGES');
+                return null;
+            }
+            console.log('Page call', lastPage.meta.current_page + 1);
+            return lastPage.meta.current_page + 1
+        }
+    })
+
+    const fetchedPosts = data?.pages.reduce((acc, page) => {
+        return [...acc, page.data];
+    }, [])
+    console.log(fetchedPosts);
+
 
     useEffect(() => {
         getPosts();
@@ -49,17 +74,33 @@ const UserFeed = () => {
                     <h3>Home</h3>
                 </div>
                 <div id='scroll' className='scroll'>
-                    <InfiniteScroll scrollableTarget='scroll' dataLength={posts.length} next={fetchNext} hasMore={hasMore} loader={<Loading />}
-                        endMessage={
-                            <div style={{ textAlign: 'center' }}>
-                                <h2>End of Feed</h2>
-                            </div>
-                        }>
-                        {posts.map(p => (
-                            <Post key={p.id} post={p} community={p.community} />
-                        ))
-                        }
-                    </InfiniteScroll>
+                    {
+                        fetchedPosts ?
+                            <InfiniteScroll
+                                scrollableTarget='scroll'
+                                dataLength={fetchedPosts ? fetchedPosts.length : 0}
+                                next={fetchNextPage}
+                                hasMore={hasNextPage}
+                                loader={<Loading />}
+                                endMessage={
+                                    <div style={{ textAlign: 'center' }}>
+                                        <h2>End of Feed</h2>
+                                    </div>
+                                }>
+                                {
+                                    fetchedPosts &&
+                                    fetchedPosts.map((post) => (
+                                        post.map(p => (
+                                            <Post key={p.id} post={p} community={p.community} />
+                                        ))
+                                    ))
+                                }
+
+                            </InfiniteScroll>
+                            :
+                            <Loading />
+                    }
+
                 </div>
 
             </div>

@@ -52,31 +52,6 @@ const Post = (props) => {
             })
     }
 
-    // const handleReport = () => {
-    //     setOpen(!open);
-    //     Swal.fire({
-    //         title: "Are you sure?",
-    //         text: "A report will be submitted to the admins",
-    //         icon: "warning",
-    //         showCancelButton: true,
-    //         confirmButtonColor: "#3085d6",
-    //         cancelButtonColor: "#d33",
-    //         confirmButtonText: "Yes"
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             toast('Report submitted', {
-    //                 duration: 1500,
-    //                 position: "bottom-center",
-    //                 style: {
-    //                     borderRadius: "100px",
-    //                     border: 0,
-    //                     boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-    //                 }
-    //             })
-    //         }
-    //     });
-    // }
-
 
     const handleReport = () => {
         setReportOpen(!reportOpen);
@@ -108,6 +83,7 @@ const Post = (props) => {
                 })
         }
     }
+
 
     useEffect(() => {
         setLiked(post.liked_by_user);
