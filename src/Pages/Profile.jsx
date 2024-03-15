@@ -80,7 +80,7 @@ const UserFeed = () => {
                     <div className='profile-card'>
                         <div className='edit-profile-button'>
                             <span onClick={handleEdit} className='purple-button'><FontAwesomeIcon icon={faPenToSquare} size="lg" /> <span className="button-text">Edit Profile</span></span>
-                        </div> 
+                        </div>  
                         <div className='profile-details'>
                             <div className='left'>
                                 <div className='upper-details'>
