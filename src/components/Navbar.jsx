@@ -47,7 +47,7 @@ const Navbar = () => {
     const resultRef = useRef();
 
     useEffect(() => {
-        let listener = (ev) => {
+        const listener = (ev) => {
             if (!resultRef?.current?.contains(ev.target)) {
                 setOpenSearch(false)
             }
@@ -151,7 +151,7 @@ const Navbar = () => {
                     <img style={loading ? { display: 'none' } : { display: 'inline' }} className="navbar-img" src={userPicture} alt="Profile Picture" onClick={handleDropDown} onLoad={() => setLoading(false)} />
 
                     {openDropDown && (
-                        <DropDownItem userData={user} logout={onLogout} picture={userPicture} type={user.type} />
+                        <DropDownItem setOpenDropDown={setOpenDropDown} userData={user} logout={onLogout} picture={userPicture} type={user.type} />
                     )}
                 </div>
             </div>
