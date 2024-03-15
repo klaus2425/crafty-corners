@@ -3567,7 +3567,9 @@ input::-webkit-inner-spin-button {
     display: flex;
     justify-content: space-between;
   }
-
+  .title {
+    margin: 0;
+  }
   .bottom {
     display: flex;
     flex-direction: column;
