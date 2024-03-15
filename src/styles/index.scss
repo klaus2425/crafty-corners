@@ -1083,7 +1083,10 @@ input::-webkit-inner-spin-button {
       justify-content: center;
       width: clamp(5rem, 10vw + 7rem, 16rem);
       transition: 0.3s;
-
+      .side-community-name {
+        font-weight: bold;
+        font-size: clamp(0.5rem, 2vw, 1.3rem);
+      }
       h3 {
         font-size: clamp(0.8rem, 1vw, 3rem);
       }
