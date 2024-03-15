@@ -29,6 +29,7 @@ const EditProfile = () => {
             .then(({ data }) => {
                 setLoading(false);
                 setCurrentUser(data);
+                console.log(data);
                 setUser(data);
                 setImage(storageBaseUrl + data.profile_picture);
             })

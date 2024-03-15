@@ -11,15 +11,7 @@ const UserFeed = () => {
     const [posts, setPosts] = useState([]);
     const [pageIndex, setPageIndex] = useState(1);
     const [hasMore, setHasMore] = useState(true);
-    const getPosts = () => {
-        axiosClient.get('/homepage-post?page=1')
-            .then(res => {
-                setPosts(res.data.data);
-                if (res.data.data.length === 0) {
-                    setHasMore(false);
-                }
-            })
-    }
+
 
     const getUserPosts = async (pageParam) => {
         const fetchedData = await axiosClient.get(`/homepage-post?page=${pageParam}`)
@@ -32,10 +24,8 @@ const UserFeed = () => {
         initialPageParam: 1,
         getNextPageParam: (lastPage) => {
             if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
-                console.log('NO MORE PAGES');
                 return null;
             }
-            console.log('Page call', lastPage.meta.current_page + 1);
             return lastPage.meta.current_page + 1
         }
     })
@@ -43,25 +33,10 @@ const UserFeed = () => {
     const fetchedPosts = data?.pages.reduce((acc, page) => {
         return [...acc, page.data];
     }, [])
-    console.log(fetchedPosts);
 
 
-    useEffect(() => {
-        getPosts();
-    }, [])
 
-    const fetchNext = () => {
-        axiosClient.get(`/homepage-post?page=${pageIndex + 1}`)
-            .then((res) => {
-                setPosts(posts.concat(res.data.data))
-                console.log(res.data.data);
-                if (posts.length === res.data.meta.total) {
-                    setHasMore(false);
-                }
-            })
 
-        setPageIndex(pageIndex + 1)
-    }
 
     return (
         <div className="authenticated-container">
