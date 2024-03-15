@@ -8,11 +8,6 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 const UserFeed = () => {
 
-    const [posts, setPosts] = useState([]);
-    const [pageIndex, setPageIndex] = useState(1);
-    const [hasMore, setHasMore] = useState(true);
-
-
     const getUserPosts = async (pageParam) => {
         const fetchedData = await axiosClient.get(`/homepage-post?page=${pageParam}`)
         return { ...fetchedData.data, prevPage: pageParam };
