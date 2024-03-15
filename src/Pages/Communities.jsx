@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axiosClient from "../axios-client";
 import Swal from 'sweetalert2';
 import Loading from "../components/utils/Loading";
-import { useStateContext } from "../context/ContextProvider";
-import { useNavigate } from 'react-router-dom';
 import LoadCommunity from "../components/utils/LoadCommunity";
 import { useQuery } from "@tanstack/react-query";
 
