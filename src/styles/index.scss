@@ -2135,10 +2135,14 @@ input::-webkit-inner-spin-button {
 
 #scroll {
   height: fit-content;
-  overflow: auto;
+  overflow: scroll;
 }
 
 #scroll::-webkit-scrollbar {
+  display: none;
+}
+
+#community-scroll::-webkit-scrollbar {
   display: none;
 }
 
@@ -2434,7 +2438,7 @@ input::-webkit-inner-spin-button {
       flex-direction: column;
       justify-content: center;
       transition: 0.3s;
-
+      height: fit-content;
       .admin-posts {
         margin-top: 1rem;
         width: 100%;
@@ -2445,24 +2449,34 @@ input::-webkit-inner-spin-button {
 
 
       .admin-container-card {
-        overflow: auto;
         background-color: #FFF;
         border-radius: 25px;
         padding-bottom: 2rem;
         display: flex;
         justify-content: center;
         width: 100%;
-        min-height: 60vh;
+        height: 80vh;
         transition: 0.3s;
+        #community-scroll {
+          overflow-y: scroll;
+        }
 
+        .community-scroll {
+          height: 40rem;
+        }
+
+
+        #users-table {
+          overflow-y: auto;
+        }
         .users-table {
           display: flex;
           justify-content: center;
+          height: 90vh;
           align-items: center;
           flex-direction: column;
           color: $dark_grey;
           width: 100%;
-
 
           table {
             border-collapse: collapse;
@@ -2724,6 +2738,7 @@ input::-webkit-inner-spin-button {
     border-radius: 10000px;
   }
 }
+
 
 .communities-container {
   width: 80%;
