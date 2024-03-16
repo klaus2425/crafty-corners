@@ -113,7 +113,7 @@ const ViewCommunity = () => {
                 </div>
                 <div className='community-join'>
                   {!loading &&
-                    <MembershipCheck members={community.members} community_id={id} user_id={uid} />
+                    <MembershipCheck isMember={community.is_user_member} members={community.members} community_id={id} user_id={uid} />
                   }
                 </div>
               </div>

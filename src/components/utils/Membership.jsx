@@ -10,9 +10,7 @@ const MembershipCheck = (props) => {
 
   const getCommunity = () => {
     axiosClient.get(`/communities/${props.community_id}/users`)
-      .then(({ data }) => {
-        const members = data.members;
-        setIsMember(members.some(member => member.id == props.user_id));
+      .then(() => {
         queryClient.refetchQueries('communities');
       })
   }
@@ -22,8 +20,11 @@ const MembershipCheck = (props) => {
     axiosClient.post(`/join-community/${id}`)
       .then(() => {
         getCommunity();
+        setIsMember(true);
+
       })
       .catch(err => {
+        setIsMember(false);
         const response = err.response;
         Swal.fire({
           title: "Error",
@@ -44,11 +45,13 @@ const MembershipCheck = (props) => {
       confirmButtonText: "Yes"
     }).then((result) => {
       if (result.isConfirmed) {
+        setIsMember(false);
         axiosClient.post(`/leave-community/${id}`)
           .then(() => {
             getCommunity();
           })
           .catch(err => {
+            setIsMember(true);
             const response = err.response;
             Swal.fire({
               title: "Error",
@@ -63,8 +66,7 @@ const MembershipCheck = (props) => {
   }
 
   useEffect(() => {
-    const members = props.members;
-    setIsMember(members.some(member => member.id == props.user_id));
+    setIsMember(props.isMember);
 
   }, [])
 

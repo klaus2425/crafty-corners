@@ -7,7 +7,7 @@ const Communities = () => {
 
 
   const getCommunities = async () => {
-    const fetchedData = await axiosClient.get('/communities')
+    const fetchedData = await axiosClient.get('/list/communities')
     return fetchedData.data;
 
   }

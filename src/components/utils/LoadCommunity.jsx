@@ -30,7 +30,7 @@ const LoadCommunity = (c) => {
       </div>
 
       <div className="list-card-item-time">
-        <MembershipCheck members={c.c.members} community_id={c.c.id} user_id={uid} />
+        <MembershipCheck isMember={c.c.is_user_member} community_id={c.c.id} user_id={uid} />
       </div>
     </div>
   )

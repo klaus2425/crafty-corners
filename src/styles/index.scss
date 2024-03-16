@@ -568,6 +568,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     justify-content: center;
     position: relative;
+
     input {
       width: clamp(5rem, 40vw, 50rem);
 
@@ -603,12 +604,15 @@ input::-webkit-inner-spin-button {
         padding-left: 1rem;
         border-radius: 10px;
       }
+
       .search-category {
         font-weight: bold;
       }
+
       .search-result:hover {
         background-color: $light_grey;
       }
+
       .search-no-matches {
         width: 100%;
         display: flex;
@@ -1083,13 +1087,19 @@ input::-webkit-inner-spin-button {
       justify-content: center;
       width: clamp(5rem, 10vw + 7rem, 16rem);
       transition: 0.3s;
+
       .side-community-name {
         font-weight: bold;
         font-size: clamp(0.5rem, 2vw, 1.3rem);
       }
+
       .side-community-description {
         padding-left: 0.65rem;
+        border-bottom: 1px solid $light_grey;
+        padding-bottom: 0.2rem;
+        margin-bottom: 0.5rem;
       }
+
       h3 {
         font-size: clamp(0.8rem, 1vw, 3rem);
       }
@@ -1101,10 +1111,12 @@ input::-webkit-inner-spin-button {
         border-radius: 10px;
         transition: 0.3s;
         flex-direction: column;
+
         .mentor-name-top {
           font-weight: bold;
           font-size: clamp(0.5rem, 2vw, 1rem);
         }
+
         .mentor-specialization-bottom {
           padding-left: 1rem;
           font-size: clamp(0.5rem, 2vw, 1rem);
@@ -1115,7 +1127,7 @@ input::-webkit-inner-spin-button {
       .community-mentor-item:hover {
         background-color: $light_grey;
       }
-      
+
       .rec-community-item {
         display: flex;
         border-top: 2px solid $light_grey;
@@ -1153,6 +1165,60 @@ input::-webkit-inner-spin-button {
         }
       }
 
+    }
+
+    #side-community-card {
+      .purple-button {
+        height: 2rem;
+        width: 3.1rem;
+        display: flex;
+        align-items: center;
+        border-radius: 1000px;
+        transition: 0.3s;
+
+        .com-button-text {
+          color: white;
+          display: none;
+          font-weight: bold;
+        }
+      }
+
+      .top {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: space-between;
+
+        .side-community-name {
+          max-width: 12ch;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+      .bottom {
+        display: flex;
+        justify-content: flex-start;
+        gap: 0.3rem;
+      }
+
+      .purple-button:hover {
+        width: 5rem;
+
+        .com-button-text {
+          display: inline;
+        }
+      }
+
+      .white-button {
+        border: 1px $purple solid;
+        border-radius: 1000px;
+        color: $purple;
+        background-color: white;
+        width: 5.2rem;
+        font-weight: normal;
+        transition: 0.3s;
+        z-index: 2;
+      }
     }
   }
 
@@ -1839,6 +1905,7 @@ input::-webkit-inner-spin-button {
       display: flex;
       align-items: center;
       justify-content: center;
+
       button {
         width: fit-content;
         padding: 0.5rem;
@@ -3364,17 +3431,20 @@ input::-webkit-inner-spin-button {
       gap: 1rem;
       margin: 1rem 0;
       animation: slideUp 0.3s ease-in-out;
+
       .delete-message {
         opacity: 0;
         transition: 0.3s;
         cursor: pointer;
         display: flex;
         align-items: center;
-          path {
-            fill: $red;
-            stroke: $red;
-          }
+
+        path {
+          fill: $red;
+          stroke: $red;
+        }
       }
+
       .chat-timestamp {
         display: flex;
         font-size: 0.8rem;
@@ -3415,17 +3485,20 @@ input::-webkit-inner-spin-button {
       margin: 1rem 0;
       padding-right: 0.5rem;
       animation: slideUp 0.3s ease-in-out;
+
       .delete-message {
         opacity: 0;
         transition: 0.3s;
         cursor: pointer;
         display: flex;
         align-items: center;
-          path {
-            fill: $red;
-            stroke: $red;
-          }
+
+        path {
+          fill: $red;
+          stroke: $red;
+        }
       }
+
       .chat-timestamp {
         display: flex;
         font-size: 0.8rem;
@@ -3453,11 +3526,13 @@ input::-webkit-inner-spin-button {
 
       }
     }
+
     .conversation-item-user:hover {
       .delete-message {
         opacity: 1;
       }
     }
+
     .conversation-item-sender:hover {
       .delete-message {
         opacity: 1;
@@ -3573,9 +3648,11 @@ input::-webkit-inner-spin-button {
     display: flex;
     justify-content: space-between;
   }
+
   .title {
     margin: 0;
   }
+
   .bottom {
     display: flex;
     flex-direction: column;
@@ -3983,6 +4060,7 @@ input::-webkit-inner-spin-button {
   font-size: 1.2rem;
   justify-content: space-between;
   align-items: center;
+
   span {
     border-radius: 10px;
     padding: 0.43rem;
@@ -3998,6 +4076,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     gap: 0.5rem;
   }
+
   .active {
     background-color: $light_grey;
   }
@@ -4115,10 +4194,12 @@ input::-webkit-inner-spin-button {
 
     }
   }
+
   .search-card {
     transition: 0.3s;
     background-color: #242526;
     border: 2px solid #18191a;
+
     .search-result:hover {
       background-color: #18191a;
     }
@@ -4369,6 +4450,7 @@ input::-webkit-inner-spin-button {
         span {
           color: #e4e6eb;
         }
+
         p {
           display: flex;
           justify-content: space-between;
@@ -4380,6 +4462,7 @@ input::-webkit-inner-spin-button {
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
+
         .white-button {
           background-color: #18191a;
           color: #e4e6eb;
@@ -4655,13 +4738,25 @@ input::-webkit-inner-spin-button {
 
     }
   }
+
   .community-mentor-item:hover {
     background-color: #18191a;
   }
-  
+
   #notification-circle {
     fill: #FF4646;
   }
+
+  .recommended {
+    #side-community-card {
+      .white-button {
+        background-color: #18191a;
+        color: #e4e6eb;
+        border-color: #18191a;
+      }
+    }
+  }
+
 }
 
 @media screen and (max-width: 900px) {

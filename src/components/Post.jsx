@@ -15,6 +15,7 @@ import ReportModal from "./ReportModal";
 const Post = (props) => {
     const [post, setPost] = useState(props.post);
     const post_user = post.user;
+    const { user } = useStateContext();
     const community = props.community;
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
     const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
@@ -29,7 +30,7 @@ const Post = (props) => {
     const [reportOpen, setReportOpen] = useState(false);
 
     const viewPost = () => {
-        navigate(`/p/${post.id}`)
+        navigate(`/p/${post.id}?uid=${user.id}`)
     }
 
     const notify = () => toast('Link Copied', {
@@ -101,7 +102,7 @@ const Post = (props) => {
                 <div className="post-header" id="posts">
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
-                        <img onClick={() => {navigate(`/u/${post_user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                        <img onClick={() => {navigate(`/u/${post_user.id}?uid=${user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
                             <span id='post-time'>{ago} ago</span>
@@ -170,7 +171,7 @@ const Post = (props) => {
                 <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
-                        <img onClick={() => {navigate(`/u/${post_user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                        <img onClick={() => {navigate(`/u/${post_user.id}?uid=${user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
                             <span id='post-time'>{ago} ago</span>
@@ -237,7 +238,7 @@ const Post = (props) => {
                 <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
-                        <img onClick={() => {navigate(`/u/${post_user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                        <img onClick={() => {navigate(`/u/${post_user.id}?uid=${user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
                             <span id='post-time'>{ago} ago</span>
@@ -306,7 +307,7 @@ const Post = (props) => {
                     <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                         
                         {loadingProfile && <Skeleton circle className="post-image" />}
-                        <img onClick={() => {navigate(`/u/${post_user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                        <img onClick={() => {navigate(`/u/${post_user.id}?uid=${user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
                             <span id='post-time'>{ago} ago</span>

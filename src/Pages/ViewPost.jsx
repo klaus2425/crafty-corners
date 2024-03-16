@@ -1,18 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import axiosClient from '../axios-client';
 import Skeleton from 'react-loading-skeleton';
 import { getAgo } from "@jlln/ago";
 import ImageModal from '../components/ImageModal';
 import Swal from 'sweetalert2';
-import { useStateContext } from '../context/ContextProvider';
 import toast, { Toaster } from 'react-hot-toast';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useQuery, useMutation } from '@tanstack/react-query';
+import MembershipCheck from '../components/utils/Membership';
 
 const ViewPost = () => {
   const { id } = useParams();
+  const params = new URLSearchParams(window.location.search);
+  const uid = params.get('uid')
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [loading, setLoading] = useState(true);
   const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
@@ -255,7 +257,7 @@ const ViewPost = () => {
           </div>
           <div className="comments-container">
             {useComments && useComments?.data.map(c => (
-              <div className="comment-card">
+              <div key={c.id} className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.user.profile_picture}`} />
                 <div className="name-comment">
                   <div className="name-time">{c.user.first_name} <span>{getAgo(c.created_at)} ago</span></div>
@@ -266,11 +268,13 @@ const ViewPost = () => {
           </div>
         </div>
         <div className="recommended">
-          <div className="card">
-            <span className='side-community-name'>/{community.name}</span>
-            {/* <MembershipCheck members={members} community_id={c.c.id} user_id={uid} /> */}
-
+          <div className="card" id='side-community-card'>
+            <div className='top'>
+              <span className='side-community-name'>/{community.name}</span>
+              <MembershipCheck isMember={community.is_user_member} community_id={community.id} user_id={uid} />
+            </div>
             <span className='side-community-description'>{community.description}</span>
+            <span className='bottom'><strong>{community.members_count}</strong> Members</span>
           </div>
         </div>
       </div>
@@ -379,6 +383,14 @@ const ViewPost = () => {
           </div>
         </div>
         <div className="recommended">
+          <div className="card" id='side-community-card'>
+            <div className='top'>
+              <span className='side-community-name'>/{community.name}</span>
+              <MembershipCheck isMember={community.is_user_member} community_id={community.id} user_id={uid} />
+            </div>
+            <span className='side-community-description'>{community.description}</span>
+            <span className='bottom'><strong>{community.members_count}</strong> Members</span>
+          </div>
         </div>
       </div>
     )
@@ -484,6 +496,14 @@ const ViewPost = () => {
           </div>
         </div>
         <div className="recommended">
+          <div className="card" id='side-community-card'>
+            <div className='top'>
+              <span className='side-community-name'>/{community.name}</span>
+              <MembershipCheck isMember={community.is_user_member} community_id={community.id} user_id={uid} />
+            </div>
+            <span className='side-community-description'>{community.description}</span>
+            <span className='bottom'><strong>{community.members_count}</strong> Members</span>
+          </div>
         </div>
       </div>
     )
@@ -595,7 +615,14 @@ const ViewPost = () => {
           </div>
         </div>
         <div className="recommended">
-
+          <div className="card" id='side-community-card'>
+            <div className='top'>
+              <span className='side-community-name'>/{community.name}</span>
+              <MembershipCheck isMember={community.is_user_member} community_id={community.id} user_id={uid} />
+            </div>
+            <span className='side-community-description'>{community.description}</span>
+            <span className='bottom'><strong>{community.members_count}</strong> Members</span>
+          </div>
         </div>
       </div>
     )
