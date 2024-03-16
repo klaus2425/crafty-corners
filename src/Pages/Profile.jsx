@@ -33,7 +33,6 @@ const UserFeed = () => {
             if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
                 return null;
             }
-            console.log('Page call', lastPage.meta.current_page + 1);
             return lastPage.meta.current_page + 1
         }
     });
@@ -42,7 +41,6 @@ const UserFeed = () => {
         queryKey: ['user-profile'], queryFn: () => axiosClient.get(`/users/${uid}`)
             .then((res) => res)
     })
-    console.log(data);
 
     const posts = data?.pages.reduce((acc, page) => {
         return [...acc, page.data];
@@ -127,7 +125,6 @@ const UserFeed = () => {
                                 :
                                 <Loading />
                         }
-
                     </div>
                 </div>
             </div>

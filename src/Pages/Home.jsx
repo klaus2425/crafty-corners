@@ -28,10 +28,6 @@ const UserFeed = () => {
         return [...acc, page.data];
     }, [])
 
-
-
-
-
     return (
         <div className="authenticated-container">
             <div id="feed" className="feed">
@@ -64,14 +60,12 @@ const UserFeed = () => {
                                         ))
                                     ))
                                 }
-
                             </InfiniteScroll>
                             :
                             <Loading />
                     }
 
                 </div>
-
             </div>
             <div className="recommended">
 
@@ -82,10 +76,7 @@ const UserFeed = () => {
                     <RecommendedCommunities communityName='Painting' communityMemberCount='340' communityId='3' communityIcon='/paintbrush-solid.svg' rank='3' />
                     <RecommendedCommunities communityName='Knitting' communityMemberCount='60' communityId='4' communityIcon='/mitten-solid.svg' rank='4' />
                     <RecommendedCommunities communityName='Dancing' communityMemberCount='180' communityId='5' communityIcon='/dance.png' rank='5' />
-
                 </div>
-
-
             </div>
         </div>
     )
