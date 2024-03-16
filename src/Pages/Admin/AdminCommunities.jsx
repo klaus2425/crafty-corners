@@ -72,12 +72,7 @@ const AdminCommunities = () => {
                     dataLength={fetchedCommunities ? fetchedCommunities.length : 0}
                     next={fetchNextPage}
                     hasMore={hasNextPage}
-                    loader={<Loading />}
-                    endMessage={
-                        <div style={{ textAlign: 'center' }}>
-                            <h2>End of Feed</h2>
-                        </div>
-                    }>
+                    loader={<Loading />}>
                     {fetchedCommunities?.map((community) =>
                         community.map(c => (
                             <div key={c.id} className="community-item">
