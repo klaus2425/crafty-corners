@@ -16,12 +16,11 @@ const AdminCommunities = () => {
         return { ...fetchedData.data, prevPage: pageParams };
     }
 
-    const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    const { data, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
         queryKey: ['admin-communities'],
         queryFn: ({ pageParam }) => fetchCommunities(pageParam),
         initialPageParam: 1,
         getNextPageParam: (lastPage) => {
-            console.log('lastPage', lastPage);
             if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
                 return null;
             }
@@ -35,7 +34,6 @@ const AdminCommunities = () => {
 
 
     const onDeleteClick = community => {
-        console.log(community);
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -48,7 +46,7 @@ const AdminCommunities = () => {
             if (result.isConfirmed) {
                 axiosClient.delete(`/communities/${community.id}`)
                     .then(() => {
-                        getCommunities();
+                        refetch()
                     })
                 Swal.fire({
                     title: "Deleted!",
