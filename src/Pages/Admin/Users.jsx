@@ -3,6 +3,7 @@ import axiosClient from "../../axios-client";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import Loading from '../../components/utils/Loading';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 
 const Users = () => {
@@ -52,6 +53,26 @@ const Users = () => {
       })
   }
 
+  const fetchUsers = async (pageParams) => {
+    const fetchedData = await axiosClient.get(`/users?page=${pageParams}`)
+    return {...fetchedData.data, prevPage: pageParams};
+  }
+
+  const {data, fetchNextPage, hasNextPage} = useInfiniteQuery({
+    queryKey: ['admin-users'],
+    queryFn: ({pageParams}) => fetchUsers(pageParams),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      console.log('lastPage', lastPage);
+      // if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
+      //     return null;
+      // }
+      // return lastPage.meta.current_page + 1
+    }
+  })
+  
+  console.log('query data',data);
+
   return (
     <div className="communities-container">
       <div className="top-section">
@@ -80,10 +101,7 @@ const Users = () => {
               </div>
             </div>
           ))
-
-
         }
-
       </div>
     </div>
   )

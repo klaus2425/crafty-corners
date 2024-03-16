@@ -1195,6 +1195,7 @@ input::-webkit-inner-spin-button {
           text-overflow: ellipsis;
         }
       }
+
       .bottom {
         display: flex;
         justify-content: flex-start;
@@ -2436,9 +2437,9 @@ input::-webkit-inner-spin-button {
       margin-top: 1rem;
       width: clamp(45rem, 60vw, 250rem);
       flex-direction: column;
-      justify-content: center;
       transition: 0.3s;
-      height: fit-content;
+      height: 100%;
+
       .admin-posts {
         margin-top: 1rem;
         width: 100%;
@@ -2447,7 +2448,6 @@ input::-webkit-inner-spin-button {
         align-items: center;
       }
 
-
       .admin-container-card {
         background-color: #FFF;
         border-radius: 25px;
@@ -2455,8 +2455,9 @@ input::-webkit-inner-spin-button {
         display: flex;
         justify-content: center;
         width: 100%;
-        height: 80vh;
+        height: 85vh;
         transition: 0.3s;
+
         #community-scroll {
           overflow-y: scroll;
         }
@@ -2468,12 +2469,17 @@ input::-webkit-inner-spin-button {
         #users-table {
           overflow-y: auto;
         }
+
         .users-table {
           display: flex;
-          height: 50rem;
+          overflow-y: auto;
+          height: 40rem;
           flex-direction: column;
           color: $dark_grey;
           width: 100%;
+        }
+        .users-table::-webkit-scrollbar {
+          display: none;
         }
       }
     }
