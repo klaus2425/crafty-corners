@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import axiosClient from '../axios-client';
 import Skeleton from 'react-loading-skeleton';
@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import toast, { Toaster } from 'react-hot-toast';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import MembershipCheck from '../components/utils/Membership';
 
 const ViewPost = () => {
@@ -23,7 +23,7 @@ const ViewPost = () => {
   const [open, setOpen] = useState(false);
   const commentRef = useRef();
   const Menu = ['Report Post'];
-
+  const queryClient = useQueryClient();
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
     notifyShare();
@@ -93,7 +93,6 @@ const ViewPost = () => {
 
   const handleLike = () => {
 
-    console.log(liked);
     if (!liked) {
       updateLikeMutation.mutate()
     }
@@ -110,13 +109,12 @@ const ViewPost = () => {
 
   const postComment = (ev) => {
     ev.preventDefault();
-    console.log('clicked');
     const formData = new FormData();
     formData.append('content', commentRef.current.value);
     axiosClient.post(`post/${id}/comment/`, formData)
       .then(() => {
         notifyComment();
-        getPost();
+        useComments.refetch();
         commentRef.current.value = '';
       })
       .catch(err => {
@@ -150,12 +148,18 @@ const ViewPost = () => {
 
   const updateLikeMutation = useMutation({
     mutationFn: likePost,
-    onSuccess: usePost.refetch,
+    onSuccess: () => {
+      usePost.refetch();
+      queryClient.refetchQueries('posts')
+    },
   })
 
   const updateUnlikeMutation = useMutation({
     mutationFn: unlikePost,
-    onSuccess: usePost.refetch,
+    onSuccess: () => {
+      usePost.refetch()
+      queryClient.refetchQueries('posts')
+    },
   })
 
   const liked = usePost?.data?.liked_by_user;
@@ -164,7 +168,6 @@ const ViewPost = () => {
   const community = usePost?.data?.community;
   const postUser = usePost?.data?.user;
 
-  console.log(usePost?.data);
 
   if (post?.post_type === 'image') {
     return (
