@@ -63,7 +63,7 @@ const AdminCommunities = () => {
     }
 
     return (
-        <div className="communities-container" id="communities-container">
+        <div className="communities-container" >
             <div className="top-section">
                 <Link className="add-community-button" to={'/add-communities'}><span><FontAwesomeIcon icon={faPlus} /></span> Add a Community</Link>
             </div>
