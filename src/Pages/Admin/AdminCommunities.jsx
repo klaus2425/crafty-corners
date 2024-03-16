@@ -11,8 +11,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 const AdminCommunities = () => {
     const storageBaseUrl = import.meta.env.VITE_API_COMMUNITIES_URL;
 
-
-
     const fetchCommunities = async (pageParams) => {
         const fetchedData = await axiosClient.get(`/communities?page=${pageParams}`);
         return { ...fetchedData.data, prevPage: pageParams };
