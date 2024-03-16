@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import Post from '../components/Post'
 import RecommendedCommunities from '../components/RecommendedCommunities'
 import axiosClient from '../axios-client';
