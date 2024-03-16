@@ -2465,54 +2465,18 @@ input::-webkit-inner-spin-button {
           height: 40rem;
         }
 
-
         #users-table {
           overflow-y: auto;
         }
         .users-table {
           display: flex;
-          justify-content: center;
-          height: 90vh;
-          align-items: center;
+          height: 50rem;
           flex-direction: column;
           color: $dark_grey;
           width: 100%;
-
-          table {
-            border-collapse: collapse;
-          }
-
-          td {
-            padding: 0.5rem;
-            text-align: start;
-          }
-
-          tr:nth-child(odd) {
-            background-color: $light_grey;
-          }
-
-          tr {
-            background-color: #EAEEF3;
-          }
-
-          th {
-            background-color: orange;
-            color: white;
-            padding: 0 0.4rem;
-            text-align: start;
-          }
-
-          th,
-          td {
-            padding-left: 0.5rem;
-          }
         }
       }
     }
-
-
-
-
   }
 
   .community-posts {
