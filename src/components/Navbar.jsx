@@ -47,12 +47,13 @@ const Navbar = () => {
     const handleDropDown = () => {
         openDropDown ? setOpenDropDown(false) : setOpenDropDown(true);
     }
+
     const resultRef = useRef();
 
     useEffect(() => {
         const listener = (ev) => {
             if (!resultRef?.current?.contains(ev.target)) {
-                setOpenSearch(false)
+                setOpenSearch(false);
             }
         }
 
@@ -121,27 +122,36 @@ const Navbar = () => {
                     </svg>
                     <h1>Crafty Corners</h1>
                 </div>
-                <div className="search-post" onClick={() => setOpenSearch(!openSearch)}>
-                    <input onChange={handleSearch} type='text' placeholder="Search for Discussions or Topics" />
+                <div className="search-post" >
+                    <input onClick={() => setOpenSearch(true)} onChange={handleSearch} type='text' placeholder="Search for Discussions or Topics" />
                     {openSearch &&
                         <div ref={resultRef} className="search-card">
                             <span className="search-category">/Communities</span>
                             {searchResult?.community?.length > 0 ? searchResult.community.map(((community, index) => (
-                                <span key={index} onClick={() => navigate(`/c/${community.id}?uid=${user.id}`)} className="search-result">{community.name}</span>
+                                <span key={index} onClick={() => {
+                                    navigate(`/c/${community.id}?uid=${user.id}`)
+                                    setOpenSearch(false);
+                                }} className="search-result">{community.name}</span>
                             )))
                                 :
                                 <span className="search-no-matches">No Matches</span>
                             }
                             <span className="search-category">/Users</span>
                             {searchResult?.user?.length > 0 ? searchResult.user.map(((user, index) => (
-                                <span key={index} onClick={() => navigate(`/u/${user.id}`)} className="search-result">{user.first_name} {user.middle_name} {user.last_name}</span>
+                                <span key={index} onClick={() => {
+                                    navigate(`/u/${user.id}`)
+                                    setOpenSearch(false);
+                                }} className="search-result">{user.first_name} {user.middle_name} {user.last_name}</span>
                             ))) :
                                 <span className="search-no-matches">No Matches</span>
                             }
                             <span className="search-category">/Posts</span>
 
                             {searchResult?.post?.length > 0 ? searchResult.post.map(((post, index) => (
-                                <span key={index} onClick={() => navigate(`/p/${post.id}?uid=${user.id}`)} className="search-result">{post.title}</span>
+                                <span key={index} onClick={() => {
+                                    navigate(`/p/${post.id}?uid=${user.id}`)
+                                    setOpenSearch(false);
+                                }} className="search-result">{post.title}</span>
                             ))) :
                                 <span className="search-no-matches">No Matches</span>
                             }
