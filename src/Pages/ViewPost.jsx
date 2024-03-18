@@ -315,8 +315,7 @@ const ViewPost = () => {
             </div>
             <span className="post-title">{post.title}</span>
             <div className="post-content">
-              <video controls className='post-image' src={`${storagePostUrl}${post.video}`} />
-
+              <video controls className='post-image' src={`${storagePostUrl}${post.video}`} typeof='video/mp4'/>
             </div>
             <div className="post-footer">
               <div className="footer-item">
