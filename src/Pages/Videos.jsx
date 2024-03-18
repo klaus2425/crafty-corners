@@ -64,7 +64,7 @@ const UserFeed = () => {
                         </div>
 
                         {
-                            user?.type === 'hobbyist' && //Change to mentor later
+                            user?.type === 'mentor' && //Change to mentor later
                             <button onClick={handleAddVideo} className="purple-button round">Add Video</button>
 
                         }

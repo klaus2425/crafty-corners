@@ -60,7 +60,7 @@ const UserFeed = () => {
                             <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
                         </div>
                         {
-                            user?.type === 'hobbyist' && //Change to mentor later
+                            user?.type === 'mentor' && //Change to mentor later
                             <button onClick={handleAddArticle} className="purple-button round">Add Article</button>
 
                         }
