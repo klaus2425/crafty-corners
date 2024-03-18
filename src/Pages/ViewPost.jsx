@@ -168,6 +168,9 @@ const ViewPost = () => {
   const community = usePost?.data?.community;
   const postUser = usePost?.data?.user;
 
+  useEffect(() => {
+    queryClient.refetchQueries('posts')
+  }, [id])
 
   if (post?.post_type === 'image') {
     return (

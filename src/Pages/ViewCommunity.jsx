@@ -17,7 +17,6 @@ const ViewCommunity = () => {
   const [community, setCommunity] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [image, setImage] = useState(null);
-  const { user } = useStateContext();
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(true);
@@ -48,7 +47,6 @@ const ViewCommunity = () => {
     axiosClient.get(`communities/${id}/posts`)
       .then(res => {
         setPosts(res.data.data)
-        console.log(res.data.data);
         if (res.data.data.length === 0) {
           setHasMore(false);
         }
@@ -70,7 +68,6 @@ const ViewCommunity = () => {
 
   const getMentors = async () => {
     const fetchedData = await axiosClient.get(`show-mentors-of-community/${id}`);
-    console.log(fetchedData.data.data);
     return fetchedData.data.data;
   }
 
@@ -82,8 +79,7 @@ const ViewCommunity = () => {
   useEffect(() => {
     getMembers();
     getCommunity();
-    console.log(useMentors.data);
-  }, [])
+  }, [id])
 
   return (
     <div className="authenticated-container">

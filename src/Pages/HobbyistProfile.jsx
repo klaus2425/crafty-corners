@@ -69,7 +69,7 @@ const HobbyistProfile = () => {
     }
     getUser();
     getPosts();
-  }, [])
+  }, [id])
   return (
     <div className="authenticated-container">
       <div className="feed">
