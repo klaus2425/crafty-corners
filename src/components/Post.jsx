@@ -383,7 +383,7 @@ export const UserPost = (props) => {
     const navigate = useNavigate();
     const [likes, setLikes] = useState(props.post.likes_count);
     const [liked, setLiked] = useState(false);
-
+    const { user } = useStateContext();
 
     const updatePostDetails = () => {
         axiosClient.get(`/posts/${post.id}`)
@@ -418,9 +418,6 @@ export const UserPost = (props) => {
     }
 
     useEffect(() => {
-        // const ip = props.post.likes;
-        // console.log(props);
-        // setLiked(ip.some(item => item.user_id == user.id));
         setLiked(post.liked_by_user);
     }, [])
 
@@ -438,7 +435,7 @@ export const UserPost = (props) => {
     }
 
     const viewPost = () => {
-        navigate(`/p/${post.id}`)
+        navigate(`/p/${post.id}?uid=${user.id}`)
     }
 
     if (post.post_type === 'image') {
