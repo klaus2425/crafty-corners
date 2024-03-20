@@ -42,6 +42,7 @@ import Verify from "./Pages/Verify";
 import PasswordReset from "./Pages/PasswordReset";
 import MentorAddArticle from "./Pages/MentorAddArticle";
 import MentorAddVideo from "./Pages/MentorAddVideo";
+import Assessment from "./Pages/Assessment";
 
 const router = createBrowserRouter([
     {
@@ -136,11 +137,15 @@ const router = createBrowserRouter([
             {
                 path: '/mentor/add-video',
                 element: <MentorAddVideo />
-            }
-
+            },
 
         ],
     },
+    {
+        path: '/assessment',
+        element: <Assessment />
+    },
+    
     {
         path: '/',
         element: <AdminLayout />,
