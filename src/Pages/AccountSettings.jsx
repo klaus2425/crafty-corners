@@ -2,15 +2,19 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axiosClient from "../axios-client";
 import { useState, useEffect, useRef } from 'react';
+import { useStateContext } from "../context/ContextProvider";
+
 import Swal from 'sweetalert2';
+import toast from 'react-hot-toast';
+import { useQuery } from '@tanstack/react-query';
 
 
 const AccountSettings = () => {
-
     const passwordRef = useRef();
     const currentPasswordRef = useRef();
     const [image, setImage] = useState();
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
+    const { user } = useStateContext();
     if (!image) { setImage('/avatar.jpg') }
 
 
@@ -20,12 +24,18 @@ const AccountSettings = () => {
             .then(({ data }) => {
                 setLoading(false);
                 setCurrentUser(data);
+                console.log(data);
                 setImage(storageBaseUrl + data.profile_picture)
+                if (data.type === 'mentor') {
+                    getMentorships()
+                }
             })
             .catch(() => {
                 setLoading(false);
             });
     }
+
+
 
     const onEmailSubmit = (ev) => {
         ev.preventDefault();
@@ -53,6 +63,46 @@ const AccountSettings = () => {
                 }
             });
     };
+
+    const getMentorships = async () => {
+        const fetchedData = await axiosClient.get('/mentor')
+        return fetchedData.data.data;
+    }
+    const mentorship = useQuery({
+        queryKey: ['mentor-settings'],
+        queryFn: getMentorships,
+    })
+
+    const handleRetire = (community_id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, remove it"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosClient.post(`mentor/retire-mentorship/${community_id}`)
+                    .then(() => {
+                        mentorship.refetch();
+                        toast('Mentor status removed', {
+                            duration: 1500,
+                            position: "bottom-center",
+                            icon: "✅",
+                            style: {
+                                borderRadius: "100px",
+                                border: 0,
+                                boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+                            }
+                        });
+                    })
+                    .catch(err => console.log(err))
+            }
+        });
+
+    }
 
     const onPhoneSubmit = (ev) => {
         ev.preventDefault();
@@ -124,6 +174,8 @@ const AccountSettings = () => {
 
 
 
+
+
     return (
         <div className="authenticated-container">
             <div className="acc-settings-feed">
@@ -181,7 +233,31 @@ const AccountSettings = () => {
                                             <button className='purple-button'>Change Password</button>
                                         </form>
                                     </div>
+                                    <div>
+                                    </div>
                                 </div>
+
+                                {
+                                    user && user.type === 'mentor' ?
+                                        <div className='mentor-settings'>
+                                            <strong>Mentorship</strong>
+                                            {
+                                                mentorship ?
+                                                    mentorship.data.map(ms => (
+                                                        <div className='mentor-community-settings'>
+                                                            <span><strong>Community:</strong> {ms.community.name}</span>
+                                                            <button onClick={() => handleRetire(ms.community.id)} className='purple-button'>Retire</button>
+                                                        </div>
+                                                    ))
+                                                    :
+                                                    null
+                                            }
+                                        </div>
+
+                                        :
+                                        null
+                                }
+
                             </div>
                         </div>
                     )}

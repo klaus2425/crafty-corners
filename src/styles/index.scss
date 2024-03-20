@@ -78,6 +78,13 @@ html {
   white-space: normal;
 }
 
+.mentor-settings {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .schedule-card {
   display: flex;
   flex-direction: column;
@@ -1282,6 +1289,7 @@ input::-webkit-inner-spin-button {
     align-items: center;
     flex-direction: column;
     margin-left: clamp(12rem, 30vw, 30rem);
+    padding: 0.5rem;
   }
 
   .acc-settings-feed {
@@ -2624,6 +2632,24 @@ input::-webkit-inner-spin-button {
 
 }
 
+.mentor-community-settings {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  padding: 0.2rem;
+  .purple-button {
+    transition: 0.3s;
+    opacity: 0;
+  }
+}
+
+.mentor-community-settings:hover {
+  background-color: $light_grey;
+  .purple-button {
+    opacity: 1;
+  }
+}
 
 .user-count {
   width: 10rem;
@@ -4739,7 +4765,10 @@ input::-webkit-inner-spin-button {
       }
     }
   }
+  .mentor-community-settings:hover {
+    background-color: #18191a;
 
+  }
 }
 
 @media screen and (max-width: 900px) {

@@ -76,9 +76,17 @@ const ViewCommunity = () => {
     queryFn: getMentors,
   })
 
+  const getMentorProfile = () =>{
+    axiosClient.get(`/mentor`)
+    .then(({data}) => {
+      console.log(data);
+    }) 
+  }
+
   useEffect(() => {
     getMembers();
     getCommunity();
+    getMentorProfile();
   }, [id])
 
   return (
@@ -148,6 +156,9 @@ const ViewCommunity = () => {
         </div>
       </div>
       <div className="recommended">
+            <div className="card">
+              <h3>Mentor Profile</h3>
+            </div>
             <div className="card">
               <h3>Community Mentors</h3>
               {
