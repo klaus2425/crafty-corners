@@ -1,4 +1,4 @@
-import { Navigate, Outlet, } from "react-router-dom";
+import { Navigate, Outlet, useNavigate, } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 import '../styles/index.scss'
 import Navbar from '../components/Navbar';
@@ -13,6 +13,7 @@ const DefaultLayout = () => {
 
     const { user, token, setUser } = useStateContext();
     const { theme } = useThemeContext();
+    const navigate = useNavigate();
     const { data, isLoading } = useQuery({
         queryKey: ['user'], queryFn: () => axiosClient.get('/user')
             .then((res) => res)
@@ -22,12 +23,17 @@ const DefaultLayout = () => {
     useEffect(() => {
         if (!isLoading) {
             setUser(data.data);
+            console.log(data.data);
             if (data?.data?.type === 'admin') {
                 return <Navigate to='/Users' />
             }
         }
     }, [data])
 
+    if(!data?.data.assessment_completed && window.location.pathname != '/assessment') {
+        console.log('navigate');
+        navigate('/assessment')
+    }
     if (!token || !user) {
         return <Navigate to='/Landing' />;
     }
