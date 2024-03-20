@@ -14,7 +14,7 @@ const AddVideo = () => {
     const [count, setCount] = useState(0);
     const getCommunities = () => {
         axiosClient.get('/communities').then(({ data }) => {
-            setCommunities(data.data);
+            setCommunities(data);
         }).catch(err => {
             const response = err.response;
             if (response && response.status === 422) {

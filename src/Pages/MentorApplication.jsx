@@ -57,8 +57,7 @@ const MentorApplication = () => {
   const getCommunities = (ev) => {
     setLoading(true);
     axiosClient.get('/communities').then(({ data }) => {
-      setCommunities(data.data);
-      console.log(data.data);
+      setCommunities(data);
       setLoading(false);
     }).catch(err => {
       setLoading(false);
