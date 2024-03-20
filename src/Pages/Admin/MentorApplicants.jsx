@@ -72,7 +72,8 @@ const MentorApplicants = () => {
                   <span id='user-img-span'><img src={`${storageBaseUrl + a.user?.profile_picture}`} alt="" /></span>
                   <span><strong>Full Name:  <br /> </strong> {a.user.first_name} {a.user.middle_name} {a.user.last_name}</span>
                   <span><strong>Status:  <br/></strong> {a.status}</span>
-                  <span><strong>Date of Application:  <br /></strong>{a.date_of_Assessment}</span>
+                  <span><strong>Community:  <br /></strong>{a.community.name}</span>
+                  <span><strong>Specialization:  <br /></strong>{a.specialization}</span>
                 </div>
                 <div className="buttons-community">
                   <Link to={`/mentor-applicants/${a.id}`} className="orange-button">View Details</Link> 
