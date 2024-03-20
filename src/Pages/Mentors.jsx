@@ -4,13 +4,12 @@ import Loading from "../components/utils/Loading";
 import Swal from 'sweetalert2';
 import Mentor from "../components/Mentor";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const Mentors = () => {
     const [active, setActive] = useState("1");
-    const [mentors, setMentors] = useState([]);
-    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-
+    const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     const handleClick = (ev) => {
         ev.preventDefault();
         setActive(ev.target.id);
@@ -19,6 +18,18 @@ const Mentors = () => {
         ev.preventDefault();
         navigate('/mentor-application');
     }
+
+    const getMentors = async () => {
+        const fetchedData = await axiosClient.get(`/approved-mentors`)
+        return fetchedData.data;
+    }
+
+    const mentors = useQuery({
+        queryKey: ['mentor-list'],
+        queryFn: getMentors,
+    })
+
+    console.log(mentors.data);
     return (
         <div className="authenticated-container">
             <div className="feed">
@@ -30,25 +41,20 @@ const Mentors = () => {
                         </svg>
                         <h3>Mentors</h3>
                     </div>
-                    <div className="round-card">
-                        <span id="1" className={active === "1" ? "active" : undefined} onClick={handleClick}>All</span>
-                        <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
-                    </div>
+
                 </div>
-                <div className="apply-mentor-btn-container">
-                    <button onClick={applyClick} className="purple-button">Apply as a Mentor</button>
-                </div>
+
                 <div className="mentor-card">
-                    <Mentor img='/kafka.jpg' name="Kafka" community="Music" />
-                    <Mentor img='/kafka.jpg' name="Kafka" community="Music" />
-                    <Mentor img='/kafka.jpg' name="Kafka" community="Music" />
-                    <Mentor img='/kafka.jpg' name="Kafka" community="Music" />
-                    <Mentor img='/kafka.jpg' name="Kafka" community="Music" />
-                    <Mentor img='/kafka.jpg' name="Kafka" community="Music" />
-
+                    <div className="apply-mentor-btn-container">
+                        <button onClick={applyClick} className="purple-button">Apply as a Mentor</button>
+                    </div>
+                    {
+                        mentors &&
+                        mentors.data?.map(mentor => (
+                            <Mentor id={mentor.mentor.user_id} img={storageBaseUrl + mentor.mentor.profile_picture} name={mentor.mentor.first_name} community={'placeholder'} specialization={mentor.specialization} />
+                        ))
+                    }
                 </div>
-
-
             </div>
             <div className="recommended">
             </div>
