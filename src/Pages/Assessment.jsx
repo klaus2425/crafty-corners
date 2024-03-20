@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "../axios-client";
 import Loading from "../components/utils/Loading";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 const Assessment = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const getCommunites = async () => {
     const fetchedData = await axiosClient.get('/communities');
@@ -20,19 +21,20 @@ const Assessment = () => {
   const handleProceed = () => {
     axiosClient.post('/done-assessment')
     .then(() => {
-      navigate('/')
-      toast('Assessment success', {
-        duration: 1500,
-        position: "bottom-center",
-        icon: "✅",
-        style: {
-          borderRadius: "100px",
-          border: 0,
-          boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-        }
+      queryClient.refetchQueries('communities').then(() => {
+        navigate('/')
+        toast('Assessment success', {
+          duration: 1500,
+          position: "bottom-center",
+          icon: "✅",
+          style: {
+            borderRadius: "100px",
+            border: 0,
+            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+          }
+        })
       })
     })
-
   }
 
   console.log(data);

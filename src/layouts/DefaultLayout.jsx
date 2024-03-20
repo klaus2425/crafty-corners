@@ -22,6 +22,10 @@ const DefaultLayout = () => {
 
     useEffect(() => {
         if (!isLoading) {
+            if(!data?.data.assessment_completed && window.location.pathname != '/assessment') {
+                console.log('navigate');
+                navigate('/assessment')
+            }
             setUser(data.data);
             console.log(data.data);
             if (data?.data?.type === 'admin') {
@@ -30,10 +34,7 @@ const DefaultLayout = () => {
         }
     }, [data])
 
-    if(!data?.data.assessment_completed && window.location.pathname != '/assessment') {
-        console.log('navigate');
-        navigate('/assessment')
-    }
+
     if (!token || !user) {
         return <Navigate to='/Landing' />;
     }
