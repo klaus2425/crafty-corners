@@ -3724,6 +3724,14 @@ input::-webkit-inner-spin-button {
 
 }
 
+#list-card {
+  overflow-y: scroll;
+}
+
+#list-card::-webkit-scrollbar {
+  display: none;
+}
+
 .list-card {
   display: flex;
   flex-direction: column;

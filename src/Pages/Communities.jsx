@@ -1,23 +1,35 @@
 import axiosClient from "../axios-client";
 import Loading from "../components/utils/Loading";
 import LoadCommunity from "../components/utils/LoadCommunity";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Communities = () => {
 
 
-  const getCommunities = async () => {
-    const fetchedData = await axiosClient.get('/list/communities')
-    return fetchedData.data;
+  const getCommunities = async (pageParam) => {
+    const fetchedData = await axiosClient.get(`/list/communities?page=${pageParam}`)
+    return { ...fetchedData.data, prevPage: pageParam };
 
   }
 
-  const { data, isLoading } = useQuery({
+  const { data, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['communities'],
-    queryFn: getCommunities
+    queryFn: ({ pageParam }) => getCommunities(pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
+          return null;
+      }
+      return lastPage.meta.current_page + 1
+    }
   })
 
-  
+  const fetchedCommunities = data?.pages.reduce((acc, page) => {
+    return [...acc, page.data];
+  }, [])
+  console.log(data);
+
   return (
     <div className="authenticated-container">
       <div className="feed">
@@ -32,7 +44,7 @@ const Communities = () => {
           </svg>
           <h3>Communities</h3>
         </div>
-        <div className="list-card">
+        <div className="list-card" id="list-card">
           <div className="card-search">
             <input className="search" type="text" placeholder="Search Communities" />
             <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
@@ -41,15 +53,23 @@ const Communities = () => {
               <path d="M28.333 28.3333L24.083 24.0833" stroke="#677186" strokeWidth="1.41667" strokeLinecap="round" />
             </svg>
           </div>
-          {isLoading ? <Loading /> :
-            <div className="list-card-items">
-              {data?.data.map(c => (
-                <LoadCommunity key={c.id} c={c} />
-              ))}
-              {
-                console.log(data)
-              }
-            </div>
+          {
+            data ? <InfiniteScroll
+              scrollableTarget='list-card'
+              dataLength={fetchedCommunities ? fetchedCommunities.length : 0}
+              next={fetchNextPage}
+              hasMore={hasNextPage}
+              loader={<Loading />}>
+              {fetchedCommunities.map((community => (
+                community.map(c => (
+                  <div className="list-card-items">
+                    <LoadCommunity key={c.id} c={c} />
+                  </div>
+                ))
+              )))}
+            </InfiniteScroll>
+              :
+              <Loading />
           }
         </div>
 
