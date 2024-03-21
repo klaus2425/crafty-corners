@@ -92,7 +92,7 @@ const MentorAddVideo = () => {
                 <label><strong>Community:</strong></label>
                 <select name="communities" onChange={handleChange}>
                   <option >Select a community</option>
-                  {data?.data.map((community) => (
+                  {data && data.map((community) => (
                     <option key={community.id} value={community.id}>{community.name}</option>
                   ))}
                 </select>
