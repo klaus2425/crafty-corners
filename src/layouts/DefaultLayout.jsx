@@ -24,7 +24,7 @@ const DefaultLayout = () => {
         if (!isLoading) {
             if(!data?.data.assessment_completed && window.location.pathname != '/assessment') {
                 console.log('navigate');
-                navigate('/assessment')
+                navigate(`/assessment?uid=${data.data.id}`)
             }
             setUser(data.data);
             console.log(data.data);

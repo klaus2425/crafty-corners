@@ -78,20 +78,25 @@ html {
   justify-content: center;
   align-items: center;
   transition: 0.3s;
+
   h2 {
     color: #18191a;
   }
+
+
   .card {
     display: grid;
     background-color: #FFFFFF;
     border-radius: 15px;
     box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
     width: 60vw;
+    height: 70vh;
     margin-bottom: 0.5rem;
     padding: 1rem;
     gap: 1rem;
-    overflow: hidden;
     grid-template-columns: repeat(4, 1fr);
+    overflow-y: scroll;
+
     .community-assmnt-card {
       background-color: $lighter_grey;
       border-radius: 25px;
@@ -99,6 +104,49 @@ html {
       display: flex;
       flex-direction: column;
       align-items: center;
+      
+      .community-name {
+        font-weight: bold;
+        color: #18191a;
+      }
+ 
+      img {
+        border-radius: 10000px;
+        aspect-ratio: 1 / 1;
+        width: 4rem;
+      }
+      .purple-button {
+        height: 2rem;
+        width: 2rem;
+        display: flex;
+        align-items: center;
+        border-radius: 1000px;
+        transition: 0.3s;
+
+        .com-button-text {
+          color: white;
+          display: none;
+          font-weight: bold;
+        }
+      }
+      .purple-button:hover {
+        width: 5rem;
+
+        .com-button-text {
+          display: inline;
+        }
+      }
+      .white-button {
+        border: 1px $purple solid;
+        border-radius: 1000px;
+        color: $purple;
+        background-color: white;
+        width: 5.2rem;
+        font-weight: normal;
+        transition: 0.3s;
+        z-index: 2;
+      }
+
     }
   }
 
@@ -107,6 +155,7 @@ html {
     display: flex;
     justify-content: flex-end;
     padding-right: 1rem;
+
     .purple-button {
       width: fit-content;
     }
@@ -2527,6 +2576,7 @@ input::-webkit-inner-spin-button {
           color: $dark_grey;
           width: 100%;
         }
+
         .users-table::-webkit-scrollbar {
           display: none;
         }
@@ -2681,6 +2731,7 @@ input::-webkit-inner-spin-button {
   align-items: center;
   border-radius: 10px;
   padding: 0.2rem;
+
   .purple-button {
     transition: 0.3s;
     opacity: 0;
@@ -2689,6 +2740,7 @@ input::-webkit-inner-spin-button {
 
 .mentor-community-settings:hover {
   background-color: $light_grey;
+
   .purple-button {
     opacity: 1;
   }
@@ -4815,6 +4867,7 @@ input::-webkit-inner-spin-button {
       }
     }
   }
+
   .mentor-community-settings:hover {
     background-color: #18191a;
 
