@@ -64,10 +64,10 @@ const Users = () => {
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       console.log('lastPage', lastPage);
-      // if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
-      //     return null;
-      // }
-      // return lastPage.meta.current_page + 1
+      if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
+          return null;
+      }
+      return lastPage.meta.current_page + 1
     }
   })
   
