@@ -28,7 +28,6 @@ const Communities = () => {
   const fetchedCommunities = data?.pages.reduce((acc, page) => {
     return [...acc, page.data];
   }, [])
-  console.log(data);
 
   return (
     <div className="authenticated-container">
