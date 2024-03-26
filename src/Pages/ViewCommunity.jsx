@@ -44,6 +44,7 @@ const ViewCommunity = () => {
         setImage(import.meta.env.VITE_API_COMMUNITIES_URL + res.data.data.community_photo);
         console.log(res.data.data);
       })
+      .catch((err) => console.log(err.response))
     axiosClient.get(`communities/${id}/posts`)
       .then(res => {
         setPosts(res.data.data)
@@ -156,9 +157,14 @@ const ViewCommunity = () => {
         </div>
       </div>
       <div className="recommended">
-            <div className="card">
+        {
+          community?.is_user_mentor &&
+          <div className="card">
               <h3>Mentor Profile</h3>
             </div>
+        }
+            
+
             <div className="card">
               <h3>Community Mentors</h3>
               {
