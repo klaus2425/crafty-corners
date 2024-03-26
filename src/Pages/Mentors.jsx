@@ -1,19 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axiosClient from "../axios-client";
-import Loading from "../components/utils/Loading";
-import Swal from 'sweetalert2';
 import Mentor from "../components/Mentor";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 const Mentors = () => {
-    const [active, setActive] = useState("1");
     const navigate = useNavigate();
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
-    const handleClick = (ev) => {
-        ev.preventDefault();
-        setActive(ev.target.id);
-    }
+
     const applyClick = (ev) => {
         ev.preventDefault();
         navigate('/mentor-application');
@@ -51,7 +45,7 @@ const Mentors = () => {
                     {
                         mentors &&
                         mentors.data?.map(mentor => (
-                            <Mentor id={mentor.mentor.user_id} img={storageBaseUrl + mentor.mentor.profile_picture} name={mentor.mentor.first_name} community={'placeholder'} specialization={mentor.specialization} />
+                            <Mentor id={mentor.mentor.user_id} img={storageBaseUrl + mentor.mentor.profile_picture} name={mentor.mentor.first_name} community={mentor.community.name} specialization={mentor.specialization} />
                         ))
                     }
                 </div>

@@ -14,7 +14,7 @@ const Mentor = (mentor) => {
       <img src={mentor.img} />
       <span className="mentor-name">{mentor.name}</span>
       <span>{mentor.specialization}</span>
-      <span className="mentor-community">{mentor.community}</span>
+      <span className="mentor-community"><strong>/{mentor.community}</strong></span>
     </div>
   )
 }
