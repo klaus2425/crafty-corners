@@ -77,11 +77,11 @@ const ViewCommunity = () => {
     queryFn: getMentors,
   })
 
-  const getMentorProfile = () =>{
+  const getMentorProfile = () => {
     axiosClient.get(`/mentor`)
-    .then(({data}) => {
-      console.log(data);
-    }) 
+      .then(({ data }) => {
+        console.log(data);
+      })
   }
 
   useEffect(() => {
@@ -157,27 +157,22 @@ const ViewCommunity = () => {
         </div>
       </div>
       <div className="recommended">
-        {
-          community?.is_user_mentor &&
-          <div className="card">
-              <h3>Mentor Profile</h3>
-            </div>
-        }
-            
-
-            <div className="card">
-              <h3>Community Mentors</h3>
-              {
-                useMentors ? useMentors.data?.map((mentor, index) => (
-                  <div onClick={() => navigate(`/u/${mentor.user_id}`)} className='community-mentor-item'>
-                    <span className='mentor-name-top'>{index + 1}. {mentor.user.first_name} {mentor.user.last_name}</span>
-                    <span className='mentor-specialization-bottom'> {mentor.specialization}</span>
-                  </div>
-                ))
-                :
-                <span>No mentors for this Community yet</span>
-              }
-            </div>
+        <div className="card">
+          <h3>Community Progress</h3>
+        </div>
+        <div className="card">
+          <h3>Community Mentors</h3>
+          {
+            useMentors ? useMentors.data?.map((mentor, index) => (
+              <div key={mentor.id} onClick={() => navigate(`/u/${mentor.user_id}`)} className='community-mentor-item'>
+                <span className='mentor-name-top'>{index + 1}. {mentor.user.first_name} {mentor.user.last_name}</span>
+                <span className='mentor-specialization-bottom'> {mentor.specialization}</span>
+              </div>
+            ))
+              :
+              <span>No mentors for this Community yet</span>
+          }
+        </div>
       </div>
     </div>
 
