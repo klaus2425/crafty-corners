@@ -43,7 +43,7 @@ const ViewCommunity = () => {
         setLoading(false);
         setCommunity(res.data.data);
         setImage(import.meta.env.VITE_API_COMMUNITIES_URL + res.data.data.community_photo);
-        console.log('community data',res.data.data);
+        console.log('community data', res.data.data);
       })
       .catch((err) => console.log(err.response))
     axiosClient.get(`communities/${id}/posts`)
@@ -86,8 +86,8 @@ const ViewCommunity = () => {
   }
   const getLevel = () => {
     axiosClient.get('/user-levels')
-    .then(res => console.log('level', res.data))
-    .catch(err => console.log(err))
+      .then(res => console.log('level', res.data))
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -164,12 +164,19 @@ const ViewCommunity = () => {
         </div>
       </div>
       <div className="recommended">
-        <div className="card" id='community-level-card'>
-          <h3>Community Progress</h3>
-          <img id='badge'  src={`/${community.badge}`} alt='badge'/>
-          <ProgressBar  width={150} completed={`${community.user_experience_points}` || 0} maxCompleted={community.next_level_experience || 0}/>
-          <span className='user-level'>Level {community.user_level}</span>
-        </div>
+        {
+          community.is_user_member ?
+            <div className="card" id='community-level-card'>
+              <h3>Community Progress</h3>
+              <img id='badge' src={`/${community.badge}`} alt='badge' />
+              <ProgressBar height='1.5rem' width={150} completed={`${community.user_experience_points}` || 0} maxCompleted={community.next_level_experience || 0} />
+              <span className='points-needed'>{community.next_level_experience - community.user_experience_points} more points to go</span>
+              <span className='user-level'>Level {community.user_level}</span>
+            </div>
+            :
+            null // add placeholder
+        }
+
         <div className="card">
           <h3>Community Mentors</h3>
           {
