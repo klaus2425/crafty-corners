@@ -10,6 +10,7 @@ import Post from '../components/Post';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../components/utils/Loading';
 import { useQuery } from '@tanstack/react-query';
+import ProgressBar from '@ramonak/react-progress-bar';
 
 
 const ViewCommunity = () => {
@@ -42,7 +43,7 @@ const ViewCommunity = () => {
         setLoading(false);
         setCommunity(res.data.data);
         setImage(import.meta.env.VITE_API_COMMUNITIES_URL + res.data.data.community_photo);
-        console.log(res.data.data);
+        console.log('community data',res.data.data);
       })
       .catch((err) => console.log(err.response))
     axiosClient.get(`communities/${id}/posts`)
@@ -83,11 +84,17 @@ const ViewCommunity = () => {
         console.log(data);
       })
   }
+  const getLevel = () => {
+    axiosClient.get('/user-levels')
+    .then(res => console.log('level', res.data))
+    .catch(err => console.log(err))
+  }
 
   useEffect(() => {
     getMembers();
     getCommunity();
     getMentorProfile();
+    getLevel();
   }, [id])
 
   return (
@@ -118,7 +125,7 @@ const ViewCommunity = () => {
                 </div>
                 <div className='community-join'>
                   {!loading &&
-                    <MembershipCheck isMember={community.is_user_member} members={community.members} community_id={id} user_id={uid} />
+                    <MembershipCheck isMember={community.is_user_member} community_id={id} user_id={uid} />
                   }
                 </div>
               </div>
@@ -157,8 +164,11 @@ const ViewCommunity = () => {
         </div>
       </div>
       <div className="recommended">
-        <div className="card">
+        <div className="card" id='community-level-card'>
           <h3>Community Progress</h3>
+          <img id='badge'  src={`/${community.badge}`} alt='badge'/>
+          <ProgressBar  width={150} completed={`${community.user_experience_points}` || 0} maxCompleted={community.next_level_experience || 0}/>
+          <span className='user-level'>Level {community.user_level}</span>
         </div>
         <div className="card">
           <h3>Community Mentors</h3>

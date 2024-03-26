@@ -1180,12 +1180,23 @@ input::-webkit-inner-spin-button {
   .recommended {
     margin-top: 4.5rem;
     width: 25%;
+    #community-level-card {
+      align-items: center;
 
+      .user-level {
+        font-weight: bold;
+      }
+    }
     .card {
       display: flex;
       justify-content: center;
       width: clamp(5rem, 10vw + 7rem, 16rem);
       transition: 0.3s;
+
+      #badge {
+        aspect-ratio: 1 / 1;
+        width: 10rem;
+      }
 
       .side-community-name {
         font-weight: bold;
