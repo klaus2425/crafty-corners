@@ -243,7 +243,7 @@ const AccountSettings = () => {
                                             <strong>Mentorship</strong>
                                             {
                                                 mentorship ?
-                                                    mentorship.data.map(ms => (
+                                                    mentorship?.data.map(ms => (
                                                         <div className='mentor-community-settings'>
                                                             <span><strong>Community:</strong> {ms.community.name}</span>
                                                             <button onClick={() => handleRetire(ms.community.id)} className='purple-button'>Retire</button>
