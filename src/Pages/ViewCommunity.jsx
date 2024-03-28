@@ -174,7 +174,16 @@ const ViewCommunity = () => {
               <span className='user-level'>Level {community.user_level}</span>
             </div>
             :
-            null // add placeholder
+            <div className="card" id='community-level-card-blurred'>
+              <h3>Community Progress</h3>
+              <img id='badge' src={`/Beginner.svg`} alt='badge' />
+              <ProgressBar height='1.5rem' width={150} completed={0} maxCompleted={1000} />
+              <span className='points-needed'>1000 more points to go</span>
+              <span className='user-level'>Level 1</span>
+              <div className='blur'>
+                Join this community to make progress
+              </div>
+            </div>
         }
 
         <div className="card">

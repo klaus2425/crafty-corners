@@ -1182,12 +1182,34 @@ input::-webkit-inner-spin-button {
     width: 25%;
     #community-level-card {
       align-items: center;
-
       .user-level {
         font-weight: bold;
       }
       .points-needed {
         font-size: 0.86rem;
+      }
+    }
+    #community-level-card-blurred {
+      align-items: center;
+      .user-level {
+        font-weight: bold;
+      }
+      .points-needed {
+        font-size: 0.86rem;
+      }
+      position: relative;
+      .blur {
+        height: 100%;
+        width: 100%;
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        text-align: center;
+        font-weight: bold;
       }
     }
     .card {
