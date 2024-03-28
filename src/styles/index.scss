@@ -104,17 +104,18 @@ html {
       display: flex;
       flex-direction: column;
       align-items: center;
-      
+
       .community-name {
         font-weight: bold;
         color: #18191a;
       }
- 
+
       img {
         border-radius: 10000px;
         aspect-ratio: 1 / 1;
         width: 4rem;
       }
+
       .purple-button {
         height: 2rem;
         width: 2rem;
@@ -129,6 +130,7 @@ html {
           font-weight: bold;
         }
       }
+
       .purple-button:hover {
         width: 5rem;
 
@@ -136,6 +138,7 @@ html {
           display: inline;
         }
       }
+
       .white-button {
         border: 1px $purple solid;
         border-radius: 1000px;
@@ -1180,24 +1183,32 @@ input::-webkit-inner-spin-button {
   .recommended {
     margin-top: 4.5rem;
     width: 25%;
+
     #community-level-card {
       align-items: center;
+
       .user-level {
         font-weight: bold;
       }
+
       .points-needed {
         font-size: 0.86rem;
       }
     }
+
     #community-level-card-blurred {
       align-items: center;
+
       .user-level {
         font-weight: bold;
       }
+
       .points-needed {
         font-size: 0.86rem;
       }
+
       position: relative;
+
       .blur {
         height: 100%;
         width: 100%;
@@ -1213,11 +1224,13 @@ input::-webkit-inner-spin-button {
         font-weight: bold;
       }
     }
+
     .card {
       display: flex;
       justify-content: center;
       width: clamp(5rem, 10vw + 7rem, 16rem);
       transition: 0.3s;
+
 
       #badge {
         aspect-ratio: 1 / 1;
@@ -1564,6 +1577,24 @@ input::-webkit-inner-spin-button {
   }
 
 
+  #badges-card {
+    gap: 1rem;
+    flex-direction: row;
+
+    .level-container {
+      display: flex;
+      width: 10rem;
+      align-items: center;
+      flex-direction: column;
+      padding: 0.56rem;
+      background-color: $lighter_grey;
+      border-radius: 15px;
+      img {
+        width: 7rem;
+        height: 7rem;
+      }
+    }
+  }
 
   .card {
     display: flex;
@@ -1864,9 +1895,11 @@ input::-webkit-inner-spin-button {
 
           }
         }
+
         .right:hover {
           background-color: $light_grey;
         }
+
         .right {
           transition: 0.3s;
           cursor: pointer;
@@ -1876,6 +1909,7 @@ input::-webkit-inner-spin-button {
           justify-content: center;
           align-items: center;
           padding: 0.256rem;
+
           .badge-icon {
             width: 7rem;
             height: 7rem;
@@ -4404,7 +4438,11 @@ input::-webkit-inner-spin-button {
       color: #e4e6eb;
     }
   }
-
+  #badges-card {
+    .level-container {
+      background-color: #18191a;
+    }
+  }
   .display-name {
     h2 {
       color: #e4e6eb;
@@ -4777,9 +4815,11 @@ input::-webkit-inner-spin-button {
       background-color: #18191a;
     }
   }
+
   .right:hover {
     background-color: #18191a;
   }
+
   .article,
   .video {
     .title {
