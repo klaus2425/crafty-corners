@@ -2630,7 +2630,7 @@ input::-webkit-inner-spin-button {
         display: flex;
         justify-content: center;
         width: 100%;
-        height: 85vh;
+        height: fit-content;
         transition: 0.3s;
 
         #community-scroll {

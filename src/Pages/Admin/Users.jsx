@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import Loading from '../../components/utils/Loading';
 import { useInfiniteQuery } from '@tanstack/react-query';
-
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -48,48 +48,81 @@ const Users = () => {
         setLoading(false)
         setUsers(data.data)
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err.response.data);
         setLoading(false)
       })
   }
 
   const fetchUsers = async (pageParams) => {
     const fetchedData = await axiosClient.get(`/users?page=${pageParams}`)
-    return {...fetchedData.data, prevPage: pageParams};
+    return { ...fetchedData.data, prevPage: pageParams };
   }
 
-  const {data, fetchNextPage, hasNextPage} = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ['admin-users'],
-    queryFn: ({pageParams}) => fetchUsers(pageParams),
+    queryFn: ({ pageParam }) => fetchUsers(pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       console.log('lastPage', lastPage);
       if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
-          return null;
+        return null;
       }
       return lastPage.meta.current_page + 1
     }
   })
-  
-  console.log('query data',data);
+
+  const fetchedUsers = data?.pages.reduce((acc, page) => {
+    return [...acc, page.data];
+  }, [])
+  console.log('query data', data);
 
   return (
     <div className="communities-container">
       <div className="top-section">
         <div className='user-count'>Current Number of users: {userCount}</div>
       </div>
-      <div className='users-table'>
-
-        {loading &&
-          <Loading />
+      <div className='users-table' id='users-table'>
+        {
+          fetchedUsers ?
+            <InfiniteScroll
+              scrollableTarget='users-table'
+              dataLength={fetchedUsers ? fetchedUsers.length : 0}
+              next={fetchNextPage}
+              hasMore={hasNextPage}
+              loader={<Loading />}>
+              {
+                fetchedUsers.map((users) => (
+                  users.map(u => (
+                    <div key={u.id} className="community-item">
+                      <div className="community-item-details" >
+                        <div className="community-details-top">
+                          <span id='user-img-span'><img src={storageBaseUrl + u.profile_picture} /></span>
+                          <span style={{ wordBreak: 'break-word' }}><strong>Full Name: <br /> </strong>{`${u.first_name} ${u.middle_name} ${u.last_name}  `} </span>
+                          <span><strong>Username:  <br /></strong>{u.user_name}</span>
+                          <span><strong>Email:  <br /></strong>{u.email}</span>
+                          <span><strong>Date Created:  <br /></strong>{u.created_at}</span>
+                        </div>
+                        <div className="buttons-community">
+                          <Link to={'/edit-user/' + u.id} className="orange-button">View User</Link>
+                          <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete User</button>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ))
+              }
+            </InfiniteScroll>
+            :
+            <Loading />
         }
-        {!loading &&
+        {/* {!loading &&
           users.map(u => (
             <div key={u.id} className="community-item">
               <div className="community-item-details" >
                 <div className="community-details-top">
                   <span id='user-img-span'><img src={storageBaseUrl + u.profile_picture} /></span>
-                  <span style={{wordBreak: 'break-word'}}><strong>Full Name: <br /> </strong>{`${u.first_name} ${u.middle_name} ${u.last_name}  `} </span>
+                  <span style={{ wordBreak: 'break-word' }}><strong>Full Name: <br /> </strong>{`${u.first_name} ${u.middle_name} ${u.last_name}  `} </span>
                   <span><strong>Username:  <br /></strong>{u.user_name}</span>
                   <span><strong>Email:  <br /></strong>{u.email}</span>
                   <span><strong>Date Created:  <br /></strong>{u.created_at}</span>
@@ -101,7 +134,7 @@ const Users = () => {
               </div>
             </div>
           ))
-        }
+        } */}
       </div>
     </div>
   )
