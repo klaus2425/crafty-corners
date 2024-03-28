@@ -9,7 +9,7 @@ import PostModal from '../components/PostModal';
 import Post from '../components/Post';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../components/utils/Loading';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import ProgressBar from '@ramonak/react-progress-bar';
 
 
@@ -23,9 +23,6 @@ const ViewCommunity = () => {
   const uid = params.get('uid')
   const navigate = useNavigate();
   const storageBaseUrl = import.meta.env.VITE_API_COMMUNITIES_URL;
-
-
-
 
   const getCommunity = () => {
     axiosClient.get(`communities/${id}/posts`)
@@ -60,24 +57,6 @@ const ViewCommunity = () => {
     queryFn: getMentors,
   })
 
-  const getMentorProfile = () => {
-    axiosClient.get(`/mentor`)
-      .then(({ data }) => {
-        console.log(data);
-      })
-  }
-  const getLevel = () => {
-    axiosClient.get('/user-levels')
-      .then(res => console.log('level', res.data))
-      .catch(err => console.log(err))
-  }
-
-  useEffect(() => {
-    getCommunity();
-    getMentorProfile();
-    getLevel();
-  }, [id])
-
   const getCommunityData = async () => {
     const fetchedData = await axiosClient.get(`/communities/${id}`)
     return fetchedData.data.data;
@@ -87,7 +66,27 @@ const ViewCommunity = () => {
     queryFn: getCommunityData,
   })
 
-  console.log('community data', useCommunity.data);
+  const getPosts = async (pageParam) => {
+    const fetchedData = await axiosClient.get(`communities/${id}/posts?page${pageParam}`);
+    return { ...fetchedData.data, prevPage: pageParam };
+  }
+
+  const usePosts = useInfiniteQuery({
+    queryKey: [`community-posts-${id}`],
+    queryFn: ({ pageParam }) => getPosts(pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
+        return null;
+      }
+      return lastPage.meta.current_page + 1
+    }
+  })
+
+
+  const fetchedPosts = usePosts.data?.pages.reduce((acc, page) => {
+    return [...acc, page.data];
+  }, [])
 
   return (
     <div className="authenticated-container">
@@ -139,19 +138,30 @@ const ViewCommunity = () => {
               }
             </div>
           </div>
-          <InfiniteScroll scrollableTarget='feed' dataLength={posts.length} next={fetchNext} hasMore={hasMore} loader={<Loading />}
-            endMessage={
-              <div style={{ textAlign: 'center' }}>
-                <h2>End of Feed</h2>
-              </div>
-            }
-          >
-            {useCommunity.data && posts.map(p => (
-              <Post key={p.id} post={p} community={useCommunity.data} />
-            )
-            )
-            }
-          </InfiniteScroll>
+          {usePosts.data ?
+            <InfiniteScroll
+              scrollableTarget='feed'
+              dataLength={fetchedPosts ? fetchedPosts.length : 0}
+              next={usePosts.fetchNextPage}
+              hasMore={usePosts.hasNextPage}
+              loader={<Loading />}
+              endMessage={
+                <div style={{ textAlign: 'center' }}>
+                  <h2>End of Feed</h2>
+                </div>
+              }
+            >
+              {useCommunity.data && usePosts.data && fetchedPosts.map(posts => (
+                posts.map(p => (
+                  <Post key={p.id} post={p} community={useCommunity.data} />
+                ))
+              )
+              )
+              }
+            </InfiniteScroll>
+            :
+            <Loading />
+          }
           <PostModal getCommunity={getCommunity} isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
       </div>
