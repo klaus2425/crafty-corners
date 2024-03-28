@@ -100,9 +100,9 @@ const HobbyistProfile = () => {
                 </div>
               </div>
               <div className='right'>
-                <img src='/level_sample.png' alt='Level'></img>
+                <img className='badge-icon' src='/Levels.svg' alt='Level'></img>
                 <div id='display-level'>
-                  <h2>Level 1</h2>
+                  <h3>User Badges</h3>
                 </div>
               </div>
             </div>
