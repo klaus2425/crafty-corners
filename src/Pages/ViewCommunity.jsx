@@ -14,38 +14,20 @@ import ProgressBar from '@ramonak/react-progress-bar';
 
 
 const ViewCommunity = () => {
-  const [memberCount, setMemberCount] = useState(-1);
-  const [community, setCommunity] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [image, setImage] = useState(null);
   const { id } = useParams();
-  const [loading, setLoading] = useState(true);
-  const [imageLoading, setImageLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [pageIndex, setPageIndex] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const params = new URLSearchParams(window.location.search);
   const uid = params.get('uid')
   const navigate = useNavigate();
+  const storageBaseUrl = import.meta.env.VITE_API_COMMUNITIES_URL;
 
 
-  const getMembers = () => {
-    axiosClient.get(`/communities/${id}/users`)
-      .then(({ data }) => {
-        setMemberCount(data.members.length);
-      })
-  }
 
 
   const getCommunity = () => {
-    axiosClient.get(`/communities/${id}`)
-      .then(res => {
-        setLoading(false);
-        setCommunity(res.data.data);
-        setImage(import.meta.env.VITE_API_COMMUNITIES_URL + res.data.data.community_photo);
-        console.log('community data', res.data.data);
-      })
-      .catch((err) => console.log(err.response))
     axiosClient.get(`communities/${id}/posts`)
       .then(res => {
         setPosts(res.data.data)
@@ -91,11 +73,21 @@ const ViewCommunity = () => {
   }
 
   useEffect(() => {
-    getMembers();
     getCommunity();
     getMentorProfile();
     getLevel();
   }, [id])
+
+  const getCommunityData = async () => {
+    const fetchedData = await axiosClient.get(`/communities/${id}`)
+    return fetchedData.data.data;
+  }
+  const useCommunity = useQuery({
+    queryKey: [`community-${id}`],
+    queryFn: getCommunityData,
+  })
+
+  console.log('community data', useCommunity.data);
 
   return (
     <div className="authenticated-container">
@@ -115,17 +107,17 @@ const ViewCommunity = () => {
           <div className="banner">
             <img className='banner-img' src="/banner.png" />
             <div className='community-details'>
-              {imageLoading && <Skeleton className='community-img' circle={true} />}
-              <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} className='community-img' src={image} />
+              {!useCommunity.data && <Skeleton className='community-img' circle={true} />}
+              <img style={!useCommunity.data ? { display: 'none' } : { display: 'inline' }} className='community-img' src={storageBaseUrl + useCommunity.data?.community_photo} />
               <div className="com-name-join">
                 <div className="community-text">
-                  <span className='community-name'>{community.name || <Skeleton containerClassName='community-name' />}</span>
-                  <span className='com-desc'>{community.description || <Skeleton />}</span>
-                  <span className='community-count'> {memberCount >= 0 ? <span><strong>{memberCount}</strong> {memberCount === 1 ? 'Member' : 'Members'}</span> : <Skeleton />}</span>
+                  <span className='community-name'>{useCommunity.data?.name || <Skeleton containerClassName='community-name' />}</span>
+                  <span className='com-desc'>{useCommunity.data?.description || <Skeleton />}</span>
+                  <span className='community-count'> {useCommunity.data?.members_count >= 0 ? <span><strong>{useCommunity.data?.members_count}</strong> {useCommunity.data?.members_count === 1 ? 'Member' : 'Members'}</span> : <Skeleton />}</span>
                 </div>
                 <div className='community-join'>
-                  {!loading &&
-                    <MembershipCheck isMember={community.is_user_member} community_id={id} user_id={uid} />
+                  {useCommunity.data &&
+                    <MembershipCheck isMember={useCommunity.data?.is_user_member} community_id={id} user_id={uid} />
                   }
                 </div>
               </div>
@@ -142,7 +134,7 @@ const ViewCommunity = () => {
               <h3>Posts</h3>
             </div>
             <div className="right">
-              {!loading &&
+              {!useCommunity.isLoading &&
                 <span onClick={() => setIsOpen(true)} className='purple-button'>Create a Post</span>
               }
             </div>
@@ -154,8 +146,8 @@ const ViewCommunity = () => {
               </div>
             }
           >
-            {posts.map(p => (
-              <Post key={p.id} post={p} community={community} />
+            {useCommunity.data && posts.map(p => (
+              <Post key={p.id} post={p} community={useCommunity.data} />
             )
             )
             }
@@ -165,13 +157,13 @@ const ViewCommunity = () => {
       </div>
       <div className="recommended">
         {
-          community.is_user_member ?
+          useCommunity.data?.is_user_member ?
             <div className="card" id='community-level-card'>
               <h3>Community Progress</h3>
-              <img id='badge' src={`/${community.badge}`} alt='badge' />
-              <ProgressBar height='1.5rem' width={150} completed={`${community.user_experience_points}` || 0} maxCompleted={community.next_level_experience || 0} />
-              <span className='points-needed'>{community.next_level_experience - community.user_experience_points} more points to go</span>
-              <span className='user-level'>Level {community.user_level}</span>
+              <img id='badge' src={`/${useCommunity.data?.badge}`} alt='badge' />
+              <ProgressBar height='1.5rem' width={150} completed={`${useCommunity.data?.user_experience_points}` || 0} maxCompleted={useCommunity.data?.next_level_experience || 0} />
+              <span className='points-needed'>{useCommunity.data?.next_level_experience - useCommunity.data?.user_experience_points} more points to go</span>
+              <span className='user-level'>Level {useCommunity.data?.user_level}</span>
             </div>
             :
             <div className="card" id='community-level-card-blurred'>
