@@ -18,11 +18,11 @@ const DefaultLayout = () => {
         queryKey: ['user'], queryFn: () => axiosClient.get('/user')
             .then((res) => res)
     })
-    
+
 
     useEffect(() => {
         if (!isLoading) {
-            if(!data?.data.assessment_completed && window.location.pathname != '/assessment') {
+            if (!data?.data.assessment_completed && window.location.pathname != '/assessment') {
                 navigate(`/assessment?uid=${data.data.id}`)
             }
             setUser(data.data);
@@ -40,16 +40,16 @@ const DefaultLayout = () => {
     if (user.type === 'admin') {
         return <Navigate to='/Users' />
     } else
-    return (
-        <div className="body-container" id={theme} style={{ height: "100dvh", overflowY: 'scroll' }}>
-            <Toaster />
-            <Navbar />
-            <div className="authenticated-container" >
-                <Sidebar />
-                <Outlet />
+        return (
+            <div className="body-container" id={theme} style={{ height: "100dvh", overflowY: 'scroll' }}>
+                <Toaster />
+                <Navbar />
+                <div className="authenticated-container" >
+                    <Sidebar />
+                    <Outlet />
+                </div>
             </div>
-        </div>
-    );
+        );
 }
 
 export default DefaultLayout;
