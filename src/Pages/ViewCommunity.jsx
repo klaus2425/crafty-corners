@@ -16,36 +16,10 @@ import ProgressBar from '@ramonak/react-progress-bar';
 const ViewCommunity = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { id } = useParams();
-  const [posts, setPosts] = useState([]);
-  const [pageIndex, setPageIndex] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
   const params = new URLSearchParams(window.location.search);
   const uid = params.get('uid')
   const navigate = useNavigate();
   const storageBaseUrl = import.meta.env.VITE_API_COMMUNITIES_URL;
-
-  const getCommunity = () => {
-    axiosClient.get(`communities/${id}/posts`)
-      .then(res => {
-        setPosts(res.data.data)
-        if (res.data.data.length === 0) {
-          setHasMore(false);
-        }
-      })
-  }
-
-  const fetchNext = () => {
-    axiosClient.get(`/communities/${id}/posts/?page=${pageIndex + 1}`)
-      .then((res) => {
-        setPosts(posts.concat(res.data.data))
-        console.log(posts.concat(res.data.data));
-        if (posts.length === res.data.meta.total) {
-          setHasMore(false);
-        }
-      })
-
-    setPageIndex(pageIndex + 1)
-  }
 
   const getMentors = async () => {
     const fetchedData = await axiosClient.get(`show-mentors-of-community/${id}`);
@@ -162,7 +136,7 @@ const ViewCommunity = () => {
             :
             <Loading />
           }
-          <PostModal getCommunity={getCommunity} isOpen={isOpen} setIsOpen={setIsOpen} />
+          <PostModal isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
       </div>
       <div className="recommended">
