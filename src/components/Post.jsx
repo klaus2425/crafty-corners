@@ -9,6 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReportModal from "./ReportModal";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 
@@ -28,6 +29,7 @@ const Post = (props) => {
     const Menu = ['Report Post'];
     const [open, setOpen] = useState(false);
     const [reportOpen, setReportOpen] = useState(false);
+    const queryClient = useQueryClient();
 
     const viewPost = () => {
         navigate(`/p/${post.id}?uid=${user.id}`)
@@ -67,6 +69,7 @@ const Post = (props) => {
                     setLiked(true);
                     console.log(res.data);
                     updatePostDetails(id);
+                    queryClient.refetchQueries(`community-posts-${props.community.id}`)
                 })
                 .catch(err => {
                     console.log(err);
@@ -78,6 +81,7 @@ const Post = (props) => {
                     console.log(res.data);
                     setLiked(false);
                     updatePostDetails(id);
+                    queryClient.refetchQueries(`community-posts-${props.community.id}`)
                 })
                 .catch(err => {
                     console.log(err);
