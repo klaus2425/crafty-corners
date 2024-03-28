@@ -1864,17 +1864,23 @@ input::-webkit-inner-spin-button {
 
           }
         }
-
+        .right:hover {
+          background-color: $light_grey;
+        }
         .right {
+          transition: 0.3s;
+          cursor: pointer;
+          border-radius: 15px;
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
-
-          img {
+          padding: 0.256rem;
+          .badge-icon {
             width: 7rem;
             height: 7rem;
           }
+
 
           #display-level {
             display: flex;
@@ -4771,7 +4777,9 @@ input::-webkit-inner-spin-button {
       background-color: #18191a;
     }
   }
-
+  .right:hover {
+    background-color: #18191a;
+  }
   .article,
   .video {
     .title {

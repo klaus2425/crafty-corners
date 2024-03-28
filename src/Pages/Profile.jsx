@@ -80,10 +80,10 @@ const UserFeed = () => {
                                 <div className='lower-details'>
                                 </div>
                             </div>
-                            <div className='right'>
-                                <img src='/level_sample.png' alt='Level'></img>
+                            <div onClick={() => navigate(`/user-badges/?uid=${uid}`)} className='right'>
+                                <img className='badge-icon' src='/Levels.svg' alt='Level'></img>
                                 <div id='display-level'>
-                                    <h2>Level 1</h2>
+                                    <h3>Your Badges</h3>
                                 </div>
                             </div>
                         </div>
