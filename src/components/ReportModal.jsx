@@ -42,6 +42,7 @@ const ReportModal = (props) => {
           <option value="False Information">False Information</option>
           <option value="Harrasment">Harrasment</option>
           <option value="Nudity">Nudity</option>
+          <option value="Irrelevant Topic">Irrelevant Topic</option>
         </select>
         Describe the problem:
         <textarea ref={descriptionRef} required></textarea>
