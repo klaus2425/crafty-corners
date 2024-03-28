@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -6,6 +6,7 @@ import axiosClient from '../axios-client';
 import Swal from 'sweetalert2';
 import { useStateContext } from '../context/ContextProvider';
 import Loading from "./utils/Loading";
+import { useQueryClient } from '@tanstack/react-query';
 
 const PostModal = (props) => {
   const { id } = useParams();
@@ -21,7 +22,7 @@ const PostModal = (props) => {
   const descriptionRef = useRef();
   const linkRef = useRef();
   const { user } = useStateContext();
-
+  const queryClient = useQueryClient();
   const handleCount = (ev) => {
     setCount(ev.target.value.length);
   }
@@ -42,7 +43,7 @@ const PostModal = (props) => {
       }
       axiosClient.post('/posts', formData)
         .then(() => {
-          props.getCommunity();
+          queryClient.refetchQueries(`community-${id}`)
           setLoading(false);
           handleClose();
         })
@@ -65,8 +66,8 @@ const PostModal = (props) => {
       formData.append('image', file);
       formData.append('post_type', 'image');
       axiosClient.post('/posts', formData)
-        .then(res => {
-          props.getCommunity();
+        .then(() => {
+          queryClient.refetchQueries(`community-${id}`)
           handleClose();
 
         })
@@ -90,8 +91,8 @@ const PostModal = (props) => {
       formData.append('content', descriptionRef.current.value);
       formData.append('post_type', 'text');
       axiosClient.post('/posts', formData)
-        .then(res => {
-          props.getCommunity();
+        .then(() => {
+          queryClient.refetchQueries(`community-${id}`)
           handleClose();
         })
         .catch(err => {
@@ -115,8 +116,8 @@ const PostModal = (props) => {
       formData.append('content', descriptionRef.current.value);
       formData.append('post_type', 'link');
       axiosClient.post('/posts', formData)
-        .then(res => {
-          props.getCommunity();
+        .then(() => {
+          queryClient.refetchQueries(`community-${id}`)
           handleClose();
         })
         .catch(err => {
