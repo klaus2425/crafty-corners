@@ -31,7 +31,7 @@ const UserBadges = () => {
                 </div>
               ))
                 :
-                (<div>No badges</div>)
+                (<div className="no-badges-text">No badges</div>)
               :
               <Loading />
           }
