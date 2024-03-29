@@ -44,6 +44,7 @@ import MentorAddArticle from "./Pages/MentorAddArticle";
 import MentorAddVideo from "./Pages/MentorAddVideo";
 import Assessment from "./Pages/Assessment";
 import UserBadges from "./Pages/UserBadges";
+import HobbyistBadges from "./Pages/HobbyistBadges";
 
 const router = createBrowserRouter([
     {
@@ -142,6 +143,10 @@ const router = createBrowserRouter([
             {
                 path: '/user-badges',
                 element: <UserBadges />
+            },
+            {
+                path: '/hobbyist-badges/:id',
+                element: <HobbyistBadges />
             }
 
         ],

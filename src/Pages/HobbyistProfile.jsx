@@ -99,7 +99,7 @@ const HobbyistProfile = () => {
                 <div className='lower-details'>
                 </div>
               </div>
-              <div className='right'>
+              <div onClick={() => navigate(`/hobbyist-badges/${id}`)} className='right'>
                 <img className='badge-icon' src='/Levels.svg' alt='Level'></img>
                 <div id='display-level'>
                   <h3>User Badges</h3>
