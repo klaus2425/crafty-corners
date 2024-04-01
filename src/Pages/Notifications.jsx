@@ -1,9 +1,19 @@
-import { PropsWithChildren } from 'react';
-import { Link, useOutletContext } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query';
 import UserNotifications from '../components/UserNotifications';
+import axiosClient from '../axios-client';
+import { useStateContext } from '../context/ContextProvider';
 
 
 const UserFeed = () => {
+
+    const storageUrl = import.meta.env.VITE_API_STORAGE_URL;
+    const useNotification = useQuery({
+        queryKey: ['notifications'],
+        queryFn: () => axiosClient.get('/notifications').then(({ data }) => (data)),
+    })
+    const { user } = useStateContext();
+    console.log(useNotification.data);
+
     return (
         <div className="authenticated-container">
             <div className="feed">
@@ -14,10 +24,16 @@ const UserFeed = () => {
                     </svg>
                     <h3>Notifications</h3>
                 </div>
-                <UserNotifications notificationType='like' notifier='Kafka' notifierImage='/kafka.jpg' community='Gaming' />
-                <UserNotifications notificationType='like' notifier='Kafka' notifierImage='/kafka.jpg' community='Gaming' />
-                <UserNotifications notificationType='like' notifier='Kafka' notifierImage='/kafka.jpg' community='Gaming' />
-
+                {
+                    useNotification.data
+                        ?
+                         useNotification.data.map(notification => (
+                            <UserNotifications uid={user.id} key={notification.id} post_id={notification.post.id} type={notification.type} 
+                            notifier={notification.like[0].first_name + ' ' + notification.like[0].last_name} 
+                            notifierImage={storageUrl + notification.like[0].profile_picture} community={notification.community.name} />
+                         ))
+                        : null
+                }
             </div>
             <div className="recommended">
             </div>

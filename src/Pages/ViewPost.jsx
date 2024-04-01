@@ -128,7 +128,7 @@ const ViewPost = () => {
   }
 
   const getThisPost = async () => {
-    const fetchedData = await axiosClient.get(`/posts/${id}`);
+    const fetchedData = await axiosClient.get(`/posts/${id}`).catch(err => console.log(err));
     return fetchedData.data.data;
   }
 
@@ -161,6 +161,7 @@ const ViewPost = () => {
       queryClient.refetchQueries('posts')
     },
   })
+  console.log('Post Data:', usePost.data);
 
   const liked = usePost?.data?.liked_by_user;
   const post = usePost?.data;
