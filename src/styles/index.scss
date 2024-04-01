@@ -4747,6 +4747,12 @@ input::-webkit-inner-spin-button {
     }
   }
 
+  .profile-details {
+    .right:hover {
+      background-color: #18191a;
+    }
+  }
+
   .video-card {
     background-color: #242526;
     border-color: #242526;
@@ -4824,9 +4830,7 @@ input::-webkit-inner-spin-button {
     }
   }
 
-  .right:hover {
-    background-color: #18191a;
-  }
+
 
   .article,
   .video {
