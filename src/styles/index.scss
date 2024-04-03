@@ -1631,6 +1631,27 @@ input::-webkit-inner-spin-button {
         height: 7rem;
       }
     }
+    .levelProgressBar {
+      width: 70%;
+  
+      .barContainer {
+        background-color: $light_grey;
+        border-radius: 1000px;
+      }
+  
+    }
+    .barCompleted {
+      border-radius: 1000px;
+      width: fit-content;
+      background-color: $purple;
+    }
+    .user-level {
+      font-weight: bold;
+    }
+
+    .points-needed {
+      font-size: 0.86rem;
+    }
   }
 
   .card {
