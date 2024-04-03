@@ -5,7 +5,7 @@ import EditSchedule from '../components/EditSchedule';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"
-import toast from 'react-hot-toast';
+import getCorrectColor from '../components/utils/ColorCorrection';
 
 const Schedule2 = () => {
     const [open, setOpen] = useState(false);
@@ -39,11 +39,11 @@ const Schedule2 = () => {
         setOpen(!open);
     };
 
-
+    
     const eventRender = ({ event }) => {
         if (event.end) {
             return (
-                <div className='event-content' style={{ backgroundColor: event.backgroundColor }}>
+                <div className='event-content' style={{ backgroundColor: event.backgroundColor, color: getCorrectColor(event.backgroundColor) }}>
                     <strong>{event.title}</strong>
                     <br />
 

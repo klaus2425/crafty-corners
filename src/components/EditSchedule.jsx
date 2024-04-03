@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axiosClient from '../axios-client';
 import Swal from 'sweetalert2';
 import Loading from "./utils/Loading";
+import { HexColorPicker } from "react-colorful";
+import toast from "react-hot-toast";
 
 const EditSchedule = (props) => {
     const [schedule, setSchedule] = useState({});
@@ -77,15 +79,30 @@ const EditSchedule = (props) => {
             .then(() => {
                 props.setOpen(false);
                 props.getAllSched();
+                toast('Schedule Updated', {
+                    duration: 1500,
+                    position: "bottom-center",
+                    icon: "✅",
+                    style: {
+                        borderRadius: "100px",
+                        border: 0,
+                        boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+                    }
+                })
             })
             .catch(err => {
                 const response = err.response;
                 if (response && response.status === 422) {
-                    Swal.fire({
-                        title: "Error",
-                        text: `${Object.values(response.data.errors)[0]}`,
-                        icon: "warning"
-                    });
+                    toast(`${Object.values(response.data.errors)[0]}`, {
+                        duration: 1500,
+                        position: "bottom-center",
+                        icon: "✅",
+                        style: {
+                            borderRadius: "100px",
+                            border: 0,
+                            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+                        }
+                    })
                 }
             })
     }
@@ -125,14 +142,7 @@ const EditSchedule = (props) => {
                         <div className="schedule-input">
                             <label>Background Color:</label>
                             <div className="color-flex">
-                                <div className="left">
-                                    <div className='radio-input'><input style={{ accentColor: "#0AAA3f" }} checked={schedule.backgroundColor === '#0AAA3f'} onChange={ev => setSchedule({ ...schedule, backgroundColor: ev.target.value })} name='color' className='sched-radio' type="radio" value='#0AAA3f' required /> Green</div>
-                                    <div className='radio-input'><input style={{ accentColor: "#E97100" }} checked={schedule.backgroundColor === '#E97100'} onChange={ev => setSchedule({ ...schedule, backgroundColor: ev.target.value })} name='color' className='sched-radio' type="radio" value='#E97100' required /> Orange</div>
-                                </div>
-                                <div className="right">
-                                    <div className='radio-input'><input style={{ accentColor: "#6528F7" }} checked={schedule.backgroundColor === '#6528F7'} onChange={ev => setSchedule({ ...schedule, backgroundColor: ev.target.value })} name='color' className='sched-radio' value='#6528F7' type="radio" required /> Purple</div>
-                                    <div className='radio-input'><input style={{ accentColor: "#677186" }} checked={schedule.backgroundColor === '#677186'} onChange={ev => setSchedule({ ...schedule, backgroundColor: ev.target.value })} name='color' className='sched-radio' value='#677186' type="radio" required /> Gray</div>
-                                </div>
+                                <HexColorPicker color={schedule.backgroundColor} onChange={color => setSchedule({ ...schedule, backgroundColor: color })} />
                             </div>
                         </div>
                         <div className="add-sched-btn">
