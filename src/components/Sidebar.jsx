@@ -12,14 +12,13 @@ export const Sidebar = () => {
 
     
     useEffect(() => {
+        Pusher.logToConsole = true;
         echo.private(`user-${user.id}`)
         .listen('MessageSent', (data) => {
             if(!(location.pathname == '/messages') && !(location.pathname == `/conversation/${data.message.conversation_id}`)){
                 setMessageNotify(true);
             } 
-
-        }).error((error) => {});
-        Pusher.logToConsole = true;
+        })
         if (user.unread_messages_count > 0 && window.location.pathname != '/messages') {
             setMessageNotify(true);
         } else setMessageNotify(false);
