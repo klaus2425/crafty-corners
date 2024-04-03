@@ -1588,7 +1588,7 @@ input::-webkit-inner-spin-button {
   #badges-card {
     gap: 1rem;
     flex-direction: row;
-
+    flex-wrap: wrap;
     .level-container {
       display: flex;
       width: 10rem;
