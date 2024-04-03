@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2';
 import axiosClient from '../axios-client';
 import { useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 
 const AddScheduleModal = (props) => {
 
@@ -21,6 +22,16 @@ const AddScheduleModal = (props) => {
             .then(() => {
                 props.getAllSched();
                 props.setOpen(false);
+                toast('Schedule Added', {
+                    duration: 1500,
+                    position: "bottom-center",
+                    icon: "✅",
+                    style: {
+                      borderRadius: "100px",
+                      border: 0,
+                      boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+                    }
+                  })
             })
             .catch(err => {
                 const response = err.response;
