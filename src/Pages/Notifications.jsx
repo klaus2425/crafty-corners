@@ -9,7 +9,7 @@ const UserFeed = () => {
     const storageUrl = import.meta.env.VITE_API_STORAGE_URL;
     const useNotification = useQuery({
         queryKey: ['notifications'],
-        queryFn: () => axiosClient.get('/notifications').then(({ data }) => (data)),
+        queryFn: () => axiosClient.get('/notifications').then(({data}) => (data)),
     })
     const { user } = useStateContext();
 
@@ -27,7 +27,7 @@ const UserFeed = () => {
                     useNotification.data
                         ?
                          useNotification.data.map(notification => (
-                            <UserNotifications uid={user.id} key={notification.id} post_id={notification.post.id} type={notification.type} 
+                            <UserNotifications uid={user.id}  post_id={notification.post_id} type={notification.type} 
                             notifier={notification.like[0].first_name + ' ' + notification.like[0].last_name} 
                             notifierImage={storageUrl + notification.like[0].profile_picture} community={notification.community.name} />
                          ))
