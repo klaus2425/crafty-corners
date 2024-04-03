@@ -1210,7 +1210,20 @@ input::-webkit-inner-spin-button {
 
     #community-level-card {
       align-items: center;
-
+      .levelProgressBar {
+        width: 70%;
+    
+        .barContainer {
+          background-color: $light_grey;
+          border-radius: 1000px;
+        }
+    
+      }
+      .barCompleted {
+        border-radius: 1000px;
+        width: fit-content;
+        background-color: $purple;
+      }
       .user-level {
         font-weight: bold;
       }
@@ -4993,6 +5006,14 @@ input::-webkit-inner-spin-button {
   .mentor-community-settings:hover {
     background-color: #18191a;
 
+  }
+  .levelProgressBar {
+    .barContainer {
+      background-color: #18191a;
+    }
+  }
+  .barCompleted {
+    background-color: $purple;
   }
 }
 

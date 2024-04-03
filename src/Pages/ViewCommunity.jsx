@@ -145,7 +145,7 @@ const ViewCommunity = () => {
             <div className="card" id='community-level-card'>
               <h3>Community Progress</h3>
               <img id='badge' src={`/${useCommunity.data?.badge}`} alt='badge' />
-              <ProgressBar height='1.5rem' width={150} completed={`${useCommunity.data?.user_experience_points}` || 0} maxCompleted={useCommunity.data?.next_level_experience || 0} />
+              <ProgressBar completedClassName="barCompleted" className='levelProgressBar' barContainerClassName='barContainer' height='1.5rem' width={150} completed={`${useCommunity.data?.user_experience_points}` || 0} maxCompleted={useCommunity.data?.next_level_experience || 0} />
               <span className='points-needed'>{useCommunity.data?.next_level_experience - useCommunity.data?.user_experience_points} more points to go</span>
               <span className='user-level'>Level {useCommunity.data?.user_level}</span>
             </div>
