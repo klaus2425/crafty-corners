@@ -867,7 +867,11 @@ input::-webkit-inner-spin-button {
     padding: 1.46rem;
     width: clamp(20rem, 50vw + 2rem, 45rem);
 
-
+    .post-notification-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
     form {
       text-align: end;
       width: 100%;
@@ -1030,12 +1034,24 @@ input::-webkit-inner-spin-button {
       }
     }
 
+    .toggle-span {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      gap: 0.5rem;
+      transition: 0.3s;
+      border-radius: 15px;
+      padding: 0.4rem;
+    }
+    .toggle-span:hover {
+      background-color: $lighter_grey;
+
+    }
     .purple-button {
       width: 4rem;
       font-weight: 600;
       box-sizing: border-box;
-      margin-left: auto;
-      text-align: center;
     }
 
     .purple-button:hover {
@@ -4592,6 +4608,15 @@ input::-webkit-inner-spin-button {
       background-color: #242526;
       color: #e4e6eb;
     }
+  }
+  .toggle-span {
+    path {
+      stroke: $light_grey;
+    }
+  }
+  .toggle-span:hover {
+    background-color: #242526;
+
   }
 
   .write-comment-section {
