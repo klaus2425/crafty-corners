@@ -12,7 +12,7 @@ const PostModal = (props) => {
   const { id } = useParams();
   const [fileUpload, setFileUpload] = useState(false);
   const [fileType, setFileType] = useState('');
-  const [notifiable, setNotifiable] = useState(true);
+  const [notifiable, setNotifiable] = useState(0);
   const [image, setImage] = useState();
   const [video, setVideo] = useState();
   const [loading, setLoading] = useState(false);
