@@ -27,7 +27,6 @@ const UserFeed = () => {
             .then(res => {
                 setArticles(res.data.data)
                 setLoading(false);
-                console.log(res);
             })
             .catch(err => {
                 const response = err.response;

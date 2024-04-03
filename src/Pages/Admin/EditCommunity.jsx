@@ -25,7 +25,6 @@ const EditCommunity = () => {
     setLoading(true);
     axiosClient.get(`/communities/${id}`)
       .then(({ data }) => {
-        console.log(data.data.posts);
         setCommunity(data.data);
         setLoading(false);
         setImage(storageBaseUrl + data.data.community_photo);

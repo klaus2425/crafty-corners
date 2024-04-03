@@ -38,11 +38,6 @@ const Messages = () => {
 
   const viewConversation = (conversation_id, id1, id2) => {
     axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
-      .then(res => {
-        console.log('Marked as read', res)
-      })
-      .catch(err => {const mute = err})
-      ;
     navigate(`/conversation/${conversation_id}?user_id0=${id1}&user_id1=${id2}&lid=${user.id}`);
   }
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
@@ -50,7 +45,6 @@ const Messages = () => {
   const getConversations = () => {
     axiosClient.get('/conversations')
       .then(res => {
-        console.log(res.data.data);
         setConversations(res.data.data);
       });
   }
@@ -61,7 +55,6 @@ const Messages = () => {
     echo.private(`user-${uid}`)
     .listen('MessageSent', (data) => {
         getConversations();
-        console.log(data);
     }).error((error) => { console.error(error) });
   }, [])
 

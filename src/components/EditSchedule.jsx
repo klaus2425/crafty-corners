@@ -29,18 +29,6 @@ const EditSchedule = (props) => {
                     minute: '2-digit',
                     second: '2-digit',
                 }))
-                console.log(startTime.toLocaleTimeString('en-US', {
-                    hour12: false,
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                }));
-                console.log(endTime.toLocaleTimeString('en-US', {
-                    hour12: false,
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                }));
             })
             .catch(err => {
                 const response = err.response;
@@ -78,7 +66,6 @@ const EditSchedule = (props) => {
     const onSubmit = (ev) => {
         ev.preventDefault();
         const dateStart = schedule.start.split(' ')[0];
-        console.log('format', dateStart + ' ' + startTime);
         const formData = new FormData();
         formData.append("_method", "PUT");
         formData.append('title', schedule.title);
@@ -87,8 +74,7 @@ const EditSchedule = (props) => {
         formData.append('backgroundColor', schedule.backgroundColor);
 
         axiosClient.post(`/schedule/${props.id}`, formData)
-            .then(({ data }) => {
-                console.log('edit', data);
+            .then(() => {
                 props.setOpen(false);
                 props.getAllSched();
             })

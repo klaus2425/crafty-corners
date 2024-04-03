@@ -30,7 +30,6 @@ const MentorAddVideo = () => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault()
-    console.log('Submit');
     const formData = new FormData();
     formData.append('video_title', titleRef.current.value);
     formData.append('creator', authorRef.current.value);
@@ -39,10 +38,8 @@ const MentorAddVideo = () => {
     formData.append('user_id', user.id);
     formData.append('video_url', linkRef.current.value);
     axiosClient.post('/videos', formData).then(({data}) => {
-      console.log(data);
       navigate(`/videos`)
     })
-    .catch((err) => console.log(err.response.data))
 
 
   }

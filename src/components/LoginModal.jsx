@@ -72,12 +72,11 @@ export default function LoginModal(props) {
               'Content-Type': 'application/json'
             }
           })
-            .catch(err => console.log(err));
+            .catch(err => console.error(err));
         }
         else {
           setUser(data.user);
           setToken(data.token);
-          console.log(data);
           props.setIsOpen(false);
           if (data.roles === 'admin') {
             return <Navigate to='/Users' />

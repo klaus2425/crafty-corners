@@ -51,7 +51,6 @@ const Post = (props) => {
         axiosClient.get(`/posts/${post.id}`)
             .then(res => {
                 setLikes(res.data.data.likes_count);
-                console.log(res.data.data.likes_count);
             })
     }
 
@@ -59,32 +58,25 @@ const Post = (props) => {
     const handleReport = () => {
         setReportOpen(!reportOpen);
         setOpen(!open);
-        console.log(!reportOpen);
     }
     const handleLike = (id) => {
-        console.log(liked);
         if (!liked) {
             axiosClient.post(`/like-post/${id}`)
                 .then(res => {
                     setLiked(true);
-                    console.log(res.data);
                     updatePostDetails(id);
                     queryClient.refetchQueries(`community-posts-${props.community.id}`)
                 })
-                .catch(err => {
-                    console.log(err);
-                })
+
         }
         else {
             axiosClient.post(`/unlike-post/${id}`)
                 .then(res => {
-                    console.log(res.data);
                     setLiked(false);
                     updatePostDetails(id);
                     queryClient.refetchQueries(`community-posts-${props.community.id}`)
                 })
                 .catch(err => {
-                    console.log(err);
                 })
         }
     }
@@ -396,27 +388,22 @@ export const UserPost = (props) => {
             })
     }
     const handleLike = (id) => {
-        console.log(liked);
         if (!liked) {
             axiosClient.post(`/like-post/${id}`)
                 .then(res => {
                     setLiked(true);
-                    console.log(res.data);
                     updatePostDetails(id);
                 })
                 .catch(err => {
-                    console.log(err);
                 })
         }
         else {
             axiosClient.post(`/unlike-post/${id}`)
                 .then(res => {
-                    console.log(res.data);
                     setLiked(false);
                     updatePostDetails(id);
                 })
                 .catch(err => {
-                    console.log(err);
                 })
         }
     }
@@ -665,7 +652,6 @@ export const AdminPosts = (props) => {
     });
 
     const deletePost = () => {
-        console.log(post.id);
         Swal.fire({
             title: "Delete this post?",
             text: "You won't be able to revert this!",
@@ -677,13 +663,11 @@ export const AdminPosts = (props) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosClient.delete(`/posts/${post.id}`)
-                    .then(res => {
+                    .then(() => {
                         notify();
                         props.getCommunity();
                     })
-                    .catch(err => {
-                        console.log(err);
-                    })
+
             }
         });
 

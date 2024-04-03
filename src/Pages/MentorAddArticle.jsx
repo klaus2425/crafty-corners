@@ -26,7 +26,6 @@ const MentorAddArticle = () => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault()
-    console.log('Submit');
     const formData = new FormData();
     formData.append('title', titleRef.current.value);
     formData.append('author', authorRef.current.value);
@@ -35,10 +34,8 @@ const MentorAddArticle = () => {
     formData.append('user_id', user.id);
     formData.append('link', linkRef.current.value);
     axiosClient.post('/articles', formData).then(({data}) => {
-      console.log(data);
       navigate(`/articles`)
     })
-    .catch((err) => console.log(err.response.data))
 
 
   }

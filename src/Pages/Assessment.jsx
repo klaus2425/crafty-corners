@@ -41,7 +41,6 @@ const Assessment = () => {
     })
   }
 
-  console.log(data);
 
   return (
     <div className="pre-assessment-container">

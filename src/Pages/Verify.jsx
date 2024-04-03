@@ -16,10 +16,8 @@ const Verify = () => {
     axiosClient.get(`verify-email/${id}/${hash}?expires=${expires}&signature=${signature}`)
       .then(response => {
         setLoading(false);
-        console.log(response.data);
       })
       .catch(error => {
-        console.log(error);
         setError(error.response.data.message)
         setLoading(false);
         setExpired(true);

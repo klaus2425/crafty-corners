@@ -21,7 +21,6 @@ const Schedule2 = () => {
     const getSchedule = () => {
         axiosClient.get(`/schedule`)
             .then(({ data }) => {
-                console.log(data.data);
                 setEvents(data.data);
             }).catch(err => {
 
@@ -32,13 +31,7 @@ const Schedule2 = () => {
     };
 
     const handleEventClick = (info) => {
-        console.log(info.event.id);
         setSchedId(info.event.id);
-        console.log(new Intl.DateTimeFormat('en-CA', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
-        }).format(info.date).replace(/\//g, '-'))
         setEditOpen(true);
     }
     const handleDateClick = (info) => {
@@ -47,17 +40,12 @@ const Schedule2 = () => {
             month: '2-digit',
             day: '2-digit'
         }).format(info.date).replace(/\//g, '-'));
-        console.log(new Intl.DateTimeFormat('en-CA', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
-        }).format(info.date).replace(/\//g, '-'));
+
         setOpen(!open);
     };
 
 
     const eventRender = ({ event }) => {
-        console.log(event.backgroundColor);
         if (event.end) {
             return (
                 <div className='event-content' style={{ backgroundColor: event.backgroundColor }}>

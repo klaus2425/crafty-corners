@@ -1,5 +1,4 @@
 const NotVerified = () => {
-  console.log('not verified');
 
   const onLogout = () => {
     axiosClient.post('/logout')

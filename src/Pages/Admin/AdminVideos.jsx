@@ -32,7 +32,6 @@ const AdminVideos = () => {
             if (result.isConfirmed) {
                 axiosClient.delete(`/videos/${video.id}`)
                     .then((res) => {
-                        console.log(video.id);
                         getVideos();
                         Swal.fire({
                             title: "Deleted!",

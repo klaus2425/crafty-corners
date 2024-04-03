@@ -10,11 +10,7 @@ const ResolveReport = (props) => {
   }
 
   const handleSubmit =  () => {
-    console.log(selectRef.current.value);
     axiosClient.post(`/resolve/${props.postId}`)
-    .then(res => {
-      console.log(res.data);
-    })
   }
   return props.resolveOpen ? (
     <div className="overlay">

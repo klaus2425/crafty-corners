@@ -32,15 +32,11 @@ const PostModal = (props) => {
     if (postType === 'video') {
       setLoading(true);
       const formData = new FormData();
-      console.log("clicked");
       formData.append('user_id', user.id);
       formData.append('community_id', id);
       formData.append('title', titleRef.current.value);
       formData.append('video', file);
       formData.append('post_type', 'video');
-      for (const value of formData.values()) {
-        console.log(value);
-      }
       axiosClient.post('/posts', formData)
         .then(() => {
           queryClient.refetchQueries(`community-${id}`)
@@ -73,7 +69,6 @@ const PostModal = (props) => {
         })
         .catch(err => {
           const response = err.response;
-          console.log(err);
           if (response && response.status === 422) {
             Swal.fire({
               title: "Error",
@@ -97,7 +92,6 @@ const PostModal = (props) => {
         })
         .catch(err => {
           const response = err.response;
-          console.log(err);
           if (response && response.status === 422) {
             Swal.fire({
               title: "Error",
@@ -122,7 +116,6 @@ const PostModal = (props) => {
         })
         .catch(err => {
           const response = err.response;
-          console.log(err);
           if (response && response.status === 422) {
             Swal.fire({
               title: "Error",

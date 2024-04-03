@@ -15,12 +15,10 @@ const ViewReportedPost = () => {
     axiosClient.get(`/show-report/${postId}/${reportId}`)
       .then(res => {
         setReport(res.data);
-        console.log(res.data);
       })
     axiosClient.get(`/posts/${postId}`)
       .then(res => {
         setPost(res.data.data);
-        console.log(res.data.data);
         setLoading(false);
       })
   }

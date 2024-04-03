@@ -37,21 +37,7 @@ const EditUser = () => {
                 });
             })
     }
-    // const getUserPosts = () => {
-    //     axiosClient.get(`/user/${id}/posts`)
-    //         .then(({ data }) => {
-    //             setUserPosts(data.data)
-    //             console.log(data.data);
-    //         })
-    //         .catch((err) => {
-    //             const response = err.response;
-    //             Swal.fire({
-    //                 title: "Error",
-    //                 text: `${Object.values(response.data)[0]}`,
-    //                 icon: "warning"
-    //             });
-    //         })
-    // }
+
 
     if (id) {
         useEffect(() => {
@@ -118,7 +104,6 @@ const EditUser = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    console.log(res.data);
                     getUser();
                 })
                 .catch(err => {

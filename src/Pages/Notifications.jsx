@@ -12,7 +12,6 @@ const UserFeed = () => {
         queryFn: () => axiosClient.get('/notifications').then(({ data }) => (data)),
     })
     const { user } = useStateContext();
-    console.log(useNotification.data);
 
     return (
         <div className="authenticated-container">

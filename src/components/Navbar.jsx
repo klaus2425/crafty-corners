@@ -33,10 +33,8 @@ const Navbar = () => {
     }
 
     const handleSearch = (ev) => {
-        console.log(ev.target.value);
         axiosClient.get(`/search?search=${ev.target.value}`)
             .then(res => {
-                console.log(res.data)
                 setSearchResult(res.data)
             })
             .catch(err => {

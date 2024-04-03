@@ -62,7 +62,6 @@ export default function SignUpModal(props) {
             })
             .catch(err => {
                 const response = err.response;
-                console.log(err);
                 setDisabled(false);
                 if (response && response.status === 422) {
                     Swal.fire({

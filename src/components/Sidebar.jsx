@@ -16,16 +16,13 @@ export const Sidebar = () => {
         .listen('MessageSent', (data) => {
             if(!(location.pathname == '/messages') && !(location.pathname == `/conversation/${data.message.conversation_id}`)){
                 setMessageNotify(true);
-            console.log('hehehe');
             } 
-            console.log(data.message.conversation_id);
 
         }).error((error) => {});
         Pusher.logToConsole = true;
         if (user.unread_messages_count > 0 && window.location.pathname != '/messages') {
             setMessageNotify(true);
         } else setMessageNotify(false);
-        console.log('Notification', user.unread_messages_count);
 
     }, [user])
 

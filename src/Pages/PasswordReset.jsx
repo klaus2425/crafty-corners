@@ -17,7 +17,6 @@ const PasswordReset = () => {
 
   const handleReset = () => {
     const formData = new FormData();
-    console.log(token);
 
     formData.append('email', email);
     formData.append('password', passwordRef.current.value);
@@ -37,7 +36,6 @@ const PasswordReset = () => {
       navigate('/landing')
     })
     .catch(err => {
-      console.log(err.response.request.status);
       if (err.response.request.status === 400) {
         toast('Password reset link is expired', {
           duration: 1500,

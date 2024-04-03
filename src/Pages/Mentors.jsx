@@ -23,7 +23,6 @@ const Mentors = () => {
         queryFn: getMentors,
     })
 
-    console.log(mentors.data);
     return (
         <div className="authenticated-container">
             <div className="feed">

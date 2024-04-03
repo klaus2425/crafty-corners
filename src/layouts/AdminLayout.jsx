@@ -44,7 +44,6 @@ const AdminLayout = () => {
                         <Link id="4" className={active === "4" ? "active" : undefined} to="/admin-videos" onClick={handleClick}><FontAwesomeIcon icon={faFilm} /> Videos</Link>
                         <a onClick={() => {
                             setIsOpen(!isOpen);
-                            console.log(!isOpen);
                         }} style={{ cursor: 'pointer' }}><FontAwesomeIcon icon={faFlag} /> Reports</a>
                         <div className={`collapsible ${isOpen ? 'open' : ''}`}>
                             <Link id="5" className={active === "5" ? "active" : undefined} to="/reported-posts" onClick={handleClick}><FontAwesomeIcon icon={faClipboard} /> Posts</Link>

@@ -112,7 +112,6 @@ const UserFeed = () => {
                                             <h2>End of Feed</h2>
                                         </div>
                                     }>
-                                    {console.log('User posts', posts)}
                                     {
                                         posts &&
                                         posts.map((post) => (

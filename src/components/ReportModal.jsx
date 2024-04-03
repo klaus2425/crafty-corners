@@ -11,12 +11,9 @@ const ReportModal = (props) => {
     formData.append('description', descriptionRef.current.value);
 
     axiosClient.post(`/report-post/${props.postId}`, formData)
-      .then(res => {
-        console.log(res.data);
+      .then(() => {
         props.setIsOpen(false);
-
       })
-      .catch(err => console.log(err))
   }
 
   const handleClose = () => {

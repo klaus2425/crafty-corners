@@ -17,7 +17,6 @@ const Users = () => {
   }, [])
 
   const onDeleteClick = user => {
-    console.log(user.id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -49,7 +48,6 @@ const Users = () => {
         setUsers(data.data)
       })
       .catch((err) => {
-        console.log(err.response.data);
         setLoading(false)
       })
   }
@@ -64,7 +62,6 @@ const Users = () => {
     queryFn: ({ pageParam }) => fetchUsers(pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      console.log('lastPage', lastPage);
       if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
         return null;
       }
@@ -75,7 +72,6 @@ const Users = () => {
   const fetchedUsers = data?.pages.reduce((acc, page) => {
     return [...acc, page.data];
   }, [])
-  console.log('query data', data);
 
   return (
     <div className="communities-container">

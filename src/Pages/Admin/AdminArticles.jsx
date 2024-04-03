@@ -11,7 +11,6 @@ const AdminArticles = () => {
     const [articles, setArticles] = useState([]);
 
     const onDeleteClick = article => {
-        console.log(article);
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -22,7 +21,6 @@ const AdminArticles = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                console.log(article.id);
                 axiosClient.delete(`/articles/${article.id}`)
                     .then(() => {
                         getArticles();

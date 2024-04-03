@@ -29,7 +29,6 @@ const EditProfile = () => {
             .then(({ data }) => {
                 setLoading(false);
                 setCurrentUser(data);
-                console.log(data);
                 setUser(data);
                 setImage(storageBaseUrl + data.profile_picture);
             })
@@ -66,7 +65,7 @@ const EditProfile = () => {
                 .catch(err => {
                     const response = err.response;
                     if (response && response.status === 422) {
-                        console.log(response);
+                        console.error(response);
                     }
                 });
         }

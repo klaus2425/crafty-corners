@@ -38,7 +38,6 @@ const HobbyistProfile = () => {
   const getPosts = () => {
     axiosClient.get(`/user/${id}/posts`)
       .then(res => {
-        console.log(`User ${id}`, res.data.data)
         setUserPosts(res.data.data);
         if (res.data.data.length === 0) {
           setHasMore(false);
@@ -50,13 +49,11 @@ const HobbyistProfile = () => {
     axiosClient.get(`/users/${id}`)
       .then(res => {
         setCurrentUser(res.data.data)
-        console.log(res.data.data);
       })
   }
   const sendMessage = () => {
     axiosClient.post(`/start-a-conversation/${currentUser.id}`)
       .then(res => {
-        console.log('Conversation', res.data.conversation_id);
         navigate(`/conversation/${res.data.conversation_id}?user_id0=${id}&user_id1=${currentUser.id}&lid=${user.id}`);
       });
 

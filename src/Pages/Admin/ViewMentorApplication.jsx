@@ -11,13 +11,11 @@ const ViewMentorApplication = () => {
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
 
   const handleSubmit = () => {
-    console.log(dateTimeRef.current.value);
     const formData = new FormData();
     formData.append('date_of_Assessment', dateTimeRef.current.value)
     formData.append('status', 'For Assessment')
     axiosClient.post(`/mentor/${id}/set-assessment_date`, formData)
       .then((res) => {
-        console.log(res.data);
         toast('Asessment date set!', {
           duration: 1500,
           position: "bottom-center",
@@ -62,7 +60,6 @@ const ViewMentorApplication = () => {
             icon: "success"
           });
         })
-        .catch(err => console.log(err))
       }
     });
   }

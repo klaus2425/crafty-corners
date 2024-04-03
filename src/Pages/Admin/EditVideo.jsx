@@ -39,7 +39,6 @@ const EditVideo = () => {
         setLoading(true);
         axiosClient.get(`/videos/${id}`).then(({ data }) => {
             setVideo(data.data);
-            console.log(data.data);
             setLoading(false);
         })
 

@@ -10,10 +10,8 @@ const ReportedPosts = () => {
   const getPosts = () => {
     axiosClient.get('/show-all-reports')
       .then(res => {
-        console.log(res.data);
         setPosts(res.data);
       })
-      .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -37,7 +35,6 @@ const ReportedPosts = () => {
             <div key={u.id} className="community-item">
               <div className="community-item-details" >
                 <div className="community-details-top">
-                  {console.log(u.is_resolved === 0 ? 'red' : 'green')}
                   <span><strong>Post Title: <br /> </strong>{u.post?.title} </span>
                   <span><strong>Reason for reporting:  <br /></strong>{u.reason}</span>
                   <span className='desc'><strong>Description:  <br /></strong>{u.description}</span>

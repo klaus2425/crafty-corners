@@ -11,7 +11,6 @@ const MentorApplicants = () => {
   const [loading, setLoading] = useState(true);
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
   const onDeleteClick = user => {
-    console.log(user);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -29,7 +28,6 @@ const MentorApplicants = () => {
     setLoading(true);
     axiosClient.get('/mentorship-applications')
       .then((res => {
-        console.log(res.data.data);
         setLoading(false);
         setApplicants(res.data.data)
       }))

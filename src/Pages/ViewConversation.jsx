@@ -43,15 +43,11 @@ const ViewConversation = (props) => {
   }
 
   const fetchNext = () => {
-    console.log('Fetch Next called');
-    console.log(messages.length);
     axiosClient.get(`/conversation/message/${receiver.id}?page=${pageIndex + 1}`)
       .then((res) => {
-        console.log(res.data.data.meta);
         setMessages(messages.concat(res.data.data.messages))
         if (res.data.data.meta.current_page >= res.data.data.meta.last_page) {
           setHasMore(false);
-          console.log('last page');
         }
         setPageIndex(pageIndex + 1)
 
@@ -63,25 +59,21 @@ const ViewConversation = (props) => {
       .then(res => {
         setPageIndex(1)
         setHasMore(true)
-        console.log(res.data);
         conversationEndRef.current?.scrollIntoView();
         setMessages(res.data.data.messages);
         if (res.data.data.messages.length == 0) {
           setHasMessage(false);
-          console.log();
           setHasMore(false);
         } else {
           setHasMessage(true)
         }
       })
-      .catch(err => console.log(err))
   }
 
   const getReceiver = () => {
     if (user_id0 != uid) {
       axiosClient.get(`/users/${user_id0}`)
         .then(res => {
-          console.log(res.data.data);
           setReceiver(res.data.data);
           getMessages(res.data.data.id);
         })
@@ -105,7 +97,6 @@ const ViewConversation = (props) => {
         messageRef.current.value = "";
         getMessages(res.data.data.receiver.receiver_id);
       })
-      .catch(err => console.log(err))
   }
 
   const handleKeyDown = (event) => {
@@ -120,7 +111,6 @@ const ViewConversation = (props) => {
 
     echo.private(`conversation-${conversation_id}`)
       .listen('MessageSent', (data) => {
-        console.log(data);
         if (data.user != uid) getMessages(data.user)
 
       }).error((error) => { console.error(error) });
@@ -130,7 +120,6 @@ const ViewConversation = (props) => {
       echo.leave(`conversation-${conversation_id}`);
       axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
         .then(res => {
-          console.log('Marked as read', res)
         })
         .catch(err => { const mute = err })
         ;

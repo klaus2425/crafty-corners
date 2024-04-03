@@ -37,7 +37,6 @@ const EditArticle = () => {
     }
     const handleChange = (ev) => {
         setArticle({ ...article, community: { id: ev.target.value } });
-        console.log(article.community.id);
 
     }
     const handleTextChange = (ev) => {
@@ -72,7 +71,6 @@ const EditArticle = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                console.log(res.data);
                 getArticle();
             })
             .catch(err => {

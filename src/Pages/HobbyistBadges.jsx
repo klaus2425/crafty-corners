@@ -13,7 +13,6 @@ const HobbyistBadges = () => {
     queryFn: () => axiosClient.get(`/user-levels/${id}`).then(({ data }) => (data.user_level)),
   })
 
-  console.log('levels', data);
   return (
     <div className="authenticated-container">
       <div className="feed">

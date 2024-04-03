@@ -24,7 +24,6 @@ const AccountSettings = () => {
             .then(({ data }) => {
                 setLoading(false);
                 setCurrentUser(data);
-                console.log(data);
                 setImage(storageBaseUrl + data.profile_picture)
                 if (data.type === 'mentor') {
                     getMentorships()
@@ -59,7 +58,6 @@ const AccountSettings = () => {
             .catch(err => {
                 const response = err.response;
                 if (response && response.status === 422) {
-                    console.log(response);
                 }
             });
     };
@@ -98,7 +96,6 @@ const AccountSettings = () => {
                             }
                         });
                     })
-                    .catch(err => console.log(err))
             }
         });
 
@@ -126,7 +123,6 @@ const AccountSettings = () => {
             .catch(err => {
                 const response = err.response;
                 if (response && response.status === 422) {
-                    console.log(response);
                 }
             });
     };
@@ -134,15 +130,9 @@ const AccountSettings = () => {
 
     const onPasswordSubmit = (ev) => {
         ev.preventDefault();
-
         const formData = new FormData();
-
         formData.append('current_password', currentPasswordRef.current.value);
         formData.append('new_password', passwordRef.current.value);
-
-        for (const value of formData.values()) {
-            console.log(value);
-        }
         axiosClient.post(`change-password/`, formData)
             .then((res) => {
                 Swal.fire({
@@ -158,7 +148,7 @@ const AccountSettings = () => {
             .catch(err => {
                 const response = err.response;
                 if (response && response.status === 422) {
-                    console.log(response.data.message);
+                    console.error(response.data.message);
                 }
             });
     };
