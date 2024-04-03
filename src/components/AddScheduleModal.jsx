@@ -36,11 +36,16 @@ const AddScheduleModal = (props) => {
             .catch(err => {
                 const response = err.response;
                 if (response && response.status === 422) {
-                    Swal.fire({
-                        title: "Error",
-                        text: `${Object.values(response.data.errors)[0]}`,
-                        icon: "warning"
-                    });
+                    toast(`${Object.values(response.data.errors)[0]}`, {
+                        duration: 2500,
+                        position: "bottom-center",
+                        icon: "⚠️",
+                        style: {
+                          borderRadius: "100px",
+                          border: 0,
+                          boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+                        }
+                      })
                 }
             })
     }

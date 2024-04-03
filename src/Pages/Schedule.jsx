@@ -1,18 +1,13 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import axiosClient from '../axios-client';
 import { useState, useEffect } from 'react'
 import AddScheduleModal from '../components/AddScheduleModal';
 import EditSchedule from '../components/EditSchedule';
-import Loading from '../components/utils/Loading';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"
-import toast, { Toaster } from 'react-hot-toast';
-import { useStateContext } from '../context/ContextProvider';
+import toast from 'react-hot-toast';
 
 const Schedule2 = () => {
-    const { user } = useStateContext();
     const [open, setOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
     const [schedId, setSchedId] = useState();
@@ -70,7 +65,6 @@ const Schedule2 = () => {
     }, [])
     return (
         <div className="authenticated-container">
-            <Toaster />
             <div className="feed">
                 <div className='section-header'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -86,14 +80,6 @@ const Schedule2 = () => {
                         initialView="dayGridMonth"
                         selectable
                         themeSystem='custom'
-                        // events={[
-                        //     {
-                        //       title: "✔️",
-                        //       allDay: true,
-                        //       start: "2024-03-01",
-                        //       color: "#0aaa3f",
-                        //     },
-                        //   ]}
                         events={events}
                         dateClick={handleDateClick}
                         eventClick={handleEventClick}
