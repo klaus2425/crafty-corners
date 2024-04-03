@@ -96,7 +96,7 @@ const EditSchedule = (props) => {
                     toast(`${Object.values(response.data.errors)[0]}`, {
                         duration: 1500,
                         position: "bottom-center",
-                        icon: "✅",
+                        icon: "⚠️",
                         style: {
                             borderRadius: "100px",
                             border: 0,
