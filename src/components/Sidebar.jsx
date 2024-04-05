@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import echo from './Echo';
 import Pusher from 'pusher-js';
 import { useQueryClient } from '@tanstack/react-query';
+import axiosClient from '../axios-client';
 
 export const Sidebar = () => {
     const location = useLocation();
@@ -14,6 +15,7 @@ export const Sidebar = () => {
     const queryClient = useQueryClient();
 
     useEffect(() => {
+        console.log(user);
         Pusher.logToConsole = true;
         echo.private(`user-${user.id}`)
             .listen('MessageSent', (data) => {
@@ -23,8 +25,13 @@ export const Sidebar = () => {
             })
             .listen('PostInteraction', () => {
                 queryClient.refetchQueries('notifications');
-                console.log('refetching');
+                if (user.unread_notifications_count > 0 && window.location.pathname != '/notifications') {
+                    setHasNotification(true);
+                }
             })
+        if (user.unread_notifications_count > 0 && window.location.pathname != '/notifications') {
+            setHasNotification(true);
+        } else setHasNotification(false);
         if (user.unread_messages_count > 0 && window.location.pathname != '/messages') {
             setMessageNotify(true);
         } else setMessageNotify(false);
@@ -41,7 +48,11 @@ export const Sidebar = () => {
                     </svg>
                     <Link to={'/Home'}>Home</Link>
                 </div>
-                <div className="sidebar-link" onClick={() => navigate('/notifications')}>
+                <div className="sidebar-link" onClick={() => {
+                    setHasNotification(false);
+                    axiosClient.post(`/notifications/mark-all-as-read`)
+                    navigate('/notifications')
+                }}>
                     {
                         hasNotification ?
                             <svg id='notification-icon' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

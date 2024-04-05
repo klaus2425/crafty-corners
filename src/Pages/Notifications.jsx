@@ -4,6 +4,7 @@ import axiosClient from '../axios-client';
 import { useStateContext } from '../context/ContextProvider';
 
 
+
 const UserFeed = () => {
 
     const storageUrl = import.meta.env.VITE_API_STORAGE_URL;
@@ -12,7 +13,6 @@ const UserFeed = () => {
         queryFn: () => axiosClient.get('/notifications').then(({data}) => (data)),
     })
     const { user } = useStateContext();
-
     return (
         <div className="authenticated-container">
             <div className="feed">
@@ -27,7 +27,7 @@ const UserFeed = () => {
                     useNotification.data
                         ?
                          useNotification.data.map(notification => (
-                            <UserNotifications uid={user.id}  post_id={notification.data.post_id} type={notification.type} 
+                            <UserNotifications uid={user.id} created_at={notification.created_at}  post_id={notification.data.post_id} type={notification.type} 
                             notifier={notification.data.first_name + ' ' + notification.data.last_name} 
                             notifierImage={storageUrl + notification.data.profile_picture} community={notification.data.community_name} />
                          ))

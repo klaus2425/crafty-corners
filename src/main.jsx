@@ -5,6 +5,13 @@ import { RouterProvider } from 'react-router-dom';
 import { ContextProvider } from './context/ContextProvider';
 import { ThemeProvider } from './context/ThemeProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import TimeAgo from 'javascript-time-ago'
+
+import en from 'javascript-time-ago/locale/en'
+import ru from 'javascript-time-ago/locale/ru'
+
+TimeAgo.addDefaultLocale(en)
+TimeAgo.addLocale(ru)
 
 const queryClient = new QueryClient({});
 

@@ -165,7 +165,6 @@ const ViewPost = () => {
   const ago = getAgo(usePost?.data?.created_at);
   const community = usePost?.data?.community;
   const postUser = usePost?.data?.user;
-
   useEffect(() => {
     queryClient.refetchQueries('posts')
   }, [id])

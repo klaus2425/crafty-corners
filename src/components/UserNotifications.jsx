@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import ReactTimeAgo from "react-time-ago";
 
 const UserNotifications = (props) => {
 
@@ -13,6 +14,7 @@ const UserNotifications = (props) => {
                     <div onClick={handlePostClick} className="notification">
                         <img src={props.notifierImage} />
                         <span><span id="bold">{props.notifier}</span> liked your post in /{props.community}</span>
+                        <ReactTimeAgo style={{marginLeft: 'auto'}} date={props.created_at} locale="en-US"/>
                     </div>
                 }
             </div>
