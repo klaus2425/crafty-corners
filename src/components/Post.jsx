@@ -380,6 +380,7 @@ export const UserPost = (props) => {
     const [likes, setLikes] = useState(props.post.likes_count);
     const [liked, setLiked] = useState(false);
     const { user } = useStateContext();
+
     const updatePostDetails = () => {
         axiosClient.get(`/posts/${post.id}`)
             .then(res => {
@@ -409,8 +410,6 @@ export const UserPost = (props) => {
 
     useEffect(() => {
         setLiked(post.liked_by_user);
-    console.log(post.created_at);
-
     }, [])
 
 
