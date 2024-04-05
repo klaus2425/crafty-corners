@@ -262,9 +262,9 @@ const ViewPost = () => {
           <div className="comments-container">
             {useComments && useComments?.data.map(c => (
               <div key={c.id} className="comment-card">
-                <img className='user-img-comment' src={`${storageUserUrl}${c.user.profile_picture}`} />
+                <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.user.first_name} <span>{getAgo(c.created_at)} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{getAgo(c.created_at)} ago</span></div>
                   {c.content}
                 </div>
               </div>
@@ -376,9 +376,9 @@ const ViewPost = () => {
           <div className="comments-container">
             {useComments && useComments?.data.map(c => (
               <div className="comment-card">
-                <img className='user-img-comment' src={`${storageUserUrl}${c.user.profile_picture}`} />
+                <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.user.first_name} <span>{getAgo(c.created_at)} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{getAgo(c.created_at)} ago</span></div>
                   {c.content}
                 </div>
               </div>
@@ -489,9 +489,9 @@ const ViewPost = () => {
           <div className="comments-container">
             {useComments && useComments?.data.map(c => (
               <div className="comment-card">
-                <img className='user-img-comment' src={`${storageUserUrl}${c.user.profile_picture}`} />
+                <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.user.first_name} <span>{getAgo(c.created_at)} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{getAgo(c.created_at)} ago</span></div>
                   {c.content}
                 </div>
               </div>
@@ -608,9 +608,9 @@ const ViewPost = () => {
           <div className="comments-container">
             {useComments && useComments?.data.map(c => (
               <div className="comment-card">
-                <img className='user-img-comment' src={`${storageUserUrl}${c.user.profile_picture}`} />
+                <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.user.first_name} <span>{getAgo(c.created_at)} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{getAgo(c.created_at)} ago</span></div>
                   {c.content}
                 </div>
               </div>

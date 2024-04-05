@@ -27,9 +27,9 @@ const UserFeed = () => {
                     useNotification.data
                         ?
                          useNotification.data.map(notification => (
-                            <UserNotifications uid={user.id}  post_id={notification.post_id} type={notification.type} 
-                            notifier={notification.like[0].first_name + ' ' + notification.like[0].last_name} 
-                            notifierImage={storageUrl + notification.like[0].profile_picture} community={notification.community.name} />
+                            <UserNotifications uid={user.id}  post_id={notification.data.post_id} type={notification.type} 
+                            notifier={notification.data.first_name + ' ' + notification.data.last_name} 
+                            notifierImage={storageUrl + notification.data.profile_picture} community={notification.data.community_name} />
                          ))
                         : null
                 }

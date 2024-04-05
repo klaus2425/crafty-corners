@@ -4429,7 +4429,11 @@ input::-webkit-inner-spin-button {
   --heading-color: #818cab;
   background-color: #18191a;
   color: #e4e6eb;
-
+  #notification-icon {
+    circle {
+      fill: #FF4444;
+    }
+  }
   .notification-card {
     background-color: #242526;
     color: #e4e6eb;

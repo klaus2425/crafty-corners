@@ -6,7 +6,7 @@ const UserNotifications = (props) => {
     const handlePostClick = () => {
         navigate(`/p/${props.post_id}?uid=${props.uid}`)
     }
-    if (props.type === 'post_like') {
+    if (props.type == "App\\Notifications\\PostLiked") {
         return (
             <div className="notification-card">
                 {
@@ -18,7 +18,7 @@ const UserNotifications = (props) => {
             </div>
         )
     }
-    if (props.type === 'post_comment') {
+    if (props.type === "App\\Notifications\\PostComments") {
         return (
             <div className="notification-card">
                 {
