@@ -15,7 +15,6 @@ export const Sidebar = () => {
     const queryClient = useQueryClient();
 
     useEffect(() => {
-        console.log(user);
         Pusher.logToConsole = true;
         echo.private(`user-${user.id}`)
             .listen('MessageSent', (data) => {
