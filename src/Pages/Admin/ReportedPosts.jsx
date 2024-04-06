@@ -10,7 +10,8 @@ const ReportedPosts = () => {
   const getPosts = () => {
     axiosClient.get('/show-all-reports')
       .then(res => {
-        setPosts(res.data);
+        setPosts(res.data.data);
+        console.log(res.data.data);
       })
   }
 
@@ -41,7 +42,7 @@ const ReportedPosts = () => {
                   <span><strong>Status:  <br /></strong><span className={u.is_resolved === 0 ? 'red' : 'green'}>{u.is_resolved=== 0 ? 'Unresolved' : 'Resolved'}</span></span>
                 </div>
                 <div className="buttons-community">
-                  <Link to={'/view-reported-post/' + u.post_id+'/'+u.id} className="orange-button">View Post</Link>
+                  <Link to={'/view-reported-post/' + u.post.id+'/'+u.id} className="orange-button">View Post</Link>
                 </div>
 
 

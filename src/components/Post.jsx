@@ -35,6 +35,31 @@ const Post = (props) => {
         navigate(`/p/${post.id}?uid=${user.id}`)
     }
 
+    const deletePost = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosClient.delete(`/posts/${post.id}`)
+                .then(() => {
+                    queryClient.refetchQueries('posts');
+                })
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
+
+    }
+
     const notify = () => toast('Link Copied', {
         duration: 1500,
         position: "bottom-center",
@@ -62,7 +87,7 @@ const Post = (props) => {
     const handleLike = (id) => {
         if (!liked) {
             axiosClient.post(`/like-post/${id}`)
-                .then(res => {
+                .then(() => {
                     setLiked(true);
                     updatePostDetails(id);
                     queryClient.refetchQueries(`community-posts-${props.community.id}`)
@@ -71,12 +96,10 @@ const Post = (props) => {
         }
         else {
             axiosClient.post(`/unlike-post/${id}`)
-                .then(res => {
+                .then(() => {
                     setLiked(false);
                     updatePostDetails(id);
                     queryClient.refetchQueries(`community-posts-${props.community.id}`)
-                })
-                .catch(err => {
                 })
         }
     }
@@ -98,7 +121,7 @@ const Post = (props) => {
                 <div className="post-header" id="posts">
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
-                        <img onClick={() => {navigate(`/u/${post_user.id}?uid=${user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                        <img onClick={() => { navigate(`/u/${post_user.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
                             <span id='post-time'>{ago} ago</span>
@@ -109,10 +132,10 @@ const Post = (props) => {
                     </div>
                 </div>
                 <div className="title-content-container" onClick={() => viewPost()}>
-                    <span  className="post-title">{post.title}</span>
+                    <span className="post-title">{post.title}</span>
                     <div className="post-content">
                         {loading && <Skeleton className="post-image" />}
-                        <img  className={loading ? 'hide' : 'post-image'} src={`${storagePostUrl}${post.image}`} alt="" onLoad={() => setLoading(false)} />
+                        <img className={loading ? 'hide' : 'post-image'} src={`${storagePostUrl}${post.image}`} alt="" onLoad={() => setLoading(false)} />
                     </div>
                 </div>
                 <div className="post-footer">
@@ -142,12 +165,16 @@ const Post = (props) => {
                         {
                             open && <div className="ellipsis-dropdown">
                                 <ul>
+                                    <li onClick={handleReport} >
+                                        Report Post
+                                    </li>
                                     {
-                                        Menu.map((menu) => (
-                                            <li onClick={handleReport} key={menu}>
-                                                {menu}
+                                        user?.id == post_user.id ?
+                                            <li onClick={deletePost} >
+                                                Delete Post
                                             </li>
-                                        ))
+                                            :
+                                            null
                                     }
                                 </ul>
                             </div>
@@ -164,10 +191,10 @@ const Post = (props) => {
         return (
             <div className="post">
                 <div className="post-header" id="posts">
-                <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                    <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
-                        <img onClick={() => {navigate(`/u/${post_user.id}?uid=${user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                        <img onClick={() => { navigate(`/u/${post_user.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
                             <span id='post-time'>{ago} ago</span>
@@ -231,10 +258,10 @@ const Post = (props) => {
         return (
             <div className="post">
                 <div className="post-header" id="posts">
-                <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                    <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
-                        <img onClick={() => {navigate(`/u/${post_user.id}?uid=${user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                        <img onClick={() => { navigate(`/u/${post_user.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
                             <span id='post-time'>{ago} ago</span>
@@ -300,10 +327,10 @@ const Post = (props) => {
             <div className="post">
                 <div className="post-header" id="posts">
                     <div className="left">
-                    <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
-                        
+                        <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+
                         {loadingProfile && <Skeleton circle className="post-image" />}
-                        <img onClick={() => {navigate(`/u/${post_user.id}?uid=${user.id}`)}} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                        <img onClick={() => { navigate(`/u/${post_user.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
                             <span id='post-time'>{ago} ago</span>

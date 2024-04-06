@@ -835,6 +835,7 @@ input::-webkit-inner-spin-button {
   -ms-overflow-style: none;
   /* IE and Edge */
   scrollbar-width: none;
+
   .no-badges-text {
     display: flex;
     align-items: center;
@@ -844,6 +845,7 @@ input::-webkit-inner-spin-button {
     font-size: 2rem;
     font-weight: bold;
   }
+
   .overlay {
     position: fixed;
     top: 0;
@@ -872,6 +874,7 @@ input::-webkit-inner-spin-button {
       display: flex;
       justify-content: space-between;
     }
+
     form {
       text-align: end;
       width: 100%;
@@ -1044,10 +1047,12 @@ input::-webkit-inner-spin-button {
       border-radius: 15px;
       padding: 0.4rem;
     }
+
     .toggle-span:hover {
       background-color: $lighter_grey;
 
     }
+
     .purple-button {
       width: 4rem;
       font-weight: 600;
@@ -1210,20 +1215,23 @@ input::-webkit-inner-spin-button {
 
     #community-level-card {
       align-items: center;
+
       .levelProgressBar {
         width: 70%;
-    
+
         .barContainer {
           background-color: $light_grey;
           border-radius: 1000px;
         }
-    
+
       }
+
       .barCompleted {
         border-radius: 1000px;
         width: fit-content;
         background-color: $purple;
       }
+
       .user-level {
         font-weight: bold;
       }
@@ -1468,7 +1476,7 @@ input::-webkit-inner-spin-button {
     align-items: center;
     flex-direction: column;
     margin-left: clamp(12rem, 30vw, 30rem);
-    padding: 0.5rem;
+    padding: 0.5rem 0.5rem 0 0.5rem;
   }
 
   .acc-settings-feed {
@@ -1618,6 +1626,7 @@ input::-webkit-inner-spin-button {
     gap: 1rem;
     flex-direction: row;
     flex-wrap: wrap;
+
     .level-container {
       display: flex;
       width: 10rem;
@@ -1626,25 +1635,29 @@ input::-webkit-inner-spin-button {
       padding: 0.56rem;
       background-color: $lighter_grey;
       border-radius: 15px;
+
       img {
         width: 7rem;
         height: 7rem;
       }
     }
+
     .levelProgressBar {
       width: 70%;
-  
+
       .barContainer {
         background-color: $light_grey;
         border-radius: 1000px;
       }
-  
+
     }
+
     .barCompleted {
       border-radius: 1000px;
       width: fit-content;
       background-color: $purple;
     }
+
     .user-level {
       font-weight: bold;
     }
@@ -2273,6 +2286,7 @@ input::-webkit-inner-spin-button {
     margin-bottom: 0.5rem;
     padding: 1rem;
     cursor: pointer;
+
     .notification {
       display: flex;
       align-items: center;
@@ -2456,6 +2470,10 @@ input::-webkit-inner-spin-button {
         width: 3rem;
         border-radius: 10000px;
         object-fit: cover;
+        cursor: pointer;
+      }
+
+      svg {
         cursor: pointer;
       }
 
@@ -2684,7 +2702,7 @@ input::-webkit-inner-spin-button {
       .admin-container-card {
         background-color: #FFF;
         border-radius: 25px;
-        padding-bottom: 2rem;
+        padding-bottom: 3rem;
         display: flex;
         justify-content: center;
         width: 100%;
@@ -2927,7 +2945,11 @@ input::-webkit-inner-spin-button {
     justify-content: end;
   }
 
-  .report-details {}
+  .report-details {
+    .report-video {
+      width: 28vw;
+    }
+  }
 }
 
 .loading {
@@ -3031,7 +3053,10 @@ input::-webkit-inner-spin-button {
 
 #report-modal {
   width: clamp(15rem, 15vw, 30rem);
-
+  .resolve-modal-header {
+    color: #000;
+    font-weight: bold;
+  }
   .red-button {
     width: 8rem;
   }
@@ -4429,11 +4454,13 @@ input::-webkit-inner-spin-button {
   --heading-color: #818cab;
   background-color: #18191a;
   color: #e4e6eb;
+
   #notification-icon {
     circle {
       fill: #FF4444;
     }
   }
+
   .notification-card {
     background-color: #242526;
     color: #e4e6eb;
@@ -4500,11 +4527,13 @@ input::-webkit-inner-spin-button {
       color: #e4e6eb;
     }
   }
+
   #badges-card {
     .level-container {
       background-color: #18191a;
     }
   }
+
   .display-name {
     h2 {
       color: #e4e6eb;
@@ -4647,11 +4676,13 @@ input::-webkit-inner-spin-button {
       color: #e4e6eb;
     }
   }
+
   .toggle-span {
     path {
       stroke: $light_grey;
     }
   }
+
   .toggle-span:hover {
     background-color: #242526;
 
@@ -4831,6 +4862,11 @@ input::-webkit-inner-spin-button {
     }
   }
 
+  .resolve-modal-header {
+    color: white;
+    font-weight: bold;
+  }
+
   .community-details {
     .community-img {
       border: 5px #18191a solid;
@@ -4992,7 +5028,13 @@ input::-webkit-inner-spin-button {
     }
   }
 
-
+  .post-header {
+    .notification-bell {
+      path {
+        stroke: white;
+      }
+    }
+  }
 
   .community-labels {
     color: #e4e6eb;
@@ -5032,11 +5074,13 @@ input::-webkit-inner-spin-button {
     background-color: #18191a;
 
   }
+
   .levelProgressBar {
     .barContainer {
       background-color: #18191a;
     }
   }
+
   .barCompleted {
     background-color: $purple;
   }
