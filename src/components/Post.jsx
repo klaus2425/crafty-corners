@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { getAgo } from "@jlln/ago";
 import { useNavigate } from 'react-router-dom';
@@ -26,6 +26,7 @@ const Post = (props) => {
     const [loading, setLoading] = useState(true);
     const [loadingProfile, setLoadingProfile] = useState(true);
     const navigate = useNavigate();
+    const menuRef = useRef();
     const Menu = ['Report Post'];
     const [open, setOpen] = useState(false);
     const [reportOpen, setReportOpen] = useState(false);
@@ -47,13 +48,15 @@ const Post = (props) => {
             if (result.isConfirmed) {
                 axiosClient.delete(`/posts/${post.id}`)
                 .then(() => {
-                    queryClient.refetchQueries('posts');
+                    queryClient.refetchQueries('posts').then(() => {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        });
+                    });
                 })
-                Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
-                });
+                
             }
         });
 
@@ -106,8 +109,16 @@ const Post = (props) => {
 
     useEffect(() => {
         setLiked(post.liked_by_user);
+        const listener = (ev) => {
+            if (!menuRef?.current?.contains(ev.target)) {
+                setOpen(false)
+            }
+        }
 
+        document.addEventListener("mousedown", listener)
+        return () => document.removeEventListener("mousedown", listener)
     }, [])
+
 
     const handleShare = () => {
         navigator.clipboard.writeText(`${import.meta.env.VITE_HOME_URL}p/${post.id}`);
@@ -160,7 +171,7 @@ const Post = (props) => {
 
                         <span className="count"></span>
                     </div>
-                    <div className="footer-item dropdown-parent">
+                    <div ref={menuRef} className="footer-item dropdown-parent">
                         <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
                         {
                             open && <div className="ellipsis-dropdown">
