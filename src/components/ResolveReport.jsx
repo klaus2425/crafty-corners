@@ -11,20 +11,29 @@ const ResolveReport = (props) => {
   }
 
   const handleSubmit = () => {
-    console.log(selectRef.current.value);
+    const formData = new FormData();
+    const originalDate = new Date();
+    originalDate.setDate(originalDate.getDate() + 30); // Add 30 days
+    const formattedDateTime = originalDate.toISOString().slice(0, 19).replace('T', ' '); // Format as YYYY-MM-DD HH:MM:SS
+    formData.append('report_id', props.reportId);
+    formData.append('resolution_option', selectRef.current.value);
+
     if (selectRef.current.value === 'suspend') {
-      axiosClient.post(`/resolve-report/${props.postId}`, { resolution_option: 'suspend', unsuspend_date:  new Date(currentDate.getTime() + 30 * 24 * 60 * 60 * 1000)})
+      formData.append('unsuspend_date', formattedDateTime);
     }
-    if (selectRef.current.value === 'warn') {
-      axiosClient.post(`/resolve-report/${props.postId}`, { resolution_option: 'warn'})
+    for (const value of formData.values()) {
+      console.log(value);
     }
-    if (selectRef.current.value === 'ignore') {
-      axiosClient.post(`/resolve-report/${props.postId}`, { resolution_option: 'ignore'})
+    axiosClient.post(`/resolve-report/${props.postId}`, formData)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+
     }
 
-
-
-  }
 
 
   return props.resolveOpen ? (

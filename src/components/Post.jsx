@@ -30,7 +30,6 @@ const Post = (props) => {
     const [open, setOpen] = useState(false);
     const [reportOpen, setReportOpen] = useState(false);
     const queryClient = useQueryClient();
-
     const viewPost = () => {
         navigate(`/p/${post.id}?uid=${user.id}`)
     }
@@ -107,6 +106,7 @@ const Post = (props) => {
 
     useEffect(() => {
         setLiked(post.liked_by_user);
+
     }, [])
 
     const handleShare = () => {
@@ -117,7 +117,7 @@ const Post = (props) => {
         return (
             <div className="post">
                 <Toaster />
-                <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                <ReportModal poster_id={post.user.id}  postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                 <div className="post-header" id="posts">
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
@@ -191,7 +191,7 @@ const Post = (props) => {
         return (
             <div className="post">
                 <div className="post-header" id="posts">
-                    <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                    <ReportModal poster_id={post.user.id}  postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
                         <img onClick={() => { navigate(`/u/${post_user.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
@@ -258,7 +258,7 @@ const Post = (props) => {
         return (
             <div className="post">
                 <div className="post-header" id="posts">
-                    <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                    <ReportModal poster_id={post.user.id}  postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
                         <img onClick={() => { navigate(`/u/${post_user.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
@@ -327,7 +327,7 @@ const Post = (props) => {
             <div className="post">
                 <div className="post-header" id="posts">
                     <div className="left">
-                        <ReportModal postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                        <ReportModal poster_id={post.user.id}  postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
 
                         {loadingProfile && <Skeleton circle className="post-image" />}
                         <img onClick={() => { navigate(`/u/${post_user.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />

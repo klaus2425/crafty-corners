@@ -35,7 +35,7 @@ const ViewReportedPost = () => {
   if (report?.post_type === 'text') {
     return (
       <div className="communities-container">
-        <ResolveReport resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} postId={postId} />
+        <ResolveReport resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} postId={postId} reportId={reportId} />
         <div className="top-section">
           <h2>Report Details</h2>
         </div>
@@ -48,20 +48,24 @@ const ViewReportedPost = () => {
               </div>
               <div className="report-details">
                 <strong>Posted by: </strong>
-                {report?.user.first_name} {report?.user.middle_name} {report?.user.last_name}
+                {report?.reported_user.first_name} {report?.reported_user.middle_name} {report?.reported_user.last_name}
               </div>
               <div className="report-details">
                 <strong>Program: </strong>
-                {report?.user.program}
+                {report?.reported_user.program}
               </div>
               <div className="report-details">
                 <strong>Student ID: </strong>
-                {report?.user.student_id}
+                {report?.reported_user.student_id}
               </div>
-
+              <br />
               <div className="report-details">
                 <strong>Reported by: </strong>
-                {report?.user.first_name} {report?.user.middle_name} {report?.user.last_name}
+                {report?.reported_by.first_name} {report?.reported_by.middle_name} {report?.reported_by.last_name}
+              </div>
+              <div className="report-details">
+                <strong>Reporter Student ID: </strong>
+                {report?.reported_by.student_id}
               </div>
             </div>
             <div className="right">
@@ -81,7 +85,7 @@ const ViewReportedPost = () => {
   if (report?.post_type === 'video') {
     return (
       <div className="communities-container">
-        <ResolveReport resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} postId={postId} />
+        <ResolveReport resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} postId={postId}  reportId={reportId}  />
         <div className="top-section">
           <h2>Report Details</h2>
         </div>
