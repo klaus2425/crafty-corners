@@ -45,6 +45,7 @@ import MentorAddVideo from "./Pages/MentorAddVideo";
 import Assessment from "./Pages/Assessment";
 import UserBadges from "./Pages/UserBadges";
 import HobbyistBadges from "./Pages/HobbyistBadges";
+import ReportsArchived from "./Pages/Admin/ReportsArchived";
 
 const router = createBrowserRouter([
     {
@@ -222,6 +223,10 @@ const router = createBrowserRouter([
             {
                 path: '/view-reported-post/:postId/:reportId',
                 element: <ViewReportedPost />
+            },
+            {
+                path: '/reports/archives',
+                element: <ReportsArchived />,
             }
 
         ]
