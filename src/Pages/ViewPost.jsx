@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import axiosClient from '../axios-client';
 import Skeleton from 'react-loading-skeleton';
 import { getAgo } from "@jlln/ago";
@@ -10,9 +10,11 @@ import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import MembershipCheck from '../components/utils/Membership';
+import { useStateContext } from '../context/ContextProvider';
 
 const ViewPost = () => {
   const { id } = useParams();
+  const { user } = useStateContext();
   const params = new URLSearchParams(window.location.search);
   const uid = params.get('uid')
   const [loadingProfile, setLoadingProfile] = useState(true);
@@ -22,7 +24,8 @@ const ViewPost = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const commentRef = useRef();
-  const Menu = ['Report Post'];
+  const navigate = useNavigate()
+  const menuRef = useRef();
   const queryClient = useQueryClient();
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -144,6 +147,7 @@ const ViewPost = () => {
     }
   );
 
+
   const updateLikeMutation = useMutation({
     mutationFn: likePost,
     onSuccess: () => {
@@ -172,9 +176,46 @@ const ViewPost = () => {
   const ago = getAgo(usePost?.data?.created_at);
   const community = usePost?.data?.community;
   const postUser = usePost?.data?.user;
+
   useEffect(() => {
-    queryClient.refetchQueries('posts')
-  }, [id])
+    const listener = (ev) => {
+        if (!menuRef?.current?.contains(ev.target)) {
+            setOpen(false)
+        }
+    }
+
+    document.addEventListener("mousedown", listener)
+    return () => document.removeEventListener("mousedown", listener)
+}, [])
+
+
+  const deletePost = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosClient.delete(`/posts/${usePost.data.id}`)
+          .then(() => {
+            queryClient.refetchQueries('posts').then(() => {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your post has been deleted.",
+                icon: "success"
+              });
+            });
+            navigate('/home')
+          })
+
+      }
+    });
+  }
+
   if (post?.post_type === 'image') {
     return (
       <div className='authenticated-container'>
@@ -246,17 +287,22 @@ const ViewPost = () => {
               <div className="footer-item dropdown-parent">
                 <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
                 {
-                  open && <div className="ellipsis-dropdown">
+                  open && <div ref={menuRef} className="ellipsis-dropdown">
                     <ul>
+                      <li onClick={handleReport} >
+                        Report Post
+                      </li>
                       {
-                        Menu.map((menu) => (
-                          <li onClick={handleReport} key={menu}>
-                            {menu}
+                        user?.id == postUser.id ?
+                          <li onClick={deletePost} >
+                            Delete Post
                           </li>
-                        ))
+                          :
+                          null
                       }
                     </ul>
                   </div>
+
                 }
               </div>
             </div>
@@ -364,7 +410,7 @@ const ViewPost = () => {
                   <path d="M12.3958 13.8542L22.6041 13.8542" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12.3958 18.2292H19.6874" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span className="count">{useComments?.data.length}</span>
+                <span className="count">{useComments?.data?.length}</span>
               </div>
               <div className="footer-item">
                 <svg onClick={() => handleShare()} xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
@@ -376,17 +422,22 @@ const ViewPost = () => {
               <div className="footer-item dropdown-parent">
                 <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
                 {
-                  open && <div className="ellipsis-dropdown">
+                  open && <div ref={menuRef} className="ellipsis-dropdown">
                     <ul>
+                      <li onClick={handleReport} >
+                        Report Post
+                      </li>
                       {
-                        Menu.map((menu) => (
-                          <li onClick={handleReport} key={menu}>
-                            {menu}
+                        user?.id == postUser.id ?
+                          <li onClick={deletePost} >
+                            Delete Post
                           </li>
-                        ))
+                          :
+                          null
                       }
                     </ul>
                   </div>
+
                 }
               </div>
             </div>
@@ -504,17 +555,22 @@ const ViewPost = () => {
               <div className="footer-item dropdown-parent">
                 <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
                 {
-                  open && <div className="ellipsis-dropdown">
+                  open && <div ref={menuRef} className="ellipsis-dropdown">
                     <ul>
+                      <li onClick={handleReport} >
+                        Report Post
+                      </li>
                       {
-                        Menu.map((menu) => (
-                          <li onClick={handleReport} key={menu}>
-                            {menu}
+                        user?.id == postUser.id ?
+                          <li onClick={deletePost} >
+                            Delete Post
                           </li>
-                        ))
+                          :
+                          null
                       }
                     </ul>
                   </div>
+
                 }
               </div>
             </div>
@@ -639,14 +695,18 @@ const ViewPost = () => {
               <div className="footer-item dropdown-parent">
                 <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
                 {
-                  open && <div className="ellipsis-dropdown">
+                  open && <div ref={menuRef} className="ellipsis-dropdown">
                     <ul>
+                      <li onClick={handleReport} >
+                        Report Post
+                      </li>
                       {
-                        Menu.map((menu) => (
-                          <li onClick={handleReport} key={menu}>
-                            {menu}
+                        user?.id == postUser.id ?
+                          <li onClick={deletePost} >
+                            Delete Post
                           </li>
-                        ))
+                          :
+                          null
                       }
                     </ul>
                   </div>
