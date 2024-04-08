@@ -38,6 +38,8 @@ const ReportedPosts = () => {
             <div key={u.id} className="community-item">
               <div className="community-item-details" >
                 <div className="community-details-top">
+                <span><strong>Post ID: <br /> </strong>{u.post?.id} </span>
+
                   <span><strong>Post Title: <br /> </strong>{u.post?.title} </span>
                   <span><strong>Reason for reporting:  <br /></strong>{u.reason}</span>
                   <span className='desc'><strong>Description:  <br /></strong>{u.description}</span>

@@ -27,17 +27,16 @@ const ReportsArchived = () => {
             <div key={u.id} className="community-item">
               <div className="community-item-details" >
                 <div className="community-details-top">
+                <span><strong>Post ID: <br /> </strong>{u.id} </span>
+
                   <span><strong>Post Title: <br /> </strong>{u.title} </span>
                   <span><strong>Community: <br /> </strong>{u.community_name} </span>
 
                   <span><strong>Posted by: <br /> </strong>{u?.user.first_name} {u?.user.middle_name} {u?.user.last_name} </span>
-
                 </div>
                 <div className="buttons-community">
                   <Link to={'/view-reported-post/'+u.id} className="orange-button">View Post</Link>
                 </div>
-
-
               </div>
             </div>
           ))
