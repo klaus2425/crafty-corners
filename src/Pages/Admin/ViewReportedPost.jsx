@@ -16,7 +16,6 @@ const ViewReportedPost = () => {
       .then(res => {
         setReport(res.data.data);
         setLoading(false);
-        console.log(res.data.data);
       })
   }
 

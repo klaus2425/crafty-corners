@@ -13,7 +13,6 @@ const ReportedPosts = () => {
       .then(res => {
         setLoading(false);
         setPosts(res.data.data);
-        console.log(res.data.data);
       })
   }
 

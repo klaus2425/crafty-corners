@@ -21,13 +21,8 @@ const ResolveReport = (props) => {
     if (selectRef.current.value === 'suspend') {
       formData.append('unsuspend_date', formattedDateTime);
     }
-    for (const value of formData.values()) {
-      console.log(value);
-    }
+
     axiosClient.post(`/resolve-report/${props.postId}`, formData)
-    .then((res) => {
-      console.log(res.data);
-    })
     .catch((error) => {
       console.error(error);
     })
