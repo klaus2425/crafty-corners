@@ -6,11 +6,9 @@ import { Sidebar } from "../components/Sidebar";
 import { useThemeContext } from "../context/ThemeProvider";
 import axiosClient from "../axios-client";
 import { useQuery } from "@tanstack/react-query";
-import { Toaster } from "react-hot-toast";
-
+import toast, { Toaster } from "react-hot-toast";
 const DefaultLayout = () => {
-
-    const { user, token, setUser } = useStateContext();
+    const { user, token, setUser, setToken } = useStateContext();
     const { theme } = useThemeContext();
     const navigate = useNavigate();
     const { data, isLoading } = useQuery({
@@ -38,10 +36,6 @@ const DefaultLayout = () => {
         return <Navigate to='/Users' />
     }
 
-    else if (user.type === 'suspended') {
-        localStorage.removeItem('ACCESS_TOKEN');
-        navigate('/Landing')
-    }
     else
         return (
             <div className="body-container" id={theme} style={{ height: "100dvh", overflowY: 'scroll' }}>
