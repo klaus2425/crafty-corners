@@ -31,6 +31,7 @@ const Post = (props) => {
     const [open, setOpen] = useState(false);
     const [reportOpen, setReportOpen] = useState(false);
     const queryClient = useQueryClient();
+
     const viewPost = () => {
         navigate(`/p/${post.id}?uid=${user.id}`)
     }
@@ -51,7 +52,7 @@ const Post = (props) => {
                         queryClient.refetchQueries('posts').then(() => {
                             Swal.fire({
                                 title: "Deleted!",
-                                text: "Your file has been deleted.",
+                                text: "Your post has been deleted.",
                                 icon: "success"
                             });
                         });
@@ -189,7 +190,6 @@ const Post = (props) => {
                                     }
                                 </ul>
                             </div>
-
                         }
                     </div>
 
