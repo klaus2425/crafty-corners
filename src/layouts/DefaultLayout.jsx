@@ -4,7 +4,6 @@ import '../styles/index.scss'
 import Navbar from '../components/Navbar';
 import { Sidebar } from "../components/Sidebar";
 import { useThemeContext } from "../context/ThemeProvider";
-import { useEffect } from "react";
 import axiosClient from "../axios-client";
 import { useQuery } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
