@@ -144,6 +144,7 @@ const ViewPost = () => {
     {
       queryKey: [`post-${id}`],
       queryFn: getThisPost,
+      retry: false
     }
   );
 
@@ -176,7 +177,7 @@ const ViewPost = () => {
   const ago = getAgo(usePost?.data?.created_at);
   const community = usePost?.data?.community;
   const postUser = usePost?.data?.user;
-
+    
   useEffect(() => {
     const listener = (ev) => {
         if (!menuRef?.current?.contains(ev.target)) {
