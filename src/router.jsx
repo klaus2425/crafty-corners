@@ -46,6 +46,7 @@ import Assessment from "./Pages/Assessment";
 import UserBadges from "./Pages/UserBadges";
 import HobbyistBadges from "./Pages/HobbyistBadges";
 import ReportsArchived from "./Pages/Admin/ReportsArchived";
+import ViewArchivedPost from "./Pages/Admin/ViewArchivedPost";
 
 const router = createBrowserRouter([
     {
@@ -227,7 +228,11 @@ const router = createBrowserRouter([
             {
                 path: '/reports/archives',
                 element: <ReportsArchived />,
-            }
+            },
+            {
+                path: '/archived-post/:id',
+                element: <ViewArchivedPost />
+            },
 
         ]
     },
