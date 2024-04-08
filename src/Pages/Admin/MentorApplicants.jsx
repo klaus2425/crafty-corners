@@ -1,69 +1,32 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Swal from 'sweetalert2';
 import axiosClient from "../../axios-client";
-import toast, { Toaster } from "react-hot-toast";
 import Loading from "../../components/utils/Loading";
-
+import { useQuery } from '@tanstack/react-query';
 
 const MentorApplicants = () => {
-  const [applicants, setApplicants] = useState();
-  const [loading, setLoading] = useState(true);
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
-  const onDeleteClick = user => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
 
-    });
+
+  const getMentors = async () => {
+    const fetchedData = await axiosClient.get('/mentorship-applications');
+    return fetchedData.data.data
   }
 
-  const getApplicants = () => {
-    setLoading(true);
-    axiosClient.get('/mentorship-applications')
-      .then((res => {
-        setLoading(false);
-        setApplicants(res.data.data)
-      }))
-      .catch(err => {
-        toast(err.response.data.message, {
-          duration: 1500,
-          position: "bottom-center",
-          icon: "❌",
-          style: {
-            borderRadius: "100px",
-            border: 0,
-            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-          }
-
-        })
-        setLoading(false)
-      }
-
-
-      )
-  }
-
-  useEffect(() => {
-    getApplicants();
-  }, [])
-
+  const  useApplicants = useQuery({
+    queryKey: ['mentor-applicants'],
+    queryFn: getMentors,
+  }) 
 
   return (
     <div className="communities-container">
       <Toaster />
       <div className="top-section">
-        <div className='user-count'>{applicants?.length} <br />Pending Mentor Applicants</div>
+        <div className='user-count'>{useApplicants.data?.length} <br />Pending Mentor Applicants</div>
       </div>
       <div className='users-table'>
-        {loading ? <Loading /> :
-          applicants.map(a => (
+        {
+          useApplicants.data ?
+          useApplicants.data.map(a => (
             <div key={a.id} className="community-item">
               <div className="community-item-details" >
                 <div className="community-details-top">
@@ -75,14 +38,14 @@ const MentorApplicants = () => {
                 </div>
                 <div className="buttons-community">
                   <Link to={`/mentor-applicants/${a.id}`} className="orange-button">View Details</Link> 
-                  <button className="red-button" onClick={ev => onDeleteClick(1)}>Delete Application</button>
                 </div>
               </div>
             </div>
           ))
+          :
+          <Loading />
         }
       </div>
-
     </div>
   )
 }
