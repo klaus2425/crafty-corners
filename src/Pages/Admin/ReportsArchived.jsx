@@ -13,7 +13,6 @@ const ReportsArchived = () => {
     queryFn:  getPosts
   })
 
-
   return (
     <div className="communities-container">
       <div className="top-section">
