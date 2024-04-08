@@ -18,7 +18,7 @@ const ReportsArchived = () => {
   return (
     <div className="communities-container">
       <div className="top-section">
-
+        <h2>Archived Posts</h2>
       </div>
       <div className="users-table">
         {
@@ -35,7 +35,7 @@ const ReportsArchived = () => {
                   <span><strong>Posted by: <br /> </strong>{u?.user.first_name} {u?.user.middle_name} {u?.user.last_name} </span>
                 </div>
                 <div className="buttons-community">
-                  <Link to={'/view-reported-post/'+u.id} className="orange-button">View Post</Link>
+                  <Link to={'/archived-post/'+u.id} className="orange-button">View Post</Link>
                 </div>
               </div>
             </div>
