@@ -15,23 +15,21 @@ const DefaultLayout = () => {
     const { theme } = useThemeContext();
     const navigate = useNavigate();
     const { data, isLoading } = useQuery({
-        queryKey: ['user'], queryFn: () => axiosClient.get('/user')
-            .then((res) => res)
+        queryKey: ['user'], 
+        queryFn: () => axiosClient.get('/user')
     })
 
 
-    useEffect(() => {
-        if (!isLoading) {
-            if (!data?.data.assessment_completed && window.location.pathname != '/assessment') {
-                navigate(`/assessment?uid=${data.data.id}`)
-            }
-            setUser(data.data);
-            if (data?.data?.type === 'admin') {
-                return <Navigate to='/Users' />
-            }
-        }
-    }, [data])
 
+    if (!isLoading) {
+        if (!data?.data.assessment_completed && window.location.pathname != '/assessment') {
+            navigate(`/assessment?uid=${data.data.id}`)
+        }
+        setUser(data.data);
+        if (data?.data?.type === 'admin') {
+            return <Navigate to='/Users' />
+        }
+    }
 
     if (!token || !user) {
         return <Navigate to='/Landing' />;
@@ -39,7 +37,13 @@ const DefaultLayout = () => {
 
     if (user.type === 'admin') {
         return <Navigate to='/Users' />
-    } else
+    }
+
+    else if (user.type === 'suspended') {
+        localStorage.removeItem('ACCESS_TOKEN');
+        navigate('/Landing')
+    }
+    else
         return (
             <div className="body-container" id={theme} style={{ height: "100dvh", overflowY: 'scroll' }}>
                 <Toaster />
