@@ -14,7 +14,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 
 const Post = (props) => {
-    const [post, setPost] = useState(props.post);
+    const post = props.post;
     const post_user = post.user;
     const { user } = useStateContext();
     const community = props.community;
@@ -27,7 +27,6 @@ const Post = (props) => {
     const [loadingProfile, setLoadingProfile] = useState(true);
     const navigate = useNavigate();
     const menuRef = useRef();
-    const Menu = ['Report Post'];
     const [open, setOpen] = useState(false);
     const [reportOpen, setReportOpen] = useState(false);
     const queryClient = useQueryClient();
@@ -84,9 +83,10 @@ const Post = (props) => {
 
 
     const handleReport = () => {
-        setReportOpen(!reportOpen);
-        setOpen(!open);
+        setReportOpen(true);
+        setOpen(false);
     }
+
     const handleLike = (id) => {
         if (!liked) {
             axiosClient.post(`/like-post/${id}`)
@@ -242,7 +242,7 @@ const Post = (props) => {
                         </svg>
                         <span className="count"></span>
                     </div>
-                    <div className="footer-item dropdown-parent">
+                    <div ref={menuRef} className="footer-item dropdown-parent">
                         <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
                         {
                             open && <div className="ellipsis-dropdown">
@@ -314,7 +314,7 @@ const Post = (props) => {
                         </svg>
                         <span className="count"></span>
                     </div>
-                    <div className="footer-item dropdown-parent">
+                    <div ref={menuRef} className="footer-item dropdown-parent">
                         <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
                         {
                             open && <div className="ellipsis-dropdown">
@@ -386,7 +386,7 @@ const Post = (props) => {
                         </svg>
                         <span className="count"></span>
                     </div>
-                    <div className="footer-item dropdown-parent">
+                    <div ref={menuRef} className="footer-item dropdown-parent">
                         <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
                         {
                             open && <div className="ellipsis-dropdown">
