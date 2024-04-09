@@ -18,7 +18,9 @@ $dark_purple: #2C3373;
 html {
   box-sizing: border-box;
 }
-
+.flex {
+  display: flex;
+}
 
 :root {
   font-family: Helvetica, system-ui, Avenir, Arial, sans-serif;
@@ -2947,6 +2949,9 @@ input::-webkit-inner-spin-button {
 
   .report-details {
     .report-video {
+      width: 28vw;
+    }
+    .report-details__image {
       width: 28vw;
     }
   }

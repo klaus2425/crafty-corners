@@ -27,7 +27,6 @@ const ReportedPosts = () => {
       .then(({ data }) => data.data)
   })
 
-  console.log(useReports.data);
   return (
     <div className="communities-container">
       <div className="top-section">
@@ -43,7 +42,6 @@ const ReportedPosts = () => {
               <div className="community-item-details" >
                 <div className="community-details-top">
                   <span><strong>Report ID: <br /> </strong>{u.id} </span>
-                  <span><strong>Post Title: <br /> </strong>{u.title} </span>
                   <span><strong>Reason for reporting:  <br /></strong>{u.reason}</span>
                   <span className='desc'><strong>Description:  <br /></strong>{u.description}</span>
                   <span><strong>Status:  <br /></strong><span className={u.is_resolved ? 'green' : 'red'}>{u.is_resolved ? 'Resolved' : 'Unresolved'}</span></span>
