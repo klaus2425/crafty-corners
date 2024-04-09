@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useStateContext } from "../context/ContextProvider";
 import axiosClient from "../axios-client";
-import Swal from 'sweetalert2';
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import axios from "axios";
 
 export default function LoginModal(props) {
@@ -16,7 +15,7 @@ export default function LoginModal(props) {
     const formData = new FormData();
     formData.append('email', emailRef.current.value)
     axiosClient.post('/forgot-password', formData)
-      .then((res) => {
+      .then(() => {
         toast('Password reset link sent to email', {
           duration: 1500,
           position: "bottom-center",
@@ -84,26 +83,17 @@ export default function LoginModal(props) {
         }
       })
       .catch((err) => {
-        const response = err.response;
-        if (response && response.status === 422) {
-          if (response.data.errors) {
-            Swal.fire({
-              position: "top-end",
-              icon: "warning",
-              title: `${Object.values(response.data.errors)[0]}`,
-              showConfirmButton: false,
-              timer: 2500
-            });
-          } else {
-            Swal.fire({
-              position: "top-end",
-              icon: "warning",
-              title: `Invalid Credentials`,
-              showConfirmButton: false,
-              timer: 2500
-            });
+        const response = err.response.data.message;
+        toast(response, {
+          duration: 5000,
+          position: "bottom-center",
+          icon: "❗",
+          style: {
+            borderRadius: "100px",
+            border: 0,
+            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
           }
-        }
+        })
       });
   };
 
