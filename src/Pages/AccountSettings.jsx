@@ -85,16 +85,7 @@ const AccountSettings = () => {
                 axiosClient.post(`mentor/retire-mentorship/${community_id}`)
                     .then(() => {
                         mentorship.refetch();
-                        toast('Mentor status removed', {
-                            duration: 1500,
-                            position: "bottom-center",
-                            icon: "✅",
-                            style: {
-                                borderRadius: "100px",
-                                border: 0,
-                                boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-                            }
-                        });
+                        toast.success('Mentor status removed');
                     })
             }
         });

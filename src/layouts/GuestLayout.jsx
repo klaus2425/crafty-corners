@@ -11,7 +11,19 @@ const GuestLayout = () => {
     };
     return (
         <div>
-            <Toaster />
+            <Toaster
+                position="bottom-center"
+                duration='3000'
+                toastOptions={{
+                    className: '',
+                    duration: 5000,
+                    style: {
+                        borderRadius: "100px",
+                        border: 0,
+                        boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+                    }
+                }}
+            />
             <Navbar />
             <Outlet />
         </div>

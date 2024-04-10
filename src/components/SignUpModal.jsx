@@ -53,16 +53,6 @@ export default function SignUpModal(props) {
                 return `${Object.values(err.response.data.errors)[0]}`
             },
         },
-            {
-                duration: 3000,
-                position: "bottom-center",
-                style: {
-                    borderRadius: "100px",
-                    border: 0,
-                    boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-                }
-            }
-
         )
     };
 

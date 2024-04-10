@@ -21,30 +21,12 @@ const AddScheduleModal = (props) => {
             .then(() => {
                 props.getAllSched();
                 props.setOpen(false);
-                toast('Schedule Added', {
-                    duration: 1500,
-                    position: "bottom-center",
-                    icon: "✅",
-                    style: {
-                        borderRadius: "100px",
-                        border: 0,
-                        boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-                    }
-                })
+                toast.success('Schedule Added')
             })
             .catch(err => {
                 const response = err.response;
                 if (response && response.status === 422) {
-                    toast(`${Object.values(response.data.errors)[0]}`, {
-                        duration: 2500,
-                        position: "bottom-center",
-                        icon: "⚠️",
-                        style: {
-                            borderRadius: "100px",
-                            border: 0,
-                            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-                        }
-                    })
+                    toast.error(`${Object.values(response.data.errors)[0]}`)
                 }
             })
     }

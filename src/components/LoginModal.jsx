@@ -16,28 +16,10 @@ export default function LoginModal(props) {
     formData.append('email', emailRef.current.value)
     axiosClient.post('/forgot-password', formData)
       .then(() => {
-        toast('Password reset link sent to email', {
-          duration: 1500,
-          position: "bottom-center",
-          icon: "✅",
-          style: {
-            borderRadius: "100px",
-            border: 0,
-            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-          }
-        })
+        toast.success('Password reset link sent to email')
       })
       .catch(err => {
-        toast(err.response.data.message, {
-          duration: 1500,
-          position: "bottom-center",
-          icon: "❗",
-          style: {
-            borderRadius: "100px",
-            border: 0,
-            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-          }
-        })
+        toast.error(err.response.data.message)
       })
       ;
   }
@@ -78,61 +60,8 @@ export default function LoginModal(props) {
       },
     },
       {
-        duration: 3000,
-        position: "bottom-center",
-        style: {
-          borderRadius: "100px",
-          border: 0,
-          boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-        }
       }
     )
-
-    // axiosClient
-    //   .post("/login", payload)
-    //   .then(({ data }) => {
-    //     if (data.user.email_verified_at === null) {
-    //       toast('Verify your account first!', {
-    //         duration: 1500,
-    //         position: "bottom-center",
-    //         icon: "❗",
-    //         style: {
-    //           borderRadius: "100px",
-    //           border: 0,
-    //           boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-    //         }
-    //       })
-    //       axios.post(`${import.meta.env.VITE_API_BASE_URL}/send-email-verification`, null, {
-    //         headers: {
-
-    //           'Authorization': `Bearer ${data.token}`,
-    //           'Content-Type': 'application/json'
-    //         }
-    //       })
-    //         .catch(err => console.error(err));
-    //     }
-    //     else {
-    //       setUser(data.user);
-    //       setToken(data.token);
-    //       props.setIsOpen(false);
-    //       if (data.roles === 'admin') {
-    //         return <Navigate to='/Users' />
-    //       }
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     const response = err.response.data.message;
-    //     toast(response, {
-    //       duration: 5000,
-    //       position: "bottom-center",
-    //       icon: "❗",
-    //       style: {
-    //         borderRadius: "100px",
-    //         border: 0,
-    //         boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-    //       }
-    //     })
-    //   });
   };
 
   if (!props.isOpen) return null;

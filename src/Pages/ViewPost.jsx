@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import { getAgo } from "@jlln/ago";
 import ImageModal from '../components/ImageModal';
 import Swal from 'sweetalert2';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -40,29 +40,9 @@ const ViewPost = () => {
     setOpen(false);
 }
 
-  const notifyShare = () => toast('Link Copied', {
-    duration: 1500,
-    position: "bottom-center",
-    icon: "✅",
-    style: {
-      borderRadius: "100px",
-      border: 0,
-      boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-    }
+  const notifyShare = () => toast('Link Copied');
 
-  });
-
-  const notifyComment = () => toast('Comment Posted', {
-    duration: 1500,
-    position: "bottom-center",
-    icon: "✅",
-    style: {
-      borderRadius: "100px",
-      border: 0,
-      boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-    }
-
-  });
+  const notifyComment = () => toast('Comment Posted');
 
 
   const likePost = () => {
@@ -203,7 +183,6 @@ const ViewPost = () => {
   if (post?.post_type === 'image') {
     return (
       <div className='authenticated-container'>
-        <Toaster />
         <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
         
         <div className="feed">
@@ -340,7 +319,6 @@ const ViewPost = () => {
   if (post?.post_type === 'video') {
     return (
       <div className='authenticated-container'>
-        <Toaster />
         <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
 
         <div className="feed">
@@ -477,7 +455,6 @@ const ViewPost = () => {
   if (post?.post_type === 'text') {
     return (
       <div className='authenticated-container'>
-        <Toaster />
         <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
         <div className="feed">
           <div className='section-header'>
@@ -613,7 +590,6 @@ const ViewPost = () => {
   if (post?.post_type === 'link') {
     return (
       <div className='authenticated-container'>
-        <Toaster />
         <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
         <div className="feed">
           <div className='section-header'>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import axiosClient from "../../axios-client";
 import { useParams } from "react-router-dom";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import Swal from "sweetalert2";
 
 const ViewMentorApplication = () => {
@@ -15,30 +15,10 @@ const ViewMentorApplication = () => {
     formData.append('date_of_Assessment', dateTimeRef.current.value)
     formData.append('status', 'For Assessment')
     axiosClient.post(`/mentor/${id}/set-assessment_date`, formData)
-      .then((res) => {
-        toast('Asessment date set!', {
-          duration: 1500,
-          position: "bottom-center",
-          icon: "✅",
-          style: {
-            borderRadius: "100px",
-            border: 0,
-            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-          }
-
-        });
+      .then(() => {
+        toast.success('Asessment date set!');
       })
-      .catch(err => toast(err.response.data.message, {
-        duration: 1500,
-        position: "bottom-center",
-        icon: "❌",
-        style: {
-          borderRadius: "100px",
-          border: 0,
-          boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-        }
-
-      }))
+      .catch(err => toast.error(err.response.data.message))
   }
 
   const handleConfirmMentor = () => {
@@ -103,7 +83,6 @@ const ViewMentorApplication = () => {
 
   return (
     <div className="communities-container">
-      <Toaster />
       <div className="top-section">
         <h2>Applicant's Information</h2>
       </div>

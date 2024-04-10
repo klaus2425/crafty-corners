@@ -1,8 +1,6 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "../axios-client";
-import Loading from "../components/utils/Loading";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
 import MembershipCheck from "../components/utils/Membership";
 
 const Assessment = () => {
@@ -27,16 +25,6 @@ const Assessment = () => {
     .then(() => {
       queryClient.refetchQueries('communities').then(() => {
         navigate('/')
-        toast('Assessment success', {
-          duration: 1500,
-          position: "bottom-center",
-          icon: "✅",
-          style: {
-            borderRadius: "100px",
-            border: 0,
-            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-          }
-        })
       })
     })
   }
@@ -44,7 +32,6 @@ const Assessment = () => {
 
   return (
     <div className="pre-assessment-container">
-      <Toaster />
       <h2>Here are some communities that might interest you...</h2>
       <div className="card" id="assessment-card">
         {

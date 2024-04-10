@@ -23,42 +23,15 @@ const PasswordReset = () => {
     formData.append('password_confirmation', confirmPasswordRef.current.value);
     axiosClient.post(`/reset-password?expires=${expires}&token=${token}&signature=${signature}`, formData)
     .then(res => {
-      toast('Password successfully changed', {
-        duration: 1500,
-        position: "bottom-center",
-        icon: "✅",
-        style: {
-          borderRadius: "100px",
-          border: 0,
-          boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-        }
-      })
+      toast.success('Password successfully changed')
       navigate('/landing')
     })
     .catch(err => {
       if (err.response.request.status === 400) {
-        toast('Password reset link is expired', {
-          duration: 1500,
-          position: "bottom-center",
-          icon: "❌",
-          style: {
-            borderRadius: "100px",
-            border: 0,
-            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-          }
-        })
+        toast.error('Password reset link is expired')
       }
       else
-      toast(Object.values(err.response.data.errors)[0], {
-        duration: 1500,
-        position: "bottom-center",
-        icon: "❗",
-        style: {
-          borderRadius: "100px",
-          border: 0,
-          boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-        }
-      })
+      toast.error(Object.values(err.response.data.errors)[0])
     })
     ;
   }

@@ -31,7 +31,19 @@ const AdminLayout = () => {
 
     return (
         <div style={{ height: "100dvh" }} id={theme}>
-            <Toaster />
+            <Toaster
+                position="bottom-center"
+                duration='3000'
+                toastOptions={{
+                    className: '',
+                    duration: 5000,
+                    style: {
+                        borderRadius: "100px",
+                        border: 0,
+                        boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+                    }
+                }}
+            />
             <AdminNavbar />
             <div className="admin-dashboard">
                 <div className="dashboard-sidebar">

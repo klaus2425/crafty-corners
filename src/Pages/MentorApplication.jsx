@@ -3,7 +3,7 @@ import axiosClient from '../axios-client';
 import Swal from 'sweetalert2';
 import Loading from "../components/utils/Loading";
 import { useStateContext } from "../context/ContextProvider";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const MentorApplication = () => {
   const { user } = useStateContext();
@@ -23,30 +23,10 @@ const MentorApplication = () => {
     formData.append('user_id', user.id);
     axiosClient.post('/apply-for-mentorship', formData)
       .then((res) => {
-        toast('Application Sent', {
-          duration: 1500,
-          position: "bottom-center",
-          icon: "✅",
-          style: {
-            borderRadius: "100px",
-            border: 0,
-            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-          }
-
-        })
+        toast.success('Application Sent')
       })
       .catch((err) => {
-        toast(err.response.data.message, {
-          duration: 1500,
-          position: "bottom-center",
-          icon: "❌",
-          style: {
-            borderRadius: "100px",
-            border: 0,
-            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-          }
-
-        })
+        toast.error(err.response.data.message)
       }
       );
 
@@ -76,7 +56,6 @@ const MentorApplication = () => {
 
   return (
     <div className="authenticated-container">
-      <Toaster />
       <div className="feed">
         <div className='section-header-col'>
           <div className="section-header">

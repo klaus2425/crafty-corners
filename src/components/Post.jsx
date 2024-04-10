@@ -62,17 +62,7 @@ const Post = (props) => {
 
     }
 
-    const notify = () => toast('Link Copied', {
-        duration: 1500,
-        position: "bottom-center",
-        icon: "✅",
-        style: {
-            borderRadius: "100px",
-            border: 0,
-            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-        }
-
-    });
+    const notify = () => toast('Link Copied');
 
     const updatePostDetails = () => {
         axiosClient.get(`/posts/${post.id}`)
@@ -128,7 +118,6 @@ const Post = (props) => {
     if (post.post_type === 'image') {
         return (
             <div className="post">
-                <Toaster />
                 <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                 <div className="post-header" id="posts">
                     <div className="left">
@@ -691,17 +680,7 @@ export const AdminPosts = (props) => {
     const ago = getAgo(post.created_at);
     const [loading, setLoading] = useState(true);
     const [loadingProfile, setLoadingProfile] = useState(true);
-    const notify = () => toast('Post deleted successfully.', {
-        duration: 1500,
-        position: "bottom-center",
-        icon: "✅",
-        style: {
-            borderRadius: "100px",
-            border: 0,
-            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-        }
-
-    });
+    const notify = () => toast.success('Post deleted successfully.');
 
     const deletePost = () => {
         Swal.fire({
@@ -728,7 +707,6 @@ export const AdminPosts = (props) => {
     if (post.post_type === 'image') {
         return (
             <div className="post">
-                <Toaster />
                 <div className="post-header" id="posts">
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}

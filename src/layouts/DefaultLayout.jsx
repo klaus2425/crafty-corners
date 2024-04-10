@@ -12,7 +12,7 @@ const DefaultLayout = () => {
     const { theme } = useThemeContext();
     const navigate = useNavigate();
     const { data, isLoading } = useQuery({
-        queryKey: ['user'], 
+        queryKey: ['user'],
         queryFn: () => axiosClient.get('/user')
     })
 
@@ -39,7 +39,19 @@ const DefaultLayout = () => {
     else
         return (
             <div className="body-container" id={theme} style={{ height: "100dvh", overflowY: 'scroll' }}>
-                <Toaster />
+                <Toaster
+                    position="bottom-center"
+                    duration='3000'
+                    toastOptions={{
+                        className: '',
+                        duration: 5000,
+                        style: {
+                            borderRadius: "100px",
+                            border: 0,
+                            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+                        }
+                    }}
+                />
                 <Navbar />
                 <div className="authenticated-container" >
                     <Sidebar />
