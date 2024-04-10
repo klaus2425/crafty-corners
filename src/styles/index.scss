@@ -3131,21 +3131,55 @@ input::-webkit-inner-spin-button {
   .community-form {
     display: flex;
     margin-top: 2rem;
-    width: 75%;
-
+    width: 100%;
+    .community-pic-container {
+      width: 50%;
+    }
     .community-labels {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      width: 25%;
-      margin-bottom: 2rem;
-      margin-right: 2rem;
+      width: 10rem;
     }
 
     .community-inputs {
       display: flex;
+      width: 30rem;
+      gap: 0.25rem;
       flex-direction: column;
-
+      .community-inputs__element {
+        display: flex;
+        font-size: 1rem;
+        gap: 1rem;
+        input {
+          max-height: 3rem;
+        }
+        input, textarea {
+          margin: 0;
+          width: 100%;
+        }
+        label {
+          text-align: end;
+          text-wrap: wrap;
+          width: 15rem;
+        }
+        margin-bottom: 0.4rem;
+      }
+      .topic-container {
+        display: flex;
+        gap: 0.2rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        .topic-container__topic {
+          width: fit-content;
+          background-color: $purple;
+          color: white;
+          font-weight: bold;
+          border-radius: 1000px;
+          padding: 0.2rem 0.6rem;
+        }
+      }
       input,
       textarea,
       select {
@@ -3602,7 +3636,7 @@ input::-webkit-inner-spin-button {
 
 .community-input-label {
   display: flex;
-
+  width: 70%;
 }
 
 .community-details-top {
@@ -4719,6 +4753,12 @@ input::-webkit-inner-spin-button {
     }
   }
 
+  .edit-user-container {
+    color: #e4e6eb;
+    .edit-labels{
+      color: #e4e6eb;
+    }
+  }
   .comment-card {
     background-color: #242526;
 
@@ -5131,7 +5171,7 @@ input::-webkit-inner-spin-button {
 
   .community-form {
     flex-direction: column-reverse;
-
+    align-items: center;
     .community-right {
       margin-left: 0 !important;
     }

@@ -14,12 +14,22 @@ const EditCommunity = () => {
   const [image, setImage] = useState();
   const [communityName, setCommunityName] = useState();
   const [topics, setTopics] = useState([]);
+  const [displayTopics, setDisplayTopics] = useState([]);
 
   const handleTextareaChange = (event) => {
     const newValue = event.target.value;
-    // Assuming you want to store each line of text as a separate topic
-    const newTopics = newValue.split('\n');
+    const newTopics = newValue.split(',');
     setTopics(newTopics);
+  }
+
+  const handleDelete = (topic, index) => {
+    axiosClient.delete(`/community/${id}/subtopic`, {
+      subtopics: topic
+    })
+    .then((res) => {
+      console.log(res);
+    });
+    getTopics();
   }
 
   const handleChange = (ev) => {
@@ -45,17 +55,21 @@ const EditCommunity = () => {
           icon: "warning"
         });
       })
-    axiosClient.get(`/community/${id}/subtopics`)
-      .then(({ data }) => {
-        setTopics(data)
-        console.log(data);
-      })
-  }
 
+  }
+  const getTopics = () => {
+    axiosClient.get(`/community/${id}/subtopics`)
+    .then(({ data }) => {
+      setTopics(data.subtopics)
+      setDisplayTopics(data.subtopics)
+      console.log(data);
+    })
+  }
 
   if (id) {
     useEffect(() => {
       getCommunity();
+      getTopics();
     }, []);
   }
 
@@ -68,24 +82,20 @@ const EditCommunity = () => {
       formData.append('name', community.name);
       formData.append('description', community.description);
 
+      topics.map((topic, index) => {
+        formData.append(`subtopics[${index}]`, topic)
+      })
+
       toast.promise(axiosClient.post(`communities/${id}`, formData), {
         loading: 'Updating community information',
         success: () => <b>Community Updated</b>,
         error: (err) => {
-            console.log('error');
-            return `${Object.values(err.response.data.errors)[0]}`
+          console.log(err);
+          return `${err.response.data.message}`
         },
-    },
-        {
-            duration: 3000,
-            position: "bottom-center",
-            style: {
-                borderRadius: "100px",
-                border: 0,
-                boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-            }
-        }
-    )
+      },
+
+      )
     }
     else if (imageChange) {
 
@@ -93,26 +103,17 @@ const EditCommunity = () => {
       formData.append("_method", "PUT");
       formData.append('name', community.name);
       formData.append('description', community.description);
-      formData.append('community_photo', community.community_photo);
       formData.append('subtopics', topics);
+      formData.append('community_photo', community.community_photo);
       toast.promise(axiosClient.post(`communities/${id}`, formData), {
         loading: 'Updating community information',
         success: () => <b>Community Updated</b>,
         error: (err) => {
-            console.log('error');
-            return `${Object.values(err.response.data.errors)[0]}`
+          console.log('error');
+          return `${err.response.data.message}`
         },
-    },
-        {
-            duration: 3000,
-            position: "bottom-center",
-            style: {
-                borderRadius: "100px",
-                border: 0,
-                boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-            }
-        }
-    )
+      },
+      )
     }
   }
 
@@ -128,20 +129,31 @@ const EditCommunity = () => {
             <h1>Edit {communityName} Community</h1>
             <div className="community-form">
               <div className="community-input-label">
-                <div className="community-labels">
-                  <label style={{ marginBottom: '1.1rem' }} htmlFor="community-name">Community Name</label>
-                  <label style={{ marginBottom: '6.87rem' }} htmlFor="community-name">Community Description</label>
-                  <label htmlFor="community-name">Community Topics</label>
 
-                </div>
                 <div className="community-inputs">
-                  <input value={community.name} type="text" name="community-name" id="community-name" onChange={ev => setCommunity({ ...community, name: ev.target.value })} required />
-                  <textarea value={community.description} name="community-name" onChange={ev => setCommunity({ ...community, description: ev.target.value })} rows={6} cols={20} required />
-                  <textarea onChange={(ev) => handleTextareaChange(ev)} rows={6} cols={20} required />
+                  <div className="community-inputs__element">
+                    <label>Community Name</label>
+                    <input value={community.name} type="text" name="community-name" id="community-name" onChange={ev => setCommunity({ ...community, name: ev.target.value })} required />
+                  </div>
+                  <div className="community-inputs__element">
+                    <label>Community Description</label>
+                    <textarea value={community.description} name="community-name" onChange={ev => setCommunity({ ...community, description: ev.target.value })} rows={6} cols={20} required />
+                  </div>
+                  <div className="community-inputs__element">
+                    <label>Add topics for community<br />(Use comma to separate topics)</label>
+                    <input  onChange={(ev) => handleTextareaChange(ev)} required />
+                  </div>
+                  <div className="topic-container">
+                    {
+                      displayTopics.map((topic, index) => (
+                        <span onClick={() => handleDelete(topic, index)} className="topic-container__topic" key={index}>{topic}</span>
+                      ))
+                    }
+                  </div>
 
                 </div>
               </div>
-              <div>
+              <div className="community-pic-container">
                 <div className="community-right">
                   <div className="upload-picture">
                     <img id='update-picture' src={image} />
