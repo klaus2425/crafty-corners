@@ -23,12 +23,14 @@ const EditCommunity = () => {
   }
 
   const handleDelete = (topic, index) => {
-    axiosClient.delete(`/community/${id}/subtopic`, {
-      subtopics: topic
-    })
-    .then((res) => {
-      console.log(res);
-    });
+    const formData = new FormData()
+    formData.append('subtopics', `${[topic]}`)
+    console.log(topic);
+    axiosClient.delete(`/community/${id}/subtopic`, { data: { "subtopics": topic } })
+      .then((res) => {
+        console.log(res);
+        toast.success('Topic removed')
+      });
     getTopics();
   }
 
@@ -59,11 +61,11 @@ const EditCommunity = () => {
   }
   const getTopics = () => {
     axiosClient.get(`/community/${id}/subtopics`)
-    .then(({ data }) => {
-      setTopics(data.subtopics)
-      setDisplayTopics(data.subtopics)
-      console.log(data);
-    })
+      .then(({ data }) => {
+        setTopics(data.subtopics)
+        setDisplayTopics(data.subtopics)
+        console.log(data);
+      })
   }
 
   if (id) {
@@ -88,7 +90,11 @@ const EditCommunity = () => {
 
       toast.promise(axiosClient.post(`communities/${id}`, formData), {
         loading: 'Updating community information',
-        success: () => <b>Community Updated</b>,
+        success: () => {
+          getTopics();
+          getCommunity();
+          return <b>Community Updated</b>
+        },
         error: (err) => {
           console.log(err);
           return `${err.response.data.message}`
@@ -141,8 +147,10 @@ const EditCommunity = () => {
                   </div>
                   <div className="community-inputs__element">
                     <label>Add topics for community<br />(Use comma to separate topics)</label>
-                    <input  onChange={(ev) => handleTextareaChange(ev)} required />
+                    <input onChange={(ev) => handleTextareaChange(ev)} required />
                   </div>
+                  <div><strong>Press topic to delete</strong></div>
+
                   <div className="topic-container">
                     {
                       displayTopics.map((topic, index) => (
@@ -165,7 +173,7 @@ const EditCommunity = () => {
                 </div>
               </div>
             </div>
-            <button className="button">Submit</button>
+            <button className="community-form__button">Submit</button>
           </form>
         </div>
       }
