@@ -11,8 +11,6 @@ const MentorApplication = () => {
   const [loading, setLoading] = useState(false);
   const chosenCommunityRef = useRef();
   const specializationRef = useRef();
-  const assessmentDateRef = useRef();
-  const today = new Date().toISOString().split("T")[0];
 
   const applyForMentorShip = (ev) => {
     const formData = new FormData();
@@ -22,7 +20,7 @@ const MentorApplication = () => {
     formData.append('student_id', '20-00000'); // Replace
     formData.append('user_id', user.id);
     axiosClient.post('/apply-for-mentorship', formData)
-      .then((res) => {
+      .then(() => {
         toast.success('Application Sent')
       })
       .catch((err) => {
