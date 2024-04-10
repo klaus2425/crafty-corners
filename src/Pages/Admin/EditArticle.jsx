@@ -14,7 +14,7 @@ const EditArticle = () => {
 
     const getCommunities = () => {
         axiosClient.get('/communities').then(({ data }) => {
-            setCommunities(data.data);
+            setCommunities(data);
         }).catch(err => {
             const response = err.response;
             if (response && response.status === 422) {
@@ -119,7 +119,7 @@ const EditArticle = () => {
                             <label><strong>Community:</strong></label>
                             <select name="communities" value={article.community?.id} onChange={handleChange}>
                                 <option >Select a community</option>
-                                {communities.map((community) => (
+                                {communities?.map((community) => (
                                     <option key={community.id} value={community.id}>{community.name}</option>
                                 ))}
                             </select>

@@ -1,23 +1,20 @@
 import Swal from 'sweetalert2';
 import { useState, useEffect } from 'react';
 import axiosClient from '../../axios-client';
-import { useStateContext } from '../../context/ContextProvider';
-import { useNavigate, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import Loading from '../../components/utils/Loading';
 
 const EditVideo = () => {
-    let { id } = useParams();
+    const { id } = useParams();
     const [communities, setCommunities] = useState([]);
     const [video, setVideo] = useState({});
-    const [selected, setSelected] = useState();
-    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [count, setCount] = useState(0);
 
 
     const getCommunities = () => {
         axiosClient.get('/communities').then(({ data }) => {
-            setCommunities(data.data);
+            setCommunities(data);
         }).catch(err => {
             const response = err.response;
             if (response && response.status === 422) {
@@ -47,13 +44,10 @@ const EditVideo = () => {
         setVideo({ ...video, community: { id: ev.target.value } });
     }
 
-
     useEffect(() => {
         getCommunities();
         getVideo();
     }, [])
-
-
 
     const onSubmit = (ev) => {
         ev.preventDefault();
@@ -121,7 +115,7 @@ const EditVideo = () => {
                             <label><strong>Community:</strong></label>
                             <select name="communities" value={video.community?.id} onChange={handleChange}>
                                 <option >Select a community</option>
-                                {communities.map((community) => (
+                                {communities?.map((community) => (
                                     <option key={community.id} value={community.id}>{community.name}</option>
                                 ))}
                             </select>
