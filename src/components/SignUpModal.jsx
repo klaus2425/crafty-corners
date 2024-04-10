@@ -1,12 +1,9 @@
-import Swal from 'sweetalert2';
 import React, { useRef, useState } from 'react';
 import axiosClient from '../axios-client';
-import { useStateContext } from '../context/ContextProvider';
 import toast from 'react-hot-toast';
 
 
 export default function SignUpModal(props) {
-    const [disabled, setDisabled] = useState(false);
     const [image, setImage] = useState();
     if (!image) { setImage('/avatar.jpg') }
     const handleChange = (e) => {
@@ -26,11 +23,9 @@ export default function SignUpModal(props) {
     const [gender, setGender] = useState('');
     const numberRef = useRef();
     const profilePictureRef = useRef();
-    const { setUser, setToken } = useStateContext();
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        setDisabled(true);
         const formData = new FormData();
         formData.append('first_name', firstNameRef.current.value);
         formData.append('middle_name', middleNameRef.current.value);
@@ -45,32 +40,30 @@ export default function SignUpModal(props) {
         formData.append('gender', gender);
         formData.append('program', programRef.current.value);
         formData.append('student_id', studentIdRef.current.value)
-        axiosClient.post('/register', formData)
-            .then(({ data }) => {
-                setDisabled(false);
-                toast('Verification sent to email address', {
-                    duration: 1500,
-                    position: "bottom-center",
-                    icon: "❕",
-                    style: {
-                      borderRadius: "100px",
-                      border: 0,
-                      boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-                    }
-                  })
+
+        toast.promise(axiosClient.post('/register', formData), {
+            loading: 'Signing up',
+            success: () => {
                 props.setIsOpen(false);
-            })
-            .catch(err => {
-                const response = err.response;
-                setDisabled(false);
-                if (response && response.status === 422) {
-                    Swal.fire({
-                        title: "Error",
-                        text: `${Object.values(response.data.errors)[0]}`,
-                        icon: "warning"
-                    });
+                setImage(null);
+                return <b>Verification sent to email address</b>
+            },
+            error: (err) => {
+                console.log('error');
+                return `${Object.values(err.response.data.errors)[0]}`
+            },
+        },
+            {
+                duration: 3000,
+                position: "bottom-center",
+                style: {
+                    borderRadius: "100px",
+                    border: 0,
+                    boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
                 }
-            });
+            }
+
+        )
     };
 
     if (!props.isOpen) return null;
@@ -79,7 +72,7 @@ export default function SignUpModal(props) {
             <div className='overlay' >
                 <div className='modal'>
                     <div className='close-login'>
-                        <button onClick={() => props.setIsOpen(false)}>
+                        <button onClick={() => { props.setIsOpen(false), setImage(null) }}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
                                 <path d="M12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 10.8181 3.23279 9.64778 3.68508 8.55585C4.13738 7.46392 4.80031 6.47177 5.63604 5.63604C6.47177 4.80031 7.46392 4.13738 8.55585 3.68508C9.64778 3.23279 10.8181 3 12 3C13.1819 3 14.3522 3.23279 15.4442 3.68508C16.5361 4.13738 17.5282 4.80031 18.364 5.63604C19.1997 6.47177 19.8626 7.46392 20.3149 8.55585C20.7672 9.64778 21 10.8181 21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4441 20.3149C14.3522 20.7672 13.1819 21 12 21L12 21Z" stroke="#222222" strokeLinecap="round" />
                                 <path d="M9 9L15 15" stroke="#222222" strokeLinecap="round" />
@@ -158,7 +151,7 @@ export default function SignUpModal(props) {
                                         <option value="Bachelor of Technical Livelihood Education">Bachelor of Technical Livelihood Education</option>
                                         <option value="Bachelor of Physical Education">Bachelor of Physical Education</option>
                                         <option value="Bachelor of Science in Exercise and Sports Science">Bachelor of Science in Exercise and Sports Science</option>
-                                    
+
                                     </select>
                                     <div className="gender-label">
                                         Gender:
@@ -187,7 +180,7 @@ export default function SignUpModal(props) {
                             </div>
                         </div>
                         <div className="sign-up-button-container">
-                            <button className='sign-up' disabled={disabled ? true : false}>Sign Up</button>
+                            <button className='sign-up'>Sign Up</button>
                         </div>
                     </form>
                 </div>
