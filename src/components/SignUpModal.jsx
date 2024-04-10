@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 export default function SignUpModal(props) {
     const [image, setImage] = useState();
-    if (!image) { setImage('/avatar.jpg') }
+    if (!image) { setImage('/avatar.svg') }
     const handleChange = (e) => {
         setImage(URL.createObjectURL(e.target.files[0]));
     };
