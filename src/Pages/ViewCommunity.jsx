@@ -30,6 +30,11 @@ const ViewCommunity = () => {
     queryKey: ['mentors'],
     queryFn: getMentors,
   })
+  const useTopics = useQuery({
+    queryKey: ['topics'],
+    queryFn: () => axiosClient.get(`/community/${id}/subtopics`)
+    .then(({data}) => data.subtopics)
+  })
 
   const getCommunityData = async () => {
     const fetchedData = await axiosClient.get(`/communities/${id}`)
@@ -136,7 +141,7 @@ const ViewCommunity = () => {
             :
             <Loading />
           }
-          <PostModal isOpen={isOpen} setIsOpen={setIsOpen} />
+          <PostModal isOpen={isOpen} topics = {useTopics.data} setIsOpen={setIsOpen} />
         </div>
       </div>
       <div className="recommended">
