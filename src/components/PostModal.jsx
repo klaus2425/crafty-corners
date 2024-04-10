@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import axiosClient from '../axios-client';
-import Swal from 'sweetalert2';
 import { useStateContext } from '../context/ContextProvider';
 import Loading from "./utils/Loading";
 import { useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 const PostModal = (props) => {
   const { id } = useParams();
@@ -50,11 +50,7 @@ const PostModal = (props) => {
           const response = err.response;
           setLoading(false);
           if (response && response.status === 422) {
-            Swal.fire({
-              title: "Error",
-              text: `${Object.values(response.data.errors)[0]}`,
-              icon: "warning"
-            });
+            toast.error(response.data.message)
           }
         });
     }
@@ -74,11 +70,7 @@ const PostModal = (props) => {
         .catch(err => {
           const response = err.response;
           if (response && response.status === 422) {
-            Swal.fire({
-              title: "Error",
-              text: `${Object.values(response.data.errors)[0]}`,
-              icon: "warning"
-            });
+            toast.error(response.data.message)
           }
         })
     }
@@ -97,12 +89,9 @@ const PostModal = (props) => {
         })
         .catch(err => {
           const response = err.response;
+          console.log(response);
           if (response && response.status === 422) {
-            Swal.fire({
-              title: "Error",
-              text: `${Object.values(response.data.errors)[0]}`,
-              icon: "warning"
-            });
+            toast.error(response.data.message)
           }
         })
     }
@@ -123,11 +112,7 @@ const PostModal = (props) => {
         .catch(err => {
           const response = err.response;
           if (response && response.status === 422) {
-            Swal.fire({
-              title: "Error",
-              text: `${Object.values(response.data.errors)[0]}`,
-              icon: "warning"
-            });
+            toast.error(response.data.message)
           }
         })
     }
@@ -286,7 +271,7 @@ const PostModal = (props) => {
 
                   }
                 </span>
-                Topic:  
+                Topic:
                 <select className='post-notification-container__select' name="" id="">
                   {
                     topics.map((topic, index) => (

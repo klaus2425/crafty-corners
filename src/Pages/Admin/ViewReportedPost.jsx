@@ -22,7 +22,6 @@ const ViewReportedPost = () => {
     queryFn: () => axiosClient.get(`/show-report/${postId}/${reportId}`).then(({data}) => data.data)
   })
 
-  console.log(useReport?.data);
 
   if (useReport.isLoading) {
     return <Loading />
