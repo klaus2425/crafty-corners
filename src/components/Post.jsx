@@ -138,9 +138,15 @@ const Post = (props) => {
                             <h4>{post_user.first_name}</h4>
                             <span id='post-time'>{ago} ago</span>
                         </div>
+       
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
+                        <div className="flair">
+                            <span className="flair__text">
+                                Topic
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div className="title-content-container" onClick={() => viewPost()}>
