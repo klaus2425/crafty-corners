@@ -50,20 +50,12 @@ export default function LoginModal(props) {
     axios.get('http://localhost:8000/sanctum/csrf-cookie', {
       withCredentials: true,
     })
-    axiosClient
-      .post("/login", payload)
-      .then(({ data }) => {
+
+    toast.promise(axiosClient
+      .post("/login", payload), {
+      loading: 'Signing up',
+      success: ({data}) => {
         if (data.user.email_verified_at === null) {
-          toast('Verify your account first!', {
-            duration: 1500,
-            position: "bottom-center",
-            icon: "❗",
-            style: {
-              borderRadius: "100px",
-              border: 0,
-              boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-            }
-          })
           axios.post(`${import.meta.env.VITE_API_BASE_URL}/send-email-verification`, null, {
             headers: {
 
@@ -71,30 +63,76 @@ export default function LoginModal(props) {
               'Content-Type': 'application/json'
             }
           })
-            .catch(err => console.error(err));
+          return 'Verify your email first'
         }
         else {
           setUser(data.user);
           setToken(data.token);
           props.setIsOpen(false);
-          if (data.roles === 'admin') {
-            return <Navigate to='/Users' />
-          }
+          return <b>Logged in</b>
         }
-      })
-      .catch((err) => {
-        const response = err.response.data.message;
-        toast(response, {
-          duration: 5000,
-          position: "bottom-center",
-          icon: "❗",
-          style: {
-            borderRadius: "100px",
-            border: 0,
-            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
-          }
-        })
-      });
+      },
+      error: (err) => {
+        console.log(err);
+        return err.response.data.message
+      },
+    },
+      {
+        duration: 3000,
+        position: "bottom-center",
+        style: {
+          borderRadius: "100px",
+          border: 0,
+          boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+        }
+      }
+    )
+
+    // axiosClient
+    //   .post("/login", payload)
+    //   .then(({ data }) => {
+    //     if (data.user.email_verified_at === null) {
+    //       toast('Verify your account first!', {
+    //         duration: 1500,
+    //         position: "bottom-center",
+    //         icon: "❗",
+    //         style: {
+    //           borderRadius: "100px",
+    //           border: 0,
+    //           boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+    //         }
+    //       })
+    //       axios.post(`${import.meta.env.VITE_API_BASE_URL}/send-email-verification`, null, {
+    //         headers: {
+
+    //           'Authorization': `Bearer ${data.token}`,
+    //           'Content-Type': 'application/json'
+    //         }
+    //       })
+    //         .catch(err => console.error(err));
+    //     }
+    //     else {
+    //       setUser(data.user);
+    //       setToken(data.token);
+    //       props.setIsOpen(false);
+    //       if (data.roles === 'admin') {
+    //         return <Navigate to='/Users' />
+    //       }
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     const response = err.response.data.message;
+    //     toast(response, {
+    //       duration: 5000,
+    //       position: "bottom-center",
+    //       icon: "❗",
+    //       style: {
+    //         borderRadius: "100px",
+    //         border: 0,
+    //         boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+    //       }
+    //     })
+    //   });
   };
 
   if (!props.isOpen) return null;
