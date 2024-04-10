@@ -1,9 +1,7 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import axiosClient from "../../axios-client";
 import { useNavigate } from 'react-router-dom'
-import Swal from 'sweetalert2';
-
-
+import toast from 'react-hot-toast'
 const AddCommunities = () => {
     const [image, setImage] = useState();
     const handleChange = (ev) => {
@@ -22,20 +20,28 @@ const AddCommunities = () => {
         formData.append('name', communityNameRef.current.value);
         formData.append('description', communityDescriptionRef.current.value);
         formData.append('community_photo', communityImageRef.current.files[0]);
-        axiosClient.post('/communities', formData)
-            .then(() => {
+
+        toast.promise(axiosClient.post('/communities', formData), {
+            loading: 'Adding Community',
+            success: () => {
                 navigate('/admin-communities');
-            })
-            .catch(err => {
-                const response = err.response;
-                if (response && response.status === 422) {
-                    Swal.fire({
-                        title: "Error",
-                        text: `${Object.values(response.data.errors)[0]}`,
-                        icon: "warning"
-                    });
+                return <b>Community Added</b>
+            },
+            error: (err) => {
+                console.log('error');
+                return `${Object.values(err.response.data.errors)[0]}`
+            },
+        },
+            {
+                duration: 3000,
+                position: "bottom-center",
+                style: {
+                    borderRadius: "100px",
+                    border: 0,
+                    boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
                 }
-            });
+            }
+        )
     }
 
     return (
@@ -45,8 +51,8 @@ const AddCommunities = () => {
                 <div className="community-form">
                     <div className="community-input-label">
                         <div className="community-labels">
-                            <label style={{marginBottom: '1.1rem'}}  htmlFor="community-name">Community Name</label>
-                            <label style={{marginBottom: '6.87rem'}} htmlFor="community-name">Community Description</label>
+                            <label style={{ marginBottom: '1.1rem' }} htmlFor="community-name">Community Name</label>
+                            <label style={{ marginBottom: '6.87rem' }} htmlFor="community-name">Community Description</label>
                             <label htmlFor="community-name">Community Topics</label>
                         </div>
                         <div className="community-inputs">

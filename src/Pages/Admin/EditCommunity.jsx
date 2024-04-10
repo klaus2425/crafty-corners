@@ -68,30 +68,24 @@ const EditCommunity = () => {
       formData.append('name', community.name);
       formData.append('description', community.description);
 
-      axiosClient.post(`communities/${id}`, formData)
-        .then(() => {
-          setCommunityName(community.name);
-          toast('Changes Applied', {
-            duration: 1500,
+      toast.promise(axiosClient.post(`communities/${id}`, formData), {
+        loading: 'Updating community information',
+        success: () => <b>Community Updated</b>,
+        error: (err) => {
+            console.log('error');
+            return `${Object.values(err.response.data.errors)[0]}`
+        },
+    },
+        {
+            duration: 3000,
             position: "bottom-center",
-            icon: "✅",
             style: {
-              borderRadius: "100px",
-              border: 0,
-              boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+                borderRadius: "100px",
+                border: 0,
+                boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
             }
-          })
-        })
-        .catch(err => {
-          const response = err.response;
-          if (response && response.status === 422) {
-            Swal.fire({
-              title: "Error",
-              text: `${Object.values(response.data.errors)[0]}`,
-              icon: "warning"
-            });
-          }
-        });
+        }
+    )
     }
     else if (imageChange) {
 
@@ -101,37 +95,24 @@ const EditCommunity = () => {
       formData.append('description', community.description);
       formData.append('community_photo', community.community_photo);
       formData.append('subtopics', topics);
-      axiosClient.post(`communities/${id}`, formData)
-        .then(() => {
-          setCommunityName(community.name);
-          setImageChange(false);
-          toast('Changes Applied', {
-            duration: 1500,
+      toast.promise(axiosClient.post(`communities/${id}`, formData), {
+        loading: 'Updating community information',
+        success: () => <b>Community Updated</b>,
+        error: (err) => {
+            console.log('error');
+            return `${Object.values(err.response.data.errors)[0]}`
+        },
+    },
+        {
+            duration: 3000,
             position: "bottom-center",
-            icon: "✅",
             style: {
-              borderRadius: "100px",
-              border: 0,
-              boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+                borderRadius: "100px",
+                border: 0,
+                boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
             }
-          })
-        })
-        .catch(err => {
-          const response = err.response;
-          if (response && response.status === 422) {
-            Swal.fire({
-              title: "Error",
-              text: `${Object.values(response.data.errors)[0]}`,
-              icon: "warning"
-            });
-          }
-        });
-    }
-    else {
-      Swal.fire({
-        title: "No Changes Applied",
-        icon: "info"
-      });
+        }
+    )
     }
   }
 
