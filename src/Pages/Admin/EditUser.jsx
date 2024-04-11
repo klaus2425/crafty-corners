@@ -3,8 +3,6 @@ import { useParams } from "react-router-dom";
 import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2';
 import Loading from "../../components/utils/Loading";
-import { AdminPosts, UserPost } from "../../components/Post";
-import { Toaster } from "react-hot-toast";
 
 const EditUser = () => {
     const { id } = useParams();
@@ -13,8 +11,7 @@ const EditUser = () => {
     const [imageChange, setImageChange] = useState(false);
     const [loading, setLoading] = useState(false);
     const [image, setImage] = useState();
-    // const [userPosts, setUserPosts] = useState([]);
-    
+
 
 
     if (!image) { setImage('/avatar.jpg') }
@@ -38,11 +35,9 @@ const EditUser = () => {
             })
     }
 
-
     if (id) {
         useEffect(() => {
             getUser();
-            // getUserPosts();
         }, []);
     }
 
