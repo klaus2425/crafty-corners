@@ -28,7 +28,6 @@ const AddCommunities = () => {
                 return <b>Community Added</b>
             },
             error: (err) => {
-                console.log('error');
                 return `${Object.values(err.response.data.errors)[0]}`
             },
         },

@@ -55,7 +55,6 @@ export default function LoginModal(props) {
         }
       },
       error: (err) => {
-        console.log(err);
         return err.response.data.message
       },
     },

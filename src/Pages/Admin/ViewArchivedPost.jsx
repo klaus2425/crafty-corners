@@ -13,7 +13,6 @@ const ViewArchivedPost = () => {
     queryFn: () => axiosClient.get(`/deleted/post/${id}`)
       .then(({ data }) => data.data)
   })
-  console.log(useReport.data);
   if (useReport.isLoading) {
     return <Loading />
   }

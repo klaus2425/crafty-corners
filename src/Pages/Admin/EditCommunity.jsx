@@ -25,10 +25,8 @@ const EditCommunity = () => {
   const handleDelete = (topic, index) => {
     const formData = new FormData()
     formData.append('subtopics', `${[topic]}`)
-    console.log(topic);
     axiosClient.delete(`/community/${id}/subtopic`, { data: { "subtopics": topic } })
       .then((res) => {
-        console.log(res);
         toast.success('Topic removed')
       });
     getTopics();
@@ -64,7 +62,6 @@ const EditCommunity = () => {
       .then(({ data }) => {
         setTopics(data.subtopics)
         setDisplayTopics(data.subtopics)
-        console.log(data);
       })
   }
 
@@ -96,7 +93,6 @@ const EditCommunity = () => {
           return <b>Community Updated</b>
         },
         error: (err) => {
-          console.log(err);
           return `${err.response.data.message}`
         },
       },
@@ -115,7 +111,6 @@ const EditCommunity = () => {
         loading: 'Updating community information',
         success: () => <b>Community Updated</b>,
         error: (err) => {
-          console.log('error');
           return `${err.response.data.message}`
         },
       },
