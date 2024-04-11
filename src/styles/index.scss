@@ -4088,7 +4088,7 @@ input::-webkit-inner-spin-button {
     position: relative;
     display: inline-block;
     margin-bottom: 1rem;
-
+  
     .search {
       outline: none !important;
       border: 1.3px solid $dark_grey;
@@ -4105,14 +4105,10 @@ input::-webkit-inner-spin-button {
       text-align: center;
     }
 
-    svg {
-      position: absolute;
-      right: 0;
-      margin-top: auto;
-      margin-bottom: auto;
-      top: 0;
-      bottom: 0;
-      margin-right: 1rem;
+
+    .card-search__header {
+      display: flex;
+      justify-content: flex-start;
     }
   }
 
