@@ -35,7 +35,7 @@ export default function LoginModal(props) {
 
     toast.promise(axiosClient
       .post("/login", payload), {
-      loading: 'Signing up',
+      loading: 'Logging in',
       success: ({data}) => {
         if (data.user.email_verified_at === null) {
           axios.post(`${import.meta.env.VITE_API_BASE_URL}/send-email-verification`, null, {
