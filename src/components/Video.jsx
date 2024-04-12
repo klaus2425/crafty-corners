@@ -6,12 +6,11 @@ import ReactPlayer from 'react-player';
 const Video = (props) => {
     const navigate = useNavigate();
 
-    const openLink = (url) => {
+    const openLink = () => {
         navigate(`/v/${props.id}`)
     }
 
     return (
-
         <div onClick={() => openLink(props.link)} className="video">
             <div className="left">
                 <ReactPlayer url={props.link} controls width={100} height={50} light={true} />
@@ -26,7 +25,6 @@ const Video = (props) => {
                     <span>{props.description}</span>
                 </div>
             </div>
-
         </div>
     )
 }
