@@ -21,6 +21,7 @@ const PostModal = (props) => {
   const [file, setFile] = useState();
   const [count, setCount] = useState();
   const titleRef = useRef();
+  const topicRef = useRef();
   const descriptionRef = useRef();
   const linkRef = useRef();
   const { user } = useStateContext();
@@ -37,6 +38,7 @@ const PostModal = (props) => {
       formData.append('user_id', user.id);
       formData.append('community_id', id);
       formData.append('title', titleRef.current.value);
+      formData.append('subtopics', topicRef.current.value)
       formData.append('video', file);
       formData.append('notifiable', notifiable);
       formData.append('post_type', 'video');
@@ -59,6 +61,7 @@ const PostModal = (props) => {
       formData.append('community_id', id);
       formData.append('title', titleRef.current.value);
       formData.append('notifiable', notifiable);
+      formData.append('subtopics', topicRef.current.value)
       formData.append('image', file);
       formData.append('post_type', 'image');
       axiosClient.post('/posts', formData)
@@ -69,6 +72,7 @@ const PostModal = (props) => {
         })
         .catch(err => {
           const response = err.response;
+          console.log(err);
           if (response && response.status === 422) {
             toast.error(response.data.message)
           }
@@ -89,6 +93,7 @@ const PostModal = (props) => {
         })
         .catch(err => {
           const response = err.response;
+          console.log(err);
           if (response && response.status === 422) {
             toast.error(response.data.message)
           }
@@ -103,6 +108,7 @@ const PostModal = (props) => {
       formData.append('link', linkRef.current.value);
       formData.append('content', descriptionRef.current.value);
       formData.append('post_type', 'link');
+      formData.append('subtopics', topicRef.current.value)
       axiosClient.post('/posts', formData)
         .then(() => {
           queryClient.refetchQueries(`community-${id}`)
@@ -271,7 +277,7 @@ const PostModal = (props) => {
                   }
                 </span>
                 Topic:
-                <select className='post-notification-container__select' name="" id="">
+                <select ref={topicRef} className='post-notification-container__select'>
                   {
                     topics.map((topic, index) => (
                       <option value={topic}>{topic}</option>
