@@ -24,7 +24,7 @@ const Video = (props) => {
                     <span className="community-title">/{props.community}</span>
                 </div>
                 <div className="bottom">
-                    <span><strong>{props.creator}</strong></span>
+                    <span className='flex flex--justify-space-between'><strong>{props.creator}</strong><strong>Posted by: {props.user}</strong></span>
                     <span>{props.description}</span>
                 </div>
             </div>

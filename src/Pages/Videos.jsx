@@ -73,7 +73,7 @@ const UserFeed = () => {
                 <div className="card">
                     {loading ? <Loading /> :
                         videos.map(v => (
-                            <Video key={v.id} link={v.video_url} title={v.video_title}
+                            <Video user={v.user.first_name + ' ' + v.user.last_name} key={v.id} link={v.video_url} title={v.video_title}
                                 description={v.video_description} creator={v.creator} community={v.community.name} id={v.id} />
                         ))
                     }
