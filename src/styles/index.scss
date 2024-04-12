@@ -23,6 +23,14 @@ html {
   display: flex;
 }
 
+.flex--justify-space-between {
+  justify-content: space-between;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
 :root {
   font-family: Helvetica, system-ui, Avenir, Arial, sans-serif;
   line-height: 1.5;
@@ -1616,17 +1624,7 @@ input::-webkit-inner-spin-button {
 
   }
 
-  .video-card {
-    display: flex;
-    flex-direction: column;
-    background-color: #FDFDFD;
-    border: 2px solid #D8DCE3;
-    border-radius: 15px;
-    width: fit-content;
-    margin-bottom: 0.5rem;
-    padding: 1rem;
-    align-items: center;
-  }
+
 
   .comments-container {
     width: 80%;
@@ -1669,7 +1667,7 @@ input::-webkit-inner-spin-button {
       }
     }
   }
-
+ 
 
   #badges-card {
     gap: 1rem;
@@ -1744,6 +1742,8 @@ input::-webkit-inner-spin-button {
       margin-bottom: 1rem;
     }
 
+
+    
     .mentor-apply-select {
       width: 100%;
       height: 2.425rem;
@@ -2264,7 +2264,16 @@ input::-webkit-inner-spin-button {
 
 
   }
-
+  .video-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #FDFDFD;
+    border: 2px solid #D8DCE3;
+    border-radius: 15px;
+    width: fit-content;
+    padding: 1rem;
+    align-items: center;
+  }
   .user-posts {
     width: 100%;
     height: 100%;
@@ -4012,7 +4021,7 @@ input::-webkit-inner-spin-button {
   .bottom {
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 100%;
     text-align: justify;
   }
 
@@ -4046,7 +4055,6 @@ input::-webkit-inner-spin-button {
   .bottom {
     display: flex;
     flex-direction: column;
-    width: 90%;
     text-align: justify;
   }
 
@@ -4395,10 +4403,9 @@ input::-webkit-inner-spin-button {
       align-items: center;
     }
     .mentor-likes-count {
-      text-align: center;
       display: flex;
-      align-items: center;
-      font-size: 1rem;
+      font-size: 1.1rem;
+      line-height:1px
     }
     img {
       border-radius: 100%;
@@ -4494,7 +4501,7 @@ input::-webkit-inner-spin-button {
   position: relative;
   padding-top: 56.25%;
   /* 720 / 1280 = 0.5625 */
-  width: clamp(20rem, 48vw, 120rem);
+  width: clamp(20rem, 40vw, 90rem);
   margin-bottom: 1rem;
 }
 
