@@ -26,6 +26,7 @@ const UserFeed = () => {
         axiosClient.get('/articles')
             .then(res => {
                 setArticles(res.data.data)
+                console.log(res.data);
                 setLoading(false);
             })
             .catch(err => {
@@ -68,7 +69,7 @@ const UserFeed = () => {
                 <div className="card">
                     {loading ? <Loading /> :
                         articles.map(a => (
-                            <Article key={a.id} author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name} />
+                            <Article user={a.user.first_name + ' ' + a.user.last_name} key={a.id} author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name} />
                         ))
                     }
                 </div>
