@@ -27,14 +27,12 @@ const UserFeed = () => {
         queryFn: () => axiosClient.get(`/articles`).then(({data}) => (data.data))
     })
 
-    console.log(allArticles.data);
 
     const joinedArticles = useQuery({ 
         queryKey: ['joined-articles'],
         queryFn: () => axiosClient.get(`joined/articles`).then(({data}) => (data.data))
     })
 
-    console.log('Joined articles', joinedArticles.data);
 
 
 

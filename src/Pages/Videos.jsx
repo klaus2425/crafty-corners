@@ -35,11 +35,6 @@ const UserFeed = () => {
         queryFn: () => axiosClient.get(`/videos`).then(({ data }) => (data.data))
     })
 
-    console.log(allVideos.data);
-
-
-    console.log('Joined videos', joinedVideos.data);
-
 
     return (
         <div className="authenticated-container">

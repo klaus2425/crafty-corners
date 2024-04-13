@@ -72,7 +72,6 @@ const PostModal = (props) => {
         })
         .catch(err => {
           const response = err.response;
-          console.log(err);
           if (response && response.status === 422) {
             toast.error(response.data.message)
           }
@@ -93,7 +92,6 @@ const PostModal = (props) => {
         })
         .catch(err => {
           const response = err.response;
-          console.log(err);
           if (response && response.status === 422) {
             toast.error(response.data.message)
           }

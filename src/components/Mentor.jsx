@@ -13,15 +13,12 @@ const Mentor = (mentor) => {
   const handleLike = () => {
     if (mentor.liked_by_user) {
       axiosClient.post(`/unlike-mentor/${mentor.mentor_id}`)
-      .then((res) => console.log(res.data))
-      .err((err) => console.log(err));
-      ;
+
 
     }
     else {
       axiosClient.post(`/like-mentor/${mentor.mentor_id}`)
-      .then((res) => console.log(res.data))
-      .err((err) => console.log(err));
+
     }
   }
 
