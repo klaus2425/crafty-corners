@@ -5,7 +5,7 @@ import axiosClient from "../axios-client";
 import Swal from 'sweetalert2';
 import { useStateContext } from "../context/ContextProvider";
 import { useNavigate } from "react-router-dom";
-
+import { useQuery } from '@tanstack/react-query';
 
 const UserFeed = () => {
 
@@ -14,7 +14,7 @@ const UserFeed = () => {
     const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    
+
     const handleAddVideo = () => {
         navigate(`/mentor/add-video/?uid=${user.id}`)
     };
@@ -24,28 +24,22 @@ const UserFeed = () => {
         setActive(ev.target.id);
     }
 
-    const getVideos = () => {
-        setLoading(true);
-        axiosClient.get('/videos')
-            .then(res => {
-                setLoading(false)
-                setVideos(res.data.data)
-            })
-            .catch(err => {
-                const response = err.response;
-                if (response && response.status === 422) {
-                    Swal.fire({
-                        title: "Error",
-                        text: `${Object.values(response.data.errors)[0]}`,
-                        icon: "warning"
-                    });
-                }
-            })
-    }
+    const joinedVideos = useQuery({
+        queryKey: ['joined-videos'],
+        queryFn: () => axiosClient.get(`joined/videos`).then(({ data }) => (data.data))
+    })
 
-    useEffect(() => {
-        getVideos();
-    }, [])
+
+    const allVideos = useQuery({
+        queryKey: ['all-articles'],
+        queryFn: () => axiosClient.get(`/videos`).then(({ data }) => (data.data))
+    })
+
+    console.log(allVideos.data);
+
+
+    console.log('Joined videos', joinedVideos.data);
+
 
     return (
         <div className="authenticated-container">
@@ -71,11 +65,27 @@ const UserFeed = () => {
                     </div>
                 </div>
                 <div className="card">
-                    {loading ? <Loading /> :
-                        videos.map(v => (
-                            <Video user={v.user.first_name + ' ' + v.user.last_name} key={v.id} link={v.video_url} title={v.video_title}
-                                description={v.video_description} creator={v.creator} community={v.community.name} id={v.id} />
-                        ))
+                    {active === '1' ?
+                        !allVideos.isLoading ?
+                            allVideos.data.map(v => (
+                                <Video user={v.user.first_name + ' ' + v.user.last_name} key={v.id} link={v.video_url} title={v.video_title}
+                                    description={v.video_description} creator={v.creator} community={v.community.name} id={v.id} />
+                            ))
+                            :
+                            <Loading />
+                        :
+                        null
+                    }
+                    {active === '2' ?
+                        !joinedVideos.isLoading ?
+                            joinedVideos.data.map(v => (
+                                <Video user={v.user.first_name + ' ' + v.user.last_name} key={v.id} link={v.video_url} title={v.video_title}
+                                    description={v.video_description} creator={v.creator} community={v.community.name} id={v.id} />
+                            ))
+                            :
+                            <Loading />
+                        :
+                        null
                     }
                 </div>
             </div>

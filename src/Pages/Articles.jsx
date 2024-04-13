@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Article from "../components/Article";
 import axiosClient from "../axios-client";
 import Loading from "../components/utils/Loading";
-import Swal from 'sweetalert2';
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
+import { useQuery } from '@tanstack/react-query';
 
 const UserFeed = () => {
     const { user } = useStateContext();
     const [active, setActive] = useState("1");
-    const [articles, setArticles] = useState([]);
-    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+
     const handleClick = (ev) => {
         ev.preventDefault();
         setActive(ev.target.id);
@@ -21,29 +21,22 @@ const UserFeed = () => {
         navigate(`/mentor/add-article/?uid=${user.id}`)
     }
 
-    const getArticles = () => {
-        setLoading(true);
-        axiosClient.get('/articles')
-            .then(res => {
-                setArticles(res.data.data)
-                console.log(res.data);
-                setLoading(false);
-            })
-            .catch(err => {
-                const response = err.response;
-                if (response && response.status === 422) {
-                    Swal.fire({
-                        title: "Error",
-                        text: `${Object.values(response.data.errors)[0]}`,
-                        icon: "warning"
-                    });
-                }
-            })
-    }
 
-    useEffect(() => {
-        getArticles();
-    }, [])
+    const allArticles = useQuery({
+        queryKey: ['all-articles'],
+        queryFn: () => axiosClient.get(`/articles`).then(({data}) => (data.data))
+    })
+
+    console.log(allArticles.data);
+
+    const joinedArticles = useQuery({ 
+        queryKey: ['joined-articles'],
+        queryFn: () => axiosClient.get(`joined/articles`).then(({data}) => (data.data))
+    })
+
+    console.log('Joined articles', joinedArticles.data);
+
+
 
     return (
         <div className="authenticated-container">
@@ -67,10 +60,31 @@ const UserFeed = () => {
                     </div>
                 </div>
                 <div className="card">
-                    {loading ? <Loading /> :
-                        articles.map(a => (
+
+                    {
+                        active === '1' ?
+                        !allArticles.isLoading ?
+                        (
+                            allArticles.data.map(a => (
+                                <Article user={a.user.first_name + ' ' + a.user.last_name} key={a.id} author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name} />
+                            ))
+                        )
+                        :
+                        <Loading />
+                        :
+                        null
+                    }
+                                        {
+                        active === '2' ?
+                        !joinedArticles.isLoading ?
+                        joinedArticles?.data.map(a => (
                             <Article user={a.user.first_name + ' ' + a.user.last_name} key={a.id} author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name} />
                         ))
+                        :
+                        <Loading />
+                        :
+                        null
+            
                     }
                 </div>
 
