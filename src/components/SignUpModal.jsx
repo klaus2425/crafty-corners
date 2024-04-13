@@ -142,7 +142,7 @@ export default function SignUpModal(props) {
 
                                     </select>
                                     <label>Gender:</label>
-                                    <input ref={genderRef} type='text' placeholder='Male/Female/Gay/Lesbian...' required></input>
+                                    <input ref={genderRef} type='text' placeholder='' required></input>
                                 </div>
                             </div>
                         </div>
