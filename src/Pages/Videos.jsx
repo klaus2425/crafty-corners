@@ -31,7 +31,7 @@ const UserFeed = () => {
 
 
     const allVideos = useQuery({
-        queryKey: ['all-articles'],
+        queryKey: ['all-videos'],
         queryFn: () => axiosClient.get(`/videos`).then(({ data }) => (data.data))
     })
 
