@@ -19,7 +19,6 @@ export default function SignUpModal(props) {
     const studentIdRef = useRef();
     const programRef = useRef();
     const passwordConfirmationRef = useRef();
-    const birthdayRef = useRef();
     const numberRef = useRef();
     const profilePictureRef = useRef();
     const genderRef = useRef();
@@ -33,7 +32,6 @@ export default function SignUpModal(props) {
         formData.append('email', emailRef.current.value);
         formData.append('password', passwordRef.current.value);
         formData.append('password_confirmation', passwordConfirmationRef.current.value);
-        formData.append('birthday', birthdayRef.current.value);
         formData.append('profile_picture', profilePictureRef.current.files[0]);
         formData.append('phone_number', numberRef.current.value);
         formData.append('gender', genderRef.current.value);
@@ -95,8 +93,6 @@ export default function SignUpModal(props) {
 
                                 </div>
                                 <div className="right">
-                                    <label>Birthday:</label>
-                                    <input ref={birthdayRef} type='date' placeholder='Birthday' required></input>
                                     <label>Phone Number:</label>
                                     <input type="number" ref={numberRef} required />
                                     <label>Email Address:</label>
