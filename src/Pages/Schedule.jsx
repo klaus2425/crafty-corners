@@ -39,15 +39,21 @@ const Schedule2 = () => {
         setOpen(!open);
     };
 
-    
+
     const eventRender = ({ event }) => {
         if (event.end) {
             return (
-                <div className='event-content' style={{ backgroundColor: event.backgroundColor, color: getCorrectColor(event.backgroundColor) }}>
+                <div className='event-content'
+                    style={{
+                        backgroundColor: event.backgroundColor,
+                        color: getCorrectColor(event.backgroundColor),
+                        cursor: 'pointer',
+                        transition: '0.3s',
+                    }}>
                     <strong>{event.title}</strong>
                     <br />
 
-                    {formatTime(event.start)} - {formatTime(event.end)}
+                    {formatTime(event.start)} to {formatTime(event.end)}
                 </div>
             )
         }
