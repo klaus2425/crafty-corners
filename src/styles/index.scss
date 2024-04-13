@@ -331,14 +331,14 @@ input::-webkit-inner-spin-button {
   color: #FFF;
   font-size: 1rem;
   border: 0;
-  padding: 0.4rem;
+  padding: 0.5rem;
   transition: 0.3s;
   cursor: pointer;
   height: fit-content;
   display: flex;
   text-align: center;
 }
-.btn:hover {
+.btn--purple:hover {
   background-color: $dark_purple;
 }
 
@@ -3466,7 +3466,7 @@ input::-webkit-inner-spin-button {
     font-size: 1rem;
     border: 2px solid $light_grey;
     color: $grey;
-    padding: 1rem;
+    padding: 0.6rem;
   }
 
   .gender-field-holder {
