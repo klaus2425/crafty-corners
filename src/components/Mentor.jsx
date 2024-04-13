@@ -2,25 +2,47 @@ import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 import axiosClient from "../axios-client";
 import { useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast'
 const Mentor = (mentor) => {
   const { user } = useStateContext();
   const navigate = useNavigate()
   const queryClient = useQueryClient();
+
   const handleClick = () => {
     navigate(`/u/${mentor.id}/?uid=${user.id}`)
   }
 
   const handleLike = () => {
     if (mentor.liked_by_user) {
-      axiosClient.post(`/unlike-mentor/${mentor.mentor_id}`)
 
-
+      toast.promise(axiosClient.post(`/unlike-mentor/${mentor.mentor_id}`), {
+        loading: 'Unliking mentor...',
+        success: () => {
+          queryClient.refetchQueries('mentor-list')
+          return <b>Mentor unliked</b>
+        },
+        error: (err) => {
+          return `${err.response.data.message}`
+        },
+      },
+      )
     }
     else {
-      axiosClient.post(`/like-mentor/${mentor.mentor_id}`)
-
+      toast.promise(axiosClient.post(`/like-mentor/${mentor.mentor_id}`), {
+        loading: 'Liking mentor...',
+        success: () => {
+          queryClient.refetchQueries('mentor-list')
+          return <b>Mentor liked</b>
+        },
+        error: (err) => {
+          return `${err.response.data.message}`
+        },
+      },
+      )
     }
   }
+
+  console.log(mentor.liked_by_user);
 
   return (
     <div className="mentor-item-card" >
