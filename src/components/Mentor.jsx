@@ -42,7 +42,6 @@ const Mentor = (mentor) => {
     }
   }
 
-  console.log(mentor.liked_by_user);
 
   return (
     <div className="mentor-item-card" >
