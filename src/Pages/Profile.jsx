@@ -19,7 +19,6 @@ const UserFeed = () => {
     const navigate = useNavigate();
     const params = new URLSearchParams(window.location.search);
     const uid = params.get('uid')
-    console.log(user);
 
     const getPosts = async (page) => {
         const fetchedData = await axiosClient.get(`/user/${uid}/posts?page=${page}`)
