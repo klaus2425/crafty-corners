@@ -51,7 +51,6 @@ const Messages = () => {
 
   useEffect(() => {
     getConversations()
-    Pusher.logToConsole = true;
     echo.private(`user-${uid}`)
     .listen('MessageSent', (data) => {
         getConversations();
