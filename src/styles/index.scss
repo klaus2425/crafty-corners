@@ -520,7 +520,6 @@ input::-webkit-inner-spin-button {
     opacity: 0;
     transition: 0.3s;
     cursor: pointer;
-
   }
 }
 
@@ -533,6 +532,8 @@ input::-webkit-inner-spin-button {
 .attachment-display__image {
   height: clamp(3rem, 20vh, 10rem);
   object-fit: contain;
+  cursor: pointer;
+
 }
 
 .navbar {
@@ -4716,7 +4717,9 @@ input::-webkit-inner-spin-button {
       fill: #FF4444;
     }
   }
-
+  .attachment-display {
+    background-color: var(--bg-color);
+  }
   .notification-card {
     background-color: #242526;
     color: #e4e6eb;
