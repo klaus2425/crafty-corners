@@ -489,6 +489,12 @@ input::-webkit-inner-spin-button {
   }
 }
 
+.attachment-image {
+  width: 100%;
+  height: clamp(3rem, 20vh, 18rem);
+  object-fit: contain;
+  cursor: pointer;
+}
 
 .navbar {
   height: 100%;
@@ -3914,12 +3920,12 @@ input::-webkit-inner-spin-button {
       }
 
       .chat {
-        border-radius: 25px;
+        border-radius: 15px;
         word-break: break-all;
         height: fit-content;
         text-wrap: wrap;
         background-color: $purple;
-        padding: 1rem;
+        padding: 0.5rem;
         color: #FFF;
         max-width: 70ch;
 

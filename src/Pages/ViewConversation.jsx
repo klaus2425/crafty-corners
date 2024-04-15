@@ -15,6 +15,8 @@ const ViewConversation = () => {
   const [hasMore, setHasMore] = useState(true);
   const [messages, setMessages] = useState([]);
   const messageRef = useRef();
+  const { id } = useParams()
+  const attachmentUrl = import.meta.env.VITE_API_BASE_URL
   const [message_id, setMessage_id] = useState();
   const [hasMessage, setHasMessage] = useState(false);
   const params = new URLSearchParams(window.location.search);
@@ -65,9 +67,9 @@ const ViewConversation = () => {
       .then(res => {
         setPageIndex(1)
         setHasMore(true)
-        console.log(res.data);
         conversationEndRef.current?.scrollIntoView();
         setMessages(res.data.data.messages);
+        console.log(res.data.data);
         if (res.data.data.messages.length == 0) {
           setHasMessage(false);
           setHasMore(false);
@@ -102,12 +104,18 @@ const ViewConversation = () => {
     if (fileRef.current.files[0]) {
       formData.append('attachment', fileRef.current.files[0])
     }
-    formData.append('message', messageRef.current.value);
-    axiosClient.post(`/conversation/message/${receiver.id}`, formData)
-      .then(res => {
-        messageRef.current.value = "";
-        getMessages(res.data.data.receiver.receiver_id);
-      })
+
+    if (messageRef.current.value != '' || fileRef.current.files[0]) {
+      formData.append('message', messageRef.current.value);
+      axiosClient.post(`/conversation/message/${receiver.id}`, formData)
+        .then(res => {
+          messageRef.current.value = "";
+          fileRef.current.value = null;
+          getMessages(res.data.data.receiver.receiver_id);
+        })
+    }
+
+
   }
 
   const handleKeyDown = (event) => {
@@ -158,12 +166,12 @@ const ViewConversation = () => {
               <span>{receiver?.type}</span>
             </div>
             <div onClick={() => setDeleteOpen(true)} className='conversation-trash'>
-              <svg width="30" height="30" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* <svg width="30" height="30" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.8333 23.75L15.8333 19" stroke="#FF5C5C" strokeWidth="1.9" strokeLinecap="round" />
                 <path d="M22.1667 23.75L22.1667 19" stroke="#FF5C5C" strokeWidth="1.9" strokeLinecap="round" />
                 <path d="M4.75 11.0833H33.25V11.0833C31.7745 11.0833 31.0368 11.0833 30.4548 11.3244C29.6789 11.6458 29.0624 12.2622 28.741 13.0382C28.5 13.6201 28.5 14.3579 28.5 15.8333V25.3333C28.5 28.3189 28.5 29.8117 27.5725 30.7392C26.645 31.6667 25.1522 31.6667 22.1667 31.6667H15.8333C12.8478 31.6667 11.355 31.6667 10.4275 30.7392C9.5 29.8117 9.5 28.3189 9.5 25.3333V15.8333C9.5 14.3579 9.5 13.6201 9.25895 13.0382C8.93755 12.2622 8.32109 11.6458 7.54516 11.3244C6.96322 11.0833 6.22548 11.0833 4.75 11.0833V11.0833Z" fill="#7E869E" fillOpacity="0.25" stroke="#FF5C5C" strokeWidth="1.9" strokeLinecap="round" />
                 <path d="M15.9412 5.33677C16.1216 5.16843 16.5192 5.01969 17.0722 4.9136C17.6253 4.8075 18.3029 4.75 19 4.75C19.6971 4.75 20.3747 4.8075 20.9277 4.9136C21.4808 5.01969 21.8783 5.16843 22.0588 5.33677" stroke="#FF5C5C" strokeWidth="1.9" strokeLinecap="round" />
-              </svg>
+              </svg> */}
             </div>
           </div>
           <div className="conversation-container">
@@ -180,7 +188,24 @@ const ViewConversation = () => {
                     if (message.sender_id == uid) {
                       return (
                         <div key={message.id} className="conversation-item-user">
-                          <span className="chat">{message.message}</span>
+                          <span className="chat">{message.message}
+                            {message.attachments && message.attachments.map(attachment => {
+                              return attachment.file_type.startsWith('image/') ?
+                                <div key={attachment.id}>
+
+                                  <img className='attachment-image' src={`http://localhost:8000/storage/${attachment.file_path}`} alt="Picture" />
+                                </div>
+                                :
+                                attachment.file_type.startsWith('application/')
+                                  ?
+                                  <div key={attachment.id}>
+                                    <p>File Type: {`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}</p>
+                                    <p>File Path: {`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}</p>
+                                  </div>
+                                  :
+                                  null
+                            })}
+                          </span>
                           <span className='chat-timestamp'>{getTimestamp(message.created_at)}</span>
                           <span onClick={() => {
                             setMessage_id(message.id);
