@@ -46,17 +46,16 @@ const Post = (props) => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosClient.delete(`/posts/${post.id}`)
-                    .then(() => {
-                        queryClient.refetchQueries('posts').then(() => {
-                            Swal.fire({
-                                title: "Deleted!",
-                                text: "Your post has been deleted.",
-                                icon: "success"
-                            });
-                        });
-                    })
-
+                toast.promise(axiosClient.delete(`/posts/${post.id}`), {
+                    loading: 'Deleting post',
+                    success: () => {
+                        queryClient.refetchQueries(`posts`)
+                        return <b>Post deleted!</b>
+                    },
+                    error: (err) => {
+                        return `${err}`
+                    },
+                },)
             }
         });
 
@@ -127,13 +126,13 @@ const Post = (props) => {
                             <h4>{post_user.first_name}</h4>
                             <span id='post-time'>{ago} ago</span>
                         </div>
-       
+
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
                         <div className="flair">
                             <span className="flair__text">
-                                Topic
+                                {post.subtopics}
                             </span>
                         </div>
                     </div>
@@ -208,6 +207,11 @@ const Post = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
+                        <div className="flair">
+                            <span className="flair__text">
+                                {post.subtopics}
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div className="title-content-container" onClick={() => viewPost()}>
@@ -278,6 +282,11 @@ const Post = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
+                        <div className="flair">
+                            <span className="flair__text">
+                                {post.subtopics}
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div className="title-content-container" onClick={() => viewPost()}>
@@ -350,6 +359,11 @@ const Post = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
+                        <div className="flair">
+                            <span className="flair__text">
+                                {post.subtopics}
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div className="title-content-container" onClick={() => viewPost()}>

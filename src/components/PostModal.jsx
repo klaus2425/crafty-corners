@@ -21,6 +21,7 @@ const PostModal = (props) => {
   const [file, setFile] = useState();
   const [count, setCount] = useState();
   const titleRef = useRef();
+  const topicRef = useRef();
   const descriptionRef = useRef();
   const linkRef = useRef();
   const { user } = useStateContext();
@@ -37,83 +38,97 @@ const PostModal = (props) => {
       formData.append('user_id', user.id);
       formData.append('community_id', id);
       formData.append('title', titleRef.current.value);
+      formData.append('subtopics', topicRef.current.value)
       formData.append('video', file);
       formData.append('notifiable', notifiable);
       formData.append('post_type', 'video');
-      axiosClient.post('/posts', formData)
-        .then(() => {
-          queryClient.refetchQueries(`community-${id}`)
-          setLoading(false);
-          handleClose();
-        })
-        .catch(err => {
-          const response = err.response;
-          setLoading(false);
-          if (response && response.status === 422) {
-            toast.error(response.data.message)
-          }
-        });
+      toast.promise(axiosClient.post('/posts', formData)
+        , {
+          loading: 'Posting',
+          success: () => {
+            queryClient.refetchQueries(`posts`);
+            queryClient.refetchQueries(`community-${id}`);
+            handleClose();
+            return <b>Post success!</b>
+          },
+          error: (err) => {
+            return `${err.response.data.message}`
+          },
+        },
+      );
     }
     else if (postType === 'image') {
       const formData = new FormData();
       formData.append('community_id', id);
       formData.append('title', titleRef.current.value);
       formData.append('notifiable', notifiable);
+      formData.append('subtopics', topicRef.current.value)
       formData.append('image', file);
       formData.append('post_type', 'image');
-      axiosClient.post('/posts', formData)
-        .then(() => {
-          queryClient.refetchQueries(`community-${id}`)
-          handleClose();
-
-        })
-        .catch(err => {
-          const response = err.response;
-          if (response && response.status === 422) {
-            toast.error(response.data.message)
-          }
-        })
+      toast.promise(axiosClient.post('/posts', formData)
+        , {
+          loading: 'Posting',
+          success: () => {
+            queryClient.refetchQueries(`community-${id}`);
+            queryClient.refetchQueries(`posts`);
+            handleClose();
+            return <b>Post success!</b>
+          },
+          error: (err) => {
+            return `${err.response.data.message}`
+          },
+        },
+      );
     }
     else if (postType === 'text') {
       const formData = new FormData();
       formData.append('user_id', user.id);
       formData.append('notifiable', notifiable);
+      formData.append('subtopics', topicRef.current.value)
       formData.append('community_id', id);
       formData.append('title', titleRef.current.value);
       formData.append('content', descriptionRef.current.value);
       formData.append('post_type', 'text');
-      axiosClient.post('/posts', formData)
-        .then(() => {
-          queryClient.refetchQueries(`community-${id}`)
-          handleClose();
-        })
-        .catch(err => {
-          const response = err.response;
-          if (response && response.status === 422) {
-            toast.error(response.data.message)
-          }
-        })
+      toast.promise(axiosClient.post('/posts', formData)
+        , {
+          loading: 'Posting',
+          success: () => {
+            queryClient.refetchQueries(`posts`);
+            queryClient.refetchQueries(`community-${id}`);
+            handleClose();
+            return <b>Post success!</b>
+          },
+          error: (err) => {
+            return `${err.response.data.message}`
+          },
+        },
+      );
     }
     else if (postType === 'url') {
       const formData = new FormData();
       formData.append('user_id', user.id);
       formData.append('notifiable', notifiable);
       formData.append('community_id', id);
+      formData.append('subtopics', topicRef.current.value)
       formData.append('title', titleRef.current.value);
       formData.append('link', linkRef.current.value);
       formData.append('content', descriptionRef.current.value);
       formData.append('post_type', 'link');
-      axiosClient.post('/posts', formData)
-        .then(() => {
-          queryClient.refetchQueries(`community-${id}`)
-          handleClose();
-        })
-        .catch(err => {
-          const response = err.response;
-          if (response && response.status === 422) {
-            toast.error(response.data.message)
-          }
-        })
+      formData.append('subtopics', topicRef.current.value)
+      toast.promise(axiosClient.post('/posts', formData)
+        , {
+          loading: 'Posting',
+          success: () => {
+            queryClient.refetchQueries(`posts`);
+            queryClient.refetchQueries(`community-${id}`);
+            handleClose();
+            return <b>Post success!</b>
+          },
+          error: (err) => {
+            return `${err.response.data.message}`
+          },
+        },
+      );
     }
 
   }
@@ -271,7 +286,7 @@ const PostModal = (props) => {
                   }
                 </span>
                 Topic:
-                <select className='post-notification-container__select' name="" id="">
+                <select ref={topicRef} className='post-notification-container__select'>
                   {
                     topics.map((topic, index) => (
                       <option value={topic}>{topic}</option>

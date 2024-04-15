@@ -12,12 +12,12 @@ const MentorApplication = () => {
   const chosenCommunityRef = useRef();
   const specializationRef = useRef();
 
-  const applyForMentorShip = (ev) => {
+  const applyForMentorShip = () => {
     const formData = new FormData();
     formData.append('community_id', chosenCommunityRef.current.value);
     formData.append('specialization', specializationRef.current.value);
-    formData.append('program', 'placeholder'); // Replace
-    formData.append('student_id', '20-00000'); // Replace
+    formData.append('program', user.program);
+    formData.append('student_id', user.student_id);
     formData.append('user_id', user.id);
     axiosClient.post('/apply-for-mentorship', formData)
       .then(() => {
@@ -27,7 +27,6 @@ const MentorApplication = () => {
         toast.error(err.response.data.message)
       }
       );
-
   }
 
   const getCommunities = (ev) => {

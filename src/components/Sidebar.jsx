@@ -15,7 +15,6 @@ export const Sidebar = () => {
     const queryClient = useQueryClient();
 
     useEffect(() => {
-        Pusher.logToConsole = true;
         echo.private(`user-${user.id}`)
             .listen('MessageSent', (data) => {
                 if (!(location.pathname == '/messages') && !(location.pathname == `/conversation/${data.message.conversation_id}`)) {

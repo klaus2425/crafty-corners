@@ -19,11 +19,9 @@ export default function SignUpModal(props) {
     const studentIdRef = useRef();
     const programRef = useRef();
     const passwordConfirmationRef = useRef();
-    const birthdayRef = useRef();
-    const [gender, setGender] = useState('');
     const numberRef = useRef();
     const profilePictureRef = useRef();
-
+    const genderRef = useRef();
     const onSubmit = (ev) => {
         ev.preventDefault();
         const formData = new FormData();
@@ -34,10 +32,9 @@ export default function SignUpModal(props) {
         formData.append('email', emailRef.current.value);
         formData.append('password', passwordRef.current.value);
         formData.append('password_confirmation', passwordConfirmationRef.current.value);
-        formData.append('birthday', birthdayRef.current.value);
         formData.append('profile_picture', profilePictureRef.current.files[0]);
         formData.append('phone_number', numberRef.current.value);
-        formData.append('gender', gender);
+        formData.append('gender', genderRef.current.value);
         formData.append('program', programRef.current.value);
         formData.append('student_id', studentIdRef.current.value)
 
@@ -96,8 +93,6 @@ export default function SignUpModal(props) {
 
                                 </div>
                                 <div className="right">
-                                    <label>Birthday:</label>
-                                    <input ref={birthdayRef} type='date' placeholder='Birthday' required></input>
                                     <label>Phone Number:</label>
                                     <input type="number" ref={numberRef} required />
                                     <label>Email Address:</label>
@@ -142,34 +137,13 @@ export default function SignUpModal(props) {
                                         <option value="Bachelor of Science in Exercise and Sports Science">Bachelor of Science in Exercise and Sports Science</option>
 
                                     </select>
-                                    <div className="gender-label">
-                                        Gender:
-                                    </div>
-                                    <div className="gender-field-holder">
-
-                                        <div className="gender-inputs">
-                                            <div className="gender-container">
-                                                <div className='gender-radio'>
-                                                    <input type="radio" name="gender" value="Male" onChange={ev => setGender(ev.target.value)} required />
-                                                    <span>Male</span>
-                                                </div>
-                                                <div className='gender-radio'>
-                                                    <input type="radio" name="gender" value="Female" onChange={ev => setGender(ev.target.value)} />
-                                                    <span>Female</span>
-                                                </div>
-                                                <div className='gender-radio'>
-                                                    <input type="radio" name="gender" value="Other" onChange={ev => setGender(ev.target.value)} />
-                                                    <span>Other</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                                    <label>Gender:</label>
+                                    <input ref={genderRef} type='text' placeholder='' required></input>
                                 </div>
                             </div>
                         </div>
                         <div className="sign-up-button-container">
-                            <button className='sign-up'>Sign Up</button>
+                            <button className='btn btn--purple'>Sign Up</button>
                         </div>
                     </form>
                 </div>

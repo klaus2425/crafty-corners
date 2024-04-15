@@ -10,7 +10,7 @@ import Loading from '../components/utils/Loading';
 const EditProfile = () => {
 
     const [image, setImage] = useState();
-    const { user, setUser } = useStateContext();
+    const { setUser } = useStateContext();
     const [imageChange, setImageChange] = useState(false);
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
 
@@ -52,7 +52,7 @@ const EditProfile = () => {
             formData.append('birthday', currentUser.birthday);
             formData.append('gender', currentUser.gender);
             axiosClient.post(`users/${currentUser.id}`, formData)
-                .then((res) => {
+                .then(() => {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
@@ -155,38 +155,16 @@ const EditProfile = () => {
                                             <input type="text" value={currentUser.middle_name} onChange={ev => setCurrentUser({ ...currentUser, middle_name: ev.target.value })} required />
                                             <label>Middle Name</label>
                                         </div>
+
+                                    </div>
+                                    <div className="input-col-container">
                                         <div className="field-holder">
                                             <input type="text" value={currentUser.last_name} onChange={ev => setCurrentUser({ ...currentUser, last_name: ev.target.value })} required />
                                             <label>Last Name</label>
                                         </div>
-                                    </div>
-                                    <div className="input-col-container">
                                         <div className="field-holder">
-                                            <input id='input-birthday' type="date" value={currentUser.birthday} onChange={ev => setCurrentUser({ ...currentUser, birthday: ev.target.value })} />
-                                            <label>Birthday</label>
-                                        </div>
-                                        <div className="gender-field-holder">
-                                            <div className="gender-label">
-                                                Gender
-                                            </div>
-                                            <div className="gender-inputs">
-                                                <div className="gender-container">
-                                                    <div className='gender-radio'>
-                                                        <input type="radio" name="gender" value="Male" checked={currentUser.gender === 'Male'} onChange={ev => setCurrentUser({ ...currentUser, gender: ev.target.value })} required />
-                                                        <span>Male</span>
-
-                                                    </div>
-                                                    <div className='gender-radio'>
-                                                        <input type="radio" name="gender" value="Female" checked={currentUser.gender === 'Female'} onChange={ev => setCurrentUser({ ...currentUser, gender: ev.target.value })} />
-                                                        <span>Female</span>
-
-                                                    </div>
-                                                    <div className='gender-radio'>
-                                                        <input type="radio" name="gender" value="Other" checked={currentUser.gender === 'Other'} onChange={ev => setCurrentUser({ ...currentUser, gender: ev.target.value })} />
-                                                        <span>Other</span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <input type="text" value={currentUser.gender} onChange={ev => setCurrentUser({ ...currentUser, gender: ev.target.value })} required />
+                                            <label>Gender</label>
                                         </div>
                                     </div>
                                 </div>

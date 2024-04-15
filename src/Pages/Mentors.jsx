@@ -1,4 +1,3 @@
-import { useState } from "react";
 import axiosClient from "../axios-client";
 import Mentor from "../components/Mentor";
 import { useNavigate } from "react-router-dom";
@@ -23,14 +22,12 @@ const Mentors = () => {
         queryFn: getMentors,
     })
 
+
     return (
         <div className="authenticated-container">
             <div className="feed">
                 <div className='section-header-col'>
-
-
                 </div>
-
                 <div className="mentor-card">
                     
                     <div className="apply-mentor-btn-container">
@@ -46,7 +43,7 @@ const Mentors = () => {
                     {
                         mentors &&
                         mentors.data?.map(mentor => (
-                            <Mentor id={mentor.mentor.user_id} img={storageBaseUrl + mentor.mentor.profile_picture} name={mentor.mentor.first_name} community={mentor.community.name} specialization={mentor.specialization} />
+                            <Mentor liked_by_user={mentor.liked_by_user} like_counts={mentor.like_counts} mentor_id={mentor.id} id={mentor.mentor.user_id} img={storageBaseUrl + mentor.mentor.profile_picture} name={mentor.mentor.first_name} community={mentor.community.name} specialization={mentor.specialization} />
                         ))
                     }
                 </div>

@@ -1,7 +1,7 @@
 import { useStateContext } from '../context/ContextProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { UserPost } from '../components/Post';
 import { useNavigate } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton';
@@ -19,7 +19,6 @@ const UserFeed = () => {
     const navigate = useNavigate();
     const params = new URLSearchParams(window.location.search);
     const uid = params.get('uid')
-
 
     const getPosts = async (page) => {
         const fetchedData = await axiosClient.get(`/user/${uid}/posts?page=${page}`)
@@ -71,7 +70,10 @@ const UserFeed = () => {
                                     {imageLoading && <Skeleton className='profile-picture' circle={true} />}
                                     <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} className='profile-picture' src={`${storageBaseUrl}/${user.profile_picture}`} alt='Profile Picture' />
                                     <div className='display-name'>
-                                        <h2>{user.first_name || <Skeleton />}</h2>
+                                        {
+                                            user.first_name ? <h2>{user.first_name  + ' ' + user.last_name}</h2> : <Skeleton />
+                                        }
+                                        <span>{user.gender || <Skeleton />}</span>
                                         <span>{!userData.isLoading ? `@${userData?.data?.data?.data?.user_name}` : <Skeleton />}</span>
                                         <span>{!userData.isLoading ? `${userData.data.data.data.communities.length} Communities` : <Skeleton />}</span>
 
