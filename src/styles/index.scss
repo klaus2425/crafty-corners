@@ -492,15 +492,17 @@ input::-webkit-inner-spin-button {
 }
 
 .attachment-image {
-  width: 100%;
+  width: clamp(10rem, fit-content, 24rem);
   height: clamp(3rem, 20vh, 18rem);
   object-fit: contain;
   cursor: pointer;
+  border-radius: 15px;
 }
 
 .attachment-display {
   display: flex;
   padding: 0.4rem;
+  width: fit-content;
   align-items: center;
   padding-left: 2rem;
   justify-content: center;
@@ -3874,12 +3876,14 @@ input::-webkit-inner-spin-button {
   .conversation-container {
     display: flex;
     width: 100%;
-    height: 100%;
+      height: 100%;
     max-height: 50vh;
     margin-top: 0.56rem;
     flex-direction: column;
 
-
+    video {
+      border-radius: 20px;
+    }
 
     .conversation-item-sender {
       display: flex;
@@ -3928,6 +3932,9 @@ input::-webkit-inner-spin-button {
         padding: 1rem;
         color: #000000;
         max-width: 70ch;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
 
       }
     }
@@ -3976,6 +3983,9 @@ input::-webkit-inner-spin-button {
         word-break: break-all;
         height: fit-content;
         text-wrap: wrap;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
         background-color: $purple;
         padding: 0.5rem;
         color: #FFF;

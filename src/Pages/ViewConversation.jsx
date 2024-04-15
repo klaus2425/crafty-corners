@@ -74,6 +74,7 @@ const ViewConversation = () => {
       .then(res => {
         setPageIndex(1)
         setHasMore(true)
+        console.log(res.data);
         conversationEndRef.current?.scrollIntoView();
         setMessages(res.data.data.messages);
         if (res.data.data.messages.length == 0) {
@@ -133,17 +134,12 @@ const ViewConversation = () => {
 
   useEffect(() => {
     getReceiver()
-    Pusher.logToConsole = true;
-
     echo.private(`conversation-${conversation_id}`)
       .listen('MessageSent', (data) => {
-        console.log(data);
-        console.log('Dapat lilitaw ako sa console');
-        // if (data.user != uid) {
-        //   getMessages(data.user)
-        //   console.log(res.data.data);
-        
-        // }
+        if (data.user != uid) {
+          getMessages(data.user)
+          console.log(res.data.data);
+        }
       }).error((error) => { console.error(error) });
     conversationEndRef.current?.scrollIntoView();
 
@@ -199,27 +195,64 @@ const ViewConversation = () => {
                     if (message.sender_id == uid) {
                       return (
                         <div key={message.id} className="conversation-item-user">
-                          <span className="chat">{message.message}
-                            {message.attachments && message.attachments.map(attachment => {
-                              return attachment.file_type.startsWith('image/') ?
-                                <div key={attachment.id}>
-                                  <img className='attachment-image' src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
-                                </div>
-                                :
-                                attachment.file_type.startsWith('video/') ?
-                                  <video className='attachment-image' controls src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Video" />
-
-                                  :
-                                  attachment.file_type.startsWith('application/')
-                                    ?
+                          {
+                            message.attachments && message.message ?
+                              message.attachments.map(attachment => {
+                                return attachment.file_type.startsWith('image/') ?
+                                  <span className="chat">{message.message}
                                     <div key={attachment.id}>
-                                      <p>File Type: {`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}</p>
-                                      <p>File Path: {`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}</p>
+                                      <img className='attachment-image' src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
                                     </div>
+                                  </span>
+                                  :
+                                  attachment.file_type.startsWith('video/') ?
+                                    <span className="chat">{message.message}
+                                      <video className='attachment-image' controls src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Video" />
+                                    </span>
                                     :
-                                    null
-                            })}
-                          </span>
+                                    attachment.file_type.startsWith('application/')
+                                      ?
+                                      <div key={attachment.id}>
+                                        <p>File Type: {`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}</p>
+                                        <p>File Path: {`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}</p>
+                                      </div>
+                                      :
+                                      null
+                              })
+                              :
+                              message.attachments ? message.attachments.map(attachment => {
+                                return attachment.file_type.startsWith('image/') ?
+                                  <div key={attachment.id}>
+                                    <img className='attachment-image' src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
+                                  </div>
+                                  :
+                                  attachment.file_type.startsWith('video/') ?
+                                    <video className='attachment-image' controls src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Video" />
+                                    :
+                                    attachment.file_type.startsWith('application/')
+                                      ?
+                                      <div className="chat">
+                                        <div key={attachment.id}>
+                                          <a  href={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}>
+                                            <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                              <path d="M32.5 17.5V7.5H22.5C17.786 7.5 15.4289 7.5 13.9645 8.96447C12.5 10.4289 12.5 12.786 12.5 17.5V42.5C12.5 47.214 12.5 49.5711 13.9645 51.0355C15.4289 52.5 17.786 52.5 22.5 52.5H37.5C42.214 52.5 44.5711 52.5 46.0355 51.0355C47.5 49.5711 47.5 47.214 47.5 42.5V22.5H37.5C35.143 22.5 33.9645 22.5 33.2322 21.7678C32.5 21.0355 32.5 19.857 32.5 17.5Z" fill="#BFC5D5" />
+                                              <path d="M32.9289 7.5H22.5C17.786 7.5 15.4289 7.5 13.9645 8.96447C12.5 10.4289 12.5 12.786 12.5 17.5V42.5C12.5 47.214 12.5 49.5711 13.9645 51.0355C15.4289 52.5 17.786 52.5 22.5 52.5H37.5C42.214 52.5 44.5711 52.5 46.0355 51.0355C47.5 49.5711 47.5 47.214 47.5 42.5V22.0711C47.5 21.0492 47.5 20.5383 47.3097 20.0788C47.1194 19.6194 46.7581 19.2581 46.0355 18.5355L36.4645 8.96447C35.7419 8.24189 35.3806 7.8806 34.9212 7.6903C34.4617 7.5 33.9508 7.5 32.9289 7.5Z" stroke="#222222" stroke-width="3" />
+                                              <path d="M22.5 32.5L37.5 32.5" stroke="#222222" stroke-width="3" stroke-linecap="round" />
+                                              <path d="M22.5 42.5L32.5 42.5" stroke="#222222" stroke-width="3" stroke-linecap="round" />
+                                              <path d="M32.5 7.5V17.5C32.5 19.857 32.5 21.0355 33.2322 21.7678C33.9645 22.5 35.143 22.5 37.5 22.5H47.5" stroke="#222222" stroke-width="3" />
+                                            </svg>
+                                          </a>
+                                          {attachment.file_type}
+                                        </div>
+                                      </div>
+
+                                      :
+                                      null
+                              })
+                                :
+                                message.message ? <span className="chat">{message.message}</span>
+                                  : null
+                          }
                           <span className='chat-timestamp'>{getTimestamp(message.created_at)}</span>
                           <span onClick={() => {
                             setMessage_id(message.id);
@@ -233,6 +266,7 @@ const ViewConversation = () => {
                         </div>
                       )
                     }
+
                     else {
                       return (
                         <div key={message.id} className="conversation-item-sender">
@@ -251,8 +285,7 @@ const ViewConversation = () => {
                                   attachment.file_type.startsWith('application/')
                                     ?
                                     <div key={attachment.id}>
-                                      <p>File Type: {`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}</p>
-                                      <p>File Path: {`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}</p>
+                                      {attachment.name}
                                     </div>
                                     :
                                     null
