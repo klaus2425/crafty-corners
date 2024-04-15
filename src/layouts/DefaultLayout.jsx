@@ -6,9 +6,9 @@ import { Sidebar } from "../components/Sidebar";
 import { useThemeContext } from "../context/ThemeProvider";
 import axiosClient from "../axios-client";
 import { useQuery } from "@tanstack/react-query";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 const DefaultLayout = () => {
-    const { user, token, setUser, setToken } = useStateContext();
+    const { user, token, setUser } = useStateContext();
     const { theme } = useThemeContext();
     const navigate = useNavigate();
     const { data, isLoading } = useQuery({

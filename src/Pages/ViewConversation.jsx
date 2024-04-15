@@ -1,13 +1,14 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useRef, useState, } from 'react';
 import { useNavigate } from 'react-router-dom'
-import Pusher from 'pusher-js';
 import axiosClient from '../axios-client';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Loading from '../components/utils/Loading';
 import echo from '../components/Echo';
 import ConfirmDeleteMessageModal from '../components/ConfirmDeleteMessageModal';
+import ImageModal from '../components/ImageModal';
+import Pusher from 'pusher-js';
 
 const ViewConversation = () => {
 
@@ -16,6 +17,7 @@ const ViewConversation = () => {
   const [messages, setMessages] = useState([]);
   const messageRef = useRef();
   const [message_id, setMessage_id] = useState();
+  const [imagePath, setImagePath] = useState()
   const [hasMessage, setHasMessage] = useState(false);
   const params = new URLSearchParams(window.location.search);
   const user_id0 = params.get('user_id0');
@@ -29,11 +31,24 @@ const ViewConversation = () => {
   const conversationEndRef = useRef(null);
   const [file, setFile] = useState();
   const fileRef = useRef();
+  const [viewImage, setViewImage] = useState(false);
+  const [fileName, setFileName] = useState('');
+  const removeAttachment = () => {
+    setFile(null);
+    fileRef.current.value = null;
+  }
   const handleBack = () => {
     navigate(`/messages?uid=${uid}`)
   }
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteMessageOpen, setDeleteMessageOpen] = useState(false);
+
+  const viewFullImage = (path) => {
+
+    setImagePath(path);
+    setViewImage(true);
+  }
+
 
   const getTimestamp = (date) => {
     const dateObject = new Date(date);
@@ -52,6 +67,9 @@ const ViewConversation = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setFile(reader.result);
+        console.log(event.target.files[0].name);
+        setFileName(event.target.files[0].name)
+
       };
       reader.readAsDataURL(file);
     }
@@ -74,7 +92,6 @@ const ViewConversation = () => {
       .then(res => {
         setPageIndex(1)
         setHasMore(true)
-        console.log(res.data);
         conversationEndRef.current?.scrollIntoView();
         setMessages(res.data.data.messages);
         if (res.data.data.messages.length == 0) {
@@ -119,6 +136,7 @@ const ViewConversation = () => {
           setFile(null);
           conversationEndRef.current?.scrollIntoView();
           fileRef.current.value = null;
+          setFileName('');
           getMessages(res.data.data.receiver.receiver_id);
         })
     }
@@ -133,15 +151,15 @@ const ViewConversation = () => {
   }
 
   useEffect(() => {
-    getReceiver()
+    getReceiver();
+
     echo.private(`conversation-${conversation_id}`)
       .listen('MessageSent', (data) => {
+        console.log(`From conversation-${conversation_id} channel`, data);
         if (data.user != uid) {
           getMessages(data.user)
-          console.log(res.data.data);
         }
-      }).error((error) => { console.error(error) });
-    conversationEndRef.current?.scrollIntoView();
+      })
 
     return () => {
       echo.leave(`conversation-${conversation_id}`);
@@ -164,6 +182,8 @@ const ViewConversation = () => {
           <h3>Messages</h3>
         </div>
         <div className='conversation-card'>
+          <ImageModal isOpen={viewImage} setIsOpen={setViewImage} image={imagePath} />
+
           <div className="conversation-name">
             <svg className='message-back' onClick={handleBack} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M4 8L3.64645 8.35355L3.29289 8L3.64645 7.64645L4 8ZM9 19.5C8.72386 19.5 8.5 19.2761 8.5 19C8.5 18.7239 8.72386 18.5 9 18.5L9 19.5ZM8.64645 13.3536L3.64645 8.35355L4.35355 7.64645L9.35355 12.6464L8.64645 13.3536ZM3.64645 7.64645L8.64645 2.64645L9.35355 3.35355L4.35355 8.35355L3.64645 7.64645ZM4 7.5L14.5 7.5L14.5 8.5L4 8.5L4 7.5ZM14.5 19.5L9 19.5L9 18.5L14.5 18.5L14.5 19.5ZM20.5 13.5C20.5 16.8137 17.8137 19.5 14.5 19.5L14.5 18.5C17.2614 18.5 19.5 16.2614 19.5 13.5L20.5 13.5ZM14.5 7.5C17.8137 7.5 20.5 10.1863 20.5 13.5L19.5 13.5C19.5 10.7386 17.2614 8.5 14.5 8.5L14.5 7.5Z" fill="#222222" />
@@ -201,53 +221,59 @@ const ViewConversation = () => {
                                 return attachment.file_type.startsWith('image/') ?
                                   <span className="chat">{message.message}
                                     <div key={attachment.id}>
-                                      <img className='attachment-image' src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
+                                      <img onClick={() => viewFullImage(`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`)} className='attachment-image' src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
                                     </div>
                                   </span>
                                   :
                                   attachment.file_type.startsWith('video/') ?
                                     <span className="chat">{message.message}
-                                      <video className='attachment-image' controls src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Video" />
+                                      <video className='attachment-image' controls src={`${import.meta.env.VITE_API_MESSAGES_URL}/${attachment.file_path}`} alt="Video" />
                                     </span>
                                     :
-                                    attachment.file_type.startsWith('application/')
-                                      ?
-                                      <div key={attachment.id}>
-                                        <p>File Type: {`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}</p>
-                                        <p>File Path: {`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}</p>
+
+                                    <div className="chat">
+                                      {message.message}
+                                      <div className='flex flex--column' key={attachment.id}>
+                                        <a download={'download'} href={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}>
+                                          <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M32.5 17.5V7.5H22.5C17.786 7.5 15.4289 7.5 13.9645 8.96447C12.5 10.4289 12.5 12.786 12.5 17.5V42.5C12.5 47.214 12.5 49.5711 13.9645 51.0355C15.4289 52.5 17.786 52.5 22.5 52.5H37.5C42.214 52.5 44.5711 52.5 46.0355 51.0355C47.5 49.5711 47.5 47.214 47.5 42.5V22.5H37.5C35.143 22.5 33.9645 22.5 33.2322 21.7678C32.5 21.0355 32.5 19.857 32.5 17.5Z" fill="#BFC5D5" />
+                                            <path d="M32.9289 7.5H22.5C17.786 7.5 15.4289 7.5 13.9645 8.96447C12.5 10.4289 12.5 12.786 12.5 17.5V42.5C12.5 47.214 12.5 49.5711 13.9645 51.0355C15.4289 52.5 17.786 52.5 22.5 52.5H37.5C42.214 52.5 44.5711 52.5 46.0355 51.0355C47.5 49.5711 47.5 47.214 47.5 42.5V22.0711C47.5 21.0492 47.5 20.5383 47.3097 20.0788C47.1194 19.6194 46.7581 19.2581 46.0355 18.5355L36.4645 8.96447C35.7419 8.24189 35.3806 7.8806 34.9212 7.6903C34.4617 7.5 33.9508 7.5 32.9289 7.5Z" stroke="#222222" strokeWidth="3" />
+                                            <path d="M26 36.5L41 36.5" stroke="#222222" strokeWidth="3" strokeLinecap="round" />
+                                            <path d="M29 43L39 43" stroke="#222222" strokeWidth="3" strokeLinecap="round" />
+                                            <path d="M32.5 7.5V17.5C32.5 19.857 32.5 21.0355 33.2322 21.7678C33.9645 22.5 35.143 22.5 37.5 22.5H47.5" stroke="#222222" strokeWidth="3" />
+                                          </svg>
+                                        </a>
+                                        {attachment.file_name}
                                       </div>
-                                      :
-                                      null
+                                    </div>
+
                               })
                               :
                               message.attachments ? message.attachments.map(attachment => {
                                 return attachment.file_type.startsWith('image/') ?
                                   <div key={attachment.id}>
-                                    <img className='attachment-image' src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
+                                    <img onClick={() => viewFullImage(`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`)} className='attachment-image' src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
                                   </div>
                                   :
                                   attachment.file_type.startsWith('video/') ?
                                     <video className='attachment-image' controls src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Video" />
                                     :
-                                    attachment.file_type.startsWith('application/')
-                                      ?
-                                      <div className="chat">
-                                        <div key={attachment.id}>
-                                          <a  href={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}>
-                                            <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                              <path d="M32.5 17.5V7.5H22.5C17.786 7.5 15.4289 7.5 13.9645 8.96447C12.5 10.4289 12.5 12.786 12.5 17.5V42.5C12.5 47.214 12.5 49.5711 13.9645 51.0355C15.4289 52.5 17.786 52.5 22.5 52.5H37.5C42.214 52.5 44.5711 52.5 46.0355 51.0355C47.5 49.5711 47.5 47.214 47.5 42.5V22.5H37.5C35.143 22.5 33.9645 22.5 33.2322 21.7678C32.5 21.0355 32.5 19.857 32.5 17.5Z" fill="#BFC5D5" />
-                                              <path d="M32.9289 7.5H22.5C17.786 7.5 15.4289 7.5 13.9645 8.96447C12.5 10.4289 12.5 12.786 12.5 17.5V42.5C12.5 47.214 12.5 49.5711 13.9645 51.0355C15.4289 52.5 17.786 52.5 22.5 52.5H37.5C42.214 52.5 44.5711 52.5 46.0355 51.0355C47.5 49.5711 47.5 47.214 47.5 42.5V22.0711C47.5 21.0492 47.5 20.5383 47.3097 20.0788C47.1194 19.6194 46.7581 19.2581 46.0355 18.5355L36.4645 8.96447C35.7419 8.24189 35.3806 7.8806 34.9212 7.6903C34.4617 7.5 33.9508 7.5 32.9289 7.5Z" stroke="#222222" stroke-width="3" />
-                                              <path d="M22.5 32.5L37.5 32.5" stroke="#222222" stroke-width="3" stroke-linecap="round" />
-                                              <path d="M22.5 42.5L32.5 42.5" stroke="#222222" stroke-width="3" stroke-linecap="round" />
-                                              <path d="M32.5 7.5V17.5C32.5 19.857 32.5 21.0355 33.2322 21.7678C33.9645 22.5 35.143 22.5 37.5 22.5H47.5" stroke="#222222" stroke-width="3" />
-                                            </svg>
-                                          </a>
-                                          {attachment.file_type}
-                                        </div>
-                                      </div>
 
-                                      :
-                                      null
+                                    <div className="chat">
+                                      <div className='flex flex--column' key={attachment.id}>
+                                        <a href={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}>
+                                          <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M32.5 17.5V7.5H22.5C17.786 7.5 15.4289 7.5 13.9645 8.96447C12.5 10.4289 12.5 12.786 12.5 17.5V42.5C12.5 47.214 12.5 49.5711 13.9645 51.0355C15.4289 52.5 17.786 52.5 22.5 52.5H37.5C42.214 52.5 44.5711 52.5 46.0355 51.0355C47.5 49.5711 47.5 47.214 47.5 42.5V22.5H37.5C35.143 22.5 33.9645 22.5 33.2322 21.7678C32.5 21.0355 32.5 19.857 32.5 17.5Z" fill="#BFC5D5" />
+                                            <path d="M32.9289 7.5H22.5C17.786 7.5 15.4289 7.5 13.9645 8.96447C12.5 10.4289 12.5 12.786 12.5 17.5V42.5C12.5 47.214 12.5 49.5711 13.9645 51.0355C15.4289 52.5 17.786 52.5 22.5 52.5H37.5C42.214 52.5 44.5711 52.5 46.0355 51.0355C47.5 49.5711 47.5 47.214 47.5 42.5V22.0711C47.5 21.0492 47.5 20.5383 47.3097 20.0788C47.1194 19.6194 46.7581 19.2581 46.0355 18.5355L36.4645 8.96447C35.7419 8.24189 35.3806 7.8806 34.9212 7.6903C34.4617 7.5 33.9508 7.5 32.9289 7.5Z" stroke="#222222" strokeWidth="3" />
+                                            <path d="M22.5 32.5L37.5 32.5" stroke="#222222" strokeWidth="3" strokeLinecap="round" />
+                                            <path d="M22.5 42.5L32.5 42.5" stroke="#222222" strokeWidth="3" strokeLinecap="round" />
+                                            <path d="M32.5 7.5V17.5C32.5 19.857 32.5 21.0355 33.2322 21.7678C33.9645 22.5 35.143 22.5 37.5 22.5H47.5" stroke="#222222" strokeWidth="3" />
+                                          </svg>
+                                        </a>
+                                        {attachment.file_name}
+                                      </div>
+                                    </div>
+
                               })
                                 :
                                 message.message ? <span className="chat">{message.message}</span>
@@ -271,26 +297,68 @@ const ViewConversation = () => {
                       return (
                         <div key={message.id} className="conversation-item-sender">
                           <img className='chat-img' src={`${storageBaseUrl}${receiver?.profile_picture}`} alt="" />
-                          <span className="chat">{message.message}
-                            {message.attachments && message.attachments.map(attachment => {
-                              return attachment.file_type.startsWith('image/') ?
-                                <div key={attachment.id}>
-                                  <img className='attachment-image' src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
-                                </div>
-                                :
-                                attachment.file_type.startsWith('video/') ?
-                                  <video className='attachment-image' controls src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Video" />
-
-                                  :
-                                  attachment.file_type.startsWith('application/')
-                                    ?
+                          {
+                            message.attachments && message.message ?
+                              message.attachments.map(attachment => {
+                                return attachment.file_type.startsWith('image/') ?
+                                  <span className="chat">{message.message}
                                     <div key={attachment.id}>
-                                      {attachment.name}
+                                      <img className='attachment-image' onClick={() => viewFullImage(`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`)} src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
                                     </div>
+                                  </span>
+                                  :
+                                  attachment.file_type.startsWith('video/') ?
+                                    <span className="chat">{message.message}
+                                      <video className='attachment-image' controls src={`${import.meta.env.VITE_API_MESSAGES_URL}/${attachment.file_path}`} alt="Video" />
+                                    </span>
                                     :
-                                    null
-                            })}
-                          </span>
+
+                                    <div className="chat">
+                                      {message.message}
+                                      <div className='flex flex--column' key={attachment.id}>
+                                        <a download={'download'} href={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}>
+                                          <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M32.5 17.5V7.5H22.5C17.786 7.5 15.4289 7.5 13.9645 8.96447C12.5 10.4289 12.5 12.786 12.5 17.5V42.5C12.5 47.214 12.5 49.5711 13.9645 51.0355C15.4289 52.5 17.786 52.5 22.5 52.5H37.5C42.214 52.5 44.5711 52.5 46.0355 51.0355C47.5 49.5711 47.5 47.214 47.5 42.5V22.5H37.5C35.143 22.5 33.9645 22.5 33.2322 21.7678C32.5 21.0355 32.5 19.857 32.5 17.5Z" fill="#BFC5D5" />
+                                            <path d="M32.9289 7.5H22.5C17.786 7.5 15.4289 7.5 13.9645 8.96447C12.5 10.4289 12.5 12.786 12.5 17.5V42.5C12.5 47.214 12.5 49.5711 13.9645 51.0355C15.4289 52.5 17.786 52.5 22.5 52.5H37.5C42.214 52.5 44.5711 52.5 46.0355 51.0355C47.5 49.5711 47.5 47.214 47.5 42.5V22.0711C47.5 21.0492 47.5 20.5383 47.3097 20.0788C47.1194 19.6194 46.7581 19.2581 46.0355 18.5355L36.4645 8.96447C35.7419 8.24189 35.3806 7.8806 34.9212 7.6903C34.4617 7.5 33.9508 7.5 32.9289 7.5Z" stroke="#222222" strokeWidth="3" />
+                                            <path d="M26 36.5L41 36.5" stroke="#222222" strokeWidth="3" strokeLinecap="round" />
+                                            <path d="M29 43L39 43" stroke="#222222" strokeWidth="3" strokeLinecap="round" />
+                                            <path d="M32.5 7.5V17.5C32.5 19.857 32.5 21.0355 33.2322 21.7678C33.9645 22.5 35.143 22.5 37.5 22.5H47.5" stroke="#222222" strokeWidth="3" />
+                                          </svg>
+                                        </a>
+                                        {attachment.file_name}
+                                      </div>
+                                    </div>
+
+                              })
+                              :
+                              message.attachments ? message.attachments.map(attachment => {
+                                return attachment.file_type.startsWith('image/') ?
+                                  <div key={attachment.id}>
+                                    <img className='attachment-image' onClick={() => viewFullImage(`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`)} src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
+                                  </div>
+                                  :
+                                  attachment.file_type.startsWith('video/') ?
+                                    <video className='attachment-image' controls src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Video" />
+                                    :
+                                    <div className="chat">
+                                      <div className='flex flex--column' key={attachment.id}>
+                                        <a href={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`}>
+                                          <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M32.5 17.5V7.5H22.5C17.786 7.5 15.4289 7.5 13.9645 8.96447C12.5 10.4289 12.5 12.786 12.5 17.5V42.5C12.5 47.214 12.5 49.5711 13.9645 51.0355C15.4289 52.5 17.786 52.5 22.5 52.5H37.5C42.214 52.5 44.5711 52.5 46.0355 51.0355C47.5 49.5711 47.5 47.214 47.5 42.5V22.5H37.5C35.143 22.5 33.9645 22.5 33.2322 21.7678C32.5 21.0355 32.5 19.857 32.5 17.5Z" fill="#BFC5D5" />
+                                            <path d="M32.9289 7.5H22.5C17.786 7.5 15.4289 7.5 13.9645 8.96447C12.5 10.4289 12.5 12.786 12.5 17.5V42.5C12.5 47.214 12.5 49.5711 13.9645 51.0355C15.4289 52.5 17.786 52.5 22.5 52.5H37.5C42.214 52.5 44.5711 52.5 46.0355 51.0355C47.5 49.5711 47.5 47.214 47.5 42.5V22.0711C47.5 21.0492 47.5 20.5383 47.3097 20.0788C47.1194 19.6194 46.7581 19.2581 46.0355 18.5355L36.4645 8.96447C35.7419 8.24189 35.3806 7.8806 34.9212 7.6903C34.4617 7.5 33.9508 7.5 32.9289 7.5Z" stroke="#222222" strokeWidth="3" />
+                                            <path d="M22.5 32.5L37.5 32.5" stroke="#222222" strokeWidth="3" strokeLinecap="round" />
+                                            <path d="M22.5 42.5L32.5 42.5" stroke="#222222" strokeWidth="3" strokeLinecap="round" />
+                                            <path d="M32.5 7.5V17.5C32.5 19.857 32.5 21.0355 33.2322 21.7678C33.9645 22.5 35.143 22.5 37.5 22.5H47.5" stroke="#222222" strokeWidth="3" />
+                                          </svg>
+                                        </a>
+                                        {attachment.file_name}
+                                      </div>
+                                    </div>
+                              })
+                                :
+                                message.message ? <span className="chat">{message.message}</span>
+                                  : null
+                          }
 
                           <span className='chat-timestamp'>{getTimestamp(message.created_at)}</span>
                           <span onClick={() => {
@@ -309,15 +377,11 @@ const ViewConversation = () => {
                 }
               </InfiniteScroll>
             </div>
-            <div className='end' ref={conversationEndRef}></div>
             {
               file ?
                 fileType.startsWith('image/') ?
-                  <div className='attachment-display'>{fileType}<img className='attachment-display__image' src={file} alt="" />
-                    <span onClick={() => {
-                      setFile(null);
-                      fileRef.current.files[0] = null;
-                    }} className='delete-message'>
+                  <div className='attachment-display'><img onClick={() => viewFullImage(file)} className='attachment-display__image' src={file} alt="" />
+                    <span onClick={removeAttachment} className='delete-message'>
                       <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd" d="M25.4688 7.8125H4.28125V11.3438C5.58142 11.3438 6.63542 12.3977 6.63542 13.6979V18.4062C6.63542 21.7355 6.63542 23.4002 7.6697 24.4345C8.70398 25.4688 10.3686 25.4688 13.6979 25.4688H16.0521C19.3814 25.4688 21.046 25.4688 22.0803 24.4345C23.1146 23.4002 23.1146 21.7355 23.1146 18.4062V13.6979C23.1146 12.3977 24.1686 11.3438 25.4688 11.3438V7.8125ZM13.1094 13.6979C13.1094 13.0479 12.5824 12.5209 11.9323 12.5209C11.2822 12.5209 10.7552 13.0479 10.7552 13.6979V19.5834C10.7552 20.2335 11.2822 20.7604 11.9323 20.7604C12.5824 20.7604 13.1094 20.2335 13.1094 19.5834V13.6979ZM18.9948 13.6979C18.9948 13.0479 18.4678 12.5209 17.8177 12.5209C17.1677 12.5209 16.6407 13.0479 16.6407 13.6979V19.5834C16.6407 20.2335 17.1677 20.7604 17.8177 20.7604C18.4678 20.7604 18.9948 20.2335 18.9948 19.5834V13.6979Z" fill="#EA4242" />
                         <path d="M12.6011 4.71747C12.7353 4.59232 13.0308 4.48174 13.442 4.40287C13.8531 4.324 14.3568 4.28125 14.8751 4.28125C15.3933 4.28125 15.8971 4.324 16.3082 4.40287C16.7193 4.48174 17.0149 4.59232 17.149 4.71747" stroke="#EA4242" strokeWidth="2.35417" strokeLinecap="round" />
@@ -326,12 +390,9 @@ const ViewConversation = () => {
                   </div>
                   :
                   fileType.startsWith('video/') ?
-                    <div className='attachment-display'>{fileType}
+                    <div className='attachment-display'>
                       <video className='attachment-display__image' src={file} controls />
-                      <span onClick={() => {
-                        setFile(null);
-                        fileRef.current.files[0] = null;
-                      }} className='delete-message'>
+                      <span onClick={removeAttachment} className='delete-message'>
                         <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path fillRule="evenodd" clipRule="evenodd" d="M25.4688 7.8125H4.28125V11.3438C5.58142 11.3438 6.63542 12.3977 6.63542 13.6979V18.4062C6.63542 21.7355 6.63542 23.4002 7.6697 24.4345C8.70398 25.4688 10.3686 25.4688 13.6979 25.4688H16.0521C19.3814 25.4688 21.046 25.4688 22.0803 24.4345C23.1146 23.4002 23.1146 21.7355 23.1146 18.4062V13.6979C23.1146 12.3977 24.1686 11.3438 25.4688 11.3438V7.8125ZM13.1094 13.6979C13.1094 13.0479 12.5824 12.5209 11.9323 12.5209C11.2822 12.5209 10.7552 13.0479 10.7552 13.6979V19.5834C10.7552 20.2335 11.2822 20.7604 11.9323 20.7604C12.5824 20.7604 13.1094 20.2335 13.1094 19.5834V13.6979ZM18.9948 13.6979C18.9948 13.0479 18.4678 12.5209 17.8177 12.5209C17.1677 12.5209 16.6407 13.0479 16.6407 13.6979V19.5834C16.6407 20.2335 17.1677 20.7604 17.8177 20.7604C18.4678 20.7604 18.9948 20.2335 18.9948 19.5834V13.6979Z" fill="#EA4242" />
                           <path d="M12.6011 4.71747C12.7353 4.59232 13.0308 4.48174 13.442 4.40287C13.8531 4.324 14.3568 4.28125 14.8751 4.28125C15.3933 4.28125 15.8971 4.324 16.3082 4.40287C16.7193 4.48174 17.0149 4.59232 17.149 4.71747" stroke="#EA4242" strokeWidth="2.35417" strokeLinecap="round" />
@@ -339,11 +400,30 @@ const ViewConversation = () => {
                       </span>
                     </div>
                     :
-                    null
+                    <div className='attachment-display'>
+                      <div className="flex flex--column">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M32.5 17.5V7.5H22.5C17.786 7.5 15.4289 7.5 13.9645 8.96447C12.5 10.4289 12.5 12.786 12.5 17.5V42.5C12.5 47.214 12.5 49.5711 13.9645 51.0355C15.4289 52.5 17.786 52.5 22.5 52.5H37.5C42.214 52.5 44.5711 52.5 46.0355 51.0355C47.5 49.5711 47.5 47.214 47.5 42.5V22.5H37.5C35.143 22.5 33.9645 22.5 33.2322 21.7678C32.5 21.0355 32.5 19.857 32.5 17.5Z" fill="#BFC5D5" />
+                          <path d="M32.9289 7.5H22.5C17.786 7.5 15.4289 7.5 13.9645 8.96447C12.5 10.4289 12.5 12.786 12.5 17.5V42.5C12.5 47.214 12.5 49.5711 13.9645 51.0355C15.4289 52.5 17.786 52.5 22.5 52.5H37.5C42.214 52.5 44.5711 52.5 46.0355 51.0355C47.5 49.5711 47.5 47.214 47.5 42.5V22.0711C47.5 21.0492 47.5 20.5383 47.3097 20.0788C47.1194 19.6194 46.7581 19.2581 46.0355 18.5355L36.4645 8.96447C35.7419 8.24189 35.3806 7.8806 34.9212 7.6903C34.4617 7.5 33.9508 7.5 32.9289 7.5Z" stroke="#222222" strokeWidth="3" />
+                          <path d="M22.5 32.5L37.5 32.5" stroke="#222222" strokeWidth="3" strokeLinecap="round" />
+                          <path d="M22.5 42.5L32.5 42.5" stroke="#222222" strokeWidth="3" strokeLinecap="round" />
+                          <path d="M32.5 7.5V17.5C32.5 19.857 32.5 21.0355 33.2322 21.7678C33.9645 22.5 35.143 22.5 37.5 22.5H47.5" stroke="#222222" strokeWidth="3" />
+                        </svg>
+                        {fileName}
+                      </div>
+
+                      <span onClick={removeAttachment} className='delete-message'>
+                        <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fillRule="evenodd" clipRule="evenodd" d="M25.4688 7.8125H4.28125V11.3438C5.58142 11.3438 6.63542 12.3977 6.63542 13.6979V18.4062C6.63542 21.7355 6.63542 23.4002 7.6697 24.4345C8.70398 25.4688 10.3686 25.4688 13.6979 25.4688H16.0521C19.3814 25.4688 21.046 25.4688 22.0803 24.4345C23.1146 23.4002 23.1146 21.7355 23.1146 18.4062V13.6979C23.1146 12.3977 24.1686 11.3438 25.4688 11.3438V7.8125ZM13.1094 13.6979C13.1094 13.0479 12.5824 12.5209 11.9323 12.5209C11.2822 12.5209 10.7552 13.0479 10.7552 13.6979V19.5834C10.7552 20.2335 11.2822 20.7604 11.9323 20.7604C12.5824 20.7604 13.1094 20.2335 13.1094 19.5834V13.6979ZM18.9948 13.6979C18.9948 13.0479 18.4678 12.5209 17.8177 12.5209C17.1677 12.5209 16.6407 13.0479 16.6407 13.6979V19.5834C16.6407 20.2335 17.1677 20.7604 17.8177 20.7604C18.4678 20.7604 18.9948 20.2335 18.9948 19.5834V13.6979Z" fill="#EA4242" />
+                          <path d="M12.6011 4.71747C12.7353 4.59232 13.0308 4.48174 13.442 4.40287C13.8531 4.324 14.3568 4.28125 14.8751 4.28125C15.3933 4.28125 15.8971 4.324 16.3082 4.40287C16.7193 4.48174 17.0149 4.59232 17.149 4.71747" stroke="#EA4242" strokeWidth="2.35417" strokeLinecap="round" />
+                        </svg>
+                      </span>
+                    </div>
                 :
                 null
             }
           </div>
+          <div className='end' ref={conversationEndRef}></div>
           <div>
             <div className="textbox">
               <div className='text-icon-container'>
