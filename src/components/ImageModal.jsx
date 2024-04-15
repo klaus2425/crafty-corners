@@ -1,9 +1,7 @@
 
 const ImageModal = (props) => {
 
-  const handleClose = () => {
-    props.setIsOpen(false);
-  }
+
   const handleClick = () => {
     props.setIsOpen(false)
   }
