@@ -31,6 +31,10 @@ const AdminNavbar = () => {
             .then(({ data }) => {
                 setUser(data)
             })
+            .catch(() => {
+                setToken(null);
+                navigate('/')
+            })
     }, []);
 
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
