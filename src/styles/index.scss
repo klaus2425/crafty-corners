@@ -516,6 +516,7 @@ input::-webkit-inner-spin-button {
   margin-left: 1rem;
   border-radius: 20px;
   margin-bottom: 0.5rem;
+
   .delete-message {
     opacity: 0;
     transition: 0.3s;
@@ -913,15 +914,18 @@ input::-webkit-inner-spin-button {
   transition: 0.3s;
 }
 
+#home {
+  gap: 1rem;
+}
+
 .authenticated-container {
-  padding-top: 2.25rem;
+  margin-top: 2rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 2rem);
   overflow-y: auto;
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
 
   .no-badges-text {
@@ -946,7 +950,7 @@ input::-webkit-inner-spin-button {
     background: rgba($color: #000000, $alpha: 0.7);
     z-index: 1000;
   }
-  
+
 
   .post-modal {
     display: flex;
@@ -1527,25 +1531,33 @@ input::-webkit-inner-spin-button {
   }
 
   .sidebar {
-    position: fixed;
-    left: 0;
-    margin-top: 1.9rem;
     display: flex;
+    width: clamp(3rem, 30vw, 30rem);
+    height: clamp(3rem, 90vh, 40rem);
     flex-direction: column;
-    min-width: 20%;
     align-items: end;
+    margin-left: clamp(0.5rem, 2vw, 2.25rem);
+    margin-top: clamp(2rem, 14vh, 10rem);
 
     .sidebar-upper {
+      height: clamp(3rem, 90vh, 40rem);
       display: flex;
       width: fit-content;
       flex-direction: column;
-      margin-top: 5rem;
+      margin-bottom: 2rem;
+
+      a {
+        font-size: clamp(1.12rem, 2vw, 1.5rem);
+      }
     }
 
     .sidebar-lower {
+      height: clamp(3rem, 90vh, 40rem);
       display: flex;
       flex-direction: column;
-      margin-top: 6rem;
+      a {
+        font-size: clamp(1.12rem, 2vw, 1.5rem);
+      }
     }
   }
 
@@ -1579,21 +1591,19 @@ input::-webkit-inner-spin-button {
 
   .feed {
     display: flex;
-    width: 50%;
+    width: 60%;
     height: 100%;
     overflow-y: scroll;
     align-items: center;
     flex-direction: column;
-    margin-left: clamp(12rem, 30vw, 30rem);
     padding: 0.5rem 0.5rem 0 0.5rem;
   }
 
   .acc-settings-feed {
     display: flex;
-    width: 40%;
+    width: 100%;
     align-items: center;
     flex-direction: column;
-    margin-left: clamp(20rem, 30vw, 30rem);
 
 
     .purple-button {
@@ -2343,6 +2353,7 @@ input::-webkit-inner-spin-button {
 
     .posts-col {
       display: flex;
+      width: 100%;
       height: 100%;
       flex-direction: column;
       align-items: center;
@@ -3490,12 +3501,11 @@ input::-webkit-inner-spin-button {
   }
 
   .landing-container {
-    min-height: calc(100vh - 4.5rem);
-    ;
+    min-height: calc(100vh - 80px);
+    padding-top: clamp(1rem, 12vh, 15rem);
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
-    padding-top: 12.5rem;
     text-align: center;
     align-items: center;
 
@@ -3844,6 +3854,7 @@ input::-webkit-inner-spin-button {
   .message-back {
     cursor: pointer;
   }
+
   .overlay {
     position: fixed;
     display: flex;
@@ -3856,9 +3867,11 @@ input::-webkit-inner-spin-button {
     background: rgba($color: #000000, $alpha: 0.7);
     z-index: 1000;
   }
+
   .image-modal {
     display: flex;
     justify-content: center;
+
     img {
       width: clamp(30rem, 100vw, 80rem);
       height: clamp(30rem, 100vh, 50rem);
@@ -4023,6 +4036,7 @@ input::-webkit-inner-spin-button {
         padding: 0.5rem;
         color: #FFF;
         max-width: 70ch;
+
         a {
           text-align: center;
         }
@@ -4717,9 +4731,11 @@ input::-webkit-inner-spin-button {
       fill: #FF4444;
     }
   }
+
   .attachment-display {
     background-color: var(--bg-color);
   }
+
   .notification-card {
     background-color: #242526;
     color: #e4e6eb;
