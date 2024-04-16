@@ -34,34 +34,6 @@ const AccountSettings = () => {
             });
     }
 
-
-
-    const onEmailSubmit = (ev) => {
-        ev.preventDefault();
-
-        const formData = new FormData();
-
-        formData.append("_method", "PUT");
-        formData.append('email', currentUser.email);
-
-        axiosClient.post(`users/${currentUser.id}`, formData)
-            .then((res) => {
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Email changed successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                getUser();
-            })
-            .catch(err => {
-                const response = err.response;
-                if (response && response.status === 422) {
-                }
-            });
-    };
-
     const getMentorships = async () => {
         const fetchedData = await axiosClient.get('/mentor')
         return fetchedData.data.data;
@@ -126,7 +98,7 @@ const AccountSettings = () => {
         formData.append('current_password', currentPasswordRef.current.value);
         formData.append('new_password', passwordRef.current.value);
         axiosClient.post(`change-password/`, formData)
-            .then((res) => {
+            .then(() => {
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -134,10 +106,12 @@ const AccountSettings = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
+                console.log(res.data);
                 getUser();
 
             })
             .catch(err => {
+                console.log(err);
                 const response = err.response;
                 if (response && response.status === 422) {
                     console.error(response.data.message);
