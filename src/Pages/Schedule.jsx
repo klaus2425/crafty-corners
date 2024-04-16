@@ -18,8 +18,6 @@ const Schedule = () => {
         axiosClient.get(`/schedule`)
             .then(({ data }) => {
                 setEvents(data.data);
-            }).catch(err => {
-
             })
     }
     const formatTime = (date) => {
