@@ -3,6 +3,7 @@ import axiosClient from "../../axios-client";
 import { useParams } from "react-router-dom";
 import toast from 'react-hot-toast';
 import Swal from "sweetalert2";
+import Loading from "../../components/utils/Loading";
 
 const ViewMentorApplication = () => {
   const { id } = useParams();
@@ -33,13 +34,39 @@ const ViewMentorApplication = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosClient.post(`/accept-mentorship-application/${applicant.id}`)
-        .then(() => {
-          Swal.fire({
-            title: "Success!",
-            text: "User promoted to Mentor.",
-            icon: "success"
-          });
-        })
+          .then(() => {
+            Swal.fire({
+              title: "Success!",
+              text: "User promoted to Mentor.",
+              icon: "success"
+            });
+          })
+      }
+    });
+  }
+
+  const handleRevokeMentor = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Pressing yes will remove this user's mentor role",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        toast.promise(axiosClient.post(`/mentor/${applicant.id}/revoke-mentorship`), {
+          loading: 'Revoking mentor role',
+          success: () => {
+            return <b>Mentor role successfully revoked</b>
+          },
+          error: (err) => {
+            return `${err.response.data.message}`
+          },
+        },
+        )
+
       }
     });
   }
@@ -82,6 +109,7 @@ const ViewMentorApplication = () => {
 
 
   return (
+    applicant.user ?
     <div className="communities-container">
       <div className="top-section">
         <h2>Applicant's Information</h2>
@@ -111,19 +139,31 @@ const ViewMentorApplication = () => {
           <input ref={dateTimeRef} onChange={ev => setApplicant({ ...applicant, date_of_Assessment: ev.target.value })} type="datetime-local" name="" id="" value={applicant?.date_of_Assessment} />
         </div>
       </div>
-      <div className="application-bottom">
-        <button className="purple-button" onClick={handleSubmit}>
-          Set Assessment
-        </button>
-        <button onClick={handleConfirmMentor} className="green-button">
-          Confirm Application
-        </button>
-        <button onClick={handleRejectMentor} className="red-button">
-          Reject Application
-        </button>
-      </div>
 
+      {
+        applicant?.status === 'approved' ?
+          <div className="application-bottom">
+            <button onClick={handleRevokeMentor} className="red-button">
+              Revoke Mentorship
+            </button>
+          </div>
+          :
+
+          <div className="application-bottom">
+            <button className="purple-button" onClick={handleSubmit}>
+              Set Assessment
+            </button>
+            <button onClick={handleConfirmMentor} className="green-button">
+              Confirm Application
+            </button>
+            <button onClick={handleRejectMentor} className="red-button">
+              Reject Application
+            </button>
+          </div>
+      }
     </div>
+    :
+    <Loading />
   )
 
 }
