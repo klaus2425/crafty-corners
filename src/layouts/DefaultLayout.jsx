@@ -7,6 +7,7 @@ import { useThemeContext } from "../context/ThemeProvider";
 import axiosClient from "../axios-client";
 import { useQuery } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
 const DefaultLayout = () => {
     const { user, token, setUser } = useStateContext();
     const { theme } = useThemeContext();
@@ -16,13 +17,16 @@ const DefaultLayout = () => {
         queryFn: () => axiosClient.get('/user')
     })
 
-
+    useEffect(() => {
+        if (!isLoading && data) {
+            setUser(data.data);
+        }
+    }, [isLoading]);
 
     if (!isLoading) {
         if (!data?.data.assessment_completed && window.location.pathname != '/assessment') {
             navigate(`/assessment?uid=${data.data.id}`)
         }
-        setUser(data.data);
         if (data?.data?.type === 'admin') {
             return <Navigate to='/Users' />
         }
