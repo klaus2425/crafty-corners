@@ -106,12 +106,10 @@ const AccountSettings = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                console.log(res.data);
                 getUser();
 
             })
             .catch(err => {
-                console.log(err);
                 const response = err.response;
                 if (response && response.status === 422) {
                     console.error(response.data.message);
@@ -186,7 +184,7 @@ const AccountSettings = () => {
                                         <div className='mentor-settings'>
                                             <strong>Mentorship</strong>
                                             {
-                                                mentorship ?
+                                                mentorship.data ?
                                                     mentorship?.data.map(ms => (
                                                         <div key={ms.id} className='mentor-community-settings'>
                                                             <span><strong>Community:</strong> {ms.community.name}</span>
