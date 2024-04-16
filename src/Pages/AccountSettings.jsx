@@ -97,7 +97,7 @@ const AccountSettings = () => {
         const formData = new FormData();
         formData.append('current_password', currentPasswordRef.current.value);
         formData.append('new_password', passwordRef.current.value);
-        axiosClient.post(`change-password/`, formData)
+        axiosClient.post(`/change-password`, formData)
             .then(() => {
                 Swal.fire({
                     position: "top-end",
@@ -112,7 +112,7 @@ const AccountSettings = () => {
             .catch(err => {
                 const response = err.response;
                 if (response && response.status === 422) {
-                    console.error(response.data.message);
+                    console.error(response);
                 }
             });
     };

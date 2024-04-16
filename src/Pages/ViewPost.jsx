@@ -78,7 +78,7 @@ const ViewPost = () => {
     ev.preventDefault();
     const formData = new FormData();
     formData.append('content', commentRef.current.value);
-    axiosClient.post(`/post/${id}/comment/`, formData)
+    axiosClient.post(`/post/${id}/comment`, formData)
       .then(() => {
         notifyComment();
         useComments.refetch();
@@ -292,7 +292,7 @@ const ViewPost = () => {
             <h3>Comments</h3>
           </div>
           <div className="comments-container">
-            {useComments && useComments?.data.map(c => (
+            {useComments.data && useComments?.data.map(c => (
               <div key={c.id} className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
@@ -427,7 +427,7 @@ const ViewPost = () => {
             <h3>Comments</h3>
           </div>
           <div className="comments-container">
-            {useComments && useComments?.data.map(c => (
+            {useComments.data && useComments?.data.map(c => (
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
@@ -562,7 +562,7 @@ const ViewPost = () => {
             <h3>Comments</h3>
           </div>
           <div className="comments-container">
-            {useComments && useComments?.data.map(c => (
+            {useComments.data && useComments?.data.map(c => (
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
@@ -700,7 +700,7 @@ const ViewPost = () => {
             <h3>Comments</h3>
           </div>
           <div className="comments-container">
-            {useComments && useComments?.data.map(c => (
+            {useComments.data && useComments?.data.map(c => (
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
