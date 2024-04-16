@@ -18,13 +18,14 @@ const ViewConversation = () => {
   const messageRef = useRef();
   const [message_id, setMessage_id] = useState();
   const [imagePath, setImagePath] = useState()
-  const [hasMessage, setHasMessage] = useState(false);
+  const hasMessage = useRef(false);
   const params = new URLSearchParams(window.location.search);
   const user_id0 = params.get('user_id0');
   const user_id1 = params.get('user_id1');
   const [fileType, setFileType] = useState('');
   const uid = params.get('lid')
   const [receiver, setReceiver] = useState();
+  const receiver_id = useRef();
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
   const { conversation_id } = useParams();
   const navigate = useNavigate();
@@ -95,10 +96,10 @@ const ViewConversation = () => {
         conversationEndRef.current?.scrollIntoView();
         setMessages(res.data.data.messages);
         if (res.data.data.messages.length == 0) {
-          setHasMessage(false);
+          hasMessage.current = false;
           setHasMore(false);
         } else {
-          setHasMessage(true)
+          hasMessage.current = true;
         }
       })
   }
@@ -109,6 +110,7 @@ const ViewConversation = () => {
         .then(res => {
           setReceiver(res.data.data);
           getMessages(res.data.data.id);
+          receiver_id.current = res.data.data.id
         })
     }
     else if (user_id1 !== uid) {
@@ -116,6 +118,7 @@ const ViewConversation = () => {
         .then(res => {
           setReceiver(res.data.data);
           getMessages(res.data.data.id);
+          receiver_id.current = res.data.data.id
         })
     }
 
@@ -161,9 +164,14 @@ const ViewConversation = () => {
 
     return () => {
       echo.leave(`conversation-${conversation_id}`);
-      axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
-      axiosClient.delete(`/conversation/${conversation_id}`)
-      .then(() => queryClient.removeQueries('conversation'))
+      if (receiver_id.current == uid) {
+        axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
+      }
+
+      if (!hasMessage) {
+        axiosClient.delete(`/conversation/${conversation_id}`)
+        .then(() => queryClient.removeQueries('conversation'))
+      }
     };
   }, []);
 
