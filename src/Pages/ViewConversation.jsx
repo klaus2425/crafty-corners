@@ -67,9 +67,7 @@ const ViewConversation = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setFile(reader.result);
-        console.log(event.target.files[0].name);
         setFileName(event.target.files[0].name)
-
       };
       reader.readAsDataURL(file);
     }
@@ -155,7 +153,6 @@ const ViewConversation = () => {
 
     echo.private(`conversation-${conversation_id}`)
       .listen('MessageSent', (data) => {
-        console.log(`From conversation-${conversation_id} channel`, data);
         if (data.user != uid) {
           getMessages(data.user)
         }
@@ -250,6 +247,7 @@ const ViewConversation = () => {
                               })
                               :
                               message.attachments ? message.attachments.map(attachment => {
+
                                 return attachment.file_type.startsWith('image/') ?
                                   <div key={attachment.id}>
                                     <img onClick={() => viewFullImage(`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`)} className='attachment-image' src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
@@ -334,6 +332,7 @@ const ViewConversation = () => {
                               message.attachments ? message.attachments.map(attachment => {
                                 return attachment.file_type.startsWith('image/') ?
                                   <div key={attachment.id}>
+
                                     <img className='attachment-image' onClick={() => viewFullImage(`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`)} src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
                                   </div>
                                   :
