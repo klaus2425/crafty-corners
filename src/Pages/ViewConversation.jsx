@@ -168,7 +168,7 @@ const ViewConversation = () => {
         axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
       }
 
-      if (!hasMessage) {
+      if (!hasMessage.current) {
         axiosClient.delete(`/conversation/${conversation_id}`)
         .then(() => queryClient.removeQueries('conversation'))
       }
