@@ -1533,19 +1533,18 @@ input::-webkit-inner-spin-button {
   .sidebar {
     display: flex;
     width: clamp(3rem, 30vw, 30rem);
-    height: clamp(3rem, 90vh, 40rem);
+    height: fit-content;
     flex-direction: column;
+    gap: clamp(0.5rem, 2.5vh + 1rem, 5rem);
     align-items: end;
     margin-left: clamp(0.5rem, 2vw, 2.25rem);
-    margin-top: clamp(2rem, 14vh, 10rem);
+    margin-top: clamp(2rem, 10vh, 10rem);
 
     .sidebar-upper {
-      height: clamp(3rem, 90vh, 40rem);
+      height: fit-content;
       display: flex;
       width: fit-content;
       flex-direction: column;
-      margin-bottom: 2rem;
-
       a {
         font-size: clamp(1.12rem, 2vw, 1.5rem);
       }
@@ -1554,6 +1553,7 @@ input::-webkit-inner-spin-button {
     .sidebar-lower {
       height: clamp(3rem, 90vh, 40rem);
       display: flex;
+      height: fit-content;
       flex-direction: column;
       a {
         font-size: clamp(1.12rem, 2vw, 1.5rem);
@@ -1601,10 +1601,13 @@ input::-webkit-inner-spin-button {
 
   .acc-settings-feed {
     display: flex;
-    width: 100%;
+    width: 50%;
     align-items: center;
     flex-direction: column;
 
+    .input-container {
+      gap: 5rem;
+    }
 
     .purple-button {
       border: none;
@@ -2036,7 +2039,7 @@ input::-webkit-inner-spin-button {
           width: 7rem;
           height: 7rem;
           border-radius: 50%;
-          border: 5px solid white;
+          object-fit: contain;
         }
 
         .left {
@@ -2333,9 +2336,16 @@ input::-webkit-inner-spin-button {
     background-color: #FDFDFD;
     border: 2px solid #D8DCE3;
     border-radius: 15px;
-    width: fit-content;
-    padding: 1rem;
+    width: 100%;
+    padding: 1.5rem;
     align-items: center;
+  }
+  .player-wrapper {
+    position: relative;
+    padding-top: 56.25%;
+    /* 720 / 1280 = 0.5625 */
+    width: 100%;
+    margin-bottom: 1rem;
   }
 
   .user-posts {
@@ -4624,13 +4634,7 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.player-wrapper {
-  position: relative;
-  padding-top: 56.25%;
-  /* 720 / 1280 = 0.5625 */
-  width: clamp(20rem, 40vw, 90rem);
-  margin-bottom: 1rem;
-}
+
 
 .verify-container {
   display: flex;
@@ -4999,9 +5003,7 @@ input::-webkit-inner-spin-button {
     }
   }
 
-  .profile-picture {
-    border: 5px solid #18191a;
-  }
+
 
   .list-card {
     background-color: #242526;

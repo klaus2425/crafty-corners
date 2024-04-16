@@ -12,6 +12,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import MembershipCheck from '../components/utils/Membership';
 import { useStateContext } from '../context/ContextProvider';
 import ReportModal from '../components/ReportModal';
+import Loading from '../components/utils/Loading';
 
 const ViewPost = () => {
   const { id } = useParams();
@@ -723,6 +724,15 @@ const ViewPost = () => {
       </div>
     )
   }
+
+  return (
+    <div className="authenticated-container">
+      <div className="feed">
+        <Loading />
+      </div>
+      <div className="recommended"></div>
+    </div>
+  )
 }
 
 export default ViewPost;
