@@ -1596,7 +1596,7 @@ input::-webkit-inner-spin-button {
     overflow-y: scroll;
     align-items: center;
     flex-direction: column;
-    padding: 0.5rem 0.5rem 0 0.5rem;
+    padding: 1rem 0.5rem 0 0.5rem;
   }
 
   .acc-settings-feed {
@@ -2039,7 +2039,7 @@ input::-webkit-inner-spin-button {
           width: 7rem;
           height: 7rem;
           border-radius: 50%;
-          object-fit: contain;
+          object-fit: cover;
         }
 
         .left {
