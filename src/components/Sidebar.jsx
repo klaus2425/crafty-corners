@@ -9,16 +9,22 @@ import axiosClient from '../axios-client';
 export const Sidebar = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const chat_sound = new Audio('/chat-sound.mp3')
     const { user } = useStateContext();
     const [messageNotify, setMessageNotify] = useState(false);
     const [hasNotification, setHasNotification] = useState(false);
     const queryClient = useQueryClient();
+
+    const playChatNotification = () => {
+        chat_sound.play();
+    }
 
     useEffect(() => {
         echo.private(`user-${user.id}`)
             .listen('MessageSent', (data) => {
                 if (!(location.pathname == '/messages') && !(location.pathname == `/conversation/${data.message.conversation_id}`)) {
                     setMessageNotify(true);
+                    playChatNotification()
                 }
             })
             .listen('PostInteraction', () => {
