@@ -9,19 +9,23 @@ import { useQuery } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 const DefaultLayout = () => {
-    const { user, token, setUser } = useStateContext();
+    const { user, token, setUser, setToken } = useStateContext();
     const { theme } = useThemeContext();
     const navigate = useNavigate();
     const { data, isLoading } = useQuery({
         queryKey: ['user'],
         queryFn: () => axiosClient.get('/user')
+        .catch(() => {setToken(null).then(navigate('/'))})
     })
+
 
     useEffect(() => {
         if (!isLoading && data) {
             setUser(data.data);
         }
+
     }, [isLoading]);
+
 
     if (!isLoading) {
         if (!data?.data.assessment_completed && window.location.pathname != '/assessment') {
