@@ -29,9 +29,9 @@ export default function LoginModal(props) {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
-    axios.get('http://localhost:8000/sanctum/csrf-cookie', {
-      withCredentials: true,
-    })
+    // axios.get('http://localhost:8000/sanctum/csrf-cookie', {
+    //   withCredentials: true,
+    // })
 
     toast.promise(axiosClient
       .post("/login", payload), {
