@@ -33,14 +33,18 @@ const ViewMentorApplication = () => {
       confirmButtonText: "Yes"
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosClient.post(`/accept-mentorship-application/${applicant.id}`)
-          .then(() => {
-            Swal.fire({
-              title: "Success!",
-              text: "User promoted to Mentor.",
-              icon: "success"
-            });
-          })
+
+        toast.promise(axiosClient.post(`/accept-mentorship-application/${applicant.id}`), {
+          loading: 'Accepting application',
+          success: () => {
+            getApplicant();
+            return <b>Application accepted</b>
+          },
+          error: (err) => {
+            return `${err.response.data.message}`
+          },
+        },
+        )
       }
     });
   }
@@ -57,9 +61,10 @@ const ViewMentorApplication = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         toast.promise(axiosClient.post(`/mentor/${applicant.id}/revoke-mentorship`), {
-          loading: 'Revoking mentor role',
+          loading: 'Revoking mentorship',
           success: () => {
-            return <b>Mentor role successfully revoked</b>
+            getApplicant();
+            return <b>Mentorship revoked</b>
           },
           error: (err) => {
             return `${err.response.data.message}`
@@ -82,15 +87,17 @@ const ViewMentorApplication = () => {
       confirmButtonText: "Yes"
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosClient.post(`/accept-mentorship-application/${applicant.id}`)
-          .then(() => {
-            Swal.fire({
-              title: "Success!",
-              text: "User Application Rejected",
-              icon: "success"
-            });
-          })
-
+        toast.promise(axiosClient.post(`/accept-mentorship-application/${applicant.id}`), {
+          loading: 'Declining application',
+          success: () => {
+            getApplicant();
+            return <b>Application declined</b>
+          },
+          error: (err) => {
+            return `${err.response.data.message}`
+          },
+        },
+        )
       }
     });
   }
