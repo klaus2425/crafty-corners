@@ -7,12 +7,13 @@ import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"
 import getCorrectColor from '../components/utils/ColorCorrection';
 
-const Schedule2 = () => {
+const Schedule = () => {
     const [open, setOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
     const [schedId, setSchedId] = useState();
     const [events, setEvents] = useState({});
     const [startDate, setStartDate] = useState();
+
     const getSchedule = () => {
         axiosClient.get(`/schedule`)
             .then(({ data }) => {
@@ -80,7 +81,11 @@ const Schedule2 = () => {
                 </div>
                 <div className="card" id="schedule-card">
                     <AddScheduleModal isOpen={open} getAllSched={getSchedule} startDate={startDate} setOpen={setOpen} />
-                    <EditSchedule isOpen={editOpen} setOpen={setEditOpen} id={schedId} getAllSched={getSchedule} />
+                    {
+                        editOpen ?
+                            <EditSchedule isOpen={editOpen} setOpen={setEditOpen} id={schedId} getAllSched={getSchedule} />
+                            : null
+                    }
                     <FullCalendar
                         plugins={[dayGridPlugin, interactionPlugin]}
                         initialView="dayGridMonth"
@@ -99,4 +104,4 @@ const Schedule2 = () => {
     )
 }
 
-export default Schedule2;
+export default Schedule;
