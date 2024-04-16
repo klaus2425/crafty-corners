@@ -76,7 +76,6 @@ const UserFeed = () => {
                                         <span>{user.gender ? user.gender : <Skeleton />}</span>
                                         <span>{!userData.isLoading ? `@${userData?.data?.data?.data?.user_name}` : <Skeleton />}</span>
                                         <span>{!userData.isLoading ? `${userData.data.data.data.communities.length} Communities` : <Skeleton />}</span>
-
                                     </div>
                                 </div>
                                 <div className='lower-details'>
@@ -100,7 +99,6 @@ const UserFeed = () => {
                         <h3>Posts</h3>
                     </div>
                     <div className='posts-col' >
-
                         {
                             posts ?
                                 <InfiniteScroll
