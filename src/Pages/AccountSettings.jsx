@@ -68,7 +68,8 @@ const AccountSettings = () => {
     }
     const mentorship = useQuery({
         queryKey: ['mentor-settings'],
-        queryFn: getMentorships,
+        queryFn: getMentorships, 
+        enabled: user.type === 'mentor',
     })
 
     const handleRetire = (community_id) => {
@@ -152,11 +153,6 @@ const AccountSettings = () => {
         getUser();
     }, []);
 
-
-
-
-
-
     return (
         <div className="authenticated-container">
             <div className="acc-settings-feed">
@@ -183,15 +179,6 @@ const AccountSettings = () => {
                                 </div>
                                 <div className='input-container'>
                                     <div className="input-col-container">
-                                        <form onSubmit={onEmailSubmit}>
-                                            <span className='change-text'>Change Email Address</span>
-                                            <div className="field-holder">
-                                                <input type="email" value={currentUser.email} onChange={ev => setCurrentUser({ ...currentUser, email: ev.target.value })} required />
-                                                <label>Email Address</label>
-                                            </div>
-
-                                            <button className='purple-button'>Change Email</button>
-                                        </form>
                                         <form onSubmit={onPhoneSubmit}>
                                             <div className="field-holder">
                                                 <input type="number" value={currentUser.phone_number} onChange={ev => setCurrentUser({ ...currentUser, phone_number: ev.target.value })} required />
