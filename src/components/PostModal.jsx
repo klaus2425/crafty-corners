@@ -175,7 +175,6 @@ const PostModal = (props) => {
   const handleCommunityChange = (ev) => {
     const selectedOption = ev.target.value
     setCommunity_id(selectedOption);
-    console.log(selectedOption);
     axiosClient.get(`/community/${selectedOption}/subtopics`)
     .then(({data}) => setTopics(data.subtopics))
   }
