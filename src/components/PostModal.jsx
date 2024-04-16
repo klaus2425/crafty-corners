@@ -5,12 +5,13 @@ import 'react-tabs/style/react-tabs.css';
 import axiosClient from '../axios-client';
 import { useStateContext } from '../context/ContextProvider';
 import Loading from "./utils/Loading";
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
 const PostModal = (props) => {
   const { id } = useParams();
-  const topics = props.topics;
+  const [community_id, setCommunity_id] = useState(id);
+  const [topics, setTopics] = useState(props.topics);
   const [fileUpload, setFileUpload] = useState(false);
   const [fileType, setFileType] = useState('');
   const [notifiable, setNotifiable] = useState(true);
@@ -36,7 +37,7 @@ const PostModal = (props) => {
       setLoading(true);
       const formData = new FormData();
       formData.append('user_id', user.id);
-      formData.append('community_id', id);
+      formData.append('community_id', community_id);
       formData.append('title', titleRef.current.value);
       formData.append('subtopics', topicRef.current.value)
       formData.append('video', file);
@@ -47,7 +48,7 @@ const PostModal = (props) => {
           loading: 'Posting',
           success: () => {
             queryClient.refetchQueries(`posts`);
-            queryClient.refetchQueries(`community-${id}`);
+            queryClient.refetchQueries(`community-${community_id}`);
             handleClose();
             return <b>Post success!</b>
           },
@@ -59,7 +60,7 @@ const PostModal = (props) => {
     }
     else if (postType === 'image') {
       const formData = new FormData();
-      formData.append('community_id', id);
+      formData.append('community_id', community_id);
       formData.append('title', titleRef.current.value);
       formData.append('notifiable', notifiable);
       formData.append('subtopics', topicRef.current.value)
@@ -69,7 +70,7 @@ const PostModal = (props) => {
         , {
           loading: 'Posting',
           success: () => {
-            queryClient.refetchQueries(`community-${id}`);
+            queryClient.refetchQueries(`community-${community_id}`);
             queryClient.refetchQueries(`posts`);
             handleClose();
             return <b>Post success!</b>
@@ -85,7 +86,7 @@ const PostModal = (props) => {
       formData.append('user_id', user.id);
       formData.append('notifiable', notifiable);
       formData.append('subtopics', topicRef.current.value)
-      formData.append('community_id', id);
+      formData.append('community_id', community_id);
       formData.append('title', titleRef.current.value);
       formData.append('content', descriptionRef.current.value);
       formData.append('post_type', 'text');
@@ -94,7 +95,7 @@ const PostModal = (props) => {
           loading: 'Posting',
           success: () => {
             queryClient.refetchQueries(`posts`);
-            queryClient.refetchQueries(`community-${id}`);
+            queryClient.refetchQueries(`community-${community_id}`);
             handleClose();
             return <b>Post success!</b>
           },
@@ -108,7 +109,7 @@ const PostModal = (props) => {
       const formData = new FormData();
       formData.append('user_id', user.id);
       formData.append('notifiable', notifiable);
-      formData.append('community_id', id);
+      formData.append('community_id', community_id);
       formData.append('subtopics', topicRef.current.value)
       formData.append('title', titleRef.current.value);
       formData.append('link', linkRef.current.value);
@@ -120,7 +121,7 @@ const PostModal = (props) => {
           loading: 'Posting',
           success: () => {
             queryClient.refetchQueries(`posts`);
-            queryClient.refetchQueries(`community-${id}`);
+            queryClient.refetchQueries(`community-${community_id}`);
             handleClose();
             return <b>Post success!</b>
           },
@@ -166,6 +167,19 @@ const PostModal = (props) => {
     setFileUpload(false);
   }
 
+  const communityList = useQuery({
+    queryKey: ['community-names'],
+    queryFn: () => axiosClient.get('/communities').then(({ data }) => (data))
+  })
+
+  const handleCommunityChange = (ev) => {
+    const selectedOption = ev.target.value
+    setCommunity_id(selectedOption);
+    console.log(selectedOption);
+    axiosClient.get(`/community/${selectedOption}/subtopics`)
+    .then(({data}) => setTopics(data.subtopics))
+  }
+
   return props.isOpen ?
     (
       <div className="overlay">
@@ -173,6 +187,20 @@ const PostModal = (props) => {
           <div className='close'>
             <div className='close-left'>
               <span className="header-span">Create a post</span>
+              {
+                !props.topics ?
+                  <select defaultValue={'DEFAULT'}  onChange={handleCommunityChange} className='post-notification-container__select'>
+                      <option value={'DEFAULT'} disabled>Select Community</option>
+                    {communityList.data ? communityList.data.map(community => (
+                      <option value={community.id}>{community.name}</option>
+                    ))
+                      :
+                      null
+                    }
+                  </select>
+                  :
+                  null
+              }
             </div>
             <svg onClick={handleClose} xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
               <path d="M12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 10.8181 3.23279 9.64778 3.68508 8.55585C4.13738 7.46392 4.80031 6.47177 5.63604 5.63604C6.47177 4.80031 7.46392 4.13738 8.55585 3.68508C9.64778 3.23279 10.8181 3 12 3C13.1819 3 14.3522 3.23279 15.4442 3.68508C16.5361 4.13738 17.5282 4.80031 18.364 5.63604C19.1997 6.47177 19.8626 7.46392 20.3149 8.55585C20.7672 9.64778 21 10.8181 21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4441 20.3149C14.3522 20.7672 13.1819 21 12 21L12 21Z" stroke="#222222" strokeLinecap="round" />
@@ -288,9 +316,10 @@ const PostModal = (props) => {
                 Topic:
                 <select ref={topicRef} className='post-notification-container__select'>
                   {
-                    topics.map((topic, index) => (
+                    topics ? topics.map((topic, index) => (
                       <option value={topic}>{topic}</option>
                     ))
+                      : null
                   }
                 </select>
               </div>
