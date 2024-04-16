@@ -154,6 +154,8 @@ const AccountSettings = () => {
                                 <div className='input-container'>
                                     <div className="input-col-container">
                                         <form onSubmit={onPhoneSubmit}>
+                                        <span className='change-text'>Change Phone Number</span>
+
                                             <div className="field-holder">
                                                 <input type="number" value={currentUser.phone_number} onChange={ev => setCurrentUser({ ...currentUser, phone_number: ev.target.value })} required />
                                                 <label>Phone Number</label>
