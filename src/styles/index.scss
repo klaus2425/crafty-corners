@@ -794,6 +794,7 @@ input::-webkit-inner-spin-button {
         padding: 0.5rem;
         padding-left: 1rem;
         border-radius: 10px;
+        cursor: pointer;
       }
 
       .search-category {
@@ -2099,7 +2100,6 @@ input::-webkit-inner-spin-button {
             width: 7rem;
             height: 7rem;
           }
-
 
           #display-level {
             display: flex;

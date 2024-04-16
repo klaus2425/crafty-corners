@@ -4,12 +4,13 @@ import axiosClient from "../axios-client";
 import { useStateContext } from "../context/ContextProvider";
 import echo from "../components/Echo";
 import Pusher from 'pusher-js'
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../components/utils/Loading";
 
 
 
 const Messages = () => {
   const navigate = useNavigate();
-  const [conversations, setConversations] = useState();
   const { user } = useStateContext();
   const params = new URLSearchParams(window.location.search);
   const uid = params.get('uid')
@@ -42,18 +43,17 @@ const Messages = () => {
   }
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
 
-  const getConversations = () => {
-    axiosClient.get('/conversations')
-      .then(res => {
-        setConversations(res.data.data);
-      });
-  }
+
+  const useConversations = useQuery({
+    queryKey: ['conversations'],
+    queryFn: () => axiosClient.get('/conversations').then(({data}) => (data.data))
+  })
+
 
   useEffect(() => {
-    getConversations()
     echo.private(`user-${uid}`)
-    .listen('MessageSent', (data) => {
-        getConversations();
+    .listen('MessageSent', () => {
+       useConversations.refetch();
     }).error((error) => { console.error(error) });
   }, [])
 
@@ -71,7 +71,7 @@ const Messages = () => {
             <input className="search" type="text" placeholder="Search for Conversations 🔍" />
           </div>
 
-          {conversations?.map(c => {
+          { !useConversations.isLoading ? useConversations.data.map(c => {
             if (c.user_0.id == uid) {
               return (
                 <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
@@ -130,9 +130,9 @@ const Messages = () => {
                 </div>
               </div>
             )
-
-
-          })}
+          })
+          : <Loading />
+        }
         </div>
       </div>
       <div className="recommended">

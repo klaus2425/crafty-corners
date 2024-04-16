@@ -8,7 +8,7 @@ import Loading from '../components/utils/Loading';
 import echo from '../components/Echo';
 import ConfirmDeleteMessageModal from '../components/ConfirmDeleteMessageModal';
 import ImageModal from '../components/ImageModal';
-import Pusher from 'pusher-js';
+import { useQueryClient } from '@tanstack/react-query';
 
 const ViewConversation = () => {
 
@@ -33,6 +33,8 @@ const ViewConversation = () => {
   const fileRef = useRef();
   const [viewImage, setViewImage] = useState(false);
   const [fileName, setFileName] = useState('');
+  const queryClient = useQueryClient();
+
   const removeAttachment = () => {
     setFile(null);
     fileRef.current.value = null;
@@ -150,7 +152,6 @@ const ViewConversation = () => {
 
   useEffect(() => {
     getReceiver();
-
     echo.private(`conversation-${conversation_id}`)
       .listen('MessageSent', (data) => {
         if (data.user != uid) {
@@ -161,6 +162,8 @@ const ViewConversation = () => {
     return () => {
       echo.leave(`conversation-${conversation_id}`);
       axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
+      axiosClient.delete(`/conversation/${conversation_id}`)
+      .then(() => queryClient.removeQueries('conversation'))
     };
   }, []);
 
