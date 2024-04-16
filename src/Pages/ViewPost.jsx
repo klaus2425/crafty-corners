@@ -78,7 +78,7 @@ const ViewPost = () => {
     ev.preventDefault();
     const formData = new FormData();
     formData.append('content', commentRef.current.value);
-    axiosClient.post(`post/${id}/comment/`, formData)
+    axiosClient.post(`/post/${id}/comment/`, formData)
       .then(() => {
         notifyComment();
         useComments.refetch();
@@ -242,7 +242,7 @@ const ViewPost = () => {
                   <path d="M12.3958 13.8542L22.6041 13.8542" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12.3958 18.2292H19.6874" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span className="count">{useComments?.data.length}</span>
+                <span className="count">{useComments?.data?.length}</span>
               </div>
               <div className="footer-item">
                 <svg onClick={() => handleShare()} xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
@@ -512,7 +512,7 @@ const ViewPost = () => {
                   <path d="M12.3958 13.8542L22.6041 13.8542" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12.3958 18.2292H19.6874" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span className="count">{useComments?.data.length}</span>
+                <span className="count">{useComments?.data?.length}</span>
               </div>
               <div className="footer-item">
                 <svg onClick={() => handleShare()} xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
@@ -651,7 +651,7 @@ const ViewPost = () => {
                   <path d="M12.3958 13.8542L22.6041 13.8542" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12.3958 18.2292H19.6874" stroke="#677186" strokeWidth="1.45833" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span className="count">{useComments?.data.length}</span>
+                <span className="count">{useComments?.data?.length}</span>
               </div>
               <div className="footer-item">
                 <svg onClick={() => handleShare()} xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
