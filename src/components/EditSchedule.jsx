@@ -23,13 +23,11 @@ const EditSchedule = (props) => {
                     hour12: false,
                     hour: '2-digit',
                     minute: '2-digit',
-                    second: '2-digit',
                 }));
                 setEndTime(endTime.toLocaleTimeString('en-US', {
                     hour12: false,
                     hour: '2-digit',
                     minute: '2-digit',
-                    second: '2-digit',
                 }))
             })
             .catch(err => {
@@ -69,6 +67,8 @@ const EditSchedule = (props) => {
         ev.preventDefault();
         const dateStart = schedule.start.split(' ')[0];
         const formData = new FormData();
+        console.log('Start', dateStart + ' ' + startTime);
+        console.log('End', dateStart + ' ' + endTime);
         formData.append("_method", "PUT");
         formData.append('title', schedule.title);
         formData.append('start', dateStart + ' ' + startTime);
@@ -115,11 +115,11 @@ const EditSchedule = (props) => {
 
                         <div className="schedule-input">
                             <label>Starting time:</label>
-                            <input value={startTime} step={60} onChange={ev => setStartTime(ev.target.value+':00')} type="time" required />
+                            <input value={startTime} step={60} onChange={ev => setStartTime(ev.target.value)} type="time" required />
                         </div>
                         <div className="schedule-input">
                             <label>End Time:</label>
-                            <input value={endTime} step={60} onChange={ev => setEndTime(ev.target.value+':00')} type="time" required />
+                            <input value={endTime} step={60} onChange={ev => setEndTime(ev.target.value)} type="time" required />
                         </div>
                         <div className="schedule-input">
                             <label>Background Color:</label>
