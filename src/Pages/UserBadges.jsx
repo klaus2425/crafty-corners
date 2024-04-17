@@ -17,7 +17,7 @@ const UserBadges = () => {
         <div className="section-header">
           <h3>Your Badges</h3>
         </div>
-        <div className="card" id="badges-card">
+        <div className="badges-card">
           {
             data ?
               data.length > 0 ? data.map(level => (
@@ -34,7 +34,9 @@ const UserBadges = () => {
               :
               <Loading />
           }
+
         </div>
+
       </div>
       <div className="recommended"></div>
     </div>

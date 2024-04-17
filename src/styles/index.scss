@@ -82,6 +82,9 @@ html {
 .round {
   border-radius: 1000px;
 }
+.fc-daygrid-day-frame {
+  padding: 0.5rem;
+}
 
 #admin-navbar {
   justify-content: space-between;
@@ -111,14 +114,18 @@ html {
     margin-bottom: 0.5rem;
     padding: 1rem;
     gap: 1rem;
+    justify-items: center;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 0.5fr;
     overflow-y: scroll;
 
     .community-assmnt-card {
       background-color: $lighter_grey;
       border-radius: 25px;
-      padding: 1rem;
+      padding: 1rem 3rem;
+      height: fit-content;
       display: flex;
+      width: 100%;
       flex-direction: column;
       align-items: center;
 
@@ -828,7 +835,6 @@ input::-webkit-inner-spin-button {
     .search-post {
       display: none;
     }
-
   }
 
 
@@ -937,8 +943,10 @@ input::-webkit-inner-spin-button {
     display: flex;
     justify-content: space-between;
   }
+
   .close-left {
     display: flex;
+    margin-bottom: 0.2rem;
     gap: 1rem;
     align-items: center;
   }
@@ -960,7 +968,7 @@ input::-webkit-inner-spin-button {
     font-weight: bold;
     outline: none;
   }
-  
+
   form {
     text-align: end;
     width: 100%;
@@ -1664,10 +1672,11 @@ input::-webkit-inner-spin-button {
     color: #000;
     margin-bottom: 1rem;
     gap: 1rem;
-    
+
     .section-icon {
       flex-shrink: 0;
     }
+
     hr {
       flex-shrink: 2;
       width: calc(47% - 3rem);
@@ -1753,50 +1762,9 @@ input::-webkit-inner-spin-button {
   }
 
 
-  #badges-card {
-    gap: 1rem;
-    flex-direction: row;
-    flex-wrap: wrap;
 
-    .level-container {
-      display: flex;
-      width: 10rem;
-      align-items: center;
-      flex-direction: column;
-      padding: 0.56rem;
-      background-color: $lighter_grey;
-      border-radius: 15px;
 
-      img {
-        width: 7rem;
-        height: 7rem;
-      }
-    }
 
-    .levelProgressBar {
-      width: 70%;
-
-      .barContainer {
-        background-color: $light_grey;
-        border-radius: 1000px;
-      }
-
-    }
-
-    .barCompleted {
-      border-radius: 1000px;
-      width: fit-content;
-      background-color: $purple;
-    }
-
-    .user-level {
-      font-weight: bold;
-    }
-
-    .points-needed {
-      font-size: 0.86rem;
-    }
-  }
 
   .card {
     display: flex;
@@ -2348,6 +2316,57 @@ input::-webkit-inner-spin-button {
 
   }
 
+  .badges-card {
+    display: grid;
+    background-color: #FFF;
+    border-radius: 15px;
+    width: fit-content;
+    padding: 1rem;
+    gap: 1rem;
+    justify-items: center;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: fit-content;
+
+    .level-container {
+      display: flex;
+      width: 10rem;
+      align-items: center;
+      flex-direction: column;
+      padding: 0.56rem;
+      background-color: $lighter_grey;
+      border-radius: 15px;
+
+      img {
+        width: 7rem;
+        height: 7rem;
+      }
+    }
+
+    .levelProgressBar {
+      width: 70%;
+
+      .barContainer {
+        background-color: $light_grey;
+        border-radius: 1000px;
+      }
+
+    }
+
+    .barCompleted {
+      border-radius: 1000px;
+      width: fit-content;
+      background-color: $purple;
+    }
+
+    .user-level {
+      font-weight: bold;
+    }
+
+    .points-needed {
+      font-size: 0.86rem;
+    }
+  }
+
   .video-card {
     display: flex;
     flex-direction: column;
@@ -2460,8 +2479,28 @@ input::-webkit-inner-spin-button {
     }
   }
 
-
+  @media screen and (max-width: 600px) {
+    .badges-card {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  @media screen and (max-width: 1600px) {
+    .badges-card {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media screen and (max-width: 1250px) {
+    .badges-card {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media screen and (max-width: 750px) {
+    .badges-card {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
 }
+
 
 .dropdown-parent {
   position: relative;
@@ -3317,6 +3356,7 @@ input::-webkit-inner-spin-button {
       display: flex;
       width: 30rem;
       gap: 0.25rem;
+      width: fit-content;
       flex-direction: column;
       align-items: center;
 
@@ -4756,10 +4796,10 @@ input::-webkit-inner-spin-button {
   }
 
   .react-tabs__tab-list {
-
     svg {
       path {
         stroke: #FFF;
+        fill: none;
       }
     }
   }
@@ -4835,7 +4875,8 @@ input::-webkit-inner-spin-button {
     }
   }
 
-  #badges-card {
+  .badges-card {
+    background-color: #242526;
     .level-container {
       background-color: #18191a;
     }
@@ -5026,6 +5067,7 @@ input::-webkit-inner-spin-button {
 
   .section-comments {
     color: #e4e6eb;
+
     path {
       fill: #e4e6eb;
     }
@@ -5347,6 +5389,7 @@ input::-webkit-inner-spin-button {
     }
   }
 
+
   .post-header {
     .notification-bell {
       path {
@@ -5469,3 +5512,4 @@ input::-webkit-inner-spin-button {
     transform: translateY(0);
   }
 }
+

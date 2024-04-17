@@ -11,7 +11,13 @@ const AddCommunities = () => {
     const communityNameRef = useRef();
     const communityDescriptionRef = useRef();
     const communityImageRef = useRef();
-    const communityTopicsRef = useRef();
+    const [topics, setTopics] = useState([]);
+
+    const handleTextareaChange = (event) => {
+        const newValue = event.target.value;
+        const newTopics = newValue.split(',');
+        setTopics(newTopics);
+    }
 
     const onSubmit = (ev) => {
         ev.preventDefault();
@@ -20,7 +26,9 @@ const AddCommunities = () => {
         formData.append('name', communityNameRef.current.value);
         formData.append('description', communityDescriptionRef.current.value);
         formData.append('community_photo', communityImageRef.current.files[0]);
-
+        topics.map((topic, index) => {
+            formData.append(`subtopics[${index}]`, topic)
+        })
         toast.promise(axiosClient.post('/communities', formData), {
             loading: 'Adding Community',
             success: () => {
@@ -50,14 +58,14 @@ const AddCommunities = () => {
                 <div className="community-form">
                     <div className="community-input-label">
                         <div className="community-labels">
-                            <label style={{ marginBottom: '1.1rem' }} htmlFor="community-name">Community Name</label>
-                            <label style={{ marginBottom: '6.87rem' }} htmlFor="community-name">Community Description</label>
-                            <label htmlFor="community-name">Community Topics</label>
+                            <label style={{ marginBottom: '3rem' }} htmlFor="community-name">Community Name</label>
+                            <label style={{ marginBottom: '7rem' }} htmlFor="community-name">Community Description</label>
+                            <label htmlFor="community-name">Community Topics (Use comma to separate topics)</label>
                         </div>
                         <div className="community-inputs">
                             <input ref={communityNameRef} type="text" name="community-name" id="community-name" required />
                             <textarea ref={communityDescriptionRef} name="community-name" rows={6} cols={20} required />
-                            <textarea ref={communityTopicsRef} name="community-name" rows={6} cols={20} required />
+                            <textarea onChange={(ev) => handleTextareaChange(ev)} name="community-name" rows={6} cols={20} required />
                         </div>
                     </div>
                     <div>

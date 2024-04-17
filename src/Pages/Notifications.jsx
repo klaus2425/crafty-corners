@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import UserNotifications from '../components/UserNotifications';
 import axiosClient from '../axios-client';
 import { useStateContext } from '../context/ContextProvider';
-
+import Loading from '../components/utils/Loading';
 
 
 const UserFeed = () => {
@@ -13,7 +13,9 @@ const UserFeed = () => {
         queryFn: () => axiosClient.get('/notifications').then(({data}) => (data)),
     })
     const { user } = useStateContext();
+    
     return (
+        
         <div className="authenticated-container">
             <div className="feed">
                 <div className='section-header'>
@@ -24,14 +26,15 @@ const UserFeed = () => {
                     <h3>Notifications</h3>
                 </div>
                 {
-                    useNotification.data
+                    !useNotification.isLoading
                         ?
                          useNotification.data.map(notification => (
                             <UserNotifications uid={user.id} created_at={notification.created_at}  post_id={notification.data.post_id} type={notification.type} 
                             notifier={notification.data.first_name + ' ' + notification.data.last_name} 
                             notifierImage={storageUrl + notification.data.profile_picture} community={notification.data.community_name} />
                          ))
-                        : null
+                        : 
+                        <Loading />
                 }
             </div>
             <div className="recommended">

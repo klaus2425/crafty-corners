@@ -33,7 +33,7 @@ const ViewCommunity = () => {
   const useTopics = useQuery({
     queryKey: ['topics'],
     queryFn: () => axiosClient.get(`/community/${id}/subtopics`)
-    .then(({data}) => data.subtopics)
+      .then(({ data }) => data.subtopics)
   })
 
   const getCommunityData = async () => {
@@ -46,7 +46,7 @@ const ViewCommunity = () => {
   })
 
   const getPosts = async (pageParam) => {
-    const fetchedData = await axiosClient.get(`communities/${id}/posts?page${pageParam}`);
+    const fetchedData = await axiosClient.get(`communities/${id}/posts?page=${pageParam}`);
     return { ...fetchedData.data, prevPage: pageParam };
   }
 
@@ -61,7 +61,6 @@ const ViewCommunity = () => {
       return lastPage.meta.current_page + 1
     }
   })
-
 
   const fetchedPosts = usePosts.data?.pages.reduce((acc, page) => {
     return [...acc, page.data];
@@ -141,7 +140,7 @@ const ViewCommunity = () => {
             :
             <Loading />
           }
-          <PostModal isOpen={isOpen} topics = {useTopics.data} setIsOpen={setIsOpen} />
+          <PostModal isOpen={isOpen} topics={useTopics.data} setIsOpen={setIsOpen} />
         </div>
       </div>
       <div className="recommended">
