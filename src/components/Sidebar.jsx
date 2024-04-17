@@ -2,7 +2,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useStateContext } from '../context/ContextProvider';
 import { useEffect, useState } from 'react';
 import echo from './Echo';
-import Pusher from 'pusher-js';
 import { useQueryClient } from '@tanstack/react-query';
 import axiosClient from '../axios-client';
 
