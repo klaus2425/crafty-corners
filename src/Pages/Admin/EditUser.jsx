@@ -22,7 +22,6 @@ const EditUser = () => {
             .then(({ data }) => {
                 setE_User(data.data);
                 setLoading(false);
-                console.log(data.data);
                 setImage(storageBaseUrl + data.data.profile_picture);
             })
             .catch((err) => {
@@ -141,6 +140,8 @@ const EditUser = () => {
                                 <label>First Name</label>
                                 <label>Middle Name</label>
                                 <label>Last Name</label>
+                                <label>Student ID</label>
+                                <label>Program</label>
                                 <label>Email Address</label>
                                 <label>Phone Number</label>
                                 <label>Gender</label>
@@ -150,10 +151,12 @@ const EditUser = () => {
                                 <input type="text" value={e_user.first_name} disabled />
                                 <input type="text" value={e_user.middle_name}  disabled/>
                                 <input type="text" value={e_user.last_name} disabled/>
+                                <input type="text" value={e_user.student_id} disabled/>
+                                <input type="text" value={e_user.program} disabled/>
                                 <input type="email" readOnly value={e_user.email}  disabled/>
                                 <input type="number" value={e_user.phone_number} disabled/>
                                 <input type="text" value={e_user.gender} disabled />
-  
+                
                             </div>
                         </div>
                         <div className="edit-right">
