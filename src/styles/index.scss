@@ -790,12 +790,12 @@ input::-webkit-inner-spin-button {
 
   .search-post {
     display: flex;
-    width: calc(100% - 2rem);
+    width: clamp(3rem, 80vw, 49rem);
     justify-content: center;
+    padding: 0 !important;
     position: relative;
-
     input {
-      width: 50%;
+      width: 100%;
       height: 2.125rem;
       border-radius: 3.125rem;
       border: 2px solid #D8DCE3;
