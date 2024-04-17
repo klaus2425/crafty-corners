@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axiosClient from "../axios-client";
 import { useStateContext } from "../context/ContextProvider";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReportModal from "./ReportModal";
@@ -61,7 +61,9 @@ const Post = (props) => {
 
     }
 
-    const notify = () => toast('Link Copied');
+    const notify = () => toast('Link Copied', {
+        icon: '🔗',
+    });
 
     const updatePostDetails = () => {
         axiosClient.get(`/posts/${post.id}`)
@@ -471,14 +473,10 @@ export const UserPost = (props) => {
 
 
     const handleShare = () => {
+        toast('Link Copied', {
+            icon: '🔗'
+        })
         navigator.clipboard.writeText(`${import.meta.env.VITE_HOME_URL}p/${post.id}`);
-        Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Link copied to clipboard",
-            showConfirmButton: false,
-            timer: 1500
-        });
     }
 
     const viewPost = () => {

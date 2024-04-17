@@ -8,14 +8,19 @@ import axiosClient from "../axios-client";
 import { useQuery } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
+import BottomNav from "../components/BottomNav";
+
+
 const DefaultLayout = () => {
     const { user, token, setUser, setToken } = useStateContext();
     const { theme } = useThemeContext();
     const navigate = useNavigate();
+    const smallScreen = useMediaQuery({ query: '(max-width: 945px)' })
     const { data, isLoading } = useQuery({
         queryKey: ['user'],
         queryFn: () => axiosClient.get('/user')
-        .catch(() => {setToken(null).then(navigate('/'))})
+            .catch(() => { setToken(null).then(navigate('/')) })
     })
 
 
@@ -47,6 +52,7 @@ const DefaultLayout = () => {
     else
         return (
             <div className="body-container" id={theme} style={{ height: "100dvh", overflowY: 'scroll' }}>
+
                 <Toaster
                     position="bottom-center"
                     duration='3000'
@@ -64,7 +70,11 @@ const DefaultLayout = () => {
                 <div className="authenticated-container" >
                     <Sidebar />
                     <Outlet />
+
                 </div>
+                {
+                    smallScreen && <BottomNav />
+                }
             </div>
         );
 }

@@ -82,10 +82,14 @@ html {
 .round {
   border-radius: 1000px;
 }
+
 .fc-daygrid-day-frame {
   padding: 0.5rem;
 }
-
+.fc-daygrid-day {
+  width: fit-content;
+  
+}
 #admin-navbar {
   justify-content: space-between;
 }
@@ -204,13 +208,15 @@ html {
   gap: 0.25rem;
 }
 
-.schedule-card {
+#schedule-card {
   display: flex;
   flex-direction: column;
   background-color: #FFFFFF;
   border-radius: 15px;
   box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
   width: 100%;
+  overflow-x: auto;
+  height: fit-content;
   min-width: fit-content;
   margin-bottom: 0.5rem;
   padding: 1rem;
@@ -712,10 +718,31 @@ input::-webkit-inner-spin-button {
     z-index: 1000;
   }
 
+}
 
 
-
-
+.bottom-navbar {
+  height: 3.2rem;
+  box-shadow: 0 0 8px rgb(0 0 0 / 0.2);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  bottom: 0;
+  background-color: #FFF;
+  position: fixed;
+  width: 100%;
+  .bottom-navbar__link {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    border-radius: 10px;
+    cursor: pointer;
+    svg {
+      width: 2.81838rem;
+      height: 2.4375rem;
+    }
+  }
 }
 
 .container {
@@ -763,13 +790,12 @@ input::-webkit-inner-spin-button {
 
   .search-post {
     display: flex;
-    width: 100%;
+    width: calc(100% - 2rem);
     justify-content: center;
     position: relative;
 
     input {
-      width: clamp(5rem, 40vw, 50rem);
-
+      width: 50%;
       height: 2.125rem;
       border-radius: 3.125rem;
       border: 2px solid #D8DCE3;
@@ -831,11 +857,7 @@ input::-webkit-inner-spin-button {
 
   }
 
-  @media screen and (max-width: 900px) {
-    .search-post {
-      display: none;
-    }
-  }
+ 
 
 
   .profile {
@@ -900,6 +922,28 @@ input::-webkit-inner-spin-button {
     color: #000;
     font-size: 1.125rem;
   }
+  @media screen and (max-width: 900px) {
+    .search-post {
+      input {
+        width: calc(100% - 2rem);
+      }
+    }
+    
+  }
+
+  @media screen and (max-width: 550px) {
+
+    .title {
+      h1 {
+        display: none;
+      }
+    }
+
+    .navbar-header {
+      display: none !important;
+    }
+  }
+
 
 }
 
@@ -917,9 +961,7 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.body-container {
-  transition: 0.3s;
-}
+
 
 #home {
   gap: 1rem;
@@ -1196,12 +1238,6 @@ input::-webkit-inner-spin-button {
     font-size: 2rem;
     font-weight: bold;
   }
-
-
-
-
-
-
 
   #delete-modal {
     width: fit-content;
@@ -1600,7 +1636,6 @@ input::-webkit-inner-spin-button {
     margin-bottom: 1rem;
     border-radius: 10px;
     cursor: pointer;
-
     svg {
       margin-bottom: 0.3rem;
       width: 2.81838rem;
@@ -1773,7 +1808,6 @@ input::-webkit-inner-spin-button {
     border-radius: 15px;
     box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
     width: 100%;
-    min-width: fit-content;
     margin-bottom: 0.5rem;
     padding: 1rem;
 
@@ -1831,7 +1865,7 @@ input::-webkit-inner-spin-button {
         display: flex;
         margin-top: 5.65rem;
         gap: 0.5rem;
-        margin-left: 2rem;
+        margin-left: clamp(0rem, 1vw, 2rem);
         position: relative;
         display: flex;
         align-items: flex-start;
@@ -1840,7 +1874,7 @@ input::-webkit-inner-spin-button {
           aspect-ratio: 1 / 1;
           border-radius: 1000px;
           border: 5px #FFF solid;
-          width: 8.125rem;
+          width: clamp(1.2rem, 50vw, 7.25rem);
           height: 100%;
           object-fit: cover;
         }
@@ -1850,29 +1884,30 @@ input::-webkit-inner-spin-button {
           align-items: flex-start;
           flex-direction: column;
           padding-top: 0.5rem;
-
+          width: fit-content;
           .community-name {
             color: #000;
             margin-top: 2rem;
-            font-size: 2.425rem;
+            font-size: clamp(1rem, 2vw, 2.42rem);
             font-weight: bold;
-            min-width: 10rem;
+            width: fit-content;
           }
 
           .com-desc {
             padding-left: 0.5rem;
-            width: 10rem;
+            width: fit-content;
           }
 
           .community-count {
             padding-left: 0.5rem;
-            min-width: 10rem;
+            width: fit-content;
           }
         }
 
         .com-name-join {
           display: flex;
           height: fit-content;
+          margin-top: 0.68rem;
           align-items: center;
           justify-content: space-between;
           width: 100%;
@@ -2484,21 +2519,59 @@ input::-webkit-inner-spin-button {
       grid-template-columns: repeat(1, 1fr);
     }
   }
+
   @media screen and (max-width: 1600px) {
     .badges-card {
       grid-template-columns: repeat(4, 1fr);
     }
   }
+
   @media screen and (max-width: 1250px) {
     .badges-card {
       grid-template-columns: repeat(2, 1fr);
     }
   }
-  @media screen and (max-width: 750px) {
-    .badges-card {
-      grid-template-columns: repeat(1, 1fr);
+
+  @media screen and (max-width: 945px) {
+    .authenticated-container {
+      margin-bottom: 3.2rem;
+  
     }
+    .sidebar {
+      display: none;
+    }
+
+    .recommended {
+      display: none;
+    }
+
+    .card {
+      width: 100%;
+
+      .profile-details {
+
+        img {
+          display: none !important;
+        }
+      }
+    }
+    .section-header {
+      display: none;
+    }
+    .feed {
+      padding-top: 1.25rem;
+      width: 100%;
+
+    }
+
+    .post {
+      width: 100%;
+    }
+
+
+
   }
+
 }
 
 
@@ -2762,7 +2835,7 @@ input::-webkit-inner-spin-button {
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 1000;
-      max-width: 40rem;
+      max-width: 100%;
       cursor: pointer;
 
       img {
@@ -3520,25 +3593,21 @@ input::-webkit-inner-spin-button {
 
   }
 
-
-
-
-
-
-
   .modal {
     display: flex;
     flex-direction: column;
     border-radius: 25px;
     position: fixed;
     transition: 0.3s;
+    width: calc(fit-content - 2rem);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #FFF;
     z-index: 1000;
     padding: 1.46rem;
-    width: 50rem;
+    height: calc(100vh - 1rem);
+    overflow-y: auto;
   }
 
   .overlay {
@@ -3598,7 +3667,7 @@ input::-webkit-inner-spin-button {
   background-color: $purple;
   color: white;
   padding: 1rem;
-  font-size: clamp(0.4rem, 1vw, 3rem);
+  font-size: 0.86rem;
   border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
@@ -3606,6 +3675,7 @@ input::-webkit-inner-spin-button {
 
 .signup-inputs {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
   margin-bottom: 0.65rem;
@@ -3669,8 +3739,7 @@ input::-webkit-inner-spin-button {
 
 .signup-main {
   display: flex;
-  height: fit-content;
-  ;
+  flex-direction: column;
 
   h2 {
     padding-left: 0.3rem;
@@ -3684,8 +3753,6 @@ input::-webkit-inner-spin-button {
 
   }
 
-  display: flex;
-  flex-direction: column;
 
   input,
   select {
@@ -3911,13 +3978,13 @@ input::-webkit-inner-spin-button {
 
 .conversation-card {
   display: flex;
+  height: fit-content;
   flex-direction: column;
   background-color: #FFFFFF;
   border-radius: 15px;
   box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
   width: 95%;
   margin-bottom: 0.5rem;
-  min-height: 60vh;
   padding: 1rem;
 
   .message-back {
@@ -3990,8 +4057,8 @@ input::-webkit-inner-spin-button {
   .conversation-container {
     display: flex;
     width: 100%;
-    height: 100%;
-    max-height: 50vh;
+    height: 55vh;
+  
     align-items: center;
     margin-top: 0.56rem;
     flex-direction: column;
@@ -4877,6 +4944,7 @@ input::-webkit-inner-spin-button {
 
   .badges-card {
     background-color: #242526;
+
     .level-container {
       background-color: #18191a;
     }
@@ -5458,12 +5526,7 @@ input::-webkit-inner-spin-button {
   }
 }
 
-@media screen and (max-width: 900px) {
-  .guest-buttons {
-    display: none;
-  }
-
-}
+@media screen and (max-width: 900px) {}
 
 @media screen and (max-width: 1200px) {
   .input-container {
@@ -5512,4 +5575,3 @@ input::-webkit-inner-spin-button {
     transform: translateY(0);
   }
 }
-

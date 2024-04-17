@@ -89,6 +89,7 @@ const Schedule = () => {
                         initialView="dayGridMonth"
                         selectable
                         themeSystem='custom'
+                        height= '70vh'
                         events={events}
                         dateClick={handleDateClick}
                         eventClick={handleEventClick}
