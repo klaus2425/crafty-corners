@@ -2060,6 +2060,7 @@ input::-webkit-inner-spin-button {
         .profile-picture {
           width: 7rem;
           height: 7rem;
+          aspect-ratio: 1 / 1;
           border-radius: 50%;
           object-fit: cover;
         }
@@ -2549,9 +2550,9 @@ input::-webkit-inner-spin-button {
       width: 100%;
 
       .profile-details {
-
         img {
-          display: none !important;
+          width: clamp(2rem, 40vw, 7rem) !important;
+          height: clamp(2rem, 40vw, 7rem) !important;
         }
       }
     }
@@ -4925,6 +4926,19 @@ input::-webkit-inner-spin-button {
   .sidebar-link:hover {
     transition: 0.2s;
     background-color: #242526;
+  }
+  .bottom-navbar {
+    background-color: #18191a;
+    .bottom-navbar__link {
+      svg {
+        path, circle {
+          fill: #e4e6eb;
+        }
+        .bell-stroke {
+          stroke: #e4e6eb;
+        }
+      }
+    }
   }
 
   .schedule-card {
