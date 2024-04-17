@@ -24,7 +24,6 @@ const BottomNav = () => {
         if (!(location.pathname == '/messages') && !(location.pathname == `/conversation/${data.message.conversation_id}`)) {
           setMessageNotify(true);
           playChatNotification()
-          console.log('played');
         }
       })
       .listen('PostInteraction', () => {

@@ -67,8 +67,6 @@ const EditSchedule = (props) => {
         ev.preventDefault();
         const dateStart = schedule.start.split(' ')[0];
         const formData = new FormData();
-        console.log('Start', dateStart + ' ' + startTime);
-        console.log('End', dateStart + ' ' + endTime);
         formData.append("_method", "PUT");
         formData.append('title', schedule.title);
         formData.append('start', dateStart + ' ' + startTime);
