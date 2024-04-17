@@ -155,7 +155,7 @@ const ViewConversation = () => {
 
   useEffect(() => {
     getReceiver();
-    echo.private(`conversation-${conversation_id}`)
+    echo.private(`user-${uid}`)
       .listen('MessageSent', (data) => {
         if (data.user != uid) {
           getMessages(data.user)
