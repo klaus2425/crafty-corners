@@ -19,7 +19,7 @@ const UserBadges = () => {
         </div>
         <div className="badges-card">
           {
-            data ?
+            data &&
               data.length > 0 ? data.map(level => (
                 <div className="level-container">
                   <span><strong>/{level.community_name}</strong></span>
@@ -29,10 +29,9 @@ const UserBadges = () => {
                   <span>Level {level.level}</span>
                 </div>
               ))
-                :
-                (<div className="no-badges-text">No badges</div>)
               :
-              <Loading />
+              (<div className="no-badges-text">No badges</div>)
+
           }
 
         </div>
