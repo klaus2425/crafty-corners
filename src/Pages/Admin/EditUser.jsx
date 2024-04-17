@@ -22,6 +22,7 @@ const EditUser = () => {
             .then(({ data }) => {
                 setE_User(data.data);
                 setLoading(false);
+                console.log(data.data);
                 setImage(storageBaseUrl + data.data.profile_picture);
             })
             .catch((err) => {
@@ -41,11 +42,6 @@ const EditUser = () => {
         }, []);
     }
 
-    const handleChange = (ev) => {
-        setImage(URL.createObjectURL(ev.target.files[0]));
-        setImageChange(true);
-        setE_User({ ...e_user, profile_picture: ev.target.files[0] })
-    };
 
     const onSubmit = (ev) => {
         ev.preventDefault();
@@ -58,7 +54,6 @@ const EditUser = () => {
             formData.append('last_name', e_user.last_name);
             formData.append('email', e_user.email);
             formData.append('password', e_user.password);
-            formData.append('birthday', e_user.birthday);
             formData.append('gender', e_user.gender);
             formData.append('phone_number', e_user.phone_number);
             axiosClient.post(`users/${id}`, formData)
@@ -127,8 +122,6 @@ const EditUser = () => {
 
                 });
         }
-
-
     };
 
     return (
@@ -150,32 +143,22 @@ const EditUser = () => {
                                 <label>Last Name</label>
                                 <label>Email Address</label>
                                 <label>Phone Number</label>
-                                <label>Birthday</label>
                                 <label>Gender</label>
                             </div>
                             <div className="edit-inputs">
-                                <input type="text" value={e_user.user_name} onChange={ev => setE_User({ ...e_user, user_name: ev.target.value })} />
-                                <input type="text" value={e_user.first_name} onChange={ev => setE_User({ ...e_user, first_name: ev.target.value })} />
-                                <input type="text" value={e_user.middle_name} onChange={ev => setE_User({ ...e_user, middle_name: ev.target.value })} />
-                                <input type="text" value={e_user.last_name} onChange={ev => setE_User({ ...e_user, last_name: ev.target.value })} />
-                                <input type="email" readOnly value={e_user.email} onChange={ev => setE_User({ ...e_user, email: ev.target.value })} />
-                                <input type="number" value={e_user.phone_number} onChange={ev => setE_User({ ...e_user, phone_number: ev.target.value })} />
-                                <input type="date" value={e_user.birthday} onChange={ev => setE_User({ ...e_user, birthday: ev.target.value })} />
-                                <div className="gender-container">
-                                    <input type="radio" name="gender" value="Male" checked={e_user.gender === 'Male'} onChange={ev => setE_User({ ...e_user, gender: ev.target.value })} required /> Male
-                                    <input type="radio" name="gender" value="Female" checked={e_user.gender === 'Female'} onChange={ev => setE_User({ ...e_user, gender: ev.target.value })} /> Female
-                                    <input type="radio" name="gender" value="Other" checked={e_user.gender === 'Other'} onChange={ev => setE_User({ ...e_user, gender: ev.target.value })} /> Other
-                                </div>
-                                <button type="submit">Save</button>
+                                <input type="text" value={e_user.user_name} disabled />
+                                <input type="text" value={e_user.first_name} disabled />
+                                <input type="text" value={e_user.middle_name}  disabled/>
+                                <input type="text" value={e_user.last_name} disabled/>
+                                <input type="email" readOnly value={e_user.email}  disabled/>
+                                <input type="number" value={e_user.phone_number} disabled/>
+                                <input type="text" value={e_user.gender} disabled />
+  
                             </div>
                         </div>
                         <div className="edit-right">
                             <div className="upload-picture">
                                 <img id='update-picture' src={image} />
-                                <input id='upload-button' type="file" onChange={handleChange} />
-                                <label htmlFor='upload-button'>Upload File</label>
-                                <span className="edit-text">File size: maximum 1 MB</span>
-                                <span className="edit-text">File extension: .JPEG, .PNG, .JPG</span>
                             </div>
                         </div>
                     </form>
