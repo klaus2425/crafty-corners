@@ -63,7 +63,6 @@ const PostModal = (props) => {
     }
     else if (postType === 'image') {
       const formData = new FormData();
-      console.log(topicRef.current);
       formData.append('community_id', community_id);
       formData.append('title', titleRef.current.value);
       formData.append('notifiable', notifiable);
@@ -137,7 +136,6 @@ const PostModal = (props) => {
   }
 
   const handleTopicChange = (ev) => {
-    console.log(ev.value);
     topicRef.current = ev.value;
   }
 
@@ -195,8 +193,6 @@ const PostModal = (props) => {
         })))
       })
   }
-
-  console.log(communityList.data);
 
 
   return props.isOpen ?
