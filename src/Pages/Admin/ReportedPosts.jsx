@@ -6,16 +6,6 @@ import { useQuery } from '@tanstack/react-query';
 
 const ReportedPosts = () => {
 
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const getPosts = () => {
-    setLoading(true)
-    axiosClient.get('/show-all-reports')
-      .then(res => {
-        setLoading(false);
-        setPosts(res.data.data);
-      })
-  }
 
   useEffect(() => {
     getPosts();

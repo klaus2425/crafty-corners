@@ -12,6 +12,7 @@ $dark_purple: #2C3373;
 
 @font-face {
   font-family: Archivo;
+  font-display: swap;
   src: url('../fonts/ArchivoBlack-Regular.ttf');
 }
 
@@ -1482,16 +1483,30 @@ input::-webkit-inner-spin-button {
         border-radius: 10px;
         transition: 0.3s;
         flex-direction: column;
-
         .mentor-name-top {
           font-weight: bold;
           font-size: clamp(0.5rem, 2vw, 1rem);
         }
 
         .mentor-specialization-bottom {
-          padding-left: 1rem;
           font-size: clamp(0.5rem, 2vw, 1rem);
-
+          display: flex;
+          justify-content: flex-end;
+          gap: 0.2rem;
+        }
+        .mentor-top {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        .mentor-botom {
+          display: flex;
+        }
+        .mentor-list__picture {
+          width: 4rem;
+          border-radius: 1000px;
+          aspect-ratio: 1 / 1;
+          object-fit: cover
         }
       }
 
@@ -2211,12 +2226,6 @@ input::-webkit-inner-spin-button {
         margin-top: 1.256rem;
         margin-bottom: 0.675rem;
 
-        #input-birthday {
-          max-width: 7rem;
-        }
-
-
-
         input {
           border-radius: 10px;
           border: 2px solid #D8DCE3;
@@ -2255,8 +2264,6 @@ input::-webkit-inner-spin-button {
           display: flex;
           align-items: center;
         }
-
-
 
         input:focus~label,
         input:valid~label {
@@ -4910,6 +4917,13 @@ input::-webkit-inner-spin-button {
     }
   }
 
+  .mentor-specialization-bottom {
+    path {
+      fill: #e4e6eb;
+      stroke: #e4e6eb;
+    }
+    
+  }
   .search-card {
     transition: 0.3s;
     background-color: #242526;

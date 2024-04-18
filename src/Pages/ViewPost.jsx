@@ -167,18 +167,18 @@ const ViewPost = () => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosClient.delete(`/posts/${usePost.data.id}`)
-          .then(() => {
-            queryClient.refetchQueries('posts').then(() => {
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your post has been deleted.",
-                icon: "success"
-              });
-            });
+        toast.promise(axiosClient.delete(`/posts/${usePost.data.id}`), {
+          loading: 'Updating community information',
+          success: () => {
+            queryClient.refetchQueries('posts')
             navigate('/home')
-          })
-
+            return <b>Community Updated</b>
+          },
+          error: (err) => {
+            return `${err.response.data.message}`
+          },
+        },
+        )
       }
     });
   }

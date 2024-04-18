@@ -49,25 +49,19 @@ const EditProfile = () => {
             formData.append('last_name', currentUser.last_name);
             formData.append('email', currentUser.email);
             formData.append('password', currentUser.password);
-            formData.append('birthday', currentUser.birthday);
             formData.append('gender', currentUser.gender);
-            axiosClient.post(`users/${currentUser.id}`, formData)
-                .then(() => {
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "Your profile has been updated",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+
+            toast.promise( axiosClient.post(`users/${currentUser.id}`, formData), {
+                loading: 'Updating Profile',
+                success: () => {
                     getUser();
-                })
-                .catch(err => {
-                    const response = err.response;
-                    if (response && response.status === 422) {
-                        console.error(response);
-                    }
-                });
+                    return <b>Profile Updated</b>
+                },
+                error: (err) => {
+                    return `${Object.values(err.response.data.errors)[0]}`
+                },
+            },
+            )
         }
         else {
             const formData = new FormData();

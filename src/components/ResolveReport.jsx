@@ -23,9 +23,6 @@ const ResolveReport = (props) => {
     }
 
     axiosClient.post(`/resolve-report/${props.postId}`, formData)
-    .catch((error) => {
-      console.error(error);
-    })
 
     }
 
