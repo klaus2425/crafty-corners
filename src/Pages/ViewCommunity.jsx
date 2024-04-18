@@ -29,6 +29,8 @@ const ViewCommunity = () => {
     queryKey: ['mentors'],
     queryFn: getMentors,
   })
+
+  console.log(useMentors.data);
   const useTopics = useQuery({
     queryKey: ['topics'],
     queryFn: () => axiosClient.get(`/community/${id}/subtopics`)
@@ -110,7 +112,7 @@ const ViewCommunity = () => {
               <h3>Posts</h3>
             </div>
             <div className="right">
-              {!useCommunity.isLoading &&
+              {useCommunity.data?.is_user_member &&
                 <span onClick={() => setIsOpen(true)} className='purple-button'>Create a Post</span>
               }
             </div>
