@@ -2548,9 +2548,14 @@ input::-webkit-inner-spin-button {
 
     .notification {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 0.5rem;
-
+      
+      .left {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
       img {
         border-radius: 10000px;
         object-fit: cover;

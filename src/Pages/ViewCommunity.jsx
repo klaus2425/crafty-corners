@@ -30,8 +30,6 @@ const ViewCommunity = () => {
     queryFn: getMentors,
   })
 
-  console.log(useMentors.data);
-
   const useTopics = useQuery({
     queryKey: ['topics'],
     queryFn: () => axiosClient.get(`/community/${id}/subtopics`)
