@@ -1,13 +1,12 @@
-import { faPencil } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import axiosClient from "../axios-client";
-import { useState, useEffect, useRef } from 'react';
-import { useStateContext } from "../context/ContextProvider";
-
-import Swal from 'sweetalert2';
-import toast from 'react-hot-toast';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useQuery } from '@tanstack/react-query';
-
+import { useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
+import Swal from 'sweetalert2';
+import axiosClient from "../axios-client";
+import Loading from '../components/utils/Loading';
+import { useStateContext } from "../context/ContextProvider";
 
 const AccountSettings = () => {
     const passwordRef = useRef();
@@ -19,7 +18,6 @@ const AccountSettings = () => {
 
 
     const getUser = () => {
-        setLoading(true);
         axiosClient.get('/user')
             .then(({ data }) => {
                 setLoading(false);
@@ -40,7 +38,7 @@ const AccountSettings = () => {
     }
     const mentorship = useQuery({
         queryKey: ['mentor-settings'],
-        queryFn: getMentorships, 
+        queryFn: getMentorships,
         enabled: user.type === 'mentor',
     })
 
@@ -69,26 +67,19 @@ const AccountSettings = () => {
         ev.preventDefault();
 
         const formData = new FormData();
-
         formData.append("_method", "PUT");
         formData.append('phone_number', currentUser.phone_number);
 
-        axiosClient.post(`users/${currentUser.id}`, formData)
-            .then((res) => {
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Phone number changed successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                getUser();
-            })
-            .catch(err => {
-                const response = err.response;
-                if (response && response.status === 422) {
-                }
-            });
+        toast.promise(axiosClient.post(`users/${currentUser.id}`, formData), {
+            loading: 'Changing Phone Number',
+            success: () => {
+                return <b>Phone Number Changed</b>
+            },
+            error: (err) => {
+                return `${err.response.data.message}`
+            },
+        },
+        );
     };
 
 
@@ -97,24 +88,16 @@ const AccountSettings = () => {
         const formData = new FormData();
         formData.append('current_password', currentPasswordRef.current.value);
         formData.append('new_password', passwordRef.current.value);
-        axiosClient.post(`/change-password`, formData)
-            .then(() => {
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Password changed successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                getUser();
-
-            })
-            .catch(err => {
-                const response = err.response;
-                if (response && response.status === 422) {
-                    console.error(response);
-                }
-            });
+        toast.promise(axiosClient.post(`/change-password`, formData), {
+            loading: 'Changing Password',
+            success: () => {
+                return <b>Password Changed</b>
+            },
+            error: (err) => {
+                return `${err.response.data.message}`
+            },
+        },
+        );
     };
 
 
@@ -122,6 +105,7 @@ const AccountSettings = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         getUser();
     }, []);
 
@@ -137,9 +121,7 @@ const AccountSettings = () => {
                 </div>
                 <div className="card">
                     {loading && (
-                        <div className="loading">
-                            Loading...
-                        </div>
+                        <Loading />
                     )}
 
                     {!loading && (
@@ -152,7 +134,7 @@ const AccountSettings = () => {
                                 <div className='input-container'>
                                     <div className="input-col-container">
                                         <form onSubmit={onPhoneSubmit}>
-                                        <span className='change-text'>Change Phone Number</span>
+                                            <span className='change-text'>Change Phone Number</span>
 
                                             <div className="field-holder">
                                                 <input type="number" value={currentUser.phone_number} onChange={ev => setCurrentUser({ ...currentUser, phone_number: ev.target.value })} required />
