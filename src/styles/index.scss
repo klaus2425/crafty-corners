@@ -1483,16 +1483,30 @@ input::-webkit-inner-spin-button {
         border-radius: 10px;
         transition: 0.3s;
         flex-direction: column;
-
         .mentor-name-top {
           font-weight: bold;
           font-size: clamp(0.5rem, 2vw, 1rem);
         }
 
         .mentor-specialization-bottom {
-          padding-left: 1rem;
           font-size: clamp(0.5rem, 2vw, 1rem);
-
+          display: flex;
+          justify-content: flex-end;
+          gap: 0.2rem;
+        }
+        .mentor-top {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        .mentor-botom {
+          display: flex;
+        }
+        .mentor-list__picture {
+          width: 4rem;
+          border-radius: 1000px;
+          aspect-ratio: 1 / 1;
+          object-fit: cover
         }
       }
 
@@ -4903,6 +4917,13 @@ input::-webkit-inner-spin-button {
     }
   }
 
+  .mentor-specialization-bottom {
+    path {
+      fill: #e4e6eb;
+      stroke: #e4e6eb;
+    }
+    
+  }
   .search-card {
     transition: 0.3s;
     background-color: #242526;
