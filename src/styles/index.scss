@@ -2212,12 +2212,6 @@ input::-webkit-inner-spin-button {
         margin-top: 1.256rem;
         margin-bottom: 0.675rem;
 
-        #input-birthday {
-          max-width: 7rem;
-        }
-
-
-
         input {
           border-radius: 10px;
           border: 2px solid #D8DCE3;
@@ -2256,8 +2250,6 @@ input::-webkit-inner-spin-button {
           display: flex;
           align-items: center;
         }
-
-
 
         input:focus~label,
         input:valid~label {

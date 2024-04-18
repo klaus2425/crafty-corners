@@ -33,7 +33,7 @@ axiosClient.interceptors.response.use((response) => {
             if (response.status === 401) {
             }
         } catch (e) {
-            console.error(e)
+            
         }
 
         throw error;

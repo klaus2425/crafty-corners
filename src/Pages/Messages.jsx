@@ -53,7 +53,7 @@ const Messages = () => {
     echo.private(`user-${uid}`)
     .listen('MessageSent', () => {
        useConversations.refetch();
-    }).error((error) => { console.error(error) });
+    })
   }, [])
 
   return (
