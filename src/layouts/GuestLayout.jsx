@@ -1,10 +1,10 @@
-import { Outlet } from "react-router-dom"
-import { useStateContext } from "../context/ContextProvider";
-import { Navigate } from "react-router-dom";
-import Navbar from '../components/Navbar';
 import { Toaster } from "react-hot-toast";
-import '../styles/index.scss'
-
+import { Navigate, Outlet } from "react-router-dom";
+import Navbar from '../components/Navbar';
+import { useStateContext } from "../context/ContextProvider";
+import '../styles/index.scss';
+import { Suspense } from "react";
+import Loading from "../components/utils/Loading";
 const GuestLayout = () => {
     const { token } = useStateContext();
     if (token) {
@@ -26,7 +26,9 @@ const GuestLayout = () => {
                 }}
             />
             <Navbar />
-            <Outlet />
+            <Suspense fallback={<Loading />}>
+                <Outlet />
+            </Suspense>
         </div>
     );
 }
