@@ -792,7 +792,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     width: clamp(3rem, 80vw, 49rem);
     justify-content: center;
-    padding: 0 !important;
+    padding: 1rem !important;
     position: relative;
     input {
       width: 100%;
@@ -1650,10 +1650,10 @@ input::-webkit-inner-spin-button {
 
   .feed {
     display: flex;
+    align-items: center;
     width: 60%;
     height: 100%;
     overflow-y: scroll;
-    align-items: center;
     flex-direction: column;
     padding: 1rem 0.5rem 0 0.5rem;
   }
@@ -1685,8 +1685,8 @@ input::-webkit-inner-spin-button {
   }
 
   .section-header {
-    width: 100%;
     display: flex;
+    width: 100%;
     align-items: center;
     justify-content: flex-start;
     color: #000;
@@ -2542,34 +2542,42 @@ input::-webkit-inner-spin-button {
       display: none;
     }
 
+    .display-name {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 1rem;
+      width: 100%;
+
+      h2 {
+        font-size: 1rem;
+      }
+    }
+
     .recommended {
       display: none;
     }
 
     .card {
       width: 100%;
-
       .profile-details {
+        flex-direction: column;
         img {
-          width: clamp(2rem, 40vw, 7rem) !important;
-          height: clamp(2rem, 40vw, 7rem) !important;
+          width: clamp(1rem, 20vw, 7rem) !important;
+          height: clamp(1rem, 20vw, 7rem) !important;
         }
       }
     }
-    .section-header {
-      display: none;
-    }
+
+
     .feed {
-      padding-top: 1.25rem;
       width: 100%;
-
     }
-
     .post {
       width: 100%;
     }
-
-
+  }
+  @media screen and (max-width: 360px) {
 
   }
 
@@ -2796,7 +2804,6 @@ input::-webkit-inner-spin-button {
       object-fit: cover;
       width: 100%;
       border-radius: 20px;
-      min-width: 20rem;
       min-height: 24rem;
       max-width: 41.375rem;
       max-height: 28.9375rem;
@@ -4929,7 +4936,7 @@ input::-webkit-inner-spin-button {
     background-color: #242526;
   }
   .bottom-navbar {
-    background-color: #18191a;
+    background-color: #242526;
     .bottom-navbar__link {
       svg {
         path, circle {

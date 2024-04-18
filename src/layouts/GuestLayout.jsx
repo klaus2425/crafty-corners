@@ -3,6 +3,7 @@ import { useStateContext } from "../context/ContextProvider";
 import { Navigate } from "react-router-dom";
 import Navbar from '../components/Navbar';
 import { Toaster } from "react-hot-toast";
+import '../styles/index.scss'
 
 const GuestLayout = () => {
     const { token } = useStateContext();

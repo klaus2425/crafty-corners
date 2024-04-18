@@ -104,7 +104,6 @@ const UserFeed = () => {
                         </svg>
                         <h3>Posts</h3>
                     </div>
-                    <div className='posts-col' >
                         {
                             posts ?
                                 <InfiniteScroll
@@ -130,7 +129,6 @@ const UserFeed = () => {
                                 :
                                 <Loading />
                         }
-                    </div>
                 </div>
             </div>
             <div className="recommended">

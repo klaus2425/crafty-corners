@@ -7,10 +7,11 @@ import { useThemeContext } from "../context/ThemeProvider";
 import axiosClient from "../axios-client";
 import { useQuery } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import BottomNav from "../components/BottomNav";
-
+import Loading from "../components/utils/Loading";
+import Fallback from "../components/Fallback";
 
 const DefaultLayout = () => {
     const { user, token, setUser, setToken } = useStateContext();
@@ -52,7 +53,6 @@ const DefaultLayout = () => {
     else
         return (
             <div className="body-container" id={theme} style={{ height: "100dvh", overflowY: 'scroll' }}>
-
                 <Toaster
                     position="bottom-center"
                     duration='3000'
@@ -69,8 +69,9 @@ const DefaultLayout = () => {
                 <Navbar />
                 <div className="authenticated-container" >
                     <Sidebar />
-                    <Outlet />
-
+                    <Suspense fallback={<Fallback />}>
+                        <Outlet />
+                    </Suspense>
                 </div>
                 {
                     smallScreen && <BottomNav />

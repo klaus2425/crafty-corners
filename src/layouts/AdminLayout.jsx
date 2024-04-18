@@ -1,7 +1,8 @@
 import AdminNavbar from "../components/AdminNavbar";
+import '../styles/index.scss'
 import { useStateContext } from "../context/ContextProvider";
 import { Navigate, Outlet, Link } from "react-router-dom";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faTableColumns, faUsers, faGroupArrowsRotate,
@@ -10,6 +11,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { useThemeContext } from "../context/ThemeProvider";
 import { Toaster } from "react-hot-toast";
+import AdminFallback from "../components/AdminFallBack";
+
 const AdminLayout = () => {
     const { user, token } = useStateContext();
     const { theme } = useThemeContext();
@@ -66,13 +69,13 @@ const AdminLayout = () => {
                 </div>
                 <div className="dashboard-right">
                     <div className="admin-container">
-
                         <div className="admin-container-card">
-                            <Outlet />
+                            <Suspense fallback={<AdminFallback />}>
+                                <Outlet />
+                            </Suspense>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     );
