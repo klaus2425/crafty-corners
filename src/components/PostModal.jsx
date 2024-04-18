@@ -169,7 +169,7 @@ const PostModal = (props) => {
 
   const communityList = useQuery({
     queryKey: ['community-names'],
-    queryFn: () => axiosClient.get('/communities').then(({ data }) => (data))
+    queryFn: () => axiosClient.get('/user-joined-communities').then(({ data }) => (data))
   })
 
   const handleCommunityChange = (ev) => {
