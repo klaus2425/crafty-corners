@@ -163,7 +163,6 @@ const ViewConversation = () => {
       })
 
     return () => {
-      echo.leave(`conversation-${conversation_id}`);
       if (receiver_id.current == uid) {
         axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
       }

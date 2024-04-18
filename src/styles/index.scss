@@ -479,6 +479,34 @@ input::-webkit-inner-spin-button {
 
 }
 
+.react-select-container {
+  .react-select__control {
+    border-radius: 10000px;
+    max-width: 100%;
+    outline: none;
+    box-shadow: none;
+  }
+
+
+  .react-select__option:hover {
+    color: #FFF;
+    background-color: $purple;
+  }
+  .react-select__option--is-focused{
+    background-color: #FFF;
+  }
+  .react-select__option--is-selected{
+    background-color: $dark_purple;
+  }
+  
+  .react-select__value-container {
+    max-width: 100%;
+  }
+
+
+}
+
+
 
 .upload-picture {
   display: flex;
@@ -996,8 +1024,10 @@ input::-webkit-inner-spin-button {
   .close-left {
     display: flex;
     margin-bottom: 0.2rem;
-    gap: 1rem;
+    width: clamp(3rem, 60vw, 20rem);
     align-items: center;
+    gap: 1rem;
+
   }
 
   .post-notification-container--left {
@@ -1483,6 +1513,7 @@ input::-webkit-inner-spin-button {
         border-radius: 10px;
         transition: 0.3s;
         flex-direction: column;
+
         .mentor-name-top {
           font-weight: bold;
           font-size: clamp(0.5rem, 2vw, 1rem);
@@ -1494,14 +1525,17 @@ input::-webkit-inner-spin-button {
           justify-content: flex-end;
           gap: 0.2rem;
         }
+
         .mentor-top {
           display: flex;
           align-items: center;
           gap: 0.5rem;
         }
+
         .mentor-botom {
           display: flex;
         }
+
         .mentor-list__picture {
           width: 4rem;
           border-radius: 1000px;
@@ -4902,6 +4936,48 @@ input::-webkit-inner-spin-button {
     }
   }
 
+  .react-select-container {
+
+    .react-select__control {
+      background-color: #242526;
+    }
+
+    .react-select__input-container {
+      color: #e4e6eb;
+    }
+    .css-w9q2zk-Input2 {
+      color: #FFF !important;
+    }
+
+    .react-select__single-value {
+      color: #e4e6eb;
+    }
+    .react-select__menu {
+      background-color: #242526;
+    }
+
+    .react-select__option {
+      background-color: #18191a;
+    }
+
+    .react-select__option:hover {
+      background-color: #242526;
+    }
+
+    .react-select__dropdown-indicator {
+      .css-tj5bde-Svg {
+        path {
+          fill: #e4e6eb;
+        }
+      }
+      .css-tj5bde-Svg:hover {
+
+        background-color: #18191a;
+
+      }
+    }
+  }
+
   .attachment-display {
     background-color: var(--bg-color);
   }
@@ -4922,8 +4998,9 @@ input::-webkit-inner-spin-button {
       fill: #e4e6eb;
       stroke: #e4e6eb;
     }
-    
+
   }
+
   .search-card {
     transition: 0.3s;
     background-color: #242526;
@@ -5140,7 +5217,9 @@ input::-webkit-inner-spin-button {
       .media-upload-container {
         border: 0;
         background-color: #242526;
-
+        video {
+          max-height: 40vh;
+        }
       }
     }
 

@@ -6,11 +6,6 @@ import { useQuery } from '@tanstack/react-query';
 
 const ReportedPosts = () => {
 
-
-  useEffect(() => {
-    getPosts();
-  }, []);
-
   const useReports = useQuery({
     queryKey: ['reports'],
     queryFn: () => axiosClient.get('/show-all-reports')

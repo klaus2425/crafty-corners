@@ -167,7 +167,6 @@ const ViewCommunity = () => {
               </div>
             </div>
         }
-
         <div className="card">
           <h3>Community Mentors</h3>
           {
@@ -184,8 +183,6 @@ const ViewCommunity = () => {
                   </span>
                   </div>
                   <img className='mentor-list__picture' src={import.meta.env.VITE_API_STORAGE_URL + mentor.user.profile_picture} alt="" />
-
-
                 </div>
                 <div className="mentor-bottom">
 

@@ -19,9 +19,8 @@ export default function LoginModal(props) {
         toast.success('Password reset link sent to email')
       })
       .catch(err => {
-        toast.error(err.response.data.message)
-      })
-      ;
+        toast.error(err.response.data.email)
+      });
   }
   const onSubmit = (ev) => {
     ev.preventDefault();
@@ -36,7 +35,7 @@ export default function LoginModal(props) {
     toast.promise(axiosClient
       .post("/login", payload), {
       loading: 'Logging in',
-      success: ({data}) => {
+      success: ({ data }) => {
         if (data.user.email_verified_at === null) {
           axios.post(`${import.meta.env.VITE_API_BASE_URL}/send-email-verification`, null, {
             headers: {
