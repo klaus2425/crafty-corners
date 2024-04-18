@@ -1,17 +1,17 @@
-import { useState, useRef } from 'react';
-import { useParams } from 'react-router-dom'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRef, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useParams } from 'react-router-dom';
+import Select from 'react-select';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import axiosClient from '../axios-client';
 import { useStateContext } from '../context/ContextProvider';
 import Loading from "./utils/Loading";
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
 
 const PostModal = (props) => {
   const { id } = useParams();
   const [community_id, setCommunity_id] = useState(id);
-  const [topics, setTopics] = useState(props.topics);
   const [fileUpload, setFileUpload] = useState(false);
   const [fileType, setFileType] = useState('');
   const [notifiable, setNotifiable] = useState(true);
@@ -21,12 +21,15 @@ const PostModal = (props) => {
   const [postType, setPostType] = useState('text');
   const [file, setFile] = useState();
   const [count, setCount] = useState();
+  const [topicOptions, setTopicOptions] = useState({});
   const titleRef = useRef();
   const topicRef = useRef();
   const descriptionRef = useRef();
   const linkRef = useRef();
   const { user } = useStateContext();
   const queryClient = useQueryClient();
+
+
   const handleCount = (ev) => {
     setCount(ev.target.value.length);
   }
@@ -39,7 +42,7 @@ const PostModal = (props) => {
       formData.append('user_id', user.id);
       formData.append('community_id', community_id);
       formData.append('title', titleRef.current.value);
-      formData.append('subtopics', topicRef.current.value)
+      formData.append('subtopics', topicRef.current)
       formData.append('video', file);
       formData.append('notifiable', notifiable);
       formData.append('post_type', 'video');
@@ -60,10 +63,11 @@ const PostModal = (props) => {
     }
     else if (postType === 'image') {
       const formData = new FormData();
+      console.log(topicRef.current);
       formData.append('community_id', community_id);
       formData.append('title', titleRef.current.value);
       formData.append('notifiable', notifiable);
-      formData.append('subtopics', topicRef.current.value)
+      formData.append('subtopics', topicRef.current)
       formData.append('image', file);
       formData.append('post_type', 'image');
       toast.promise(axiosClient.post('/posts', formData)
@@ -85,7 +89,7 @@ const PostModal = (props) => {
       const formData = new FormData();
       formData.append('user_id', user.id);
       formData.append('notifiable', notifiable);
-      formData.append('subtopics', topicRef.current.value)
+      formData.append('subtopics', topicRef.current)
       formData.append('community_id', community_id);
       formData.append('title', titleRef.current.value);
       formData.append('content', descriptionRef.current.value);
@@ -110,12 +114,11 @@ const PostModal = (props) => {
       formData.append('user_id', user.id);
       formData.append('notifiable', notifiable);
       formData.append('community_id', community_id);
-      formData.append('subtopics', topicRef.current.value)
+      formData.append('subtopics', topicRef.current)
       formData.append('title', titleRef.current.value);
       formData.append('link', linkRef.current.value);
       formData.append('content', descriptionRef.current.value);
       formData.append('post_type', 'link');
-      formData.append('subtopics', topicRef.current.value)
       toast.promise(axiosClient.post('/posts', formData)
         , {
           loading: 'Posting',
@@ -131,7 +134,11 @@ const PostModal = (props) => {
         },
       );
     }
+  }
 
+  const handleTopicChange = (ev) => {
+    console.log(ev.value);
+    topicRef.current = ev.value;
   }
 
   const handleTabChange = (index) => {
@@ -171,13 +178,26 @@ const PostModal = (props) => {
     queryKey: ['community-names'],
     queryFn: () => axiosClient.get('/user-joined-communities').then(({ data }) => (data))
   })
+  const options = communityList.data && communityList?.data.map(community => ({
+    value: community.id,
+    label: community.name
+  }));
 
   const handleCommunityChange = (ev) => {
-    const selectedOption = ev.target.value
-    setCommunity_id(selectedOption);
-    axiosClient.get(`/community/${selectedOption}/subtopics`)
-    .then(({data}) => setTopics(data.subtopics))
+    setTopicOptions(0)
+    setCommunity_id(ev.value);
+
+    axiosClient.get(`/community/${ev.value}/subtopics`)
+      .then(({ data }) => {
+        setTopicOptions(data.subtopics.map(subtopic => ({
+          value: subtopic,
+          label: subtopic
+        })))
+      })
   }
+
+  console.log(communityList.data);
+
 
   return props.isOpen ?
     (
@@ -185,20 +205,14 @@ const PostModal = (props) => {
         <div className="post-modal">
           <div className='close'>
             <div className='close-left'>
-              <span className="header-span">Create a post</span>
+              <span className="header-span">Create a post in</span>
               {
-                !props.topics ?
-                  <select defaultValue={'DEFAULT'}  onChange={handleCommunityChange} className='post-notification-container__select'>
-                      <option value={'DEFAULT'} disabled>Select Community</option>
-                    {communityList.data ? communityList.data.map(community => (
-                      <option value={community.id}>{community.name}</option>
-                    ))
-                      :
-                      null
-                    }
-                  </select>
-                  :
-                  null
+                  <Select
+                    options={options}
+                    onChange={handleCommunityChange}
+                    className="react-select-container"
+                    classNamePrefix="react-select"
+                  />
               }
             </div>
             <svg onClick={handleClose} xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
@@ -313,18 +327,15 @@ const PostModal = (props) => {
                   }
                 </span>
                 Topic:
-                <select ref={topicRef} className='post-notification-container__select'>
-                  {
-                    topics ? topics.map((topic, index) => (
-                      <option value={topic}>{topic}</option>
-                    ))
-                      : null
-                  }
-                </select>
+                <Select
+                  options={topicOptions}
+                  key={topicOptions}
+                  onChange={handleTopicChange}
+                  className='react-select-container'
+                  classNamePrefix='react-select'
+                />
               </div>
-
-
-              <button type='submit' onClick={handleSubmit} className='purple-button'>Post</button>
+              <button type='submit'  onClick={handleSubmit} className='purple-button'>Post</button>
             </div>
           </form>
         </div>
