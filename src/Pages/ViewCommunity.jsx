@@ -1,16 +1,15 @@
-import { useNavigate, useParams } from 'react-router-dom'
-import MembershipCheck from '../components/utils/Membership';
-import axiosClient from '../axios-client';
-import { useEffect, useState } from 'react';
-import { useStateContext } from "../context/ContextProvider";
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
-import PostModal from '../components/PostModal';
-import Post from '../components/Post';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import Loading from '../components/utils/Loading';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import ProgressBar from '@ramonak/react-progress-bar';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { useNavigate, useParams } from 'react-router-dom';
+import axiosClient from '../axios-client';
+import Post from '../components/Post';
+import PostModal from '../components/PostModal';
+import Loading from '../components/utils/Loading';
+import MembershipCheck from '../components/utils/Membership';
 
 
 const ViewCommunity = () => {

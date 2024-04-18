@@ -1,7 +1,7 @@
-import axiosClient from '../axios-client';
 import { useRef, useState } from 'react';
-import toast from 'react-hot-toast';
 import { HexColorPicker } from "react-colorful";
+import toast from 'react-hot-toast';
+import axiosClient from '../axios-client';
 
 const AddScheduleModal = (props) => {
 

@@ -1,6 +1,3 @@
-import axiosClient from "../axios-client";
-
-
 const ConfirmDeleteModal = (props) => {
 
   const deleteConversation = () => {

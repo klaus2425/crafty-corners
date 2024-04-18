@@ -1,11 +1,9 @@
-import { useStateContext } from "../context/ContextProvider";
-import LoginModal from "./LoginModal";
-import SignUpModal from "./SignUpModal";
-import { useEffect, useState } from "react";
-import axiosClient from "../axios-client";
-import DropDownItem from "./DropDownItem";
-import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axiosClient from "../axios-client";
+import { useStateContext } from "../context/ContextProvider";
+import DropDownItem from "./DropDownItem";
 
 const AdminNavbar = () => {
     const { setUser, setToken, user, token } = useStateContext();

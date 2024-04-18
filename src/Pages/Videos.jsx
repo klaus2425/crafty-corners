@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useQuery } from '@tanstack/react-query';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axiosClient from "../axios-client";
 import Video from "../components/Video";
 import Loading from "../components/utils/Loading";
-import axiosClient from "../axios-client";
-import Swal from 'sweetalert2';
 import { useStateContext } from "../context/ContextProvider";
-import { useNavigate } from "react-router-dom";
-import { useQuery } from '@tanstack/react-query';
 
 const UserFeed = () => {
 

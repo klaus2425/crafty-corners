@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import axiosClient from '../axios-client';
-import Swal from 'sweetalert2';
-import Loading from "./utils/Loading";
 import { HexColorPicker } from "react-colorful";
 import toast from "react-hot-toast";
+import Swal from 'sweetalert2';
+import axiosClient from '../axios-client';
+import Loading from "./utils/Loading";
 
 const EditSchedule = (props) => {
     const [schedule, setSchedule] = useState({});

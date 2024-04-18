@@ -1,12 +1,12 @@
-import { useStateContext } from "../context/ContextProvider";
-import LoginModal from "./LoginModal";
-import { useEffect, useState, useRef } from "react";
-import axiosClient from "../axios-client";
-import DropDownItem from "./DropDownItem";
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
-import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useRef, useState } from "react";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { useNavigate } from "react-router-dom";
+import axiosClient from "../axios-client";
+import { useStateContext } from "../context/ContextProvider";
+import DropDownItem from "./DropDownItem";
+import LoginModal from "./LoginModal";
 import PostModal from "./PostModal";
 
 const Navbar = () => {

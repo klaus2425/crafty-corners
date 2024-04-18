@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
-import { useStateContext } from "../context/ContextProvider";
-import axiosClient from "../axios-client";
-import toast from "react-hot-toast";
 import axios from "axios";
+import React, { useRef, useState } from "react";
+import toast from "react-hot-toast";
+import axiosClient from "../axios-client";
+import { useStateContext } from "../context/ContextProvider";
 
 export default function LoginModal(props) {
   const { setUser, setToken } = useStateContext();

@@ -53,7 +53,7 @@ const Communities = () => {
           {
             data ? <InfiniteScroll
               scrollableTarget='list-card'
-              dataLength={fetchedCommunities.length ? fetchedCommunities?.length : 0}
+              dataLength={fetchedCommunities?.length ? fetchedCommunities?.length : 0}
               next={fetchNextPage}
               hasMore={hasNextPage}
               loader={<Loading />}>

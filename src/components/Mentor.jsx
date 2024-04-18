@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import { useStateContext } from "../context/ContextProvider";
-import axiosClient from "../axios-client";
 import { useQueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast'
+import toast from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
+import axiosClient from "../axios-client";
+import { useStateContext } from "../context/ContextProvider";
 const Mentor = (mentor) => {
   const { user } = useStateContext();
   const navigate = useNavigate()

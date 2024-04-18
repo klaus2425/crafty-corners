@@ -1,8 +1,8 @@
-import { Link, Navigate } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGears } from '@fortawesome/free-solid-svg-icons'
+import { faGears } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
-import { useEffect, useRef, useState } from 'react';
 import { useThemeContext } from '../context/ThemeProvider';
 
 

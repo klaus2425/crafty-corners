@@ -1,7 +1,7 @@
-import { useNavigate, useParams } from "react-router-dom";
 import { useRef, useState } from "react";
-import axiosClient from "../axios-client";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import axiosClient from "../axios-client";
 
 const PasswordReset = () => {
   const params = new URLSearchParams(window.location.search);
