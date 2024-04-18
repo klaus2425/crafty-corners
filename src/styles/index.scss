@@ -1715,8 +1715,8 @@ input::-webkit-inner-spin-button {
   }
 
   .acc-settings-feed {
+    width: 90%;
     display: flex;
-    width: 50%;
     align-items: center;
     flex-direction: column;
 
@@ -2576,7 +2576,10 @@ input::-webkit-inner-spin-button {
     .badges-card {
       grid-template-columns: repeat(1, 1fr);
     }
+ 
   }
+
+
 
   @media screen and (max-width: 1600px) {
     .badges-card {
@@ -2594,6 +2597,9 @@ input::-webkit-inner-spin-button {
     .authenticated-container {
       margin-bottom: 3.2rem;
 
+    }
+      .input-container {
+      flex-direction: row;
     }
 
     .sidebar {
@@ -2636,6 +2642,13 @@ input::-webkit-inner-spin-button {
       width: 100%;
     }
   }
+  @media screen and (max-width: 630px) {
+    .input-container {
+      flex-direction: column;
+    }
+ 
+  }
+
 
   @media screen and (max-width: 360px) {
     .profile-details {
@@ -5692,7 +5705,7 @@ input::-webkit-inner-spin-button {
 
 }
 
-@media screen and (max-width: 1540px) {
+@media screen and (max-width: 1410px) {
 
   .input-container {
     flex-direction: column;
