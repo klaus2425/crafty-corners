@@ -41,7 +41,9 @@ const ViewPost = () => {
     setOpen(false);
   }
 
-  const notifyShare = () => toast('Link Copied');
+  const notifyShare = () => toast('Link Copied', {
+    icon: '🔗',
+  });
 
   const notifyComment = () => toast('Comment Posted');
 
