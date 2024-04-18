@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import axiosClient from "../axios-client";
+import toast from "react-hot-toast";
 
 const ReportModal = (props) => {
 
@@ -10,10 +11,19 @@ const ReportModal = (props) => {
     formData.append('reason', reasonRef.current.value);
     formData.append('description', descriptionRef.current.value);
 
-    axiosClient.post(`/report-post/${props.postId}`, formData)
-      .then(() => {
-        props.setIsOpen(false);
-      })
+    toast.promise(axiosClient.post(`/report-post/${props.postId}`, formData)
+      , {
+        loading: 'Submitting Report',
+        success: () => {
+          props.setIsOpen(false);
+          return <b>Report Submitted</b>
+        },
+        error: (err) => {
+          return `${err.response.data.message}`
+        },
+      },
+    );
+
   }
 
   const handleClose = () => {
