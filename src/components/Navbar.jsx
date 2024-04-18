@@ -19,7 +19,7 @@ const Navbar = () => {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const handleNavigateHome = () => {
-        navigate('/Landing');
+        navigate('/');
     }
 
 
