@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import ReactTimeAgo from "react-time-ago";
+import TimeAgo from 'javascript-time-ago';
 
 const UserNotifications = (props) => {
 
@@ -7,14 +7,17 @@ const UserNotifications = (props) => {
     const handlePostClick = () => {
         navigate(`/p/${props.post_id}?uid=${props.uid}`)
     }
+    const timeAgo = new TimeAgo('en-US')
     if (props.type == "App\\Notifications\\PostLiked") {
         return (
             <div className="notification-card">
                 {
                     <div onClick={handlePostClick} className="notification">
-                        <img src={props.notifierImage} />
-                        <span><span id="bold">{props.notifier}</span> liked your post in /{props.community}</span>
-                        <ReactTimeAgo style={{marginLeft: 'auto'}} date={props.created_at} locale="en-US"/>
+                        <div className="left">
+                            <img src={props.notifierImage} />
+                            <span><span id="bold">{props.notifier}</span> liked your post in /{props.community}</span>
+                        </div>
+                        {timeAgo.format(new Date(props.created_at), 'twitter')}
                     </div>
                 }
             </div>
@@ -27,7 +30,7 @@ const UserNotifications = (props) => {
                     <div onClick={handlePostClick} className="notification">
                         <img src={props.notifierImage} />
                         <span><span id="bold">{props.notifier}</span> commented on your post in /{props.community}</span>
-                        <ReactTimeAgo style={{marginLeft: 'auto'}} date={props.created_at} locale="en-US"/>
+                        {/* <ReactTimeAgo style={{marginLeft: 'auto'}} date={props.created_at} locale="en-US"/> */}
 
                     </div>
                 }
@@ -41,7 +44,7 @@ const UserNotifications = (props) => {
                     <div onClick={handlePostClick} className="notification">
                         <img src={props.notifierImage} />
                         <span><span id="bold">{props.notifier}</span> shared your post in /{props.community}</span>
-                        <ReactTimeAgo style={{marginLeft: 'auto'}} date={props.created_at} locale="en-US"/>
+                        {/* <ReactTimeAgo style={{marginLeft: 'auto'}} date={props.created_at} locale="en-US"/> */}
 
                     </div>
                 }
