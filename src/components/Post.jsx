@@ -1,6 +1,5 @@
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getAgo } from "@jlln/ago";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import toast from 'react-hot-toast';
@@ -10,17 +9,18 @@ import Swal from 'sweetalert2';
 import axiosClient from "../axios-client";
 import { useStateContext } from "../context/ContextProvider";
 import ReportModal from "./ReportModal";
-
+import TimeAgo from 'javascript-time-ago';
 
 
 const Post = (props) => {
     const post = props.post;
+    const timeAgo = new TimeAgo('en-US')
     const post_user = post.user;
     const { user } = useStateContext();
     const community = props.community;
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
     const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
-    const ago = getAgo(post.created_at);
+    const ago = timeAgo.format(new Date(post.created_at));
     const [likes, setLikes] = useState(props.post.likes_count);
     const [liked, setLiked] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -126,7 +126,7 @@ const Post = (props) => {
                         <img onClick={() => { navigate(`/u/${post_user.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
-                            <span id='post-time'>{ago} ago</span>
+                            <span id='post-time'>{ago} </span>
                         </div>
 
                     </div>
@@ -204,7 +204,7 @@ const Post = (props) => {
                         <img onClick={() => { navigate(`/u/${post_user.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
-                            <span id='post-time'>{ago} ago</span>
+                            <span id='post-time'>{ago} </span>
                         </div>
                     </div>
                     <div className="right">
@@ -279,7 +279,7 @@ const Post = (props) => {
                         <img onClick={() => { navigate(`/u/${post_user.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
-                            <span id='post-time'>{ago} ago</span>
+                            <span id='post-time'>{ago} </span>
                         </div>
                     </div>
                     <div className="right">
@@ -356,7 +356,7 @@ const Post = (props) => {
                         <img onClick={() => { navigate(`/u/${post_user.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
-                            <span id='post-time'>{ago} ago</span>
+                            <span id='post-time'>{ago} </span>
                         </div>
                     </div>
                     <div className="right">
@@ -431,7 +431,8 @@ export const UserPost = (props) => {
     const community = post.community;
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
     const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
-    const ago = getAgo(post.created_at);
+    const timeAgo = new TimeAgo('en-US')
+    const ago = timeAgo.format(new Date(post.created_at));
     const [loading, setLoading] = useState(true);
     const [loadingProfile, setLoadingProfile] = useState(true);
     const navigate = useNavigate();
@@ -492,7 +493,7 @@ export const UserPost = (props) => {
                         <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
-                            <span id='post-time'>{ago} ago</span>
+                            <span id='post-time'>{ago} </span>
                         </div>
                     </div>
                     <div className="right">
@@ -541,7 +542,7 @@ export const UserPost = (props) => {
                         <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
-                            <span id='post-time'>{ago} ago</span>
+                            <span id='post-time'>{ago} </span>
                         </div>
                     </div>
                     <div className="right">
@@ -589,7 +590,7 @@ export const UserPost = (props) => {
                         <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
-                            <span id='post-time'>{ago} ago</span>
+                            <span id='post-time'>{ago} </span>
                         </div>
                     </div>
                     <div className="right">
@@ -640,7 +641,7 @@ export const UserPost = (props) => {
                         <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{post_user.first_name}</h4>
-                            <span id='post-time'>{ago} ago</span>
+                            <span id='post-time'>{ago} </span>
                         </div>
                     </div>
                     <div className="right">
@@ -689,7 +690,8 @@ export const AdminPosts = (props) => {
     const community = props.community;
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
     const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
-    const ago = getAgo(post.created_at);
+    const timeAgo = new TimeAgo('en-US')
+    const ago = timeAgo.format(new Date(post.created_at));
     const [loading, setLoading] = useState(true);
     const [loadingProfile, setLoadingProfile] = useState(true);
     const notify = () => toast.success('Post deleted successfully.');
@@ -725,7 +727,7 @@ export const AdminPosts = (props) => {
                         <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{user.first_name}</h4>
-                            <span id='post-time'>{ago} ago</span>
+                            <span id='post-time'>{ago} </span>
                         </div>
                     </div>
                     <div className="right">
@@ -752,7 +754,7 @@ export const AdminPosts = (props) => {
                         <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{user.first_name}</h4>
-                            <span id='post-time'>{ago} ago</span>
+                            <span id='post-time'>{ago} </span>
                         </div>
                     </div>
                     <div className="right">
@@ -779,7 +781,7 @@ export const AdminPosts = (props) => {
                         <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${user.profile_picture}`} onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{user.first_name}</h4>
-                            <span id='post-time'>{ago} ago</span>
+                            <span id='post-time'>{ago} </span>
                         </div>
                     </div>
                     <div className="right">
@@ -808,7 +810,7 @@ export const AdminPosts = (props) => {
                         <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${user.profile_picture}`} onLoad={() => setLoadingProfile(false)} />
                         <div className='post-user'>
                             <h4>{user.first_name}</h4>
-                            <span id='post-time'>{ago} ago</span>
+                            <span id='post-time'>{ago} </span>
                         </div>
                     </div>
                     <div className="right">

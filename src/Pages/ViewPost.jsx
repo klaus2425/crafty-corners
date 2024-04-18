@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
 import axiosClient from '../axios-client';
 import Skeleton from 'react-loading-skeleton';
-import { getAgo } from "@jlln/ago";
+import TimeAgo from 'javascript-time-ago'
 import ImageModal from '../components/ImageModal';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
@@ -16,6 +16,7 @@ import Loading from '../components/utils/Loading';
 
 const ViewPost = () => {
   const { id } = useParams();
+  const timeAgo = new TimeAgo('en-US');
   const { user } = useStateContext();
   const params = new URLSearchParams(window.location.search);
   const uid = params.get('uid')
@@ -140,7 +141,7 @@ const ViewPost = () => {
 
   const liked = usePost?.data?.liked_by_user;
   const post = usePost?.data;
-  const ago = getAgo(usePost?.data?.created_at);
+  const ago =  usePost.data && timeAgo.format(new Date(usePost.data?.created_at), 'twitter-now');
   const community = usePost?.data?.community;
   const postUser = usePost?.data?.user;
 
@@ -298,7 +299,7 @@ const ViewPost = () => {
               <div key={c.id} className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.commenter.first_name} <span>{getAgo(c.created_at)} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at), 'twitter-now')} ago</span></div>
                   {c.content}
                 </div>
               </div>
@@ -433,7 +434,7 @@ const ViewPost = () => {
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.commenter.first_name} <span>{getAgo(c.created_at)} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at), 'twitter-now')} ago</span></div>
                   {c.content}
                 </div>
               </div>
@@ -568,7 +569,7 @@ const ViewPost = () => {
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.commenter.first_name} <span>{getAgo(c.created_at)} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at), 'twitter-now')} ago</span></div>
                   {c.content}
                 </div>
               </div>
@@ -707,7 +708,7 @@ const ViewPost = () => {
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.commenter.first_name} <span>{getAgo(c.created_at)} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at), 'twitter-now')} ago</span></div>
                   {c.content}
                 </div>
               </div>
