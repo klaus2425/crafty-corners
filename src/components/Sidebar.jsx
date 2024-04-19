@@ -1,9 +1,9 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useStateContext } from '../context/ContextProvider';
-import { useEffect, useState } from 'react';
-import echo from './Echo';
 import { useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axiosClient from '../axios-client';
+import { useStateContext } from '../context/ContextProvider';
+import echo from './Echo';
 
 export const Sidebar = () => {
     const navigate = useNavigate();
@@ -33,7 +33,7 @@ export const Sidebar = () => {
             })
             .listen('PostInteraction', () => {
                 queryClient.refetchQueries('notifications');
-                if (user.unread_notifications_count > 0 && window.location.pathname != '/notifications') {
+                if (window.location.pathname != '/notifications') {
                     setHasNotification(true);
                 }
                 else {
@@ -47,7 +47,7 @@ export const Sidebar = () => {
             setMessageNotify(true);
         } else setMessageNotify(false);
 
-    }, [])
+    }, [user])
 
 
     return (

@@ -19,32 +19,32 @@ const BottomNav = () => {
 
   useEffect(() => {
     echo.private(`user-${user.id}`)
-    .listen('MessageSent', (data) => {
+      .listen('MessageSent', (data) => {
         if (!(window.location.pathname == '/messages') && !(window.location.pathname == `/conversation/${data.message.conversation_id}`)) {
-            setMessageNotify(true);
-            playChatNotification();
+          setMessageNotify(true);
+          playChatNotification();
         }
         else {
-            setMessageNotify(false);
-            playChatNotification();
+          setMessageNotify(false);
+          playChatNotification();
         }
-       
-    })
-    .listen('PostInteraction', () => {
+
+      })
+      .listen('PostInteraction', () => {
         queryClient.refetchQueries('notifications');
-        if (user.unread_notifications_count > 0 && window.location.pathname != '/notifications') {
-            setHasNotification(true);
+        if (window.location.pathname != '/notifications') {
+          setHasNotification(true);
         }
         else {
-            setHasNotification(false);
+          setHasNotification(false);
         }
-    })
-if (user.unread_notifications_count > 0 && window.location.pathname != '/notifications') {
-    setHasNotification(true);
-} else setHasNotification(false);
-if (user.unread_messages_count > 0 && window.location.pathname != '/messages') {
-    setMessageNotify(true);
-} else setMessageNotify(false);
+      })
+    if (user.unread_notifications_count > 0 && window.location.pathname != '/notifications') {
+      setHasNotification(true);
+    } else setHasNotification(false);
+    if (user.unread_messages_count > 0 && window.location.pathname != '/messages') {
+      setMessageNotify(true);
+    } else setMessageNotify(false);
   }, [user])
 
   return (
