@@ -3,6 +3,7 @@ import axiosClient from "../axios-client";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { useStateContext } from "../context/ContextProvider";
+import toast from "react-hot-toast";
 
 const MentorAddVideo = () => {
 
@@ -10,6 +11,7 @@ const MentorAddVideo = () => {
   const [selected, setSelected] = useState();
   const navigate = useNavigate();
   const [count, setCount] = useState(0);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const getCommunities = async () => {
     const fetchedData = await axiosClient.get('/communities')
@@ -37,8 +39,14 @@ const MentorAddVideo = () => {
     formData.append('community_id', selected);
     formData.append('user_id', user.id);
     formData.append('video_url', linkRef.current.value);
-    axiosClient.post('/videos', formData).then(({data}) => {
+    axiosClient.post('/videos', formData).then(({ data }) => {
+      setIsButtonDisabled(false);
+
       navigate(`/videos`)
+    }).catch((err) => {
+      toast.error(`${Object.values(err.response.data.errors)[0]}`)
+      setIsButtonDisabled(false);
+
     })
 
 
@@ -94,7 +102,7 @@ const MentorAddVideo = () => {
                   ))}
                 </select>
               </div>
-              <button onClick={handleSubmit} className='purple-button'>Submit</button>
+              <button onClick={handleSubmit} className='purple-button' disabled={isButtonDisabled}>Submit</button>
             </form>
           </div>
         </div>

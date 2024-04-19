@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import { useStateContext } from "../context/ContextProvider";
-import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client";
+import { useStateContext } from "../context/ContextProvider";
+import toast from "react-hot-toast";
 
 const MentorAddArticle = () => {
 
@@ -10,6 +11,7 @@ const MentorAddArticle = () => {
   const [selected, setSelected] = useState();
   const navigate = useNavigate();
   const [count, setCount] = useState(0);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const getCommunities = async () => {
     const fetchedData = await axiosClient.get('/communities')
@@ -17,7 +19,7 @@ const MentorAddArticle = () => {
     return fetchedData.data;
   }
 
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     {
       queryKey: ['community-list'],
       queryFn: getCommunities,
@@ -26,6 +28,7 @@ const MentorAddArticle = () => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault()
+    setIsButtonDisabled(true);
     const formData = new FormData();
     formData.append('title', titleRef.current.value);
     formData.append('author', authorRef.current.value);
@@ -33,9 +36,13 @@ const MentorAddArticle = () => {
     formData.append('community_id', selected);
     formData.append('user_id', user.id);
     formData.append('link', linkRef.current.value);
-    axiosClient.post('/articles', formData).then(({data}) => {
+    axiosClient.post('/articles', formData).then(({ data }) => {
+      setIsButtonDisabled(false);
       navigate(`/articles`)
-    })
+    }).catch((err) => {
+        toast.error(`${Object.values(err.response.data.errors)[0]}`)
+        setIsButtonDisabled(false);
+      })
 
 
   }
@@ -96,7 +103,7 @@ const MentorAddArticle = () => {
                   ))}
                 </select>
               </div>
-              <button onClick={handleSubmit} className='purple-button'>Submit</button>
+              <button onClick={handleSubmit} className='purple-button' disabled={isButtonDisabled}>Submit</button>
             </form>
           </div>
         </div>

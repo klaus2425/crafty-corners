@@ -967,16 +967,17 @@ input::-webkit-inner-spin-button {
         width: calc(100% - 2rem);
       }
     }
-
+    .title {
+      h1 {
+        width: 0;
+        overflow: hidden;
+      }
+    }
   }
 
   @media screen and (max-width: 550px) {
 
-    .title {
-      h1 {
-        display: none;
-      }
-    }
+
 
     .navbar-header {
       display: none !important;
@@ -2603,6 +2604,7 @@ input::-webkit-inner-spin-button {
     .badges-card {
       grid-template-columns: repeat(2, 1fr);
     }
+
   }
 
 
@@ -2614,7 +2616,9 @@ input::-webkit-inner-spin-button {
       .input-container {
       flex-direction: row;
     }
-
+    .post {
+      min-width: 60vw;
+    }
     .sidebar {
       display: none;
     }
@@ -2826,6 +2830,7 @@ input::-webkit-inner-spin-button {
 .post {
   margin: 0.2rem;
   display: flex;
+  min-width: 40vw;
   flex-direction: column;
   background-color: #FFFFFF;
   box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
