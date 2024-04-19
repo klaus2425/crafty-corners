@@ -9,6 +9,7 @@ export const Sidebar = () => {
     const navigate = useNavigate();
     const chat_sound = new Audio('/chat-sound.mp3')
     const { user } = useStateContext();
+    const [isOpen, setIsOpen] = useState(false);
     const [messageNotify, setMessageNotify] = useState(false);
     const [hasNotification, setHasNotification] = useState(false);
     const queryClient = useQueryClient();
@@ -28,7 +29,7 @@ export const Sidebar = () => {
                     setMessageNotify(false);
                     playChatNotification();
                 }
-               
+
             })
             .listen('PostInteraction', () => {
                 queryClient.refetchQueries('notifications');
@@ -105,15 +106,15 @@ export const Sidebar = () => {
 
                     <Link to={'/Messages'}> Messages</Link>
                 </div>
+
+            </div>
+            <div className='sidebar-lower'>
                 <div className="sidebar-link" onClick={() => navigate(`/schedule`)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path fillRule="evenodd" clipRule="evenodd" d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21ZM13 6.5C13 5.94772 12.5523 5.5 12 5.5C11.4477 5.5 11 5.94772 11 6.5V11.75C11 12.4404 11.5596 13 12.25 13H15.5C16.0523 13 16.5 12.5523 16.5 12C16.5 11.4477 16.0523 11 15.5 11H13V6.5Z" fill="#222222" />
                     </svg>
                     <Link to={'/schedule'}>Schedule</Link>
                 </div>
-            </div>
-            <div className='sidebar-lower'>
-
                 <div className="sidebar-link" onClick={() => navigate(`/communities?uid=${user.id}`)} >
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -127,18 +128,30 @@ export const Sidebar = () => {
                     <Link to={'/Communities'}>
                         Communities</Link>
                 </div>
-                <div className="sidebar-link" onClick={() => navigate('/articles')}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path fillRule="evenodd" clipRule="evenodd" d="M5.58579 4.58579C5 5.17157 5 6.11438 5 8V17C5 18.8856 5 19.8284 5.58579 20.4142C6.17157 21 7.11438 21 9 21H15C16.8856 21 17.8284 21 18.4142 20.4142C19 19.8284 19 18.8856 19 17V8C19 6.11438 19 5.17157 18.4142 4.58579C17.8284 4 16.8856 4 15 4H9C7.11438 4 6.17157 4 5.58579 4.58579ZM9 8C8.44772 8 8 8.44772 8 9C8 9.55228 8.44772 10 9 10H15C15.5523 10 16 9.55228 16 9C16 8.44772 15.5523 8 15 8H9ZM9 12C8.44772 12 8 12.4477 8 13C8 13.5523 8.44772 14 9 14H15C15.5523 14 16 13.5523 16 13C16 12.4477 15.5523 12 15 12H9ZM9 16C8.44772 16 8 16.4477 8 17C8 17.5523 8.44772 18 9 18H13C13.5523 18 14 17.5523 14 17C14 16.4477 13.5523 16 13 16H9Z" fill="#222222" />
+                <div className={`sidebar-link`} onClick={() => setIsOpen(!isOpen)}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.5 16H16C17.8856 16 18.8284 16 19.4142 15.4142C20 14.8284 20 13.8856 20 12V7C20 5.11438 20 4.17157 19.4142 3.58579C18.8284 3 17.8856 3 16 3H8C6.11438 3 5.17157 3 4.58579 3.58579C4 4.17157 4 5.11438 4 7V18.5C4 17.1193 5.11929 16 6.5 16ZM9 6C7.89543 6 7 6.89543 7 8C7 9.10457 7.89543 10 9 10L15 10C16.1046 10 17 9.10457 17 8C17 6.89543 16.1046 6 15 6L9 6Z" fill="#222222" />
+                        <path d="M19.4142 15.4142L18.7071 14.7071L18.7071 14.7071L19.4142 15.4142ZM19.4142 3.58579L18.7071 4.29289L18.7071 4.29289L19.4142 3.58579ZM9 6V5V6ZM9 10V9V10ZM15 10V11V10ZM15 6V5V6ZM16 15H6.5V17H16V15ZM18.7071 14.7071C18.631 14.7832 18.495 14.8774 18.0613 14.9357C17.5988 14.9979 16.9711 15 16 15V17C16.9145 17 17.701 17.0021 18.3278 16.9179C18.9833 16.8297 19.6117 16.631 20.1213 16.1213L18.7071 14.7071ZM19 12C19 12.9711 18.9979 13.5988 18.9357 14.0613C18.8774 14.495 18.7832 14.631 18.7071 14.7071L20.1213 16.1213C20.631 15.6117 20.8297 14.9833 20.9179 14.3278C21.0021 13.701 21 12.9145 21 12H19ZM19 7V12H21V7H19ZM18.7071 4.29289C18.7832 4.36902 18.8774 4.50496 18.9357 4.9387C18.9979 5.40121 19 6.02892 19 7H21C21 6.08546 21.0021 5.29896 20.9179 4.67221C20.8297 4.01669 20.631 3.38834 20.1213 2.87868L18.7071 4.29289ZM16 4C16.9711 4 17.5988 4.00212 18.0613 4.06431C18.495 4.12262 18.631 4.21677 18.7071 4.29289L20.1213 2.87868C19.6117 2.36902 18.9833 2.17027 18.3278 2.08214C17.701 1.99788 16.9145 2 16 2V4ZM8 4H16V2H8V4ZM5.29289 4.29289C5.36902 4.21677 5.50496 4.12262 5.9387 4.06431C6.40121 4.00212 7.02892 4 8 4V2C7.08546 2 6.29896 1.99788 5.67221 2.08214C5.01669 2.17027 4.38834 2.36902 3.87868 2.87868L5.29289 4.29289ZM5 7C5 6.02892 5.00212 5.40121 5.06431 4.9387C5.12262 4.50496 5.21677 4.36902 5.29289 4.29289L3.87868 2.87868C3.36902 3.38834 3.17027 4.01669 3.08214 4.67221C2.99788 5.29896 3 6.08546 3 7H5ZM5 18.5V7H3V18.5H5ZM6.5 15C4.567 15 3 16.567 3 18.5H5C5 17.6716 5.67157 17 6.5 17V15ZM8 8C8 7.44772 8.44772 7 9 7V5C7.34315 5 6 6.34315 6 8H8ZM9 9C8.44772 9 8 8.55228 8 8H6C6 9.65685 7.34315 11 9 11V9ZM15 9L9 9V11H15V9ZM16 8C16 8.55229 15.5523 9 15 9V11C16.6569 11 18 9.65686 18 8H16ZM15 7C15.5523 7 16 7.44772 16 8H18C18 6.34315 16.6569 5 15 5V7ZM9 7L15 7V5L9 5V7ZM11 20H6.5V22H11V20ZM3 18.5C3 20.433 4.567 22 6.5 22V20C5.67157 20 5 19.3284 5 18.5H3Z" fill="#222222" />
+                        <path d="M20 21H10" stroke="#222222" stroke-width="2" stroke-linecap="round" />
                     </svg>
-                    <Link to={'/Articles'}>Articles </Link>
+
+                    <a style={{ cursor: 'pointer' }}>Learning</a>
                 </div>
-                <div className="sidebar-link" onClick={() => navigate('/videos')}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path fillRule="evenodd" clipRule="evenodd" d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21ZM10.7828 7.99043L16.4265 11.1258C17.1123 11.5068 17.1123 12.4932 16.4265 12.8742L10.7828 16.0096C9.98293 16.4539 9 15.8756 9 14.9606V9.03942C9 8.12444 9.98293 7.54607 10.7828 7.99043Z" fill="#222222" />
-                    </svg>
-                    <Link to={'/Videos'}>Videos</Link>
+                <div className={`collapsible collapsible-user ${isOpen ? 'open' : ''}`} >
+                    <div className='collapsible__item' onClick={() => navigate('/articles')}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M5.58579 4.58579C5 5.17157 5 6.11438 5 8V17C5 18.8856 5 19.8284 5.58579 20.4142C6.17157 21 7.11438 21 9 21H15C16.8856 21 17.8284 21 18.4142 20.4142C19 19.8284 19 18.8856 19 17V8C19 6.11438 19 5.17157 18.4142 4.58579C17.8284 4 16.8856 4 15 4H9C7.11438 4 6.17157 4 5.58579 4.58579ZM9 8C8.44772 8 8 8.44772 8 9C8 9.55228 8.44772 10 9 10H15C15.5523 10 16 9.55228 16 9C16 8.44772 15.5523 8 15 8H9ZM9 12C8.44772 12 8 12.4477 8 13C8 13.5523 8.44772 14 9 14H15C15.5523 14 16 13.5523 16 13C16 12.4477 15.5523 12 15 12H9ZM9 16C8.44772 16 8 16.4477 8 17C8 17.5523 8.44772 18 9 18H13C13.5523 18 14 17.5523 14 17C14 16.4477 13.5523 16 13 16H9Z" fill="#222222" />
+                        </svg>
+                        <Link to={'/Articles'}>Articles </Link>
+                    </div>
+                    <div className='collapsible__item' onClick={() => navigate('/videos')}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21ZM10.7828 7.99043L16.4265 11.1258C17.1123 11.5068 17.1123 12.4932 16.4265 12.8742L10.7828 16.0096C9.98293 16.4539 9 15.8756 9 14.9606V9.03942C9 8.12444 9.98293 7.54607 10.7828 7.99043Z" fill="#222222" />
+                        </svg>
+                        <Link to={'/Videos'}>Videos</Link>
+                    </div>
                 </div>
+
                 <div className="sidebar-link" onClick={() => navigate('/mentors')}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M21 19V6C21 6 20 4 16.5 4C13 4 12 7 12 7C12 7 11 4 7.5 4C4 4 3 6 3 6V19C3 19 4 17 7.5 17C11 17 12 19 12 19C12 19 13 17 16.5 17C20 17 21 19 21 19Z" fill="#222222" />
