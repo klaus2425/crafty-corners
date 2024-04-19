@@ -36,7 +36,6 @@ const BottomNav = () => {
           setHasNotification(true);
         }
         else {
-          axiosClient.post(`/notifications/mark-all-as-read`)
           setHasNotification(false);
         }
       })
