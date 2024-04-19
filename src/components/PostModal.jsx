@@ -208,6 +208,8 @@ const PostModal = (props) => {
                     onChange={handleCommunityChange}
                     className="react-select-container"
                     classNamePrefix="react-select"
+                    width='max-content'
+                    maxMenuHeight='10rem'
                   />
               }
             </div>
@@ -329,6 +331,8 @@ const PostModal = (props) => {
                   onChange={handleTopicChange}
                   className='react-select-container'
                   classNamePrefix='react-select'
+                  width='max-content'
+                  maxMenuHeight='10rem'
                 />
               </div>
               <button type='submit'  onClick={handleSubmit} className='purple-button'>Post</button>
