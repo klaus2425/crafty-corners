@@ -1,9 +1,10 @@
 import SignUpModal from '../components/SignUpModal';
 import { useStateContext } from "../context/ContextProvider";
-
+import TimeAgo from 'javascript-time-ago';
 
 const Landing = () => {
     const {isSignUpOpen, setIsSignUpOpen} = useStateContext();
+    const timeAgo = new TimeAgo();
     return (
         <div className='landing-bg'>
             <div className="landing-container">
@@ -64,6 +65,7 @@ const Landing = () => {
                     <span className='landing-title'>Crafty <br /> Corners</span>
                     <br />
                     <span className='landing-sub'>Cultivate you hobbies <br /> with a wide community</span>
+                    <span>{timeAgo.format(new Date('2024-04-19 11:28:16'.replace(' ', 'T')), 'twitter-now')}</span>
                 </div>
                 <button className='sign-up' onClick={() => setIsSignUpOpen(true)}>Join Now</button>
                 <SignUpModal isOpen={isSignUpOpen} setIsOpen={setIsSignUpOpen} />

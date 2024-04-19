@@ -54,7 +54,7 @@ const ViewConversation = () => {
 
 
   const getTimestamp = (date) => {
-    const dateObject = new Date(date);
+    const dateObject = new Date(date.replace(' ', 'T'));
     const hours = dateObject.getHours();
     const ampm = hours >= 12 ? 'PM' : 'AM';
     const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');

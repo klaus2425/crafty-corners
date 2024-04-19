@@ -17,7 +17,7 @@ const UserNotifications = (props) => {
                             <img src={props.notifierImage} />
                             <span><span id="bold">{props.notifier}</span> liked your post in /{props.community}</span>
                         </div>
-                        {timeAgo.format(new Date(props.created_at), 'twitter')}
+                        {timeAgo.format(new Date(props.created_at.replace(" ", "T")), 'twitter-now')}
                     </div>
                 }
             </div>
@@ -32,7 +32,7 @@ const UserNotifications = (props) => {
                             <img src={props.notifierImage} />
                             <span><span id="bold">{props.notifier}</span> commented on your post in /{props.community}</span>
                         </div>
-                        {timeAgo.format(new Date(props.created_at), 'twitter')}
+                        {timeAgo.format(new Date(props.created_at.replace(" ", "T")), 'twitter-now')}
                     </div>
                 }
             </div>

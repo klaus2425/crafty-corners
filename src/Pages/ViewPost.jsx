@@ -299,7 +299,7 @@ const ViewPost = () => {
               <div key={c.id} className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at), 'twitter-now')} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} ago</span></div>
                   {c.content}
                 </div>
               </div>
@@ -434,7 +434,7 @@ const ViewPost = () => {
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at), 'twitter-now')} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} ago</span></div>
                   {c.content}
                 </div>
               </div>
@@ -569,7 +569,7 @@ const ViewPost = () => {
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at), 'twitter-now')} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} ago</span></div>
                   {c.content}
                 </div>
               </div>
@@ -708,7 +708,7 @@ const ViewPost = () => {
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at), 'twitter-now')} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} ago</span></div>
                   {c.content}
                 </div>
               </div>

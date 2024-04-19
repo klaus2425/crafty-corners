@@ -20,7 +20,7 @@ const Post = (props) => {
     const community = props.community;
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
     const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
-    const ago = timeAgo.format(new Date(post.created_at));
+    const ago = timeAgo.format(new Date(post.created_at.replace(" ", "T")), 'twitter-now');
     const [likes, setLikes] = useState(props.post.likes_count);
     const [liked, setLiked] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -444,7 +444,7 @@ export const UserPost = (props) => {
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
     const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
     const timeAgo = new TimeAgo('en-US')
-    const ago = timeAgo.format(new Date(post.created_at));
+    const ago = timeAgo.format(new Date(post.created_at.replace(" ", "T")), 'twitter-now');
     const [loading, setLoading] = useState(true);
     const [loadingProfile, setLoadingProfile] = useState(true);
     const navigate = useNavigate();
@@ -703,7 +703,7 @@ export const AdminPosts = (props) => {
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
     const storageUserUrl = import.meta.env.VITE_API_STORAGE_URL;
     const timeAgo = new TimeAgo('en-US')
-    const ago = timeAgo.format(new Date(post.created_at));
+    const ago = timeAgo.format(new Date(post.created_at.replace(" ", "T")), 'twitter-now');
     const [loading, setLoading] = useState(true);
     const [loadingProfile, setLoadingProfile] = useState(true);
     const notify = () => toast.success('Post deleted successfully.');
