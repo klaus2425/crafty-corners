@@ -1,12 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axiosClient from '../axios-client';
 import { useStateContext } from '../context/ContextProvider';
 import echo from './Echo';
 
 const BottomNav = () => {
-  const location = useLocation();
   const navigate = useNavigate();
   const chat_sound = new Audio('/chat-sound.mp3');
   const { user } = useStateContext();
