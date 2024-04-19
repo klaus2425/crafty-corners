@@ -164,7 +164,7 @@ const AccountSettings = () => {
                                 {
                                     user && user.type === 'mentor' ?
                                         <div className='mentor-settings'>
-                                            <strong>Mentorship</strong>
+                                            <strong>Mentorships</strong>
                                             {
                                                 mentorship.data ?
                                                     mentorship?.data.map(ms => (
@@ -181,7 +181,6 @@ const AccountSettings = () => {
                                         :
                                         null
                                 }
-
                             </div>
                         </div>
                     )}
