@@ -155,23 +155,24 @@ const ViewConversation = () => {
 
   useEffect(() => {
     getReceiver();
+    axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
     echo.private(`user-${uid}`)
       .listen('MessageSent', (data) => {
-        if (data.user != uid) {
+        if (data.user != uid && data.message.conversation_id == conversation_id) {
           getMessages(data.user)
         }
       })
 
+
     return () => {
-      if (receiver_id.current == uid) {
-        axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
-      }
+      axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
 
       if (!hasMessage.current) {
         axiosClient.delete(`/conversation/${conversation_id}`)
-        .then(() => queryClient.removeQueries('conversation'))
+          .then(() => queryClient.removeQueries('conversation'))
       }
     };
+
   }, []);
 
 

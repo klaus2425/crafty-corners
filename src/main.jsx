@@ -14,7 +14,7 @@ TimeAgo.addDefaultLocale(en)
 const queryClient = new QueryClient({});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ContextProvider>
         <ThemeProvider>
@@ -22,5 +22,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </ThemeProvider>
       </ContextProvider>
     </QueryClientProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 )

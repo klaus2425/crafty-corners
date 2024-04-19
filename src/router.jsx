@@ -42,7 +42,6 @@ const MentorApplication = lazy(() => import("./Pages/MentorApplication"));
 const NotFound = lazy(() => import('./Pages/NotFound'));
 const NotVerified = lazy(() => import("./Pages/NotVerified"));
 const PasswordReset = lazy(() => import("./Pages/PasswordReset"));
-const PreAssessment = lazy(() => import("./Pages/PreAssessment"));
 const UserBadges = lazy(() => import("./Pages/UserBadges"));
 const Verify = lazy(() => import("./Pages/Verify"));
 const ViewCommunity = lazy(() => import("./Pages/ViewCommunity"));
@@ -119,10 +118,6 @@ const router = createBrowserRouter([
             {
                 path: 'p/:id',
                 element: <ViewPost />
-            },
-            {
-                path: '/pre-assessment',
-                element: <PreAssessment />
             },
             {
                 path: '/not-verified',

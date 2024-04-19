@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "../axios-client";
 import { useNavigate } from "react-router-dom";
 import MembershipCheck from "../components/utils/Membership";
+import '../styles/index.scss'
 
 const Assessment = () => {
   const navigate = useNavigate();

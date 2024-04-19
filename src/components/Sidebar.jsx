@@ -6,7 +6,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import axiosClient from '../axios-client';
 
 export const Sidebar = () => {
-    const location = useLocation();
     const navigate = useNavigate();
     const chat_sound = new Audio('/chat-sound.mp3')
     const { user } = useStateContext();
@@ -21,15 +20,23 @@ export const Sidebar = () => {
     useEffect(() => {
         echo.private(`user-${user.id}`)
             .listen('MessageSent', (data) => {
-                if (!(location.pathname == '/messages') && !(location.pathname == `/conversation/${data.message.conversation_id}`)) {
+                if (!(window.location.pathname == '/messages') && !(window.location.pathname == `/conversation/${data.message.conversation_id}`)) {
                     setMessageNotify(true);
-                    playChatNotification()
+                    playChatNotification();
                 }
+                else {
+                    setMessageNotify(false);
+                    playChatNotification();
+                }
+               
             })
             .listen('PostInteraction', () => {
                 queryClient.refetchQueries('notifications');
                 if (user.unread_notifications_count > 0 && window.location.pathname != '/notifications') {
                     setHasNotification(true);
+                }
+                else {
+                    setHasNotification(false);
                 }
             })
         if (user.unread_notifications_count > 0 && window.location.pathname != '/notifications') {
@@ -39,7 +46,7 @@ export const Sidebar = () => {
             setMessageNotify(true);
         } else setMessageNotify(false);
 
-    }, [user])
+    }, [])
 
 
     return (

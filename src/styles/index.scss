@@ -105,7 +105,21 @@ html {
   justify-content: center;
   align-items: center;
   transition: 0.3s;
-
+  @media screen and (max-width: 1365px) {
+    #assessment-card {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+  }
+  @media screen and (max-width: 1040px) {
+    #assessment-card {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+  @media screen and (max-width: 685px) {
+    #assessment-card {
+      grid-template-columns: repeat(1, 1fr) !important;
+    }
+  }
   h2 {
     color: #18191a;
   }
@@ -2587,11 +2601,13 @@ input::-webkit-inner-spin-button {
     }
   }
 
+  
   @media screen and (max-width: 1250px) {
     .badges-card {
       grid-template-columns: repeat(2, 1fr);
     }
   }
+
 
   @media screen and (max-width: 945px) {
     .authenticated-container {

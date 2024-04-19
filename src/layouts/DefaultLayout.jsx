@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import { Sidebar } from "../components/Sidebar";
 import { useThemeContext } from "../context/ThemeProvider";
 import axiosClient from "../axios-client";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import { Suspense, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -16,12 +16,16 @@ import Fallback from "../components/Fallback";
 const DefaultLayout = () => {
     const { user, token, setUser, setToken } = useStateContext();
     const { theme } = useThemeContext();
+    const queryClient = useQueryClient();
     const navigate = useNavigate();
     const smallScreen = useMediaQuery({ query: '(max-width: 945px)' })
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, } = useQuery({
         queryKey: ['user'],
         queryFn: () => axiosClient.get('/user')
-            .catch(() => { setToken(null).then(navigate('/')) })
+            .catch(() => {
+                setToken(null).then(navigate('/'))
+                queryClient.removeQueries('user')
+            })
     })
 
 
