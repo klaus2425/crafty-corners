@@ -82,7 +82,7 @@ const UserFeed = () => {
                     {
                         !useRecommended.isLoading ?
                             useRecommended.data?.length > 0 ?
-                                useRecommended.data.sort(() => Math.random() - 0.5).map(community => (
+                                useRecommended.data.map(community => (
                                     <RecommendedCommunities communityName={community.name}
                                         communityMemberCount={community.members_count} communityId={community.id}
                                         communityIcon={community.community_photo} />
