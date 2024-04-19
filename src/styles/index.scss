@@ -4349,6 +4349,10 @@ input::-webkit-inner-spin-button {
         transition: ease-in;
       }
     }
+    button {
+       background-color: transparent;
+       border: 0;
+    }
 
     #send-icon {
       fill: $dark_grey;
