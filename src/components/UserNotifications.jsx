@@ -28,10 +28,11 @@ const UserNotifications = (props) => {
             <div className="notification-card">
                 {
                     <div onClick={handlePostClick} className="notification">
-                        <img src={props.notifierImage} />
-                        <span><span id="bold">{props.notifier}</span> commented on your post in /{props.community}</span>
-                        {/* <ReactTimeAgo style={{marginLeft: 'auto'}} date={props.created_at} locale="en-US"/> */}
-
+                        <div className="left">
+                            <img src={props.notifierImage} />
+                            <span><span id="bold">{props.notifier}</span> commented on your post in /{props.community}</span>
+                        </div>
+                        {timeAgo.format(new Date(props.created_at), 'twitter')}
                     </div>
                 }
             </div>
