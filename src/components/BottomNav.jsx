@@ -52,7 +52,6 @@ const BottomNav = () => {
 
       <div className="bottom-navbar__link" onClick={() => {
         setHasNotification(false);
-        axiosClient.post(`/notifications/mark-all-as-read`)
         navigate('/notifications')
       }}>
         {
