@@ -1422,8 +1422,8 @@ input::-webkit-inner-spin-button {
 
 
   .recommended {
-    margin-top: 4.5rem;
-    width: 25%;
+    margin-top: 5.28rem;
+    width: 30%;
 
     #community-level-card {
       align-items: center;
@@ -1485,7 +1485,7 @@ input::-webkit-inner-spin-button {
     .card {
       display: flex;
       justify-content: center;
-      width: clamp(5rem, 10vw + 7rem, 16rem);
+      width: clamp(10rem, 20vw, 18rem);
       transition: 0.3s;
 
 
@@ -1507,7 +1507,7 @@ input::-webkit-inner-spin-button {
       }
 
       h3 {
-        font-size: clamp(0.8rem, 1vw, 3rem);
+        font-size: 1.16rem;
       }
 
       .community-mentor-item {
@@ -1551,14 +1551,18 @@ input::-webkit-inner-spin-button {
       .community-mentor-item:hover {
         background-color: $light_grey;
       }
-
-      .rec-community-item {
-        display: flex;
-        border-top: 2px solid $light_grey;
+      .rec-community-empty {
         width: 100%;
+        height: 100%;
+      }
+      .rec-community__item {
+        display: flex;
+        border-top: 2px solid $lighter_grey;
+        width: 100%;
+        padding: 0.3rem;
         gap: 1rem;
+        justify-content: flex-start;
         font-size: clamp(0.5rem, 1vw, 2rem);
-        padding-top: 0.125rem;
 
         #rank {
           font-size: 1.6rem;
@@ -1567,24 +1571,28 @@ input::-webkit-inner-spin-button {
           margin-left: 1rem;
         }
 
-        h4 {
+        .rec-community__name {
           color: $purple;
+          font-weight: bold;
+          font-size: clamp(0.1rem, 2vw, 1.17rem);
         }
 
         img {
-          object-fit: contain;
-          width: 1.6rem;
-          height: 1.6rem;
+          object-fit: cover;
+          width: 2.6rem;
+          height: 2.6rem;
+          border-radius: 1000px;
         }
 
         .com-count {
           display: flex;
           flex-direction: column;
-          width: 80%;
-
           .top {
             display: flex;
             gap: 0.5rem;
+          }
+          .rec-community__member-count {
+            font-size: clamp(0.8rem, 2vw, 1rem);
           }
         }
       }
@@ -5239,6 +5247,8 @@ input::-webkit-inner-spin-button {
   }
 
   .rec-community-item {
+    display: flex;
+    justify-content: center;
     #rank {
       color: #e4e6eb;
     }

@@ -3,7 +3,7 @@ import RecommendedCommunities from '../components/RecommendedCommunities'
 import axiosClient from '../axios-client';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Loading from '../components/utils/Loading';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 const UserFeed = () => {
 
@@ -26,7 +26,16 @@ const UserFeed = () => {
 
     const fetchedPosts = data?.pages.reduce((acc, page) => {
         return [...acc, page.data];
-    }, [])
+    }, []);
+
+    const useRecommended = useQuery({
+        queryKey: ['recommended-communities'],
+        queryFn: () => axiosClient.get('/recommend-communities')
+            .then(({ data }) => (data.recommended_communities)),
+        staleTime: 300000,
+    })
+
+    console.log(useRecommended.data);
 
     return (
         <div className="authenticated-container" id='home'>
@@ -68,14 +77,22 @@ const UserFeed = () => {
 
             </div>
             <div className="recommended">
-
                 <div className="card">
                     <h3>Recommended Communities</h3>
-                    <RecommendedCommunities communityName='Gaming' communityMemberCount='140' communityId='1' communityIcon='/gamepad-solid.svg' rank='1' />
-                    <RecommendedCommunities communityName='Singing' communityMemberCount='40' communityId='2' communityIcon='/music-solid.svg' rank='2' />
-                    <RecommendedCommunities communityName='Painting' communityMemberCount='340' communityId='3' communityIcon='/paintbrush-solid.svg' rank='3' />
-                    <RecommendedCommunities communityName='Knitting' communityMemberCount='60' communityId='4' communityIcon='/mitten-solid.svg' rank='4' />
-                    <RecommendedCommunities communityName='Dancing' communityMemberCount='180' communityId='5' communityIcon='/dance.png' rank='5' />
+                    {
+                        !useRecommended.isLoading ?
+                            useRecommended.data?.length > 0 ?
+                                useRecommended.data.sort(() => Math.random() - 0.5).map(community => (
+                                    <RecommendedCommunities communityName={community.name}
+                                        communityMemberCount={community.members_count} communityId={community.id}
+                                        communityIcon={community.community_photo} />
+                                ))
+                                :
+                                <div className='rec-community-empty'>
+                                    No recommended communities
+                                </div>
+                            : <Loading />
+                    }
                 </div>
             </div>
         </div>

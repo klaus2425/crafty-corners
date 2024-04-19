@@ -1,17 +1,18 @@
 
 
 const RecommendedCommunities = (props) => {
+
+    const storageUrl = import.meta.env.VITE_API_COMMUNITIES_URL;
+
     return (
-        <div className="rec-community-item">
-            <span id="rank">{props.rank}</span>
+        <div className="rec-community__item">
+            <img src={storageUrl + props.communityIcon} />
             <div className="com-count">
                 <div className="top">
-                    <h4>/{props.communityName}</h4>
-                    <img src={props.communityIcon} alt="" />
+                    <span className="rec-community__name">/{props.communityName}</span>
                 </div>
-                <span>{props.communityMemberCount} Members</span>
+                <span className="rec-community__member-count">{props.communityMemberCount} {props.communityMemberCount == 1 ? 'Member' : 'Members'} </span>
             </div>
-
 
         </div>
     )
