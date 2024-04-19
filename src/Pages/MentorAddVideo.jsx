@@ -14,14 +14,14 @@ const MentorAddVideo = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const getCommunities = async () => {
-    const fetchedData = await axiosClient.get('/communities')
+    const fetchedData = await axiosClient.get('/mentor-communities')
 
     return fetchedData.data;
   }
 
   const { data, isLoading } = useQuery(
     {
-      queryKey: ['community-list'],
+      queryKey: ['community-mentor-list'],
       queryFn: getCommunities,
     }
   )
