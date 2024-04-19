@@ -11,6 +11,7 @@ import Loading from "./utils/Loading";
 
 const PostModal = (props) => {
   const { id } = useParams();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [community_id, setCommunity_id] = useState(id);
   const [fileUpload, setFileUpload] = useState(false);
   const [fileType, setFileType] = useState('');
@@ -29,13 +30,13 @@ const PostModal = (props) => {
   const { user } = useStateContext();
   const queryClient = useQueryClient();
 
-
   const handleCount = (ev) => {
     setCount(ev.target.value.length);
   }
 
   const handleSubmit = (ev) => {
     ev.preventDefault()
+    setIsButtonDisabled(true);
     if (postType === 'video') {
       setLoading(true);
       const formData = new FormData();
@@ -56,6 +57,7 @@ const PostModal = (props) => {
             return <b>Post success!</b>
           },
           error: (err) => {
+            setIsButtonDisabled(false);
             return `${err.response.data.message}`
           },
         },
@@ -79,6 +81,7 @@ const PostModal = (props) => {
             return <b>Post success!</b>
           },
           error: (err) => {
+            setIsButtonDisabled(false);
             return `${err.response.data.message}`
           },
         },
@@ -103,6 +106,7 @@ const PostModal = (props) => {
             return <b>Post success!</b>
           },
           error: (err) => {
+            setIsButtonDisabled(false);
             return `${err.response.data.message}`
           },
         },
@@ -128,6 +132,7 @@ const PostModal = (props) => {
             return <b>Post success!</b>
           },
           error: (err) => {
+            setIsButtonDisabled(false);
             return `${err.response.data.message}`
           },
         },
@@ -335,7 +340,7 @@ const PostModal = (props) => {
                   maxMenuHeight='10rem'
                 />
               </div>
-              <button type='submit'  onClick={handleSubmit} className='purple-button'>Post</button>
+              <button type='submit'  onClick={handleSubmit} className='purple-button' disabled={isButtonDisabled}>Post</button>
             </div>
           </form>
         </div>
