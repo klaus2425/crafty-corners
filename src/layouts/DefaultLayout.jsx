@@ -35,7 +35,15 @@ const DefaultLayout = () => {
 
     if (!isLoading) {
         if (!data?.data.assessment_completed && window.location.pathname != '/assessment') {
-            navigate(`/assessment?uid=${data.data.id}`)
+
+            // navigate(`/assessment?uid=${data.data.id}`)
+            return (
+                <Suspense fallback={<Loading />}>
+                    <Navigate to={`/assessment?uid=${data.data.id}`} />
+                </Suspense>
+            )
+
+
         }
         if (data?.data?.type === 'admin') {
             return <Navigate to='/Users' />
