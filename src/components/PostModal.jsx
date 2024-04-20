@@ -216,6 +216,7 @@ const PostModal = (props) => {
                     classNamePrefix="react-select"
                     width='max-content'
                     maxMenuHeight='10rem'
+                    placeholder='Community'
                   />
               }
             </div>
@@ -332,6 +333,8 @@ const PostModal = (props) => {
                 Topic:
                 <Select
                   options={topicOptions}
+                  placeholder='Select Topics'
+                  isDisabled={topicOptions.length > 0 ? false : true}
                   key={topicOptions}
                   onChange={handleTopicChange}
                   className='react-select-container'
