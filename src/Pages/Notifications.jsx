@@ -15,8 +15,6 @@ const UserFeed = () => {
     })
     const { user } = useStateContext();
 
-    console.log(useNotification.data);
-
     return (
 
         <div className="authenticated-container">

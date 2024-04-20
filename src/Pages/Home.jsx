@@ -34,8 +34,6 @@ const UserFeed = () => {
         staleTime: 300000,
     })
 
-    console.log(useRecommended.data);
-
     return (
         <div className="authenticated-container" id='home'>
             <div id="feed" className="feed">
