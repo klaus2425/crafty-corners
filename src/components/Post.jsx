@@ -1,19 +1,20 @@
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import { lazy, useEffect, useRef, useState, Suspense } from "react";
 import toast from 'react-hot-toast';
 import Skeleton from "react-loading-skeleton";
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axiosClient from "../axios-client";
 import { useStateContext } from "../context/ContextProvider";
-import ReportModal from "./ReportModal";
 import TimeAgo from 'javascript-time-ago';
+// import ReportModal from "./ReportModal";
 
 
 const Post = (props) => {
     const post = props.post;
+    const ReportModal = lazy(() => import('./ReportModal'));
     const timeAgo = new TimeAgo('en-US')
     const post_user = post.user;
     const { user } = useStateContext();
@@ -119,7 +120,13 @@ const Post = (props) => {
     if (post.post_type === 'image') {
         return (
             <div className="post">
-                <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                {
+                    reportOpen &&
+                    <Suspense>
+                        <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                    </Suspense>
+                }
+
                 <div className="post-header" id="posts">
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
@@ -201,7 +208,12 @@ const Post = (props) => {
         return (
             <div className="post">
                 <div className="post-header" id="posts">
-                    <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                    {
+                        reportOpen &&
+                        <Suspense>
+                            <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                        </Suspense>
+                    }
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
                         <img onClick={() => { navigate(`/u/${post_user.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
@@ -279,7 +291,12 @@ const Post = (props) => {
         return (
             <div className="post">
                 <div className="post-header" id="posts">
-                    <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                    {
+                        reportOpen &&
+                        <Suspense>
+                            <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                        </Suspense>
+                    }
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
                         <img onClick={() => { navigate(`/u/${post_user.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
@@ -359,7 +376,12 @@ const Post = (props) => {
             <div className="post">
                 <div className="post-header" id="posts">
                     <div className="left">
-                        <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                        {
+                            reportOpen &&
+                            <Suspense>
+                                <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                            </Suspense>
+                        }
 
                         {loadingProfile && <Skeleton circle className="post-image" />}
                         <img onClick={() => { navigate(`/u/${post_user.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${post_user.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
