@@ -647,6 +647,8 @@ input::-webkit-inner-spin-button {
     display: flex;
     flex-direction: column;
     border-radius: 25px;
+    width: 100%;
+    max-width: fit-content;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -702,7 +704,7 @@ input::-webkit-inner-spin-button {
       flex-direction: column;
 
       input {
-        width: 20rem;
+        width: clamp(3rem, 60vw, 20rem);
         height: 3rem;
         border-radius: 3.125rem;
         font-size: 2rem;
@@ -3811,7 +3813,7 @@ input::-webkit-inner-spin-button {
 
   .landing-container {
     min-height: calc(100vh - 80px);
-    padding-top: clamp(1rem, 12vh, 15rem);
+    padding-top: clamp(0.5rem, 7vh, 15rem);
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
@@ -3819,16 +3821,20 @@ input::-webkit-inner-spin-button {
     align-items: center;
 
     .landing-title {
-      font-size: clamp(1rem, 5vw, 20rem);
+      font-size: clamp(1rem, 8vw, 5rem);
       color: #222222;
       font-weight: bold;
-      line-height: clamp(2rem, 4vw + 1rem, 6rem);
+      line-height: clamp(1rem, 4vw + 1rem, 6rem);
       font-family: Archivo;
+    }
+    svg {
+      width: clamp(3rem, 40vw, 13rem);
+      aspect-ratio: 1 / 1;
     }
 
     .landing-sub {
       color: black;
-      font-size: clamp(1rem, 3vw, 2rem);
+      font-size: clamp(1rem, 2vw, 2rem);
     }
   }
 }
