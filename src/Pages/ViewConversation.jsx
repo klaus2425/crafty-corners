@@ -9,7 +9,6 @@ import echo from '../components/Echo';
 import ConfirmDeleteMessageModal from '../components/ConfirmDeleteMessageModal';
 import ImageModal from '../components/ImageModal';
 import { useQueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
 import getTimestamp from '../components/utils/GetTimeStamp';
 
 const ViewConversation = () => {
