@@ -54,7 +54,7 @@ const HobbyistProfile = () => {
   const sendMessage = () => {
     axiosClient.post(`/start-a-conversation/${currentUser.id}`)
       .then(res => {
-        navigate(`/conversation/${res.data.conversation_id}?user_id0=${id}&user_id1=${currentUser.id}&lid=${user.id}`);
+        navigate(`/conversation/${res.data.conversation_id}`, { state: { user_id0: id1, user_id1: id2, lid: user.id } });
       });
 
 
