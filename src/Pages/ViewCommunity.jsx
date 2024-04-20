@@ -1,18 +1,18 @@
 import ProgressBar from '@ramonak/react-progress-bar';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axiosClient from '../axios-client';
 import Post from '../components/Post';
-import PostModal from '../components/PostModal';
 import Loading from '../components/utils/Loading';
 import MembershipCheck from '../components/utils/Membership';
 
 
 const ViewCommunity = () => {
+  const PostModal = lazy(() => import('../components/PostModal'));
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const id = useLocation().state?.id;
@@ -23,7 +23,6 @@ const ViewCommunity = () => {
     return fetchedData.data;
   }
 
-  console.log(location);
   const useMentors = useQuery({
     queryKey: [`mentors-${id}`],
     queryFn: getMentors,
@@ -66,13 +65,19 @@ const ViewCommunity = () => {
   }, [])
 
   useEffect(() => {
-    if(id === undefined) {
+    if (id === undefined) {
       navigate(`/communities`)
     }
   }, [])
 
   return (
     <div className="authenticated-container">
+      {
+        isOpen &&
+        <Suspense>
+          <PostModal isOpen={isOpen} topics={useTopics.data} setIsOpen={setIsOpen} />
+        </Suspense>
+      }
       <div className="feed" id='feed'>
         <div className='section-header'>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -99,7 +104,7 @@ const ViewCommunity = () => {
                 </div>
                 <div className='community-join'>
                   {useCommunity.data &&
-                    <MembershipCheck isMember={useCommunity.data?.is_user_member} community_id={id}/>
+                    <MembershipCheck isMember={useCommunity.data?.is_user_member} community_id={id} />
                   }
                 </div>
               </div>
@@ -145,7 +150,6 @@ const ViewCommunity = () => {
             :
             <Loading />
           }
-          <PostModal isOpen={isOpen} topics={useTopics.data} setIsOpen={setIsOpen} />
         </div>
       </div>
       <div className="recommended">
@@ -173,27 +177,28 @@ const ViewCommunity = () => {
         <div className="card">
           <h3>Community Mentors</h3>
           {
-            useMentors.data ? useMentors.data?.map((mentor, index) => (
-              <div key={mentor.id} onClick={() => navigate(`/u/${mentor.user_id}`)} className='community-mentor-item'>
-                <div className="mentor-top">
-                  <div>
-                    <span className='mentor-name-top'>{index + 1}. {mentor.user.first_name} {mentor.user.last_name}</span>
-                    <span className='mentor-specialization-bottom'> {mentor.specialization}</span>
-                  <span className='mentor-specialization-bottom'>{mentor.like_counts}
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M7.30725 4.21991C7.94932 2.61922 8.27036 1.81888 8.79193 1.70796C8.92908 1.67879 9.07083 1.67879 9.20797 1.70796C9.72955 1.81888 10.0506 2.61922 10.6927 4.21991C11.0578 5.13019 11.2404 5.58533 11.582 5.8949C11.6778 5.98173 11.7818 6.05906 11.8926 6.12581C12.2874 6.36378 12.7803 6.40793 13.7661 6.49621C15.4348 6.64566 16.2692 6.72039 16.524 7.19613C16.5768 7.29466 16.6127 7.40134 16.6302 7.51174C16.7146 8.04476 16.1012 8.60282 14.8744 9.71894L14.5338 10.0289C13.9602 10.5507 13.6735 10.8116 13.5076 11.1372C13.4081 11.3325 13.3414 11.5429 13.3101 11.7598C13.258 12.1215 13.342 12.5 13.5099 13.257L13.5699 13.5275C13.8711 14.885 14.0217 15.5637 13.8337 15.8974C13.6649 16.1971 13.3538 16.3889 13.0102 16.4053C12.6277 16.4236 12.0887 15.9844 11.0107 15.106C10.3005 14.5273 9.94542 14.2379 9.55121 14.1249C9.19097 14.0216 8.80894 14.0216 8.44869 14.1249C8.05448 14.2379 7.69938 14.5273 6.98917 15.106C5.91119 15.9844 5.37221 16.4236 4.98968 16.4053C4.64609 16.3889 4.33504 16.1971 4.16617 15.8974C3.97818 15.5637 4.12878 14.885 4.42997 13.5275L4.48998 13.257C4.65794 12.5 4.74191 12.1215 4.6898 11.7598C4.65854 11.5429 4.59182 11.3325 4.49232 11.1372C4.32645 10.8116 4.03968 10.5507 3.46613 10.0289L3.12546 9.71895C1.89867 8.60282 1.28527 8.04476 1.36975 7.51174C1.38724 7.40134 1.42312 7.29466 1.47589 7.19613C1.73069 6.72039 2.56507 6.64566 4.23384 6.49621C5.21962 6.40793 5.71251 6.36378 6.10735 6.12581C6.2181 6.05906 6.32211 5.98173 6.41793 5.8949C6.75954 5.58533 6.94211 5.13019 7.30725 4.21991Z" fill="#222222" stroke="#222222" strokeWidth="2" />
-                    </svg>
-                  </span>
+            useMentors.data &&
+              useMentors.data.length > 0 ?
+              useMentors.data?.map((mentor, index) => (
+                <div key={mentor.id} onClick={() => navigate(`/u/${mentor.user_id}`)} className='community-mentor-item'>
+                  <div className="mentor-top">
+                    <div>
+                      <span className='mentor-name-top'>{index + 1}. {mentor.user.first_name} {mentor.user.last_name}</span>
+                      <span className='mentor-specialization-bottom'> {mentor.specialization}</span>
+                      <span className='mentor-specialization-bottom'>{mentor.like_counts}
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M7.30725 4.21991C7.94932 2.61922 8.27036 1.81888 8.79193 1.70796C8.92908 1.67879 9.07083 1.67879 9.20797 1.70796C9.72955 1.81888 10.0506 2.61922 10.6927 4.21991C11.0578 5.13019 11.2404 5.58533 11.582 5.8949C11.6778 5.98173 11.7818 6.05906 11.8926 6.12581C12.2874 6.36378 12.7803 6.40793 13.7661 6.49621C15.4348 6.64566 16.2692 6.72039 16.524 7.19613C16.5768 7.29466 16.6127 7.40134 16.6302 7.51174C16.7146 8.04476 16.1012 8.60282 14.8744 9.71894L14.5338 10.0289C13.9602 10.5507 13.6735 10.8116 13.5076 11.1372C13.4081 11.3325 13.3414 11.5429 13.3101 11.7598C13.258 12.1215 13.342 12.5 13.5099 13.257L13.5699 13.5275C13.8711 14.885 14.0217 15.5637 13.8337 15.8974C13.6649 16.1971 13.3538 16.3889 13.0102 16.4053C12.6277 16.4236 12.0887 15.9844 11.0107 15.106C10.3005 14.5273 9.94542 14.2379 9.55121 14.1249C9.19097 14.0216 8.80894 14.0216 8.44869 14.1249C8.05448 14.2379 7.69938 14.5273 6.98917 15.106C5.91119 15.9844 5.37221 16.4236 4.98968 16.4053C4.64609 16.3889 4.33504 16.1971 4.16617 15.8974C3.97818 15.5637 4.12878 14.885 4.42997 13.5275L4.48998 13.257C4.65794 12.5 4.74191 12.1215 4.6898 11.7598C4.65854 11.5429 4.59182 11.3325 4.49232 11.1372C4.32645 10.8116 4.03968 10.5507 3.46613 10.0289L3.12546 9.71895C1.89867 8.60282 1.28527 8.04476 1.36975 7.51174C1.38724 7.40134 1.42312 7.29466 1.47589 7.19613C1.73069 6.72039 2.56507 6.64566 4.23384 6.49621C5.21962 6.40793 5.71251 6.36378 6.10735 6.12581C6.2181 6.05906 6.32211 5.98173 6.41793 5.8949C6.75954 5.58533 6.94211 5.13019 7.30725 4.21991Z" fill="#222222" stroke="#222222" strokeWidth="2" />
+                        </svg>
+                      </span>
+                    </div>
+                    <img className='mentor-list__picture' src={import.meta.env.VITE_API_STORAGE_URL + mentor.user.profile_picture} alt="" />
                   </div>
-                  <img className='mentor-list__picture' src={import.meta.env.VITE_API_STORAGE_URL + mentor.user.profile_picture} alt="" />
+                  <div className="mentor-bottom">
+                  </div>
                 </div>
-                <div className="mentor-bottom">
-
-                </div>
-              </div>
-            ))
+              ))
               :
-              <span>No mentors for this Community yet</span>
+              <span>No mentors for this community yet</span>
           }
         </div>
       </div>
