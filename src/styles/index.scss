@@ -1513,7 +1513,6 @@ input::-webkit-inner-spin-button {
       width: clamp(10rem, 20vw, 18rem);
       transition: 0.3s;
 
-
       #badge {
         aspect-ratio: 1 / 1;
         width: 10rem;
@@ -1582,7 +1581,8 @@ input::-webkit-inner-spin-button {
       }
       .rec-community__item {
         display: flex;
-        border-top: 2px solid $lighter_grey;
+        border-radius: 15px;
+        cursor: pointer;
         width: 100%;
         padding: 0.3rem;
         gap: 1rem;
@@ -1621,7 +1621,9 @@ input::-webkit-inner-spin-button {
           }
         }
       }
-
+      .rec-community__item:hover {
+        background-color: $lighter_grey;
+      }
     }
 
     #side-community-card {
@@ -5305,12 +5307,9 @@ input::-webkit-inner-spin-button {
     }
   }
 
-  .rec-community-item {
-    display: flex;
-    justify-content: center;
-    #rank {
-      color: #e4e6eb;
-    }
+
+  .rec-community__item:hover {
+    background-color: #18191a;
   }
 
   .post-modal {

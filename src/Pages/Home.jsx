@@ -6,7 +6,6 @@ import Loading from '../components/utils/Loading';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 const UserFeed = () => {
-
     const getUserPosts = async (pageParam) => {
         const fetchedData = await axiosClient.get(`/homepage-post?page=${pageParam}`)
         return { ...fetchedData.data, prevPage: pageParam };
@@ -85,7 +84,7 @@ const UserFeed = () => {
                                 useRecommended.data.map(community => (
                                     <RecommendedCommunities communityName={community.name}
                                         communityMemberCount={community.members_count} communityId={community.id}
-                                        communityIcon={community.community_photo} />
+                                        communityIcon={community.community_photo} userId={community.user_id}/>
                                 ))
                                 :
                                 <div className='rec-community-empty'>

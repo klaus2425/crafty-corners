@@ -108,7 +108,7 @@ const router = createBrowserRouter([
                 element: <ViewVideo />
             },
             {
-                path: '/c/:community_name/:id',
+                path: '/c/:community_name',
                 element: <ViewCommunity />
             },
             {

@@ -11,10 +11,8 @@ const LoadCommunity = (c) => {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const uid = params.get('uid')
-  const { user } = useStateContext();
-  console.log(c);
   const openCommunity = () => {
-    navigate(`/c/${c.name}/${c.c.id}?uid=${user.id}`)
+    navigate(`/c/${c.name}`, {state: {id: `${c.c.id}`}});
   }
 
   return (

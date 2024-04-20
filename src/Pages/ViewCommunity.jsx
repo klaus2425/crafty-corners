@@ -1,10 +1,10 @@
 import ProgressBar from '@ramonak/react-progress-bar';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axiosClient from '../axios-client';
 import Post from '../components/Post';
 import PostModal from '../components/PostModal';
@@ -14,10 +14,8 @@ import MembershipCheck from '../components/utils/Membership';
 
 const ViewCommunity = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { id } = useParams();
-  const params = new URLSearchParams(window.location.search);
-  const uid = params.get('uid')
   const navigate = useNavigate();
+  const id = useLocation().state?.id;
   const storageBaseUrl = import.meta.env.VITE_API_COMMUNITIES_URL;
 
   const getMentors = async () => {
@@ -25,6 +23,7 @@ const ViewCommunity = () => {
     return fetchedData.data;
   }
 
+  console.log(location);
   const useMentors = useQuery({
     queryKey: [`mentors-${id}`],
     queryFn: getMentors,
@@ -66,6 +65,12 @@ const ViewCommunity = () => {
     return [...acc, page.data];
   }, [])
 
+  useEffect(() => {
+    if(id === undefined) {
+      navigate(`/communities`)
+    }
+  }, [])
+
   return (
     <div className="authenticated-container">
       <div className="feed" id='feed'>
@@ -94,7 +99,7 @@ const ViewCommunity = () => {
                 </div>
                 <div className='community-join'>
                   {useCommunity.data &&
-                    <MembershipCheck isMember={useCommunity.data?.is_user_member} community_id={id} user_id={uid} />
+                    <MembershipCheck isMember={useCommunity.data?.is_user_member} community_id={id}/>
                   }
                 </div>
               </div>
