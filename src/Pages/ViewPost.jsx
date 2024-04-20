@@ -18,6 +18,7 @@ const ViewPost = () => {
   const { id } = useParams();
   const timeAgo = new TimeAgo('en-US');
   const { user } = useStateContext();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const params = new URLSearchParams(window.location.search);
   const uid = params.get('uid')
   const [loadingProfile, setLoadingProfile] = useState(true);
@@ -79,14 +80,23 @@ const ViewPost = () => {
 
   const postComment = (ev) => {
     ev.preventDefault();
-    const formData = new FormData();
-    formData.append('content', commentRef.current.value);
-    axiosClient.post(`/post/${id}/comment`, formData)
-      .then(() => {
-        notifyComment();
-        useComments.refetch();
-        commentRef.current.value = '';
-      })
+    setIsButtonDisabled(true);
+    if(commentRef.current.value != '') {
+      const formData = new FormData();
+      formData.append('content', commentRef.current.value);
+      axiosClient.post(`/post/${id}/comment`, formData)
+        .then(() => {
+          notifyComment();
+          useComments.refetch();
+          commentRef.current.value = '';
+          setIsButtonDisabled(false);
+  
+        })
+        .catch(() => setIsButtonDisabled(false));
+    }
+    else setIsButtonDisabled(false);
+
+
 
   }
 
@@ -141,7 +151,7 @@ const ViewPost = () => {
 
   const liked = usePost?.data?.liked_by_user;
   const post = usePost?.data;
-  const ago =  usePost.data && timeAgo.format(new Date(usePost.data?.created_at), 'twitter-now');
+  const ago = usePost.data && timeAgo.format(new Date(usePost.data?.created_at), 'twitter-now');
   const community = usePost?.data?.community;
   const postUser = usePost?.data?.user;
 
@@ -281,7 +291,7 @@ const ViewPost = () => {
             </div>
             <div className='post-footer'>
               <form>
-                <button className="purple-button" onClick={(ev) => postComment(ev)}>
+                <button className="purple-button" onClick={(ev) => postComment(ev)} disabled={isButtonDisabled}>
                   Comment
                 </button>
               </form>
@@ -364,7 +374,7 @@ const ViewPost = () => {
             </div>
             <span className="post-title">{post.title}</span>
             <div className="post-content">
-              <video controls className='post-image' src={`${storagePostUrl}${post.video}`} typeof='video/mp4' />
+              <video controls className='post-video' src={`${storagePostUrl}${post.video}`} typeof='video/mp4' />
             </div>
             <div className="post-footer">
               <div className="footer-item">
@@ -416,7 +426,7 @@ const ViewPost = () => {
             </div>
             <div className='post-footer'>
               <form>
-                <button className="purple-button" onClick={(ev) => postComment(ev)}>
+                <button className="purple-button" disabled={isButtonDisabled} onClick={(ev) => postComment(ev)}>
                   Comment
                 </button>
               </form>
@@ -551,7 +561,7 @@ const ViewPost = () => {
             </div>
             <div className='post-footer'>
               <form>
-                <button className="purple-button" onClick={(ev) => postComment(ev)}>
+                <button className="purple-button" disabled={isButtonDisabled} onClick={(ev) => postComment(ev)}>
                   Comment
                 </button>
               </form>
@@ -690,7 +700,7 @@ const ViewPost = () => {
             </div>
             <div className='post-footer'>
               <form>
-                <button className="purple-button" onClick={(ev) => postComment(ev)}>
+                <button className="purple-button" disabled={isButtonDisabled} onClick={(ev) => postComment(ev)}>
                   Comment
                 </button>
               </form>
