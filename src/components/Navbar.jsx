@@ -8,7 +8,7 @@ import { useStateContext } from "../context/ContextProvider";
 import LoginModal from "./LoginModal";
 
 const Navbar = () => {
-    const PostModal = lazy(() => import('./PostModal'))
+    const PostModal = lazy(() => import('./PostModal'));
     const DropDownItem = lazy(() => import('./DropDownItem'))
     const { isOpen, setIsOpen, setUser, setToken, user, token } = useStateContext();
     const queryClient = useQueryClient();
