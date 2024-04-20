@@ -1,15 +1,15 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../context/ContextProvider";
-import DropDownItem from "./DropDownItem";
 import LoginModal from "./LoginModal";
-import PostModal from "./PostModal";
 
 const Navbar = () => {
+    const PostModal = lazy(() => import('./PostModal'))
+    const DropDownItem = lazy(() => import('./DropDownItem'))
     const { isOpen, setIsOpen, setUser, setToken, user, token } = useStateContext();
     const queryClient = useQueryClient();
     const [openSearch, setOpenSearch] = useState(false);
@@ -21,7 +21,6 @@ const Navbar = () => {
     const handleNavigateHome = () => {
         navigate('/');
     }
-
 
     const onLogout = () => {
         axiosClient.post('/logout')
@@ -67,9 +66,17 @@ const Navbar = () => {
         return (
             <div className='authenticated-navbar'>
                 {
-                    postOpen ?
-                    < PostModal isOpen={postOpen} setIsOpen={setPostOpen} />
-                    : null
+                    postOpen &&
+                    <Suspense >
+                        <PostModal isOpen={postOpen} setIsOpen={setPostOpen} />
+                    </Suspense>
+
+                }
+                {openDropDown &&
+                    <Suspense >
+                        <DropDownItem setOpenDropDown={setOpenDropDown} userData={user} logout={onLogout} picture={userPicture} type={user.type} />
+                    </Suspense>
+
                 }
                 <div style={{ cursor: 'pointer' }} onClick={handleNavigateHome} className='title'>
                     <svg width="82" height="80" viewBox="0 0 284 282" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -174,9 +181,7 @@ const Navbar = () => {
                     {loading && <Skeleton className="navbar-img" />}
                     <img style={loading ? { display: 'none' } : { display: 'inline' }} className="navbar-img" src={userPicture} alt="Profile Picture" onClick={handleDropDown} onLoad={() => setLoading(false)} />
 
-                    {openDropDown && (
-                        <DropDownItem setOpenDropDown={setOpenDropDown} userData={user} logout={onLogout} picture={userPicture} type={user.type} />
-                    )}
+
                 </div>
             </div>
         )
