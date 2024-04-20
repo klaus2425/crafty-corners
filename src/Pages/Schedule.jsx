@@ -1,6 +1,5 @@
 import axiosClient from '../axios-client';
-import { useState, useEffect } from 'react'
-import AddScheduleModal from '../components/AddScheduleModal';
+import { useState, useEffect, Suspense, lazy } from 'react'
 import EditSchedule from '../components/EditSchedule';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
@@ -8,6 +7,8 @@ import interactionPlugin from "@fullcalendar/interaction"
 import getCorrectColor from '../components/utils/ColorCorrection';
 
 const Schedule = () => {
+    const AddScheduleModal = lazy(() => import('../components/AddScheduleModal'));
+    const EditSchedule = lazy(() => import('../components/EditSchedule'));
     const [open, setOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
     const [schedId, setSchedId] = useState();
@@ -78,18 +79,24 @@ const Schedule = () => {
                     <h3>Schedule</h3>
                 </div>
                 <div className="card" id="schedule-card">
-                    <AddScheduleModal isOpen={open} getAllSched={getSchedule} startDate={startDate} setOpen={setOpen} />
                     {
-                        editOpen ?
+                        open &&
+                        <Suspense>
+                            <AddScheduleModal isOpen={open} getAllSched={getSchedule} startDate={startDate} setOpen={setOpen} />
+                        </Suspense>
+                    }
+                    {
+                        editOpen &&
+                        <Suspense>
                             <EditSchedule isOpen={editOpen} setOpen={setEditOpen} id={schedId} getAllSched={getSchedule} />
-                            : null
+                        </Suspense>
                     }
                     <FullCalendar
                         plugins={[dayGridPlugin, interactionPlugin]}
                         initialView="dayGridMonth"
                         selectable
                         themeSystem='custom'
-                        height= '70vh'
+                        height='70vh'
                         events={events}
                         dateClick={handleDateClick}
                         eventClick={handleEventClick}
