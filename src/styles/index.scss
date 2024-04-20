@@ -1500,7 +1500,27 @@ input::-webkit-inner-spin-button {
       justify-content: center;
       width: clamp(10rem, 20vw, 18rem);
       transition: 0.3s;
-
+      .card__header {
+        font-weight: bold;
+        font-size: clamp(0.8rem, 2vw, 1.26rem);
+        margin-bottom: 0.2rem;
+      }
+      .community-topic-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .community-topic-container__topics {
+        background-color: $purple;
+        width: fit-content;
+        height: fit-content;
+        padding: 0.5rem 0.72rem;
+        cursor: pointer;
+        border-radius: 10000px;
+      }
+      .community-topic-container__topics:hover {
+        background-color: $dark_purple;
+      }
       #badge {
         aspect-ratio: 1 / 1;
         width: 10rem;
@@ -1546,7 +1566,7 @@ input::-webkit-inner-spin-button {
         .mentor-top {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          justify-content: space-around;
         }
 
         .mentor-botom {
@@ -5683,7 +5703,6 @@ input::-webkit-inner-spin-button {
 
   .admin-container-card {
     background-color: #242526;
-
     .community-item {
       background-color: $darker;
       border-color: $darker;
@@ -5720,7 +5739,7 @@ input::-webkit-inner-spin-button {
   .community-inputs,
   .article-input,
   .edit-inputs {
-
+    color: $white;
     input,
     textarea,
     select {
@@ -5730,7 +5749,7 @@ input::-webkit-inner-spin-button {
       transition: 0.3s;
     }
   }
-
+ 
 
   .post-header {
     .notification-bell {

@@ -38,10 +38,13 @@ const ViewCommunity = () => {
     const fetchedData = await axiosClient.get(`/communities/${id}`)
     return fetchedData.data.data;
   }
+
+
   const useCommunity = useQuery({
     queryKey: [`community-${id}`],
     queryFn: getCommunityData,
   })
+
 
   const getPosts = async (pageParam) => {
     const fetchedData = await axiosClient.get(`communities/${id}/posts?page=${pageParam}`);
@@ -200,6 +203,21 @@ const ViewCommunity = () => {
               :
               <span>No mentors for this community yet</span>
           }
+        </div>
+        <div className="card">
+          <span className="card__header">
+            Community Topics
+          </span>
+          <div className="community-topic-container">
+            {
+              useCommunity.data && useCommunity.data.subtopics.map(topic =>
+              (
+                <span className='community-topic-container__topics'>{topic}</span>
+              )
+              )
+            }
+          </div>
+
         </div>
       </div>
     </div>
