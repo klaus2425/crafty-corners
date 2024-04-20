@@ -58,6 +58,7 @@ const PostModal = (props) => {
           },
           error: (err) => {
             setIsButtonDisabled(false);
+            setLoading(false)
             return `${err.response.data.message}`
           },
         },
