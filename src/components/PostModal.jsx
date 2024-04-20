@@ -48,7 +48,8 @@ const PostModal = (props) => {
       formData.append('notifiable', notifiable);
       formData.append('post_type', 'video');
       toast.promise(axiosClient.post('/posts', formData)
-        , {
+        , 
+        {
           loading: 'Posting',
           success: () => {
             queryClient.refetchQueries(`posts`);
@@ -61,6 +62,17 @@ const PostModal = (props) => {
             setLoading(false)
             return `${err.response.data.message}`
           },
+        },
+        {
+          loading: {
+            duration: Infinity,
+          },
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 3000,
+          }
         },
       );
     }
@@ -85,6 +97,17 @@ const PostModal = (props) => {
             setIsButtonDisabled(false);
             return `${err.response.data.message}`
           },
+        },
+        {
+          loading: {
+            duration: Infinity,
+          },
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 3000,
+          }
         },
       );
     }
@@ -111,6 +134,17 @@ const PostModal = (props) => {
             return `${err.response.data.message}`
           },
         },
+        {
+          loading: {
+            duration: Infinity,
+          },
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 3000,
+          }
+        },
       );
     }
     else if (postType === 'url') {
@@ -136,6 +170,17 @@ const PostModal = (props) => {
             setIsButtonDisabled(false);
             return `${err.response.data.message}`
           },
+        },
+        {
+          loading: {
+            duration: Infinity,
+          },
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 3000,
+          }
         },
       );
     }
