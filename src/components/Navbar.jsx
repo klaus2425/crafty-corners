@@ -70,13 +70,11 @@ const Navbar = () => {
                     <Suspense >
                         <PostModal isOpen={postOpen} setIsOpen={setPostOpen} />
                     </Suspense>
-
                 }
                 {openDropDown &&
                     <Suspense >
                         <DropDownItem setOpenDropDown={setOpenDropDown} userData={user} logout={onLogout} picture={userPicture} type={user.type} />
                     </Suspense>
-
                 }
                 <div style={{ cursor: 'pointer' }} onClick={handleNavigateHome} className='title'>
                     <svg width="82" height="80" viewBox="0 0 284 282" fill="none" xmlns="http://www.w3.org/2000/svg">
