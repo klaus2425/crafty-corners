@@ -876,8 +876,10 @@ input::-webkit-inner-spin-button {
       position: absolute;
       display: flex;
       flex-direction: column;
-      width: clamp(5rem, 40vw, 50rem);
-      top: 2.9rem;
+      word-break: break-all;
+      width: calc(100% - 2rem);
+      min-width: 20rem;
+      top: 4rem;
       border: 2px solid $light_grey;
       background-color: #FFF;
       height: fit-content;
