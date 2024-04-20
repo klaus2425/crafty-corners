@@ -16,7 +16,7 @@ const AdminNavbar = () => {
                 setUser({});
                 setToken(null);
                 setOpenDropDown(false);
-                queryClient.removeQueries('user');
+                queryClient.cancelQueries();
                 navigate('/');
             })
     }
