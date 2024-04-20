@@ -81,7 +81,7 @@ const ViewPost = () => {
   const postComment = (ev) => {
     ev.preventDefault();
     setIsButtonDisabled(true);
-    if(commentRef.current.value != '') {
+    if (commentRef.current.value != '') {
       const formData = new FormData();
       formData.append('content', commentRef.current.value);
       axiosClient.post(`/post/${id}/comment`, formData)
@@ -90,7 +90,7 @@ const ViewPost = () => {
           useComments.refetch();
           commentRef.current.value = '';
           setIsButtonDisabled(false);
-  
+
         })
         .catch(() => setIsButtonDisabled(false));
     }
@@ -647,8 +647,8 @@ const ViewPost = () => {
               <p className='post-text'>{post.content || <Skeleton containerClassName='post-text' count={5} />}</p>
             </div>
             <div className="link-button-container">
+              <p>{post.content && `Link to ${post.link}`}</p>
               <button onClick={() => openLink()} className='orange-button'>Open Link</button>
-
             </div>
 
             <div className="post-footer">
