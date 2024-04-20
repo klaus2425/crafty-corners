@@ -34,7 +34,7 @@ const DefaultLayout = () => {
             setUser(data.data);
         }
 
-    }, [isLoading]);
+    }, [isLoading, data]);
 
 
     if (!isLoading) {

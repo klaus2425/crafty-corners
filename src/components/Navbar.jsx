@@ -59,10 +59,11 @@ const Navbar = () => {
         document.addEventListener("mousedown", listener)
         return () => document.removeEventListener("mousedown", listener)
     }, [])
+    const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
+    const userPicture = `${storageBaseUrl}${user.profile_picture}`;
 
     if (token) {
-        const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
-        const userPicture = `${storageBaseUrl}${user.profile_picture}`;
+
         return (
             <div className='authenticated-navbar'>
                 {

@@ -2,10 +2,10 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axiosClient from "../axios-client";
 import { useState, useEffect } from 'react';
-import Swal from 'sweetalert2';
 import { useStateContext } from "../context/ContextProvider";
 import Loading from '../components/utils/Loading';
-
+import toast from 'react-hot-toast';
+import { useQueryClient } from '@tanstack/react-query';
 
 const EditProfile = () => {
 
@@ -13,7 +13,7 @@ const EditProfile = () => {
     const { setUser } = useStateContext();
     const [imageChange, setImageChange] = useState(false);
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
-
+    const queryClient = useQueryClient();
 
     if (!image) { setImage('/avatar.jpg') }
 
@@ -54,7 +54,7 @@ const EditProfile = () => {
             toast.promise( axiosClient.post(`users/${currentUser.id}`, formData), {
                 loading: 'Updating Profile',
                 success: () => {
-                    getUser();
+                    queryClient.refetchQueries('user');
                     return <b>Profile Updated</b>
                 },
                 error: (err) => {
@@ -70,34 +70,17 @@ const EditProfile = () => {
             for (const key in currentUser) {
                 formData.append(key, currentUser[key]);
             }
-
-            axiosClient.post(`users/${currentUser.id}`, formData)
-                .then((res) => {
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "Your profile has been updated",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    getUser();
+            toast.promise( axiosClient.post(`users/${currentUser.id}`, formData), {
+                loading: 'Updating Profile',
+                success: () => {
+                    queryClient.refetchQueries('user');
+                    return <b>Profile Updated</b>
+                },
+                error: (err) => {
                     setImageChange(false);
-
-                })
-                .catch(err => {
-                    const response = err.response;
-                    Swal.fire({
-                        title: "Error",
-                        text: `${Object.values(response.data.errors)[0]}`,
-                        icon: "warning"
-                    });
-                    setLoading(false);
-                    setImageChange(false);
-                    setImage(storageBaseUrl + data.profile_picture)
-                    getUser();
-
-                })
-
+                    return `${Object.values(err.response.data.errors)[0]}`
+                },
+            },)
         }
 
 
@@ -110,9 +93,6 @@ const EditProfile = () => {
     useEffect(() => {
         getUser();
     }, []);
-
-
-
 
     return (
         <div className="authenticated-container">
@@ -136,7 +116,7 @@ const EditProfile = () => {
 
                                 <div className="upload-picture">
                                     <img id='update-picture' src={image} />
-                                    <input id='upload-button' type="file" onChange={handleChange} />
+                                    <input id='upload-button' type="file" accept="image/*" onChange={handleChange} />
                                     <label htmlFor='upload-button'>Upload File</label>
                                 </div>
                                 <div className='input-container'>

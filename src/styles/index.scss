@@ -2260,6 +2260,7 @@ input::-webkit-inner-spin-button {
 
       .input-container {
         display: flex;
+        justify-content: space-evenly;
         width: 100%;
       }
 
@@ -2268,7 +2269,7 @@ input::-webkit-inner-spin-button {
         flex-direction: column;
         flex-wrap: wrap;
         min-width: 0;
-        width: 50%;
+        width: fit-content;
         margin-top: 1rem;
         gap: 1rem;
 
@@ -2305,8 +2306,6 @@ input::-webkit-inner-spin-button {
 
       .field-holder {
         position: relative;
-        margin-top: 1.256rem;
-        margin-bottom: 0.675rem;
 
         input {
           border-radius: 10px;
@@ -2317,7 +2316,8 @@ input::-webkit-inner-spin-button {
           height: 2rem;
           padding-left: 0.75rem;
           min-width: 14rem;
-          width: 50%;
+          width: 100%;
+          max-width: calc(100% - 10rem);
         }
 
         textarea {
@@ -5823,6 +5823,7 @@ input::-webkit-inner-spin-button {
 
   .input-container {
     flex-direction: column;
+    align-items: center;
   }
 
 }
