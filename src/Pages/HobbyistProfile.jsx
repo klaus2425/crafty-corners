@@ -1,15 +1,14 @@
-import { useStateContext } from '../context/ContextProvider';
+import { faMessage } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
-import { UserPost } from '../components/Post';
-import { useNavigate, useParams } from 'react-router-dom'
+import InfiniteScroll from 'react-infinite-scroll-component';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { JoinedCommunityCount } from '../components/utils/Membership';
+import { useNavigate, useParams } from 'react-router-dom';
 import axiosClient from '../axios-client';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMessage } from '@fortawesome/free-solid-svg-icons';
+import { UserPost } from '../components/Post';
 import Loading from '../components/utils/Loading';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useStateContext } from '../context/ContextProvider';
 
 const HobbyistProfile = () => {
   const { user } = useStateContext();
@@ -62,7 +61,7 @@ const HobbyistProfile = () => {
 
   useEffect(() => {
     if (user.id == id) {
-      navigate(`/profile?uid=${id}`);
+      navigate(`/profile?uid=${id}`, {state: {id: user.id}});
     }
     getUser();
     getPosts();
