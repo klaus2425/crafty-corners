@@ -40,7 +40,6 @@ const MentorAddArticle = lazy(() => import("./Pages/MentorAddArticle"));
 const MentorAddVideo = lazy(() => import("./Pages/MentorAddVideo"));
 const MentorApplication = lazy(() => import("./Pages/MentorApplication"));
 const NotFound = lazy(() => import('./Pages/NotFound'));
-const NotVerified = lazy(() => import("./Pages/NotVerified"));
 const PasswordReset = lazy(() => import("./Pages/PasswordReset"));
 const UserBadges = lazy(() => import("./Pages/UserBadges"));
 const Verify = lazy(() => import("./Pages/Verify"));
@@ -118,10 +117,6 @@ const router = createBrowserRouter([
             {
                 path: 'p/:id',
                 element: <ViewPost />
-            },
-            {
-                path: '/not-verified',
-                element: <NotVerified />
             },
             {
                 path: '/mentor-application',
