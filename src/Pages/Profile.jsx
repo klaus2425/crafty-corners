@@ -1,30 +1,31 @@
-import { useStateContext } from '../context/ContextProvider';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useInfiniteQuery, useQuery, } from '@tanstack/react-query';
 import { useState } from 'react';
-import { UserPost } from '../components/Post';
-import { useLocation, useNavigate } from 'react-router-dom'
+import InfiniteScroll from 'react-infinite-scroll-component';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axiosClient from '../axios-client';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { UserPost } from '../components/Post';
 import Loading from '../components/utils/Loading';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useStateContext } from '../context/ContextProvider';
 
 const UserFeed = () => {
-
     const { user } = useStateContext();
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     const [imageLoading, setImageLoading] = useState(true);
     const navigate = useNavigate();
-    
-    const getPosts = async (page, userId) => {
-        const fetchedData = await axiosClient.get(`/user/${user.id}/posts?page=${page}`)
+    const uid = useLocation().state?.id;
+
+    const getPosts = async (page) => {
+        const fetchedData = await axiosClient.get(`/user/${uid}/posts?page=${page}`)
+        .catch(() => navigate('/home', {state: {id: user.id}})); 
         return { ...fetchedData.data, prevPage: page }
     }
-    const { data, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
+    const { data, fetchNextPage, hasNextPage, } = useInfiniteQuery({
         queryKey: ['user-posts'],
-        queryFn: ({ pageParam }) => getPosts(pageParam,  user.id),
+        queryFn: ({ pageParam }) => getPosts(pageParam,  uid),
         initialPageParam: 1,
         getNextPageParam: (lastPage) => {
             if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
@@ -33,11 +34,9 @@ const UserFeed = () => {
             return lastPage.meta.current_page + 1
         }
     });
-    if (data && data.pages.length === 0 && user.id) {
-        refetch();
-    }
+
     const userData = useQuery({
-        queryKey: ['user-profile'], queryFn: () => axiosClient.get(`/users/${user.id}`)
+        queryKey: ['user-profile'], queryFn: () => axiosClient.get(`/users/${uid}`)
             .then((res) => res)
     })
 
@@ -48,6 +47,7 @@ const UserFeed = () => {
     const handleEdit = () => {
         navigate('/edit-profile')
     }
+
 
     return (
         <div className="authenticated-container">
@@ -81,7 +81,7 @@ const UserFeed = () => {
                                 <div className='lower-details'>
                                 </div>
                             </div>
-                            <div onClick={() => navigate(`/user-badges/?uid=${uid || user.id}`)} className='right'>
+                            <div onClick={() => navigate(`/user-badges/?uid=${uid}`)} className='right'>
                                 <svg width="113" height="113" viewBox="0 0 113 113" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="56.75" cy="56.75" r="42.1875" fill="#EFBD0B" stroke="#222222" strokeWidth="4.6875" />
                                     <circle cx="56.6512" cy="56.6513" r="24.1776" fill="#6339DC" stroke="#222222" strokeWidth="6.0444" />

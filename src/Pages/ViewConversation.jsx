@@ -164,12 +164,14 @@ const ViewConversation = () => {
 
 
     return () => {
-      axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
 
       if (!hasMessage.current) {
-        axiosClient.delete(`/conversation/${conversation_id}`)
+          axiosClient.delete(`/conversation/${conversation_id}`)
           .then(() => queryClient.removeQueries('conversation'))
       }
+      else
+      axiosClient.post(`/conversation/mark-as-read/${conversation_id}`);
+      
     };
 
   }, []);
