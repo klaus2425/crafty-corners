@@ -16,9 +16,7 @@ $dark_purple: #2C3373;
   src: url('../fonts/ArchivoBlack-Regular.ttf');
 }
 
-html {
-  box-sizing: border-box;
-}
+
 
 .flex {
   display: flex;
@@ -75,27 +73,6 @@ html {
 
 }
 
-/* width */
-::-webkit-scrollbar {
-  width: 0.525rem;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: $lighter_grey;
-  border-radius: 1000px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: $light_grey;
-  border-radius: 1000px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: $dark_grey;
-}
 
 .hide {
   width: 0;
@@ -265,6 +242,7 @@ html {
 /* HTML: <div class="loader"></div> */
 .loader {
   width: 75px;
+  height: 75px;
   aspect-ratio: 1;
   display: grid;
   border: 4px solid #0000;
@@ -272,6 +250,7 @@ html {
   border-right-color: #6528F7;
   animation: l15 1s infinite linear;
   margin: auto;
+  
 }
 
 .loader::before,
@@ -1499,6 +1478,7 @@ input::-webkit-inner-spin-button {
         backdrop-filter: blur(10px);
         font-size: 1.26rem;
         border-radius: 15px;
+        color: $purple;
         position: absolute;
         display: flex;
         justify-content: center;
@@ -1753,6 +1733,7 @@ input::-webkit-inner-spin-button {
     overflow-y: scroll;
     flex-direction: column;
     padding: 1rem 0.5rem 0 0.5rem;
+    scrollbar-width: none;
   }
 
   .acc-settings-feed {
@@ -1918,7 +1899,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     margin-bottom: 0.5rem;
     padding: 1rem;
-
+    scrollbar-width: none;
     .mentor-apply-input {
       width: 100%;
       height: 2.125rem;
@@ -2529,7 +2510,7 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     width: 100%;
     height: 100%;
-
+    scrollbar-width: none;
     .section-header {
       img {
         width: 1.5rem;
@@ -4176,7 +4157,6 @@ input::-webkit-inner-spin-button {
   width: 95%;
   margin-bottom: 0.5rem;
   padding: 1rem;
-
   .message-back {
     cursor: pointer;
   }
@@ -4531,6 +4511,9 @@ input::-webkit-inner-spin-button {
 #list-card::-webkit-scrollbar {
   display: none;
 }
+.fc-scroller-liquid-absolute {
+  scrollbar-width: none;
+}
 
 .list-card {
   display: flex;
@@ -4545,7 +4528,7 @@ input::-webkit-inner-spin-button {
   overflow: auto;
   height: 20rem;
   transition: 0.3s;
-
+  scrollbar-width: none;
   .card-search {
     position: relative;
     display: inline-block;

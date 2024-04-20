@@ -21,7 +21,7 @@ const ViewConversation = () => {
   const messageRef = useRef();
   const [message_id, setMessage_id] = useState();
   const [imagePath, setImagePath] = useState()
-  const hasMessage = useRef(false);
+  const hasMessage = useRef(true);
   const user_id0 = location.state.user_id0;
   const user_id1 = location.state.user_id1;
   const [fileType, setFileType] = useState('');
