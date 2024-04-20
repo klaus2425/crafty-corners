@@ -38,22 +38,22 @@ const Messages = () => {
 
   const viewConversation = (conversation_id, id1, id2) => {
     axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
-    navigate(`/conversation/${conversation_id}?user_id0=${id1}&user_id1=${id2}&lid=${user.id}`);
+    navigate(`/conversation/${conversation_id}`, { state: { user_id0: id1, user_id1: id2, lid: user.id } });
   }
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
 
 
   const useConversations = useQuery({
     queryKey: ['conversations'],
-    queryFn: () => axiosClient.get('/conversations').then(({data}) => (data.data))
+    queryFn: () => axiosClient.get('/conversations').then(({ data }) => (data.data))
   })
 
 
   useEffect(() => {
     echo.private(`user-${uid}`)
-    .listen('MessageSent', () => {
-       useConversations.refetch();
-    })
+      .listen('MessageSent', () => {
+        useConversations.refetch();
+      })
   }, [])
 
   return (
@@ -70,7 +70,7 @@ const Messages = () => {
             <input className="search" type="text" placeholder="Search for Conversations 🔍" />
           </div>
 
-          { !useConversations.isLoading ? useConversations.data.map(c => {
+          {!useConversations.isLoading ? useConversations.data.map(c => {
             if (c.user_0.id == uid) {
               return (
                 <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
@@ -117,21 +117,21 @@ const Messages = () => {
                     }
                   </div>
                   <div className="list-card-item-time">
-                  {getTimePassedSince(c.latest_message.created_at)}
-                      {uid != c.latest_message.sender_id && !c.latest_message.read &&
-                        <span>
-                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="7" cy="7" r="7" fill="#FF4646" />
-                          </svg>
-                        </span>
-                      }
+                    {getTimePassedSince(c.latest_message.created_at)}
+                    {uid != c.latest_message.sender_id && !c.latest_message.read &&
+                      <span>
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="7" cy="7" r="7" fill="#FF4646" />
+                        </svg>
+                      </span>
+                    }
                   </div>
                 </div>
               </div>
             )
           })
-          : <Loading />
-        }
+            : <Loading />
+          }
         </div>
       </div>
       <div className="recommended">

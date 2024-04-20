@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { useEffect, useRef, useState, } from 'react';
 import { useNavigate } from 'react-router-dom'
 import axiosClient from '../axios-client';
@@ -15,6 +15,7 @@ import getTimestamp from '../components/utils/GetTimeStamp';
 const ViewConversation = () => {
 
   const [pageIndex, setPageIndex] = useState(1);
+  const location = useLocation();
   const [hasMore, setHasMore] = useState(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -22,11 +23,10 @@ const ViewConversation = () => {
   const [message_id, setMessage_id] = useState();
   const [imagePath, setImagePath] = useState()
   const hasMessage = useRef(false);
-  const params = new URLSearchParams(window.location.search);
-  const user_id0 = params.get('user_id0');
-  const user_id1 = params.get('user_id1');
+  const user_id0 = location.state.user_id0;
+  const user_id1 = location.state.user_id1;
   const [fileType, setFileType] = useState('');
-  const uid = params.get('lid')
+  const uid = location.state.lid;
   const [receiver, setReceiver] = useState();
   const receiver_id = useRef();
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
@@ -44,7 +44,7 @@ const ViewConversation = () => {
     fileRef.current.value = null;
   }
   const handleBack = () => {
-    navigate(`/messages?uid=${uid}`)
+    navigate(`/messages?uid=${uid}`);
   }
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteMessageOpen, setDeleteMessageOpen] = useState(false);
