@@ -91,23 +91,6 @@ const MembershipCheck = (props) => {
 
 
 
-export const JoinedCommunityCount = (user) => {
-  const [count, setCount] = useState(0);
-
-  const getJoinedCommunity = () => {
-    axiosClient.get(`/users/${user.id}`)
-      .then(res => {
-        setCount(res.data.data.communities.length);
-      })
-  }
-
-  useEffect(() => {
-    getJoinedCommunity()
-  }, [])
-
-  return count > 0 ? (count === 1 ? (<div><span className="community-count">{count}</span>Community</div>)
-    : (<div><span className="community-count">{count}</span>Communities</div>)) : <Skeleton className="community-count" />
-}
 
 
 
