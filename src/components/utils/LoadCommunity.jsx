@@ -12,13 +12,14 @@ const LoadCommunity = (c) => {
   const params = new URLSearchParams(window.location.search);
   const uid = params.get('uid')
   const { user } = useStateContext();
-  const openCommunity = (id) => {
-    navigate(`/c/${id}?uid=${user.id}`)
+  console.log(c);
+  const openCommunity = () => {
+    navigate(`/c/${c.name}/${c.c.id}?uid=${user.id}`)
   }
 
   return (
     <div className="list-card-item">
-      <div onClick={() => openCommunity(c.c.id)} className="list-card-left">
+      <div onClick={() => openCommunity()} className="list-card-left">
         <div className="list-card-item-image">
           {imageLoading && <Skeleton className="loading-img" />}
           <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} src={storageBaseUrl + c.c.community_photo} onLoad={() => setImageLoading(false)} />

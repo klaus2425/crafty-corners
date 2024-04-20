@@ -60,7 +60,7 @@ const Communities = () => {
               {fetchedCommunities.map((community => (
                 community.map(c => (
                   <div className="list-card-items">
-                    <LoadCommunity key={c.id} c={c} />
+                    <LoadCommunity name={c.name} key={c.id} c={c} />
                   </div>
                 ))
               )))}
