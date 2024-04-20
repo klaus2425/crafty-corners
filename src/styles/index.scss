@@ -7,6 +7,9 @@ $red: #EA4242;
 $green: #3fcc44;
 $grey: #696969;
 $dark_purple: #2C3373;
+$white: #FFF;
+$darker: #18191a;
+$dark: #242526;
 
 @import '../../node_modules/react-tabs/style/react-tabs.scss';
 
@@ -121,7 +124,7 @@ $dark_purple: #2C3373;
     }
   }
   h2 {
-    color: #18191a;
+    color: $darker;
   }
 
 
@@ -152,7 +155,7 @@ $dark_purple: #2C3373;
 
       .community-name {
         font-weight: bold;
-        color: #18191a;
+        color: $darker;
       }
 
       img {
@@ -1153,7 +1156,8 @@ input::-webkit-inner-spin-button {
         position: relative;
         width: fit-content;
         height: fit-content;
-
+        display: flex;
+        justify-content: center;
         .change-picture {
           position: absolute;
           opacity: 0;
@@ -1569,7 +1573,7 @@ input::-webkit-inner-spin-button {
         border-radius: 15px;
         cursor: pointer;
         width: 100%;
-        padding: 0.3rem;
+        padding: 0.6rem 0.67rem;
         gap: 1rem;
         justify-content: flex-start;
         font-size: clamp(0.5rem, 1vw, 2rem);
@@ -2833,6 +2837,7 @@ input::-webkit-inner-spin-button {
 .body-container::-webkit-scrollbar {
   display: none;
 }
+
 
 .feed::-webkit-scrollbar {
   display: none;
@@ -5030,17 +5035,28 @@ input::-webkit-inner-spin-button {
   --font-color: #757579;
   --bg-color: #fff;
   --heading-color: #6528F7;
+  .toaster {
+    border-radius: 10000px ;
+    background-color: $white;
+    transition: 0.3s;
+  }
 }
 
 #dark-theme {
   --primary-color: #9a97f3;
   --secondary-color: #242526;
   --font-color: #e4e6eb;
-  --bg-color: #18191a;
+  --bg-color: $darker;
   --heading-color: #818cab;
-  background-color: #18191a;
+  background-color: $darker;
   color: #e4e6eb;
 
+  .toaster {
+    border-radius: 10000px ;
+    background-color: $darker;
+    color: $white;
+    transition: 0.3s;
+  }
   #notification-icon {
     circle {
       fill: #FF4444;
@@ -5083,7 +5099,7 @@ input::-webkit-inner-spin-button {
     }
 
     .react-select__option {
-      background-color: #18191a;
+      background-color: $darker;
     }
 
     .react-select__option:hover {
@@ -5098,7 +5114,7 @@ input::-webkit-inner-spin-button {
       }
       .css-tj5bde-Svg:hover {
 
-        background-color: #18191a;
+        background-color: $darker;
 
       }
     }
@@ -5130,10 +5146,10 @@ input::-webkit-inner-spin-button {
   .search-card {
     transition: 0.3s;
     background-color: #242526;
-    border: 2px solid #18191a;
+    border: 2px solid $darker;
 
     .search-result:hover {
-      background-color: #18191a;
+      background-color: $darker;
     }
   }
 
@@ -5205,7 +5221,7 @@ input::-webkit-inner-spin-button {
     background-color: #242526;
 
     .level-container {
-      background-color: #18191a;
+      background-color: $darker;
     }
   }
 
@@ -5229,9 +5245,9 @@ input::-webkit-inner-spin-button {
     padding: 0 2rem;
 
     input {
-      background-color: #18191a;
+      background-color: $darker;
       color: #e4e6eb;
-      border: #18191a;
+      border: $darker;
     }
   }
 
@@ -5240,7 +5256,7 @@ input::-webkit-inner-spin-button {
 
     select,
     input {
-      background-color: #18191a;
+      background-color: $darker;
       border: 0;
       color: #e4e6eb;
     }
@@ -5256,7 +5272,7 @@ input::-webkit-inner-spin-button {
   }
 
   .ellipsis-dropdown {
-    background-color: #18191a;
+    background-color: $darker;
     color: #e4e6eb;
 
     li:hover {
@@ -5301,11 +5317,11 @@ input::-webkit-inner-spin-button {
 
 
   .rec-community__item:hover {
-    background-color: #18191a;
+    background-color: $darker;
   }
 
   .post-modal {
-    background-color: #18191a;
+    background-color: $darker;
 
     .header-span {
       color: #e4e6eb;
@@ -5365,8 +5381,8 @@ input::-webkit-inner-spin-button {
 
   .write-comment-section {
     textarea {
-      background-color: #18191a;
-      border: #18191a;
+      background-color: $darker;
+      border: $darker;
       color: #e4e6eb;
     }
   }
@@ -5406,14 +5422,14 @@ input::-webkit-inner-spin-button {
 
     .card-search {
       input {
-        background-color: #18191a;
+        background-color: $darker;
         color: #e4e6eb;
       }
 
     }
 
     .list-card-item:hover {
-      background-color: #18191a;
+      background-color: $darker;
     }
 
     .list-card-item {
@@ -5439,9 +5455,9 @@ input::-webkit-inner-spin-button {
         align-items: center;
 
         .white-button {
-          background-color: #18191a;
+          background-color: $darker;
           color: #e4e6eb;
-          border: 1px solid #18191a;
+          border: 1px solid $darker;
         }
 
         .purple-button {
@@ -5476,7 +5492,7 @@ input::-webkit-inner-spin-button {
     background-color: #242526;
 
     .conversation-name {
-      background-color: #18191a;
+      background-color: $darker;
 
       .c-username {
         color: #e4e6eb;
@@ -5501,7 +5517,7 @@ input::-webkit-inner-spin-button {
       }
 
       .chat {
-        background-color: #18191a;
+        background-color: $darker;
         color: #e4e6eb;
       }
 
@@ -5510,9 +5526,9 @@ input::-webkit-inner-spin-button {
     .textbox {
       .text-icon-container {
         input {
-          background-color: #18191a;
+          background-color: $darker;
           color: #e4e6eb;
-          border: #18191a;
+          border: $darker;
         }
       }
 
@@ -5524,7 +5540,7 @@ input::-webkit-inner-spin-button {
 
   .profile-details {
     .right:hover {
-      background-color: #18191a;
+      background-color: $darker;
     }
   }
 
@@ -5550,7 +5566,7 @@ input::-webkit-inner-spin-button {
 
   .community-details {
     .community-img {
-      border: 5px #18191a solid;
+      border: 5px $darker solid;
     }
 
     .community-name {
@@ -5585,10 +5601,10 @@ input::-webkit-inner-spin-button {
       }
 
       .white-button {
-        border: 1px #18191a solid;
+        border: 1px $darker solid;
         border-radius: 1000px;
         color: #e4e6eb;
-        background-color: #18191a;
+        background-color: $darker;
         width: 5.2rem;
         font-weight: normal;
         transition: 0.3s;
@@ -5602,11 +5618,11 @@ input::-webkit-inner-spin-button {
     color: #979797;
 
     .active {
-      background-color: #18191a;
+      background-color: $darker;
     }
 
     span:hover {
-      background-color: #18191a;
+      background-color: $darker;
     }
   }
 
@@ -5624,14 +5640,14 @@ input::-webkit-inner-spin-button {
   }
 
   .article:hover {
-    background-color: #18191a;
+    background-color: $darker;
   }
 
   .mentor-card {
     background-color: #242526;
 
     .mentor-item-card {
-      background-color: #18191a;
+      background-color: $darker;
       border: 0;
 
       .mentor-name {
@@ -5660,7 +5676,7 @@ input::-webkit-inner-spin-button {
     }
 
     svg:hover {
-      background-color: #18191a;
+      background-color: $darker;
     }
 
   }
@@ -5669,8 +5685,8 @@ input::-webkit-inner-spin-button {
     background-color: #242526;
 
     .community-item {
-      background-color: #18191a;
-      border-color: #18191a;
+      background-color: $darker;
+      border-color: $darker;
       color: #e4e6eb;
 
     }
@@ -5695,7 +5711,7 @@ input::-webkit-inner-spin-button {
 
   .applicant-info-container {
     input {
-      background-color: #18191a;
+      background-color: $darker;
       color: #e4e6eb;
       border: 0;
     }
@@ -5708,8 +5724,8 @@ input::-webkit-inner-spin-button {
     input,
     textarea,
     select {
-      background-color: #18191a;
-      border-color: #18191a;
+      background-color: $darker;
+      border-color: $darker;
       color: #e4e6eb;
       transition: 0.3s;
     }
@@ -5741,7 +5757,7 @@ input::-webkit-inner-spin-button {
   }
 
   .community-mentor-item:hover {
-    background-color: #18191a;
+    background-color: $darker;
   }
 
   #notification-circle {
@@ -5761,15 +5777,15 @@ input::-webkit-inner-spin-button {
   .recommended {
     #side-community-card {
       .white-button {
-        background-color: #18191a;
+        background-color: $darker;
         color: #e4e6eb;
-        border-color: #18191a;
+        border-color: $darker;
       }
     }
   }
 
   .mentor-community-settings:hover {
-    background-color: #18191a;
+    background-color: $darker;
 
   }
 
