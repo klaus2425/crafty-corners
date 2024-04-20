@@ -319,7 +319,7 @@ const ViewPost = () => {
         <div className="recommended">
           <div className="card" id='side-community-card'>
             <div className='top'>
-              <span className='side-community-name'>/{community.name}</span>
+              <span onClick={() => navigate(`/c/${community.name}`, {state: {id: `${community.id}`}})} className='side-community-name'>/{community.name}</span>
               <MembershipCheck isMember={community.is_user_member} community_id={community.id} user_id={uid} />
             </div>
             <span className='side-community-description'>{community.description}</span>
@@ -454,7 +454,7 @@ const ViewPost = () => {
         <div className="recommended">
           <div className="card" id='side-community-card'>
             <div className='top'>
-              <span className='side-community-name'>/{community.name}</span>
+              <span onClick={() => navigate(`/c/${community.name}`, {state: {id: `${community.id}`}})} className='side-community-name'>/{community.name}</span>
               <MembershipCheck isMember={community.is_user_member} community_id={community.id} user_id={uid} />
             </div>
             <span className='side-community-description'>{community.description}</span>
@@ -589,7 +589,7 @@ const ViewPost = () => {
         <div className="recommended">
           <div className="card" id='side-community-card'>
             <div className='top'>
-              <span className='side-community-name'>/{community.name}</span>
+              <span onClick={() => navigate(`/c/${community.name}`, {state: {id: `${community.id}`}})} className='side-community-name'>/{community.name}</span>
               <MembershipCheck isMember={community.is_user_member} community_id={community.id} user_id={uid} />
             </div>
             <span className='side-community-description'>{community.description}</span>
@@ -728,7 +728,7 @@ const ViewPost = () => {
         <div className="recommended">
           <div className="card" id='side-community-card'>
             <div className='top'>
-              <span onClick={() => navigate(`/c/${community.name}`, {state: {id: `${community.id}`}}) } className='side-community-name'>/{community.name}</span>
+              <span onClick={() => navigate(`/c/${community.name}`, {state: {id: `${community.id}`}})} className='side-community-name'>/{community.name}</span>
               <MembershipCheck isMember={community.is_user_member} community_id={community.id} user_id={uid} />
             </div>
             <span className='side-community-description'>{community.description}</span>
