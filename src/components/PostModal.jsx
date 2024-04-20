@@ -303,7 +303,7 @@ const PostModal = (props) => {
                 <div className="post-input">
                   <div className="post-container">
                     <input maxLength={300} ref={titleRef} type="text" name="title" id="title" placeholder='Title' />
-                    <input ref={linkRef} type="text" name="link" id="title" placeholder='Url' />
+                    <input ref={linkRef} type="text" name="link" id="title" placeholder='https://example.com' />
                     <div className="textarea-container" >
                       <textarea maxLength={140} onChange={ev => handleCount(ev)} ref={descriptionRef} placeholder='Description' cols="30" rows="10" />
                       <span style={count >= 140 ? { color: '#F44336' } : { color: '#677186' }} className='text-counter'>{count}/140</span>
@@ -327,7 +327,6 @@ const PostModal = (props) => {
                         <path d="M8 17C8 17.5253 8.10346 18.0454 8.30448 18.5307C8.5055 19.016 8.80014 19.457 9.17157 19.8284C9.54301 20.1999 9.98396 20.4945 10.4693 20.6955C10.9546 20.8965 11.4747 21 12 21C12.5253 21 13.0454 20.8965 13.5307 20.6955C14.016 20.4945 14.457 20.1999 14.8284 19.8284C15.1999 19.457 15.4945 19.016 15.6955 18.5307C15.8965 18.0454 16 17.5253 16 17" stroke="#33363F" strokeWidth="2" strokeLinecap="round" />
                         <path d="M3.82849 19.6715L19.5 4.00002" stroke="#33363F" strokeWidth="2" strokeLinecap="round" />
                       </svg>
-
                   }
                 </span>
                 Topic:
