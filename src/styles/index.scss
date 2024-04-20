@@ -1163,6 +1163,7 @@ input::-webkit-inner-spin-button {
 
       video {
         width: 100%;
+        max-width: calc(30vw + 10%);
       }
 
       .uploaded-container {
@@ -1199,7 +1200,7 @@ input::-webkit-inner-spin-button {
 
         .post-uploaded-img {
           max-height: 30vh;
-          max-width: 30vh;
+          max-width: 30vw;
           height: 100%;
           width: 100%;
           transition: 0.2s;
@@ -2978,7 +2979,15 @@ input::-webkit-inner-spin-button {
       max-width: 41.375rem;
       max-height: 28.9375rem;
       cursor: pointer;
-
+    }
+    .post-video {
+      object-fit: contain;
+      width: 100%;
+      border-radius: 20px;
+      min-height: 24rem;
+      max-width: 41.375rem;
+      max-height: 28.9375rem;
+      cursor: pointer;
     }
 
     .post-text {
@@ -5342,9 +5351,7 @@ input::-webkit-inner-spin-button {
       .media-upload-container {
         border: 0;
         background-color: #242526;
-        video {
-          max-height: 40vh;
-        }
+
       }
     }
 

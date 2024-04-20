@@ -10,6 +10,7 @@ import ConfirmDeleteMessageModal from '../components/ConfirmDeleteMessageModal';
 import ImageModal from '../components/ImageModal';
 import { useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import getTimestamp from '../components/utils/GetTimeStamp';
 
 const ViewConversation = () => {
 
@@ -54,16 +55,6 @@ const ViewConversation = () => {
     setViewImage(true);
   }
 
-
-  const getTimestamp = (date) => {
-    const dateObject = new Date(date.replace(' ', 'T'));
-    const hours = dateObject.getHours();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
-    const minutes = dateObject.getMinutes().toString().padStart(2, '0');
-    const formattedTime = `${formattedHours}:${minutes} ${ampm}`;
-    return formattedTime;
-  }
 
   const handleFile = (event) => {
     const file = event.target.files[0];
