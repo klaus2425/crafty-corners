@@ -147,7 +147,9 @@ const ViewConversation = () => {
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      submit();
+      if (!isButtonDisabled) {
+        submit();
+      }
     }
   }
 
