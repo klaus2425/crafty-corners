@@ -1454,8 +1454,9 @@ input::-webkit-inner-spin-button {
     width: 30%;
 
     #community-level-card {
+      display: flex;
+      flex-direction: column;
       align-items: center;
-
       .levelProgressBar {
         width: 70%;
 
@@ -5227,7 +5228,6 @@ input::-webkit-inner-spin-button {
       fill: #e4e6eb;
       stroke: #e4e6eb;
     }
-
   }
 
   .search-card {

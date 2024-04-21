@@ -1,6 +1,6 @@
 import ProgressBar from '@ramonak/react-progress-bar';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { Suspense, lazy, useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState, useCallback } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -14,6 +14,8 @@ import MembershipCheck from '../components/utils/Membership';
 const ViewCommunity = () => {
   const PostModal = lazy(() => import('../components/PostModal'));
   const [isOpen, setIsOpen] = useState(false);
+  const [topic, setTopic] = useState();
+  const [topicActive, setTopicActive] = useState(false)
   const navigate = useNavigate();
   const id = useLocation().state?.id;
   const storageBaseUrl = import.meta.env.VITE_API_COMMUNITIES_URL;
@@ -67,6 +69,41 @@ const ViewCommunity = () => {
     return [...acc, page.data];
   }, [])
 
+
+
+
+
+  const getTopicPosts = async (pageParam, newTopic) => {
+    const fetchedData = await axiosClient.get(`subtopic/${id}/posts?subtopic=${newTopic}`);
+    return { ...fetchedData.data, prevPage: pageParam };
+  }
+
+  const useTopicPosts = useInfiniteQuery({
+    queryKey: [`community-${id}-topic${topic}-posts`],
+    queryFn: ({ pageParam }) => getTopicPosts(pageParam, topic),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      // if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
+      //   return null;
+      // }
+      // return lastPage.meta.current_page + 1
+    },
+    retry: false,
+    enabled: !!topic,
+  })
+
+
+  const handleTopicClick = (newTopic) => {
+    setTopic(newTopic);
+    setTopicActive(true)
+  };
+
+  const fetchedTopicPosts = useTopicPosts.data?.pages.reduce((acc, page) => {
+    return [...acc, page.data];
+  }, [])
+
+
+
   useEffect(() => {
     if (id === undefined) {
       navigate(`/communities`)
@@ -116,11 +153,10 @@ const ViewCommunity = () => {
         </div>
         <div className="community-posts">
           <div className="section-header">
-            <div className='left'>
+            <div className='left' onClick={() => setTopicActive(false)}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" clipRule="evenodd" d="M5 2C3.34315 2 2 3.34315 2 5V19C2 20.6569 3.34315 22 5 22H13V17L13 16.9384C12.9999 16.2843 12.9999 15.6965 13.0638 15.2208C13.1337 14.7015 13.2958 14.1687 13.7322 13.7322C14.1687 13.2958 14.7015 13.1337 15.2208 13.0638C15.6966 12.9999 16.2843 12.9999 16.9384 13L17 13H22V5C22 3.34315 20.6569 2 19 2H5ZM21.7305 15H17C16.2646 15 15.8137 15.0021 15.4873 15.046C15.2005 15.0846 15.1526 15.1394 15.1469 15.1459L15.1464 15.1464L15.1459 15.1469C15.1394 15.1526 15.0846 15.2005 15.046 15.4873C15.0021 15.8137 15 16.2646 15 17V21.7305C15.324 21.5831 15.6222 21.3778 15.8787 21.1213L21.1213 15.8787C21.3778 15.6222 21.5831 15.324 21.7305 15Z" fill="#222222" />
               </svg>
-
               <h3>Posts</h3>
             </div>
             <div className="right">
@@ -129,29 +165,61 @@ const ViewCommunity = () => {
               }
             </div>
           </div>
-          {usePosts.data ?
-            <InfiniteScroll
-              scrollableTarget='feed'
-              dataLength={fetchedPosts ? fetchedPosts.length : 0}
-              next={usePosts.fetchNextPage}
-              hasMore={usePosts.hasNextPage}
-              loader={<Loading />}
-              endMessage={
-                <div style={{ textAlign: 'center' }}>
-                  <h2>End of Feed</h2>
-                </div>
-              }
-            >
-              {useCommunity.data && usePosts.data && fetchedPosts.map(posts => (
-                posts.map(p => (
-                  <Post key={p.id} post={p} community={useCommunity.data} />
-                ))
-              )
-              )
-              }
-            </InfiniteScroll>
-            :
-            <Loading />
+          {
+            !topicActive ?
+              usePosts.data ?
+                <InfiniteScroll
+                  scrollableTarget='feed'
+                  dataLength={fetchedPosts ? fetchedPosts.length : 0}
+                  next={usePosts.fetchNextPage}
+                  hasMore={usePosts.hasNextPage}
+                  loader={<Loading />}
+                  endMessage={
+                    <div style={{ textAlign: 'center' }}>
+                      <h2>End of Feed</h2>
+                    </div>
+                  }
+                >
+                  {useCommunity.data && usePosts.data && fetchedPosts.map(posts => (
+                    posts.map(p => (
+                      <Post key={p.id} post={p} community={useCommunity.data} />
+                    ))
+                  )
+                  )
+                  }
+                </InfiniteScroll>
+                :
+                <Loading />
+              :
+              !useTopicPosts.error ?
+                useTopicPosts.data ?
+                  <InfiniteScroll
+                    scrollableTarget='feed'
+                    dataLength={fetchedTopicPosts ? fetchedTopicPosts.length : 0}
+                    next={useTopicPosts.fetchNextPage}
+                    hasMore={useTopicPosts.hasNextPage}
+                    loader={<Loading />}
+                    endMessage={
+                      <div style={{ textAlign: 'center' }}>
+                        <h2>End of Feed</h2>
+                      </div>
+                    }
+                  >
+                    {useCommunity.data && useTopicPosts.data && fetchedTopicPosts.map(posts => (
+                      posts.map(p => (
+                        <Post key={p.id} post={p} community={useCommunity.data} />
+                      ))
+                    )
+                    )
+                    }
+                  </InfiniteScroll>
+                  :
+                  <Loading />
+
+                :
+                <h1>No Posts for this topic yet</h1>
+
+
           }
         </div>
       </div>
@@ -210,14 +278,13 @@ const ViewCommunity = () => {
           </span>
           <div className="community-topic-container">
             {
-              useCommunity.data && useCommunity.data.subtopics.map(topic =>
+              useCommunity.data && useCommunity.data.subtopics.map(ctopic =>
               (
-                <span className='community-topic-container__topics'>{topic}</span>
+                <span className='community-topic-container__topics' onClick={() => handleTopicClick(ctopic)}>{ctopic}</span>
               )
               )
             }
           </div>
-
         </div>
       </div>
     </div>
