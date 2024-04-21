@@ -243,7 +243,7 @@ const Navbar = () => {
                     <h1>Crafty Corners</h1>
                 </div>
                 <div className="guest-buttons">
-                    <button className="guest-login" onClick={() => setIsOpen(true)}>Log In</button>
+                    <button className="btn btn--purple" onClick={() => setIsOpen(true)}>Log In</button>
                     <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
                 </div>
 
