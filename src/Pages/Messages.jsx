@@ -27,9 +27,6 @@ const Messages = () => {
     queryFn: () => axiosClient.get('/conversations').then(({ data }) => (data.data))
   })
 
-  console.log(useConversations.data);
-
-
   useEffect(() => {
     echo.private(`user-${uid}`)
       .listen('MessageSent', () => {
