@@ -3078,7 +3078,13 @@ input::-webkit-inner-spin-button {
       right: 0;
       bottom: 0;
       background: rgba($color: #000000, $alpha: 0.9);
+
       z-index: 1000;
+      .background-image {
+        width: 100vw;
+        filter: blur(1.5rem);
+      }
+
     }
 
     .image-modal {
@@ -3091,11 +3097,13 @@ input::-webkit-inner-spin-button {
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 1000;
+      max-height: 100vh;
       max-width: 100%;
       cursor: pointer;
 
       img {
         object-fit: scale-down;
+        max-height: 100vh;
       }
 
       .close {
@@ -4218,6 +4226,7 @@ input::-webkit-inner-spin-button {
   font-size: 1.245rem;
   margin-right: 2rem;
   width: clamp(5rem, 4vw + 2rem, 10rem);
+  white-space: nowrap;
 }
 
 .weekday-title {
@@ -4253,28 +4262,39 @@ input::-webkit-inner-spin-button {
 
   .overlay {
     position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba($color: #000000, $alpha: 0.7);
+    background: rgba($color: #000000, $alpha: 0.9);
+
     z-index: 1000;
+    .background-image {
+      width: 100vw;
+      filter: blur(1.5rem);
+    }
+
   }
 
   .image-modal {
+    position: relative;
     display: flex;
-    justify-content: center;
-
+    flex-direction: column;
+    border-radius: 25px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    max-height: 100vh;
+    max-width: 100%;
+    cursor: pointer;
     img {
       width: clamp(30rem, 100vw, 80rem);
       height: clamp(30rem, 100vh, 50rem);
       object-fit: contain;
     }
   }
-
   .conversation-name {
     display: flex;
     justify-content: space-between;

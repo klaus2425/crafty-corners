@@ -49,7 +49,6 @@ const ViewConversation = () => {
   const [deleteMessageOpen, setDeleteMessageOpen] = useState(false);
 
   const viewFullImage = (path) => {
-
     setImagePath(path);
     setViewImage(true);
   }
