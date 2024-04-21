@@ -4696,8 +4696,8 @@ input::-webkit-inner-spin-button {
         height: 100%;
 
         img {
-          width: 5rem;
-          height: 5rem;
+          width: clamp(4rem, 10vw, 5rem);
+          aspect-ratio: 1 / 1;
           object-fit: cover;
           border-radius: 1000px;
         }
@@ -4724,7 +4724,7 @@ input::-webkit-inner-spin-button {
         p {
           white-space: nowrap;
           overflow: hidden;
-          max-width: 75ch;
+          width: 100%;
           text-overflow: ellipsis;
         }
       }
