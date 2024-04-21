@@ -1,13 +1,12 @@
 import { useRef } from "react";
 import axiosClient from "../axios-client";
+import toast from "react-hot-toast";
 
 const ResolveReport = (props) => {
   const selectRef = useRef();
-  const currentDate = new Date();
 
   const handleClose = () => {
     props.setResolveOpen(false);
-
   }
 
   const handleSubmit = () => {
@@ -22,9 +21,20 @@ const ResolveReport = (props) => {
       formData.append('unsuspend_date', formattedDateTime);
     }
 
-    axiosClient.post(`/resolve-report/${props.postId}`, formData)
+    toast.promise(axiosClient.post(`/resolve-report/${props.postId}`, formData),
+      {
+        loading: 'Resolving problem',
+        success: () => {
+          handleClose()
+          return <b>Report resolved</b>
+        },
+        error: (err) => {
+          return `${err.response.data.message}`
+        },
+      },
+    )
 
-    }
+  }
 
 
 

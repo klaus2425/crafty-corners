@@ -44,6 +44,7 @@ export const Sidebar = () => {
         } else setHasNotification(false);
         if (user.unread_messages_count > 0 && window.location.pathname != '/messages') {
             setMessageNotify(true);
+            console.log('user has unread messages');
         } else setMessageNotify(false);
 
     }, [user])

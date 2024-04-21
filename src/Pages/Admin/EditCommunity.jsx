@@ -89,7 +89,6 @@ const EditCommunity = () => {
         loading: 'Updating community information',
         success: () => {
           getTopics();
-          getCommunity();
           return <b>Community Updated</b>
         },
         error: (err) => {
@@ -109,7 +108,10 @@ const EditCommunity = () => {
       formData.append('community_photo', community.community_photo);
       toast.promise(axiosClient.post(`communities/${id}`, formData), {
         loading: 'Updating community information',
-        success: () => <b>Community Updated</b>,
+        success: () => {
+          getTopics();
+          return <b>Community Updated</b>
+        },
         error: (err) => {
           return `${err.response.data.message}`
         },

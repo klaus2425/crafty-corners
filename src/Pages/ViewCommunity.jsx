@@ -217,7 +217,7 @@ const ViewCommunity = () => {
                   <Loading />
 
                 :
-                <h1>No Posts for this topic yet</h1>
+                <h1>No posts for this topic yet</h1>
 
 
           }
