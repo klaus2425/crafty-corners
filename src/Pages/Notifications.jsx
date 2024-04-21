@@ -1,24 +1,50 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
 import UserNotifications from '../components/UserNotifications';
 import axiosClient from '../axios-client';
 import { useStateContext } from '../context/ContextProvider';
 import Loading from '../components/utils/Loading';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 
 const UserFeed = () => {
 
     const storageUrl = import.meta.env.VITE_API_STORAGE_URL;
     const queryClient = useQueryClient();
-    const useNotification = useQuery({
-        queryKey: ['notifications'],
-        queryFn: () => axiosClient.get('/notifications').then(({ data }) => (data)),
-    })
+    // const useNotification = useQuery({
+    //     queryKey: ['notifications'],
+    //     queryFn: () => axiosClient.get('/notifications').then(({ data }) => (data)),
+    // })
     const { user } = useStateContext();
+
+
+    const getNotifications = async (pageParam) => {
+        console.log(pageParam);
+        const fetchedData = await axiosClient.get(`/notifications?page=${pageParam}`)
+        return { ...fetchedData.data, prevPage: pageParam };
+
+    }
+
+    const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
+        queryKey: ['notifications'],
+        queryFn: ({ pageParam }) => getNotifications(pageParam),
+        getNextPageParam: (lastPage) => {
+            if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
+                return null;
+            }
+            return lastPage.meta.current_page + 1
+        }
+    })
+
+    console.log(data);
+    const fetchedNotifications = data?.pages.reduce((acc, page) => {
+        return [...acc, page.data];
+    }, []);
+    console.log(fetchedNotifications);
 
     return (
 
         <div className="authenticated-container">
-            <div className="feed">
+            <div className="feed" id='feed'>
                 <div className='section-header'>
                     <div className="flex flex--justify-space-between w-100 gap-1">
                         <div className='flex align-center'>
@@ -29,19 +55,37 @@ const UserFeed = () => {
                             <h3>Notifications</h3>
                         </div>
                         <span onClick={() => axiosClient.post('/notifications/mark-all-as-read')
-                        .then(() => queryClient.refetchQueries('notifications'))
+                            .then(() => queryClient.refetchQueries('notifications'))
                         } className='mark-all-span'>Mark All As Read</span>
                     </div>
 
                 </div>
                 {
-                    !useNotification.isLoading
+                    !isLoading
                         ?
-                        useNotification.data.map(notification => (
-                            <UserNotifications uid={user.id} created_at={notification.created_at} post_id={notification.data.post_id} type={notification.type}
-                                notifier={notification.data.first_name + ' ' + notification.data.last_name} id={notification.id}
-                                notifierImage={storageUrl + notification.data.profile_picture} community={notification.data.community_name} read={notification.read_at ? true : false} />
-                        ))
+                        <InfiniteScroll
+                            scrollableTarget='feed'
+                            dataLength={fetchedNotifications ? fetchedNotifications.length : 0}
+                            next={fetchNextPage}
+                            hasMore={hasNextPage}
+                            loader={<Loading />}
+                            style={{ width: '100%' }}
+                            endMessage={
+                                <div style={{ textAlign: 'center' }}>
+                                    <h2>End of Notifications</h2>
+                                </div>
+                            }>
+                            {
+                                fetchedNotifications &&
+                                fetchedNotifications.map((notifications) => (
+                                    notifications.map(notification => (
+                                        <UserNotifications uid={user.id} created_at={notification.created_at} post_id={notification.data.post_id} type={notification.type}
+                                            notifier={notification.data.first_name + ' ' + notification.data.last_name} id={notification.id}
+                                            notifierImage={storageUrl + notification.data.profile_picture} community={notification.data.community_name} read={notification.read_at ? true : false} />
+                                    ))
+                                ))
+                            }
+                        </InfiniteScroll>
                         :
                         <Loading />
                 }
@@ -53,3 +97,4 @@ const UserFeed = () => {
 }
 
 export default UserFeed;
+

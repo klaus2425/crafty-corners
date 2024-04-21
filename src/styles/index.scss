@@ -37,7 +37,7 @@ $dark: #242526;
 }
 
 .w-100 {
-  width: 100%;
+  width: 100% !important;
 }
 
 .h-100 {
@@ -1796,6 +1796,10 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     padding: 1rem 0.5rem 0 0.5rem;
     scrollbar-width: none;
+
+    .infinite-scroll-component__outerdiv {
+      width: 100%;
+    }
   }
 
   .acc-settings-feed {
