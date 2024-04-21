@@ -9,8 +9,6 @@ import Swal from 'sweetalert2';
 import axiosClient from "../axios-client";
 import { useStateContext } from "../context/ContextProvider";
 import TimeAgo from 'javascript-time-ago';
-// import ReportModal from "./ReportModal";
-
 
 const Post = (props) => {
     const post = props.post;
