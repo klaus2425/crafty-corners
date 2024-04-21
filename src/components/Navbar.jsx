@@ -27,7 +27,7 @@ const Navbar = () => {
             .then(() => {
                 setUser({});
                 setToken(null);
-                queryClient.cancelQueries();
+                queryClient.removeQueries("user")
                 navigate('/');
             })
     }

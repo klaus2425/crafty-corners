@@ -64,6 +64,7 @@ const DefaultLayout = () => {
 
     else
         return (
+            user.type &&
             <div className="body-container" id={theme} style={{ height: "100dvh", overflowY: 'scroll' }}>
 
                 <Toaster
