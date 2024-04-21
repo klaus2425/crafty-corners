@@ -27,6 +27,8 @@ const Messages = () => {
     queryFn: () => axiosClient.get('/conversations').then(({ data }) => (data.data))
   })
 
+  console.log(useConversations.data);
+
   useEffect(() => {
     echo.private(`user-${uid}`)
       .listen('MessageSent', () => {
@@ -59,11 +61,15 @@ const Messages = () => {
                     <div className="list-card-item-text">
                       <span>{c.user_1.first_name}</span>
                       {uid != c?.latest_message.sender_id && !c?.latest_message.read ?
-                        <p><strong>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {c.latest_message.message}</strong>
+                        <p><strong>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {!c.latest_message.attachments ? 
+                        c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' : 
+                        c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video'  : 'Sent an attachment'}</strong>
 
                         </p>
                         :
-                        <p>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {c.latest_message.message}</p>
+                        <p>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {!c.latest_message.attachments ? 
+                          c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' : 
+                          c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video'  : 'Sent an attachment'}</p>
                       }
                     </div>
                     <div className="list-card-item-time">
@@ -89,9 +95,13 @@ const Messages = () => {
                   <div className="list-card-item-text">
                     <span>{c.user_0.first_name}</span>
                     {uid != c.latest_message.sender_id && !c.latest_message.read ?
-                      <p><strong>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}: {c.latest_message.message}</strong></p>
+                      <p><strong>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}: 
+                      {!c.latest_message.attachments ? c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 
+                      'Sent an image' : c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video'  : 'Sent an attachment'}</strong></p>
                       :
-                      <p>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}: {c.latest_message.message}</p>
+                      <p>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}: {!c.latest_message.attachments ? 
+                        c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' : 
+                        c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video'  : 'Sent an attachment'}</p>
                     }
                   </div>
                   <div className="list-card-item-time">
