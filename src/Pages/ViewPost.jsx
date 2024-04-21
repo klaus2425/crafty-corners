@@ -155,6 +155,7 @@ const ViewPost = () => {
   const community = usePost?.data?.community;
   const postUser = usePost?.data?.user;
 
+  console.log(community);
   useEffect(() => {
     const listener = (ev) => {
       if (!menuRef?.current?.contains(ev.target)) {
@@ -319,7 +320,7 @@ const ViewPost = () => {
         <div className="recommended">
           <div className="card" id='side-community-card'>
             <div className='top'>
-              <span onClick={() => navigate(`/c/${community.name}`, {state: {id: `${community.id}`}})} className='side-community-name'>/{community.name}</span>
+              <span onClick={() => navigate(`/c/${community.name}`, { state: { id: `${community.id}` } })} className='side-community-name'>/{community.name}</span>
               <MembershipCheck isMember={community.is_user_member} community_id={community.id} user_id={uid} />
             </div>
             <span className='side-community-description'>{community.description}</span>
@@ -454,7 +455,7 @@ const ViewPost = () => {
         <div className="recommended">
           <div className="card" id='side-community-card'>
             <div className='top'>
-              <span onClick={() => navigate(`/c/${community.name}`, {state: {id: `${community.id}`}})} className='side-community-name'>/{community.name}</span>
+              <span onClick={() => navigate(`/c/${community.name}`, { state: { id: `${community.id}` } })} className='side-community-name'>/{community.name}</span>
               <MembershipCheck isMember={community.is_user_member} community_id={community.id} user_id={uid} />
             </div>
             <span className='side-community-description'>{community.description}</span>
@@ -589,7 +590,7 @@ const ViewPost = () => {
         <div className="recommended">
           <div className="card" id='side-community-card'>
             <div className='top'>
-              <span onClick={() => navigate(`/c/${community.name}`, {state: {id: `${community.id}`}})} className='side-community-name'>/{community.name}</span>
+              <span onClick={() => navigate(`/c/${community.name}`, { state: { id: `${community.id}` } })} className='side-community-name'>/{community.name}</span>
               <MembershipCheck isMember={community.is_user_member} community_id={community.id} user_id={uid} />
             </div>
             <span className='side-community-description'>{community.description}</span>
@@ -727,9 +728,11 @@ const ViewPost = () => {
         </div>
         <div className="recommended">
           <div className="card" id='side-community-card'>
-            <div className='top'>
-              <span onClick={() => navigate(`/c/${community.name}`, {state: {id: `${community.id}`}})} className='side-community-name'>/{community.name}</span>
-              <MembershipCheck isMember={community.is_user_member} community_id={community.id} user_id={uid} />
+            <div className="card__item-container">
+              <div className='top'>
+                <span onClick={() => navigate(`/c/${community.name}`, { state: { id: `${community.id}` } })} className='side-community-name'>/{community.name}</span>
+                <MembershipCheck isMember={community.is_user_member} community_id={community.id} user_id={uid} />
+              </div>
             </div>
             <span className='side-community-description'>{community.description}</span>
             <span className='bottom'><strong>{community.members_count}</strong> Members</span>
