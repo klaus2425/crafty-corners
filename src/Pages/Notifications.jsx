@@ -14,7 +14,6 @@ const UserFeed = () => {
 
 
     const getNotifications = async (pageParam) => {
-        console.log(pageParam);
         const fetchedData = await axiosClient.get(`/notifications?page=${pageParam}`)
         return { ...fetchedData.data, prevPage: pageParam };
 
@@ -31,11 +30,9 @@ const UserFeed = () => {
         }
     })
 
-    console.log(data);
     const fetchedNotifications = data?.pages.reduce((acc, page) => {
         return [...acc, page.data];
     }, []);
-    console.log(fetchedNotifications);
 
     return (
 
