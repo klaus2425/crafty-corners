@@ -4689,11 +4689,10 @@ input::-webkit-inner-spin-button {
       }
 
       .list-card-item-text {
-        flex-basis: 50rem;
         display: flex;
         flex-direction: column;
         flex-shrink: 1;
-        width: 75%;
+        width: 100%;
         justify-content: center;
 
         span {
@@ -4710,10 +4709,10 @@ input::-webkit-inner-spin-button {
       }
 
       .list-card-item-time {
-        width: 100%;
-        flex-basis: 2rem;
+        width: fit-content;
         z-index: 1;
-
+        text-wrap: nowrap;
+        text-align: end;
         .purple-button {
           height: 2rem;
           width: 2.25rem;
