@@ -70,9 +70,9 @@ $dark: #242526;
 
 
 :root {
-  font-family: Helvetica, system-ui, Avenir, Arial, sans-serif;
+  font-family: Helvetica;
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: normal;
   color: #677186;
   background: #f0f2f5;
   box-sizing: border-box;
@@ -374,7 +374,8 @@ input::-webkit-inner-spin-button {
   color: #FFF;
   font-size: 1rem;
   border: 0;
-  padding: 0.5rem;
+  padding: 0.7rem;
+  border-radius: 1000px;
   transition: 0.3s;
   cursor: pointer;
   height: fit-content;
@@ -610,7 +611,13 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  .guest-buttons {
+    margin-right: 2rem;
+  }
+  .btn--purple {
+    padding: 0.76rem;
+    border-radius: 100px;
+  }
   h1 {
     color: $dark_grey;
     font-family: Archivo;
@@ -1287,9 +1294,8 @@ input::-webkit-inner-spin-button {
 }
 
 #sign-up-modal {
-  max-height: 93vh;
-  padding-left: 3rem;
-  padding-right: 3rem;
+  max-height: 94vh;
+  padding: 1rem 3rem;
 }
 
 
@@ -4020,7 +4026,9 @@ input::-webkit-inner-spin-button {
     border-radius: 25px;
 
   }
-
+  label {
+    margin-left: 0.75rem;
+  }
 
   input,
   select {
@@ -4028,7 +4036,7 @@ input::-webkit-inner-spin-button {
     width: 20rem;
     border-width: 2px;
     padding-left: 2rem;
-    border-radius: 10px;
+    border-radius: 1000px;
   }
 
 

@@ -154,7 +154,7 @@ const ViewPost = () => {
 
   const liked = usePost?.data?.liked_by_user;
   const post = usePost?.data;
-  const ago = usePost.data && timeAgo.format(new Date(usePost.data?.created_at), 'twitter-now');
+  const ago = usePost?.data && timeAgo.format(new Date(usePost.data?.created_at.replace(" ", "T")), 'twitter-now');
   const community = usePost?.data?.community;
   const postUser = usePost?.data?.user;
 
