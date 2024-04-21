@@ -3431,20 +3431,13 @@ input::-webkit-inner-spin-button {
   justify-content: space-between;
   align-items: center;
   border-radius: 10px;
-  padding: 0.2rem;
+  padding: 0.4rem;
 
-  .purple-button {
-    transition: 0.3s;
-    opacity: 0;
-  }
+
 }
 
 .mentor-community-settings:hover {
   background-color: $light_grey;
-
-  .purple-button {
-    opacity: 1;
-  }
 }
 
 .user-count {

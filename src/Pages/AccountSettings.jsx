@@ -137,8 +137,7 @@ const AccountSettings = () => {
                                             <span className='change-text'>Change Phone Number</span>
 
                                             <div className="field-holder">
-                                                <input type="number" value={currentUser.phone_number} onChange={ev => setCurrentUser({ ...currentUser, phone_number: ev.target.value })} required />
-                                                <label>Phone Number</label>
+                                                <input type="number" value={currentUser.phone_number} onChange={ev => setCurrentUser({ ...currentUser, phone_number: ev.target.value })} required placeholder='Your phone number' />
                                             </div>
                                             <button className='purple-button'>Change Phone Number</button>
                                         </form>
@@ -147,12 +146,10 @@ const AccountSettings = () => {
                                         <form onSubmit={onPasswordSubmit}>
                                             <span className='change-text'>Change Password</span>
                                             <div className="field-holder">
-                                                <input type="Password" ref={currentPasswordRef} required />
-                                                <label>Current Password</label>
+                                                <input type="Password" ref={currentPasswordRef} placeholder='Current Password'/>
                                             </div>
                                             <div className="field-holder">
-                                                <input type="Password" ref={passwordRef} required />
-                                                <label>New Password</label>
+                                                <input type="Password" ref={passwordRef} placeholder='New Password' />
                                             </div>
                                             <button className='purple-button'>Change Password</button>
                                         </form>
