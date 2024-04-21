@@ -138,7 +138,7 @@ const Post = (props) => {
 
                     </div>
                     <div className="right">
-                        <span>/{community.name}</span>
+                        <span>/{community?.name}</span>
                         {
                             post.subtopics != 'undefined' &&
                             <div className="flair">
