@@ -10,10 +10,6 @@ const UserFeed = () => {
 
     const storageUrl = import.meta.env.VITE_API_STORAGE_URL;
     const queryClient = useQueryClient();
-    // const useNotification = useQuery({
-    //     queryKey: ['notifications'],
-    //     queryFn: () => axiosClient.get('/notifications').then(({ data }) => (data)),
-    // })
     const { user } = useStateContext();
 
 
