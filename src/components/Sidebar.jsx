@@ -23,6 +23,7 @@ export const Sidebar = () => {
                 if (!(window.location.pathname == '/messages') && !(window.location.pathname == `/conversation/${data.message.conversation_id}`)) {
                     setMessageNotify(true);
                     playChatNotification();
+                    queryClient.refetchQueries('conversations')
                 }
                 else {
                     setMessageNotify(false);
@@ -42,9 +43,8 @@ export const Sidebar = () => {
         if (user.unread_notifications_count > 0 && window.location.pathname != '/notifications') {
             setHasNotification(true);
         } else setHasNotification(false);
-        if (user.unread_messages_count > 0 && window.location.pathname != '/messages') {
+        if (user.unread_messages_count > 0 && window.location.pathname != '/messages' && !window.location.pathname.startsWith('/conversation')) {
             setMessageNotify(true);
-            console.log('user has unread messages');
         } else setMessageNotify(false);
 
     }, [user])
