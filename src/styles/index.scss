@@ -37,6 +37,7 @@ $dark: #242526;
 .w-100 {
   width: 100%;
 }
+
 .h-100 {
   height: 100%;
 }
@@ -44,6 +45,7 @@ $dark: #242526;
 .align-center {
   align-items: center;
 }
+
 .align-end {
   align-items: flex-end;
 }
@@ -51,9 +53,11 @@ $dark: #242526;
 .align-start {
   align-items: flex-start;
 }
+
 .justify-start {
   justify-content: flex-start;
 }
+
 .justify-end {
   justify-content: flex-end;
 }
@@ -61,6 +65,7 @@ $dark: #242526;
 .gap-1 {
   gap: 1rem;
 }
+
 
 :root {
   font-family: Helvetica, system-ui, Avenir, Arial, sans-serif;
@@ -73,8 +78,9 @@ $dark: #242526;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 }
+
+
 
 
 .hide {
@@ -108,21 +114,25 @@ $dark: #242526;
   justify-content: center;
   align-items: center;
   transition: 0.3s;
+
   @media screen and (max-width: 1365px) {
     #assessment-card {
       grid-template-columns: repeat(3, 1fr) !important;
     }
   }
+
   @media screen and (max-width: 1040px) {
     #assessment-card {
       grid-template-columns: repeat(2, 1fr) !important;
     }
   }
+
   @media screen and (max-width: 685px) {
     #assessment-card {
       grid-template-columns: repeat(1, 1fr) !important;
     }
   }
+
   h2 {
     color: $darker;
   }
@@ -253,7 +263,7 @@ $dark: #242526;
   border-right-color: #6528F7;
   animation: l15 1s infinite linear;
   margin: auto;
-  
+
 }
 
 .loader::before,
@@ -501,13 +511,15 @@ input::-webkit-inner-spin-button {
     color: #FFF;
     background-color: $purple;
   }
-  .react-select__option--is-focused{
+
+  .react-select__option--is-focused {
     background-color: #FFF;
   }
-  .react-select__option--is-selected{
+
+  .react-select__option--is-selected {
     background-color: $dark_purple;
   }
-  
+
   .react-select__value-container {
     max-width: 100%;
   }
@@ -976,6 +988,7 @@ input::-webkit-inner-spin-button {
         width: calc(100% - 2rem);
       }
     }
+
     .title {
       h1 {
         width: 0;
@@ -1158,6 +1171,7 @@ input::-webkit-inner-spin-button {
         height: fit-content;
         display: flex;
         justify-content: center;
+
         .change-picture {
           position: absolute;
           opacity: 0;
@@ -1500,16 +1514,19 @@ input::-webkit-inner-spin-button {
       justify-content: center;
       width: clamp(10rem, 20vw, 18rem);
       transition: 0.3s;
+
       .card__header {
         font-weight: bold;
         font-size: clamp(0.8rem, 2vw, 1.26rem);
         margin-bottom: 0.2rem;
       }
+
       .community-topic-container {
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
       }
+
       .community-topic-container__topics {
         background-color: $purple;
         width: fit-content;
@@ -1517,10 +1534,13 @@ input::-webkit-inner-spin-button {
         padding: 0.5rem 0.72rem;
         cursor: pointer;
         border-radius: 10000px;
+        color: $white;
       }
+
       .community-topic-container__topics:hover {
         background-color: $dark_purple;
       }
+
       #badge {
         aspect-ratio: 1 / 1;
         width: 10rem;
@@ -1584,10 +1604,12 @@ input::-webkit-inner-spin-button {
       .community-mentor-item:hover {
         background-color: $light_grey;
       }
+
       .rec-community-empty {
         width: 100%;
         height: 100%;
       }
+
       .rec-community__item {
         display: flex;
         border-radius: 15px;
@@ -1621,15 +1643,18 @@ input::-webkit-inner-spin-button {
         .com-count {
           display: flex;
           flex-direction: column;
+
           .top {
             display: flex;
             gap: 0.5rem;
           }
+
           .rec-community__member-count {
             font-size: clamp(0.8rem, 2vw, 1rem);
           }
         }
       }
+
       .rec-community__item:hover {
         background-color: $lighter_grey;
       }
@@ -1707,6 +1732,7 @@ input::-webkit-inner-spin-button {
       width: 12rem;
       flex-direction: column;
       gap: 1.26rem;
+
       a {
         font-size: clamp(1.12rem, 2vw, 1.5rem);
         width: 100%;
@@ -1718,6 +1744,7 @@ input::-webkit-inner-spin-button {
       width: 12rem;
       flex-direction: column;
       gap: 1.26rem;
+
       a {
         width: 100%;
         font-size: clamp(1.12rem, 2vw, 1.5rem);
@@ -1744,6 +1771,11 @@ input::-webkit-inner-spin-button {
       margin-bottom: 0.3rem;
       width: 2.81838rem;
       height: 2.4375rem;
+    }
+
+    a {
+      font-weight: normal;
+
     }
   }
 
@@ -1797,6 +1829,7 @@ input::-webkit-inner-spin-button {
     color: #000;
     margin-top: 1.2rem;
     margin-bottom: 1rem;
+
     .mark-all-span {
       cursor: pointer;
       font-weight: bold;
@@ -1805,10 +1838,12 @@ input::-webkit-inner-spin-button {
       border-radius: 25px;
       transition: 0.3s;
     }
+
     .mark-all-span:hover {
       background-color: $purple;
       color: #FFF;
     }
+
     img {
       width: 1.26rem;
       margin-right: 0.2rem;
@@ -1927,6 +1962,7 @@ input::-webkit-inner-spin-button {
     margin-bottom: 0.5rem;
     padding: 1rem;
     scrollbar-width: none;
+
     .mentor-apply-input {
       width: 100%;
       height: 2.125rem;
@@ -2538,6 +2574,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     height: 100%;
     scrollbar-width: none;
+
     .section-header {
       img {
         width: 1.5rem;
@@ -2610,12 +2647,13 @@ input::-webkit-inner-spin-button {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      
+
       .left {
         display: flex;
         align-items: center;
         gap: 0.5rem;
       }
+
       img {
         border-radius: 10000px;
         object-fit: cover;
@@ -2636,7 +2674,7 @@ input::-webkit-inner-spin-button {
     .badges-card {
       grid-template-columns: repeat(1, 1fr);
     }
- 
+
   }
 
 
@@ -2647,7 +2685,7 @@ input::-webkit-inner-spin-button {
     }
   }
 
-  
+
   @media screen and (max-width: 1250px) {
     .badges-card {
       grid-template-columns: repeat(2, 1fr);
@@ -2661,12 +2699,15 @@ input::-webkit-inner-spin-button {
       margin-bottom: 3.2rem;
 
     }
-      .input-container {
+
+    .input-container {
       flex-direction: row;
     }
+
     .post {
       min-width: 60vw;
     }
+
     .sidebar {
       display: none;
     }
@@ -2707,11 +2748,12 @@ input::-webkit-inner-spin-button {
       width: 100%;
     }
   }
+
   @media screen and (max-width: 630px) {
     .input-container {
       flex-direction: column;
     }
- 
+
   }
 
 
@@ -2722,6 +2764,7 @@ input::-webkit-inner-spin-button {
   }
 
 }
+
 .collapsible {
   display: flex;
   flex-direction: column;
@@ -2741,19 +2784,23 @@ input::-webkit-inner-spin-button {
 
 
 }
+
 .collapsible-user .open {
   padding-top: 0.5rem;
 
-} 
+}
+
 .collapsible__item {
   display: flex;
   padding: 0.2rem;
   gap: 0.2rem;
   align-items: center;
   height: fit-content;
+
   a {
     font-size: clamp(1rem, 2vw, 1.56rem) !important;
   }
+
   svg {
     width: 2.36rem;
     height: 2.36rem;
@@ -2766,6 +2813,7 @@ input::-webkit-inner-spin-button {
   background-color: $light_grey;
 
 }
+
 .dropdown-parent {
   position: relative;
 }
@@ -2873,6 +2921,10 @@ input::-webkit-inner-spin-button {
 
 .infinite-scroll-component::-webkit-scrollbar {
   display: none;
+  
+}
+.infinite-scroll-component {
+  scrollbar-width: none;
 }
 
 
@@ -2993,6 +3045,7 @@ input::-webkit-inner-spin-button {
       max-height: 28.9375rem;
       cursor: pointer;
     }
+
     .post-video {
       object-fit: contain;
       width: 100%;
@@ -3853,6 +3906,7 @@ input::-webkit-inner-spin-button {
       line-height: clamp(1rem, 4vw + 1rem, 6rem);
       font-family: Archivo;
     }
+
     svg {
       width: clamp(3rem, 40vw, 13rem);
       aspect-ratio: 1 / 1;
@@ -4189,6 +4243,7 @@ input::-webkit-inner-spin-button {
   width: 95%;
   margin-bottom: 0.5rem;
   padding: 1rem;
+
   .message-back {
     cursor: pointer;
   }
@@ -4414,9 +4469,10 @@ input::-webkit-inner-spin-button {
         transition: ease-in;
       }
     }
+
     button {
-       background-color: transparent;
-       border: 0;
+      background-color: transparent;
+      border: 0;
     }
 
     #send-icon {
@@ -4543,6 +4599,7 @@ input::-webkit-inner-spin-button {
 #list-card::-webkit-scrollbar {
   display: none;
 }
+
 .fc-scroller-liquid-absolute {
   scrollbar-width: none;
 }
@@ -4561,6 +4618,7 @@ input::-webkit-inner-spin-button {
   height: 20rem;
   transition: 0.3s;
   scrollbar-width: none;
+
   .card-search {
     position: relative;
     display: inline-block;
@@ -5055,8 +5113,9 @@ input::-webkit-inner-spin-button {
   --font-color: #757579;
   --bg-color: #fff;
   --heading-color: #6528F7;
+
   .toaster {
-    border-radius: 10000px ;
+    border-radius: 10000px;
     background-color: $white;
     transition: 0.3s;
   }
@@ -5072,23 +5131,27 @@ input::-webkit-inner-spin-button {
   color: #e4e6eb;
 
   .toaster {
-    border-radius: 10000px ;
+    border-radius: 10000px;
     background-color: $darker;
     color: $white;
     transition: 0.3s;
   }
+
   #notification-icon {
     circle {
       fill: #FF4444;
     }
   }
+
   .mark-all-span {
     background-color: #242526;
   }
+
   .mark-all-span:hover {
     background-color: $purple;
     color: #FFF;
   }
+
   .react-tabs__tab-list {
     svg {
       path {
@@ -5107,6 +5170,7 @@ input::-webkit-inner-spin-button {
     .react-select__input-container {
       color: #e4e6eb;
     }
+
     .css-w9q2zk-Input2 {
       color: #FFF !important;
     }
@@ -5114,6 +5178,7 @@ input::-webkit-inner-spin-button {
     .react-select__single-value {
       color: #e4e6eb;
     }
+
     .react-select__menu {
       background-color: #242526;
     }
@@ -5132,6 +5197,7 @@ input::-webkit-inner-spin-button {
           fill: #e4e6eb;
         }
       }
+
       .css-tj5bde-Svg:hover {
 
         background-color: $darker;
@@ -5703,6 +5769,7 @@ input::-webkit-inner-spin-button {
 
   .admin-container-card {
     background-color: #242526;
+
     .community-item {
       background-color: $darker;
       border-color: $darker;
@@ -5740,6 +5807,7 @@ input::-webkit-inner-spin-button {
   .article-input,
   .edit-inputs {
     color: $white;
+
     input,
     textarea,
     select {
@@ -5749,7 +5817,7 @@ input::-webkit-inner-spin-button {
       transition: 0.3s;
     }
   }
- 
+
 
   .post-header {
     .notification-bell {
