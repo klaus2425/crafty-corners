@@ -4267,13 +4267,13 @@ input::-webkit-inner-spin-button {
     right: 0;
     bottom: 0;
     background: rgba($color: #000000, $alpha: 0.9);
-
     z-index: 1000;
+
     .background-image {
       width: 100vw;
-      filter: blur(1.5rem);
+      -webkit-filter: blur(1.5rem) brightness(90%);
+      filter: blur(1.5rem) brightness(90%);
     }
-
   }
 
   .image-modal {
