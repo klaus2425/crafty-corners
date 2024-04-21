@@ -37,7 +37,6 @@ const PostModal = (props) => {
   const handleSubmit = (ev) => {
     ev.preventDefault()
     setIsButtonDisabled(true);
-    console.log('clicked');
     if (postType === 'video') {
       setLoading(true);
       const formData = new FormData();
