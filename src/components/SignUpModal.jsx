@@ -141,7 +141,7 @@ export default function SignUpModal(props) {
                         </div>
                         <div className="sign-up-button-container">
                             <p>
-                                By pressing sign up you are accepting our <span className='terms-conditions'>Terms and Conditions</span>  for Crafty Corners
+                                By pressing sign up, you are accepting our <span className='terms-conditions'>Terms and Conditions</span>  for Crafty Corners.
                             </p>
                             <button className='btn btn--purple'>Sign Up</button>
                         </div>
