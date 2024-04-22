@@ -614,11 +614,14 @@ input::-webkit-inner-spin-button {
 
   .guest-buttons {
     margin-right: 2rem;
+    margin-left: 1rem;
+    
   }
 
   .btn--purple {
     padding: 0.76rem;
     border-radius: 100px;
+    text-wrap: nowrap;
   }
 
   h1 {
