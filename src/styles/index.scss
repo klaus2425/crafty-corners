@@ -1914,7 +1914,24 @@ input::-webkit-inner-spin-button {
     width: 100%;
     min-width: fit-content;
     padding: 1rem;
+    position: relative;
 
+    .emoji-picker {
+      position: absolute;
+      bottom: 7rem;
+      right: 2rem;
+      width: clamp(15rem, 30vw, 20rem) !important;
+      height: 24rem !important;
+    }
+
+    .emoji-icon {
+      cursor: pointer;
+      position: absolute;
+      right: 1.5rem;
+      bottom: 1.5rem;
+    }
+
+    
     textarea {
       border-radius: 10px;
       border: 2px solid #D8DCE3;
@@ -4602,6 +4619,13 @@ input::-webkit-inner-spin-button {
       }
     }
   }
+  .emoji-picker {
+    position: absolute;
+    bottom: 4rem;
+    right: -1rem;
+    width: 50vw !important;
+    max-width: 20rem;
+  }
 
   .textbox {
     display: flex;
@@ -4623,7 +4647,7 @@ input::-webkit-inner-spin-button {
       }
     }
 
-    button {
+    .send-button {
       background-color: transparent;
       border: 0;
     }
@@ -4632,25 +4656,20 @@ input::-webkit-inner-spin-button {
       fill: $dark_grey;
     }
 
+
     .text-icon-container {
       display: flex;
       align-items: center;
       width: 100%;
       position: relative;
-      .emoji-picker {
-        position: absolute;
-        bottom: 4rem;
-        right: -1rem;
-        width: 50vw !important;
-        max-width: 20rem;
-      }
+
       .upload-attachment-icon {
         position: absolute;
         right: 0.01rem;
         top: 0.01rem;
       }
 
-      input {
+      .message-input {
         border: 1px $light_grey solid;
         border-radius: 1000px;
         width: 100%;
@@ -5350,6 +5369,14 @@ input::-webkit-inner-spin-button {
   background-color: $darker;
   color: #e4e6eb;
 
+  .upload-emoji-icon {
+    path {
+      fill: #e4e6eb;
+    }
+    circle {
+      stroke: #e4e6eb;
+    }
+  }
   .toaster {
     border-radius: 10000px;
     background-color: $darker;
@@ -5867,6 +5894,10 @@ input::-webkit-inner-spin-button {
           color: #e4e6eb;
           border: $darker;
         }
+      }
+      .send-button {
+        background-color: transparent;
+
       }
 
       path {
