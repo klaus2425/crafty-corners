@@ -28,7 +28,7 @@ const LoadCommunity = (c) => {
         </div>
       </div>
 
-      <div className="list-card-item-time">
+      <div className="list-card-item-join">
         <MembershipCheck isMember={c.c.is_user_member} community_id={c.c.id} user_id={uid} />
       </div>
     </div>
