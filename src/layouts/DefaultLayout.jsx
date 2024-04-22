@@ -7,14 +7,14 @@ import { useThemeContext } from "../context/ThemeProvider";
 import axiosClient from "../axios-client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
-import { Suspense, useEffect } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
-import BottomNav from "../components/BottomNav";
 import Loading from "../components/utils/Loading";
 import Fallback from "../components/Fallback";
 
 const DefaultLayout = () => {
     const { user, token, setUser, setToken } = useStateContext();
+    const BottomNav = lazy(() => import('../components/BottomNav'));
     const { theme } = useThemeContext();
     const queryClient = useQueryClient();
     const navigate = useNavigate();
@@ -23,8 +23,8 @@ const DefaultLayout = () => {
         queryKey: ['user'],
         queryFn: () => axiosClient.get('/user')
             .catch(() => {
-                setToken(null).then(navigate('/'))
                 queryClient.removeQueries('user')
+                setToken(null).then(navigate('/'))
             })
     })
 
@@ -86,7 +86,10 @@ const DefaultLayout = () => {
                     </Suspense>
                 </div>
                 {
-                    smallScreen && <BottomNav />
+                    smallScreen &&
+                    <Suspense>
+                        <BottomNav />
+                    </Suspense>
                 }
             </div>
         );
