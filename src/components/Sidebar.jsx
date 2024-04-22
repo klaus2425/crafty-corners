@@ -24,7 +24,6 @@ export const Sidebar = () => {
                     setMessageNotify(true);
                     playChatNotification();
                     queryClient.refetchQueries('conversations')
-                    console.log('sidebar-running');
                 }
                 else {
                     setMessageNotify(false);
@@ -48,9 +47,7 @@ export const Sidebar = () => {
             setMessageNotify(true);
         } else setMessageNotify(false);
 
-        console.log('side-load');
         return () => {
-            console.log('unload');
             echo.leave(`user-${user.id}`);
         }
     }, [])
