@@ -28,7 +28,7 @@ const DropDownItem = (props) => {
             <h3>{`${props.userData.first_name} ${props.userData.last_name}`}</h3>
             <span>{props.type}</span>
 
-            {props.type !== 'admin' && <div><FontAwesomeIcon icon={faGears} /><Link to={'/account-settings'}>Account Settings</Link></div>}
+            {props.type !== 'admin' && <div><FontAwesomeIcon icon={faGears} /><Link style={{color: '#696969'}} to={'/account-settings'}>Account Settings</Link></div>}
             <DarkModeSwitch
                 checked={isDarkMode}
                 onChange={toggleTheme}
