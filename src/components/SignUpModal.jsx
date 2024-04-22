@@ -260,7 +260,9 @@ export default function SignUpModal(props) {
                                     By using Crafty Corners, you acknowledge that you have read, understood, and agree to be bound
                                     by these Terms & Conditions.
                                 </span>
-                                Last updated: April 18, 2024
+                                <span>
+                                    Last updated: April 22, 2024
+                                </span>
                                 <button className='btn btn--purple' onClick={() => setIsTermsOpen(false)}>Accept</button>
                             </footer>
                         </div>
