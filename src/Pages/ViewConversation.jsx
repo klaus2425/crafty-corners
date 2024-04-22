@@ -230,7 +230,7 @@ const ViewConversation = () => {
                               message.attachments.map(attachment => {
                                 return attachment.file_type.startsWith('image/') ?
                                   <span className="chat">{message.message}
-                                    <div key={attachment.id}>
+                                    <div className='chat-image-attachment' key={attachment.id}>
                                       <img onClick={() => viewFullImage(`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`)} className='attachment-image' src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
                                     </div>
                                   </span>
@@ -262,7 +262,7 @@ const ViewConversation = () => {
                               message.attachments ? message.attachments.map(attachment => {
 
                                 return attachment.file_type.startsWith('image/') ?
-                                  <div key={attachment.id}>
+                                  <div className='chat-image-attachment' key={attachment.id}>
                                     <img onClick={() => viewFullImage(`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`)} className='attachment-image' src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
                                   </div>
                                   :
@@ -313,7 +313,7 @@ const ViewConversation = () => {
                               message.attachments.map(attachment => {
                                 return attachment.file_type.startsWith('image/') ?
                                   <span className="chat">{message.message}
-                                    <div key={attachment.id}>
+                                    <div className='chat-image-attachment' key={attachment.id}>
                                       <img className='attachment-image' onClick={() => viewFullImage(`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`)} src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
                                     </div>
                                   </span>
@@ -344,7 +344,7 @@ const ViewConversation = () => {
                               :
                               message.attachments ? message.attachments.map(attachment => {
                                 return attachment.file_type.startsWith('image/') ?
-                                  <div key={attachment.id}>
+                                  <div className='chat-image-attachment' key={attachment.id}>
 
                                     <img className='attachment-image' onClick={() => viewFullImage(`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`)} src={`${import.meta.env.VITE_API_MESSAGES_URL}${attachment.file_path}`} alt="Picture" />
                                   </div>

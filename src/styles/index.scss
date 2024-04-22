@@ -566,11 +566,11 @@ input::-webkit-inner-spin-button {
 }
 
 .attachment-image {
-  width: clamp(10rem, fit-content, 24rem);
-  height: clamp(3rem, 20vh, 18rem);
-  object-fit: contain;
-  cursor: pointer;
+  height: fit-content;
+  width: fit-content;
+  max-width: 12vw;
   border-radius: 15px;
+  cursor: pointer;
 }
 
 .attachment-display {
@@ -611,13 +611,16 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   .guest-buttons {
     margin-right: 2rem;
   }
+
   .btn--purple {
     padding: 0.76rem;
     border-radius: 100px;
   }
+
   h1 {
     color: $dark_grey;
     font-family: Archivo;
@@ -3098,9 +3101,10 @@ input::-webkit-inner-spin-button {
 
       z-index: 1000;
 
-      .background-image {
-        width: 100vw;
-        filter: blur(1.5rem);
+      .zoom-background-image {
+        width: 200vw;
+        -webkit-filter: blur(1.5rem) brightness(90%);
+        filter: blur(1.5rem) brightness(90%);
       }
 
     }
@@ -4026,6 +4030,7 @@ input::-webkit-inner-spin-button {
     border-radius: 25px;
 
   }
+
   label {
     margin-left: 0.75rem;
   }
@@ -4057,9 +4062,11 @@ input::-webkit-inner-spin-button {
   align-items: center;
   flex-direction: column;
   gap: 0.2rem;
+
   p {
     max-width: 80%;
   }
+
   .terms-conditions {
     color: $purple;
     cursor: pointer;
@@ -4287,8 +4294,8 @@ input::-webkit-inner-spin-button {
     background: rgba($color: #000000, $alpha: 0.9);
     z-index: 1000;
 
-    .background-image {
-      width: 100vw;
+    .zoom-background-image {
+      width: 200vw;
       -webkit-filter: blur(1.5rem) brightness(90%);
       filter: blur(1.5rem) brightness(90%);
     }
@@ -4414,11 +4421,18 @@ input::-webkit-inner-spin-button {
         background-color: $lighter_grey;
         padding: 1rem;
         color: #000000;
-        max-width: 70ch;
+        max-width: 40ch;
         display: flex;
         justify-content: center;
         flex-direction: column;
-
+        .chat-image-attachment {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          img {
+            width: 100%;
+          }
+        }
       }
     }
 
@@ -4472,11 +4486,20 @@ input::-webkit-inner-spin-button {
         background-color: $purple;
         padding: 0.5rem;
         color: #FFF;
-        max-width: 70ch;
+        max-width: 40ch;
 
         a {
           text-align: center;
         }
+        .chat-image-attachment {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          img {
+            width: 100%;
+          }
+        }
+
       }
     }
 
@@ -4539,7 +4562,7 @@ input::-webkit-inner-spin-button {
         border: 1px $light_grey solid;
         border-radius: 1000px;
         width: 100%;
-        padding: 0.75rem 0.87rem;
+        padding: 0.75rem 3rem 0.75rem 1rem;
       }
 
       input[type='file'] {
@@ -4694,7 +4717,6 @@ input::-webkit-inner-spin-button {
     display: flex;
     flex-direction: column;
     width: 100%;
-    align-items: center;
     gap: 0.5rem;
 
     .list-card-left {
@@ -4708,88 +4730,109 @@ input::-webkit-inner-spin-button {
       gap: 0.5rem;
       border-radius: 25px;
       padding: 0.5rem 1rem;
-      width: 100%;
+      width: calc(100%);
       cursor: pointer;
 
-      .list-card-item-image {
-        flex-basis: 5rem;
-        height: 100%;
-
-        img {
-          width: clamp(4rem, 10vw, 5rem);
-          aspect-ratio: 1 / 1;
-          object-fit: cover;
-          border-radius: 1000px;
-        }
-
-        .loading-img {
-          width: 5rem;
-          height: 5rem;
-          border-radius: 1000px;
-        }
-      }
-
-      .list-card-item-text {
+      .left {
         display: flex;
-        flex-direction: column;
-        flex-shrink: 1;
-        width: 100%;
-        justify-content: center;
+        width: calc(95%);
+        gap: 1rem;
 
-        span {
-          font-weight: bold;
-          color: black;
-        }
+        .list-card-item-text {
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          max-width: calc(75%);
 
-        p {
-          white-space: nowrap;
-          overflow: hidden;
-          width: 100%;
-          text-overflow: ellipsis;
+          span {
+            width: 100%;
+            font-weight: bold;
+            color: black;
+          }
+
+          p {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .list-card-item-time {
+            width: fit-content;
+            text-wrap: nowrap;
+            text-align: end;
+
+            .purple-button {
+              height: 2rem;
+              width: 2.25rem;
+              display: flex;
+              align-items: center;
+              border-radius: 1000px;
+              transition: 0.3s;
+              align-items: center;
+
+              .com-button-text {
+                color: white;
+                display: none;
+                font-weight: bold;
+              }
+            }
+
+            .purple-button:hover {
+              width: 4rem;
+
+              .com-button-text {
+                display: inline;
+              }
+            }
+
+            .white-button {
+              border: 1px $purple solid;
+              border-radius: 1000px;
+              width: 4rem;
+              transition: 0.3s;
+              z-index: 2;
+            }
+
+
+          }
         }
       }
 
-      .list-card-item-time {
+      .list-card-item-time-message {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-direction: column;
         width: fit-content;
-        z-index: 1;
         text-wrap: nowrap;
-        text-align: end;
-
-        .purple-button {
-          height: 2rem;
-          width: 2.25rem;
-          display: flex;
-          align-items: center;
-          border-radius: 1000px;
-          transition: 0.3s;
-          align-items: center;
-
-          .com-button-text {
-            color: white;
-            display: none;
-            font-weight: bold;
-          }
+        .message-time {
+          margin-top: auto;
         }
-
-        .purple-button:hover {
-          width: 4rem;
-
-          .com-button-text {
-            display: inline;
-          }
-        }
-
-        .white-button {
-          border: 1px $purple solid;
-          border-radius: 1000px;
-          width: 4rem;
-          transition: 0.3s;
-          z-index: 2;
-        }
+      }
 
 
+    }
+
+    .list-card-item-image {
+      flex-basis: 5rem;
+      height: 100%;
+
+      img {
+        width: clamp(4rem, 10vw, 5rem);
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 1000px;
+      }
+
+      .loading-img {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 1000px;
       }
     }
+
+
+
 
     .list-card-item:hover {
       background-color: $lighter_grey;
