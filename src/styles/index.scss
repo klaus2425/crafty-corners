@@ -670,6 +670,7 @@ input::-webkit-inner-spin-button {
 
   }
 
+
   .modal {
     display: flex;
     flex-direction: column;
@@ -710,6 +711,7 @@ input::-webkit-inner-spin-button {
       }
 
     }
+
 
 
 
@@ -782,9 +784,11 @@ input::-webkit-inner-spin-button {
     bottom: 0;
     background: rgba($color: #000000, $alpha: 0.7);
     z-index: 1000;
+
   }
 
 }
+
 
 
 .bottom-navbar {
@@ -3893,6 +3897,63 @@ input::-webkit-inner-spin-button {
     z-index: 1000;
   }
 
+  .terms-modal {
+    display: flex;
+    justify-content: flex-start;
+    z-index: 1200;
+    max-height: 80vh;
+    max-width: 70vw;
+
+    h2 {
+      color: $dark;
+      text-align: start;
+      margin-bottom: 0.6rem;
+    }
+
+    h3 {
+      color: $dark;
+      margin-bottom: 1rem;
+      text-align: start;
+    }
+
+    h4 {
+      color: $dark;
+      text-align: start;
+    }
+
+    p {
+      text-align: start;
+      margin: 1rem 0rem 0.5rem 2rem;
+    }
+
+    strong {
+      color: $purple;
+    }
+
+    li::marker {
+      color: $dark;
+    }
+
+    ul {
+      margin-left: 2rem;
+    }
+
+    footer {
+      display: flex;
+      flex-direction: column;
+      margin-top: 4rem;
+      text-align: start;
+      margin-left: 2rem;
+      align-items: flex-end;
+      gap: 1rem;
+
+      span {
+        align-self: flex-start;
+      }
+    }
+
+  }
+
   .image-modal {
     display: flex;
     flex-direction: column;
@@ -4012,6 +4073,8 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+
+
   }
 }
 
@@ -4044,6 +4107,14 @@ input::-webkit-inner-spin-button {
     border-radius: 1000px;
   }
 
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  input[type="number"]:hover,
+  input[type="number"]:focus {
+    -moz-appearance: number-input;
+  }
 
 
 }
@@ -4425,10 +4496,12 @@ input::-webkit-inner-spin-button {
         display: flex;
         justify-content: center;
         flex-direction: column;
+
         .chat-image-attachment {
           width: 100%;
           display: flex;
           justify-content: center;
+
           img {
             width: 100%;
           }
@@ -4491,10 +4564,12 @@ input::-webkit-inner-spin-button {
         a {
           text-align: center;
         }
+
         .chat-image-attachment {
           width: 100%;
           display: flex;
           justify-content: center;
+
           img {
             width: 100%;
           }
@@ -4805,6 +4880,7 @@ input::-webkit-inner-spin-button {
         flex-direction: column;
         width: fit-content;
         text-wrap: nowrap;
+
         .message-time {
           margin-top: auto;
         }
