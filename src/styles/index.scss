@@ -2961,7 +2961,7 @@ input::-webkit-inner-spin-button {
 
 .infinite-scroll-component {
   scrollbar-width: none;
-  padding: 1rem;
+  padding: 0 1rem;
 }
 
 
@@ -4449,7 +4449,6 @@ input::-webkit-inner-spin-button {
     height: 55vh;
 
     align-items: center;
-    margin-top: 0.56rem;
     flex-direction: column;
 
     video {
@@ -5748,6 +5747,40 @@ input::-webkit-inner-spin-button {
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
+
+        .white-button {
+          background-color: $darker;
+          color: #e4e6eb;
+          border: 1px solid $darker;
+        }
+
+        .purple-button {
+          height: 2rem;
+          width: 2.25rem;
+          display: flex;
+          align-items: center;
+          border-radius: 1000px;
+          transition: 0.3s;
+          align-items: center;
+
+          .com-button-text {
+            color: white;
+            display: none;
+            font-weight: bold;
+          }
+        }
+
+        .purple-button:hover {
+          width: 4rem;
+
+          .com-button-text {
+            display: inline;
+          }
+        }
+      }
+
+      .list-card-item-join {
+
 
         .white-button {
           background-color: $darker;
