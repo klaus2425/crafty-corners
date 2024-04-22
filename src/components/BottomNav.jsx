@@ -1,32 +1,24 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosClient from '../axios-client';
 import { useStateContext } from '../context/ContextProvider';
 import echo from './Echo';
 
 const BottomNav = () => {
   const navigate = useNavigate();
-  const chat_sound = new Audio('/chat-sound.mp3');
   const { user } = useStateContext();
   const [messageNotify, setMessageNotify] = useState(false);
   const [hasNotification, setHasNotification] = useState(false);
   const queryClient = useQueryClient();
-
-  const playChatNotification = () => {
-    chat_sound.play();
-  }
 
   useEffect(() => {
     echo.private(`user-${user.id}`)
       .listen('MessageSent', (data) => {
         if (!(window.location.pathname == '/messages') && !(window.location.pathname == `/conversation/${data.message.conversation_id}`)) {
           setMessageNotify(true);
-          playChatNotification();
         }
         else {
           setMessageNotify(false);
-          playChatNotification();
         }
 
       })
@@ -45,7 +37,8 @@ const BottomNav = () => {
     if (user.unread_messages_count > 0 && window.location.pathname != '/messages') {
       setMessageNotify(true);
     } else setMessageNotify(false);
-  }, [user])
+
+  }, [])
 
   return (
     <div className='bottom-navbar'>
