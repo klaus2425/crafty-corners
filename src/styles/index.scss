@@ -1306,6 +1306,7 @@ input::-webkit-inner-spin-button {
 #sign-up-modal {
   max-height: 94vh;
   padding: 1rem 3rem;
+  width: clamp(21rem, 60vw, 50rem);
 }
 
 
