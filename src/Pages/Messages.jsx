@@ -54,25 +54,27 @@ const Messages = () => {
               return (
                 <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
                   <div className="list-card-item">
-                    <div className="list-card-item-image">
-                      <img src={`${storageBaseUrl}${c.receiver_profile_picture}`} alt="" />
-                    </div>
-                    <div className="list-card-item-text">
-                      <span>{c.user_1.first_name}</span>
-                      {uid != c?.latest_message.sender_id && !c?.latest_message.read ?
-                        <p><strong>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {!c.latest_message.attachments ? 
-                        c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' : 
-                        c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video'  : 'Sent an attachment'}</strong>
+                    <div className="left">
+                      <div className="list-card-item-image">
+                        <img src={`${storageBaseUrl}${c.receiver_profile_picture}`} alt="" />
+                      </div>
+                      <div className="list-card-item-text">
+                        <span>{c.user_1.first_name}</span>
+                        {uid != c?.latest_message.sender_id && !c?.latest_message.read ?
+                          <p><strong>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {!c.latest_message.attachments ?
+                            c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' :
+                              c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</strong>
 
-                        </p>
-                        :
-                        <p>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {!c.latest_message.attachments ? 
-                          c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' : 
-                          c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video'  : 'Sent an attachment'}</p>
-                      }
+                          </p>
+                          :
+                          <p>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {!c.latest_message.attachments ?
+                            c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' :
+                              c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</p>
+                        }
+                      </div>
                     </div>
-                    <div className="list-card-item-time">
-                      {timeAgo.format(new Date(c.latest_message.created_at.replace(" ", "T")), 'twitter-now')}
+                    <div className="list-card-item-time-message">
+
                       {uid != c.latest_message.sender_id && !c.latest_message.read &&
                         <span>
                           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,6 +82,10 @@ const Messages = () => {
                           </svg>
                         </span>
                       }
+                      <span className="message-time">
+                        {timeAgo.format(new Date(c.latest_message.created_at.replace(" ", "T")), 'twitter-now')}
+
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -88,23 +94,25 @@ const Messages = () => {
             else return (
               <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
                 <div className="list-card-item">
-                  <div className="list-card-item-image">
-                    <img src={`${storageBaseUrl}${c.receiver_profile_picture}`} alt="" />
+                  <div className="left">
+                    <div className="list-card-item-image">
+                      <img src={`${storageBaseUrl}${c.receiver_profile_picture}`} alt="" />
+                    </div>
+                    <div className="list-card-item-text">
+                      <span>{c.user_0.first_name}</span>
+                      {uid != c.latest_message.sender_id && !c.latest_message.read ?
+                        <p><strong>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}:
+                          {!c.latest_message.attachments ? c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ?
+                            'Sent an image' : c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</strong></p>
+                        :
+                        <p>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}: {!c.latest_message.attachments ?
+                          c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' :
+                            c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</p>
+                      }
+                    </div>
                   </div>
-                  <div className="list-card-item-text">
-                    <span>{c.user_0.first_name}</span>
-                    {uid != c.latest_message.sender_id && !c.latest_message.read ?
-                      <p><strong>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}: 
-                      {!c.latest_message.attachments ? c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 
-                      'Sent an image' : c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video'  : 'Sent an attachment'}</strong></p>
-                      :
-                      <p>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}: {!c.latest_message.attachments ? 
-                        c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' : 
-                        c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video'  : 'Sent an attachment'}</p>
-                    }
-                  </div>
-                  <div className="list-card-item-time">
-                    {timeAgo.format(new Date(c.latest_message.created_at.replace(" ", "T")), 'twitter-now')}
+
+                  <div className="list-card-item-time-message">
                     {uid != c.latest_message.sender_id && !c.latest_message.read &&
                       <span>
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -112,6 +120,10 @@ const Messages = () => {
                         </svg>
                       </span>
                     }
+                    <span className="message-time">
+                      {timeAgo.format(new Date(c.latest_message.created_at.replace(" ", "T")), 'twitter-now')}
+
+                    </span>
                   </div>
                 </div>
               </div>
