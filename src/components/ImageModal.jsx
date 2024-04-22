@@ -11,7 +11,7 @@ const ImageModal = (props) => {
       <div className="image-modal">
         <img onClick={handleClick} src={props.image} />
       </div>
-      <img className="background-image" src={props.image} />
+      <img className="zoom-background-image" src={props.image} />
     </div> 
   ) :
   null
