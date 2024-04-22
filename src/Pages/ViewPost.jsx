@@ -13,6 +13,8 @@ import MembershipCheck from '../components/utils/Membership';
 import { useStateContext } from '../context/ContextProvider';
 import ReportModal from '../components/ReportModal';
 import Loading from '../components/utils/Loading';
+import EmojiPicker from 'emoji-picker-react';
+import { useThemeContext } from '../context/ThemeProvider';
 
 const ViewPost = () => {
   const { id } = useParams();
@@ -30,6 +32,9 @@ const ViewPost = () => {
   const commentRef = useRef();
   const navigate = useNavigate()
   const menuRef = useRef();
+  const [isEmojiOpen, setIsEmojiOpen] = useState(false);
+  const emojiMenuRef = useRef(null);
+  const emojiMenuRefIcon = useRef(null);
   const [reportOpen, setReportOpen] = useState(false);
   const queryClient = useQueryClient();
   const handleShare = () => {
@@ -37,6 +42,7 @@ const ViewPost = () => {
     notifyShare();
   }
 
+  const { theme } = useThemeContext();
 
   const handleReport = () => {
     setReportOpen(true);
@@ -98,9 +104,6 @@ const ViewPost = () => {
         });
     }
     else setIsButtonDisabled(false);
-
-
-
   }
 
   const getComments = async () => {
@@ -164,11 +167,23 @@ const ViewPost = () => {
         setOpen(false)
       }
     }
-
+    function handleClickOutside(event) {
+      if (emojiMenuRef.current && !emojiMenuRef.current.contains(event.target) && emojiMenuRef.current && !emojiMenuRefIcon.current.contains(event.target)) {
+        setIsEmojiOpen(false);
+      }
+    }
+    document.addEventListener('click', handleClickOutside);
     document.addEventListener("mousedown", listener)
-    return () => document.removeEventListener("mousedown", listener)
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("mousedown", listener)
+    }
   }, [])
 
+  const handleEmojiClick = (emoji) => {
+    commentRef.current.value = commentRef.current.value + emoji.emoji
+
+  }
 
   const deletePost = () => {
     Swal.fire({
@@ -291,6 +306,22 @@ const ViewPost = () => {
             <div></div>
             <div className='write-comment-section'>
               <textarea ref={commentRef} type="text" placeholder='What are your thoughts?' />
+              <div ref={emojiMenuRef}>
+                <EmojiPicker
+                  className='emoji-picker'
+                  onEmojiClick={handleEmojiClick}
+                  open={isEmojiOpen}
+                  lazyLoadEmojis={true}
+                  theme={theme == 'light-theme' ? 'light' : 'dark'}
+                  emojiStyle='native'
+                />
+              </div>
+              <svg ref={emojiMenuRefIcon} onClick={() => setIsEmojiOpen(true)} className='emoji-icon' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="9.5" stroke="#222222" stroke-linecap="round" />
+                <circle cx="9" cy="9" r="1" fill="#222222" stroke="#222222" stroke-linecap="round" />
+                <circle cx="15" cy="9" r="1" fill="#222222" stroke="#222222" stroke-linecap="round" />
+                <path d="M15 15.5C15 16.8807 13.6569 18 12 18C10.3431 18 9 16.8807 9 15.5C9 14.1193 10.3431 13 12 13C13.6569 13 15 14.1193 15 15.5Z" fill="#222222" />
+              </svg>
             </div>
             <div className='post-footer'>
               <form>
@@ -426,6 +457,22 @@ const ViewPost = () => {
             <div></div>
             <div className='write-comment-section'>
               <textarea ref={commentRef} type="text" placeholder='What are your thoughts?' />
+              <div ref={emojiMenuRef}>
+                <EmojiPicker
+                  className='emoji-picker'
+                  onEmojiClick={handleEmojiClick}
+                  open={isEmojiOpen}
+                  lazyLoadEmojis={true}
+                  theme={theme == 'light-theme' ? 'light' : 'dark'}
+                  emojiStyle='native'
+                />
+              </div>
+              <svg ref={emojiMenuRefIcon} onClick={() => setIsEmojiOpen(true)} className='emoji-icon' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="9.5" stroke="#222222" stroke-linecap="round" />
+                <circle cx="9" cy="9" r="1" fill="#222222" stroke="#222222" stroke-linecap="round" />
+                <circle cx="15" cy="9" r="1" fill="#222222" stroke="#222222" stroke-linecap="round" />
+                <path d="M15 15.5C15 16.8807 13.6569 18 12 18C10.3431 18 9 16.8807 9 15.5C9 14.1193 10.3431 13 12 13C13.6569 13 15 14.1193 15 15.5Z" fill="#222222" />
+              </svg>
             </div>
             <div className='post-footer'>
               <form>
@@ -488,7 +535,6 @@ const ViewPost = () => {
                 <div className='post-user'>
                   <h4>{postUser?.first_name}</h4>
                   <span id='post-time'>{ago} ago</span>
-
                 </div>
                 {
                   uid == usePost.data.user.id ?
@@ -561,6 +607,22 @@ const ViewPost = () => {
             <div></div>
             <div className='write-comment-section'>
               <textarea ref={commentRef} type="text" placeholder='What are your thoughts?' />
+              <div ref={emojiMenuRef}>
+                <EmojiPicker
+                  className='emoji-picker'
+                  onEmojiClick={handleEmojiClick}
+                  open={isEmojiOpen}
+                  lazyLoadEmojis={true}
+                  theme={theme == 'light-theme' ? 'light' : 'dark'}
+                  emojiStyle='native'
+                />
+              </div>
+              <svg ref={emojiMenuRefIcon} onClick={() => setIsEmojiOpen(true)} className='emoji-icon' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="9.5" stroke="#222222" stroke-linecap="round" />
+                <circle cx="9" cy="9" r="1" fill="#222222" stroke="#222222" stroke-linecap="round" />
+                <circle cx="15" cy="9" r="1" fill="#222222" stroke="#222222" stroke-linecap="round" />
+                <path d="M15 15.5C15 16.8807 13.6569 18 12 18C10.3431 18 9 16.8807 9 15.5C9 14.1193 10.3431 13 12 13C13.6569 13 15 14.1193 15 15.5Z" fill="#222222" />
+              </svg>
             </div>
             <div className='post-footer'>
               <form>
@@ -700,6 +762,23 @@ const ViewPost = () => {
             <div></div>
             <div className='write-comment-section'>
               <textarea ref={commentRef} type="text" placeholder='What are your thoughts?' />
+              <div ref={emojiMenuRef}>
+                <EmojiPicker
+                  className='emoji-picker'
+                  onEmojiClick={handleEmojiClick}
+                  open={isEmojiOpen}
+                  lazyLoadEmojis={true}
+                  theme={theme == 'light-theme' ? 'light' : 'dark'}
+                  emojiStyle='native'
+                />
+              </div>
+              <svg ref={emojiMenuRefIcon} onClick={() => setIsEmojiOpen(true)} className='emoji-icon' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="9.5" stroke="#222222" stroke-linecap="round" />
+                <circle cx="9" cy="9" r="1" fill="#222222" stroke="#222222" stroke-linecap="round" />
+                <circle cx="15" cy="9" r="1" fill="#222222" stroke="#222222" stroke-linecap="round" />
+                <path d="M15 15.5C15 16.8807 13.6569 18 12 18C10.3431 18 9 16.8807 9 15.5C9 14.1193 10.3431 13 12 13C13.6569 13 15 14.1193 15 15.5Z" fill="#222222" />
+              </svg>
+
             </div>
             <div className='post-footer'>
               <form>
