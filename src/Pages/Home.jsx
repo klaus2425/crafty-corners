@@ -20,7 +20,9 @@ const UserFeed = () => {
                 return null;
             }
             return lastPage.meta.current_page + 1
-        }
+        },
+        refetchOnWindowFocus: false,
+        keepPreviousData: true 
     })
 
     const fetchedPosts = data?.pages.reduce((acc, page) => {
