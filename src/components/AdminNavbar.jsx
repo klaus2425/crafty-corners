@@ -11,13 +11,13 @@ const AdminNavbar = () => {
     const [openDropDown, setOpenDropDown] = useState(false);
     const navigate = useNavigate();
     const onLogout = async () => {
-        queryClient.removeQueries();
         axiosClient.post('/logout')
             .then(() => {
+                queryClient.removeQueries();
                 setUser({});
                 setToken(null);
                 setOpenDropDown(false);
-                navigate('/');
+                navigate('/Landing');
             })
     }
     const handleDropDown = () => {

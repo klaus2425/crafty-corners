@@ -25,13 +25,12 @@ const Navbar = () => {
 
     const onLogout = () => {
 
-        queryClient.setQueryData('user', {})
-        queryClient.removeQueries();
         axiosClient.post('/logout')
             .then(() => {
+                queryClient.removeQueries();
                 setUser({});
                 setToken(null);
-                navigate('/');
+                navigate('/Landing');
             })
     }
 
