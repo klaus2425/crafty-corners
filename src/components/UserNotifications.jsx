@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import TimeAgo from 'javascript-time-ago';
 import axiosClient from "../axios-client";
-import { QueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const UserNotifications = (props) => {
-    const queryClient = new QueryClient()
+    const queryClient = useQueryClient
     const navigate = useNavigate();
     const handlePostClick = () => {
         navigate(`/p/${props.post_id}?uid=${props.uid}`)

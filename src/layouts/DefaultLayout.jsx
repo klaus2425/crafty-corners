@@ -1,17 +1,16 @@
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Suspense, useEffect } from "react";
+import { Toaster } from "react-hot-toast";
+import { useMediaQuery } from "react-responsive";
 import { Navigate, Outlet, useNavigate, } from "react-router-dom";
-import { useStateContext } from "../context/ContextProvider";
-import '../styles/index.scss'
+import axiosClient from "../axios-client";
+import BottomNav from "../components/BottomNav";
+import Fallback from "../components/Fallback";
 import Navbar from '../components/Navbar';
 import { Sidebar } from "../components/Sidebar";
+import { useStateContext } from "../context/ContextProvider";
 import { useThemeContext } from "../context/ThemeProvider";
-import axiosClient from "../axios-client";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Toaster } from "react-hot-toast";
-import { Suspense, useEffect } from "react";
-import { useMediaQuery } from "react-responsive";
-import Loading from "../components/utils/Loading";
-import Fallback from "../components/Fallback";
-import BottomNav from "../components/BottomNav";
+import '../styles/index.scss';
 
 const DefaultLayout = () => {
     const { user, token, setUser, setToken } = useStateContext();
@@ -20,12 +19,11 @@ const DefaultLayout = () => {
     const navigate = useNavigate();
     const smallScreen = useMediaQuery({ query: '(max-width: 945px)' })
     const { data, isLoading, } = useQuery({
-        queryKey: ['user'],
+        queryKey: ["user"],
         queryFn: () => axiosClient.get('/user')
             .catch(() => {
-                queryClient.removeQueries('user')
-                setToken(null).then(navigate('/'))
-            })
+                navigate('/')            
+            }) 
     })
 
 

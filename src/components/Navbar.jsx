@@ -24,17 +24,18 @@ const Navbar = () => {
     }
 
     const onLogout = () => {
+
+        queryClient.setQueryData('user', {})
         axiosClient.post('/logout')
             .then(() => {
                 setUser({});
                 setToken(null);
-                queryClient.removeQueries("user")
                 navigate('/');
             })
     }
 
     const handleSearch = (ev) => {
-        if(ev.target.value != '') {
+        if (ev.target.value != '') {
             searchDebounce(ev.target.value)
         }
         else setSearchResult(null)
