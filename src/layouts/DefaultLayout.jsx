@@ -7,14 +7,14 @@ import { useThemeContext } from "../context/ThemeProvider";
 import axiosClient from "../axios-client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import Loading from "../components/utils/Loading";
 import Fallback from "../components/Fallback";
+import BottomNav from "../components/BottomNav";
 
 const DefaultLayout = () => {
     const { user, token, setUser, setToken } = useStateContext();
-    const BottomNav = lazy(() => import('../components/BottomNav'));
     const { theme } = useThemeContext();
     const queryClient = useQueryClient();
     const navigate = useNavigate();
@@ -39,15 +39,7 @@ const DefaultLayout = () => {
 
     if (!isLoading) {
         if (!data?.data.assessment_completed && window.location.pathname != '/assessment') {
-
-            // navigate(`/assessment?uid=${data.data.id}`)
-            return (
-                <Suspense fallback={<Loading />}>
-                    <Navigate to={`/assessment?uid=${data.data.id}`} />
-                </Suspense>
-            )
-
-
+            navigate(`/assessment?uid=${data.data.id}`)
         }
         if (data?.data?.type === 'admin') {
             return <Navigate to='/Users' />
@@ -66,7 +58,6 @@ const DefaultLayout = () => {
         return (
             user.type &&
             <div className="body-container" id={theme} style={{ height: "100dvh", overflowY: 'scroll' }}>
-
                 <Toaster
                     position="bottom-center"
                     duration='3000'
@@ -77,7 +68,6 @@ const DefaultLayout = () => {
 
                     }}
                 />
-
                 <Navbar />
                 <div className="authenticated-container" >
                     <Sidebar />
@@ -87,9 +77,7 @@ const DefaultLayout = () => {
                 </div>
                 {
                     smallScreen &&
-                    <Suspense>
-                        <BottomNav />
-                    </Suspense>
+                    <BottomNav />
                 }
             </div>
         );

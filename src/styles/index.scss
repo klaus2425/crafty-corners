@@ -2851,6 +2851,7 @@ input::-webkit-inner-spin-button {
   gap: 0.2rem;
   align-items: center;
   height: fit-content;
+  border-radius: 12px;
 
   a {
     font-size: clamp(1rem, 2vw, 1.56rem) !important;
@@ -2864,10 +2865,8 @@ input::-webkit-inner-spin-button {
 }
 
 .collapsible__item:hover {
-  border-radius: 12px;
   transition: 0.2s;
   background-color: $light_grey;
-
 }
 
 .dropdown-parent {
@@ -5481,7 +5480,10 @@ input::-webkit-inner-spin-button {
       stroke: #e4e6eb;
     }
   }
-
+  .collapsible__item:hover {
+    transition: 0.2s;
+    background-color: $dark;
+  }
   .search-card {
     transition: 0.3s;
     background-color: #242526;

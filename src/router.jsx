@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
 const DefaultLayout = lazy(() => import('./layouts/DefaultLayout'));
@@ -147,7 +147,8 @@ const router = createBrowserRouter([
     },
     {
         path: '/assessment',
-        element: <Assessment />
+        element:
+            <Suspense><Assessment /></Suspense>
     },
     {
         path: '/',
