@@ -465,9 +465,6 @@ const ViewConversation = () => {
                   />
                 </div>
                 <input className='message-input' ref={messageRef} onKeyDown={handleKeyDown} type="text" placeholder='Send a message' />
-
-
-
                 <label className='upload-attachment-icon' htmlFor="upload-button">
                   <label onClick={() => setIsEmojiOpen(!isEmojiOpen)} ref={menuRefIcon} className='upload-emoji-icon'>
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
