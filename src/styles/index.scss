@@ -1920,7 +1920,7 @@ input::-webkit-inner-spin-button {
       position: absolute;
       bottom: 3.4rem;
       right: 1.5rem;
-      width: clamp(15rem, 30vw, 20rem) !important;
+      width: clamp(17rem, 30vw, 20rem) !important;
       height: 20rem !important;
     }
 
@@ -4622,9 +4622,7 @@ input::-webkit-inner-spin-button {
     position: absolute;
     bottom: 4rem;
     right: -1rem;
-    width: 50vw !important;
-    max-width: 20rem;
-    z-index: 2000;
+    width: clamp(16rem, 50vw, 20rem) !important;
   }
 
   .textbox {
