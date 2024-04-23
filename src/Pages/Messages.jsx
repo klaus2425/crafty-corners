@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client";
-import echo from "../components/Echo";
 import Loading from "../components/utils/Loading";
 import { useStateContext } from "../context/ContextProvider";
 import TimeAgo from 'javascript-time-ago';
+import debounce from "../components/utils/debounce";
+import { useState } from "react";
 
 const Messages = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const Messages = () => {
   const params = new URLSearchParams(window.location.search);
   const uid = params.get('uid')
   const timeAgo = new TimeAgo();
-
+  const [searchResults, setSearchResult] = useState(null);
 
   const viewConversation = (conversation_id, id1, id2) => {
     axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
@@ -27,13 +27,21 @@ const Messages = () => {
     queryFn: () => axiosClient.get('/conversations').then(({ data }) => (data.data))
   })
 
+  const handleSearch = (ev) => {
+    if (ev.target.value != '') {
+      searchDebounce(ev.target.value);
+    }
+    else setSearchResult(null);
+  }
 
-  useEffect(() => {
-    echo.private(`user-${uid}`)
-      .listen('MessageSent', () => {
-        useConversations.refetch();
+  const searchDebounce = debounce((value) => {
+    console.log(value);
+    axiosClient.get(`/search-conversation?name=${value}`)
+      .then(res => {
+        setSearchResult(res.data.data)
+        console.log(res.data);
       })
-  }, [])
+  }, 400)
 
   return (
     <div className="authenticated-container">
@@ -46,90 +54,172 @@ const Messages = () => {
         </div>
         <div className="list-card">
           <div className="card-search">
-            <input className="search" type="text" placeholder="Search for Conversations 🔍" />
+            <input onChange={handleSearch} className="search" type="text" placeholder="Search for Conversations 🔍" />
           </div>
 
-          {!useConversations.isLoading ? useConversations.data.map(c => {
-            if (c.user_0.id == uid) {
-              return (
-                <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
-                  <div className="list-card-item">
-                    <div className="left">
-                      <div className="list-card-item-image">
-                        <img src={`${storageBaseUrl}${c.receiver_profile_picture}`} alt="" />
-                      </div>
-                      <div className="list-card-item-text">
-                        <span>{c.user_1.first_name}</span>
-                        {uid != c?.latest_message.sender_id && !c?.latest_message.read ?
-                          <p><strong>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {!c.latest_message.attachments ?
-                            c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' :
-                              c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</strong>
+          {
+            !searchResults ?
+              !useConversations.isLoading ? useConversations.data.map(c => {
+                if (c.user_0.id == uid) {
+                  return (
+                    <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
+                      <div className="list-card-item">
+                        <div className="left">
+                          <div className="list-card-item-image">
+                            <img src={`${storageBaseUrl}${c.receiver_profile_picture}`} alt="" />
+                          </div>
+                          <div className="list-card-item-text">
+                            <span>{c.user_1.first_name}</span>
+                            {uid != c?.latest_message.sender_id && !c?.latest_message.read ?
+                              <p><strong>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {!c.latest_message.attachments ?
+                                c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' :
+                                  c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</strong>
 
-                          </p>
-                          :
-                          <p>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {!c.latest_message.attachments ?
-                            c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' :
-                              c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</p>
+                              </p>
+                              :
+                              <p>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {!c.latest_message.attachments ?
+                                c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' :
+                                  c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</p>
+                            }
+                          </div>
+                        </div>
+                        <div className="list-card-item-time-message">
+
+                          {uid != c.latest_message.sender_id && !c.latest_message.read &&
+                            <span>
+                              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="7" cy="7" r="7" fill="#FF4646" />
+                              </svg>
+                            </span>
+                          }
+                          <span className="message-time">
+                            {timeAgo.format(new Date(c.latest_message.created_at.replace(" ", "T")), 'twitter-now')}
+
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+                else return (
+                  <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
+                    <div className="list-card-item">
+                      <div className="left">
+                        <div className="list-card-item-image">
+                          <img src={`${storageBaseUrl}${c.receiver_profile_picture}`} alt="" />
+                        </div>
+                        <div className="list-card-item-text">
+                          <span>{c.user_0.first_name}</span>
+                          {uid != c.latest_message.sender_id && !c.latest_message.read ?
+                            <p><strong>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}:
+                              {!c.latest_message.attachments ? c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ?
+                                'Sent an image' : c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</strong></p>
+                            :
+                            <p>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}: {!c.latest_message.attachments ?
+                              c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' :
+                                c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</p>
+                          }
+                        </div>
+                      </div>
+
+                      <div className="list-card-item-time-message">
+                        {uid != c.latest_message.sender_id && !c.latest_message.read &&
+                          <span>
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <circle cx="7" cy="7" r="7" fill="#FF4646" />
+                            </svg>
+                          </span>
                         }
+                        <span className="message-time">
+                          {timeAgo.format(new Date(c.latest_message.created_at.replace(" ", "T")), 'twitter-now')}
+
+                        </span>
                       </div>
                     </div>
-                    <div className="list-card-item-time-message">
+                  </div>
+                )
+              })
+                : <Loading />
+              :
+              searchResults.map(c => {
+                if (c.user_0.id == uid) {
+                  return (
+                    <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
+                      <div className="list-card-item">
+                        <div className="left">
+                          <div className="list-card-item-image">
+                            <img src={`${storageBaseUrl}${c.receiver_profile_picture}`} alt="" />
+                          </div>
+                          <div className="list-card-item-text">
+                            <span>{c.user_1.first_name}</span>
+                            {uid != c?.latest_message.sender_id && !c?.latest_message.read ?
+                              <p><strong>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {!c.latest_message.attachments ?
+                                c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' :
+                                  c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</strong>
 
-                      {uid != c.latest_message.sender_id && !c.latest_message.read &&
-                        <span>
-                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="7" cy="7" r="7" fill="#FF4646" />
-                          </svg>
+                              </p>
+                              :
+                              <p>{c.user_1.id == c.latest_message.sender_id ? c.user_1.first_name : c.user_0.first_name}: {!c.latest_message.attachments ?
+                                c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' :
+                                  c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</p>
+                            }
+                          </div>
+                        </div>
+                        <div className="list-card-item-time-message">
+
+                          {uid != c.latest_message.sender_id && !c.latest_message.read &&
+                            <span>
+                              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="7" cy="7" r="7" fill="#FF4646" />
+                              </svg>
+                            </span>
+                          }
+                          <span className="message-time">
+                            {timeAgo.format(new Date(c.latest_message.created_at.replace(" ", "T")), 'twitter-now')}
+
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+                else return (
+                  <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
+                    <div className="list-card-item">
+                      <div className="left">
+                        <div className="list-card-item-image">
+                          <img src={`${storageBaseUrl}${c.receiver_profile_picture}`} alt="" />
+                        </div>
+                        <div className="list-card-item-text">
+                          <span>{c.user_0.first_name}</span>
+                          {uid != c.latest_message.sender_id && !c.latest_message.read ?
+                            <p><strong>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}:
+                              {!c.latest_message.attachments ? c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ?
+                                'Sent an image' : c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</strong></p>
+                            :
+                            <p>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}: {!c.latest_message.attachments ?
+                              c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' :
+                                c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</p>
+                          }
+                        </div>
+                      </div>
+
+                      <div className="list-card-item-time-message">
+                        {uid != c.latest_message.sender_id && !c.latest_message.read &&
+                          <span>
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <circle cx="7" cy="7" r="7" fill="#FF4646" />
+                            </svg>
+                          </span>
+                        }
+                        <span className="message-time">
+                          {timeAgo.format(new Date(c.latest_message.created_at.replace(" ", "T")), 'twitter-now')}
                         </span>
-                      }
-                      <span className="message-time">
-                        {timeAgo.format(new Date(c.latest_message.created_at.replace(" ", "T")), 'twitter-now')}
-
-                      </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )
-            }
-            else return (
-              <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
-                <div className="list-card-item">
-                  <div className="left">
-                    <div className="list-card-item-image">
-                      <img src={`${storageBaseUrl}${c.receiver_profile_picture}`} alt="" />
-                    </div>
-                    <div className="list-card-item-text">
-                      <span>{c.user_0.first_name}</span>
-                      {uid != c.latest_message.sender_id && !c.latest_message.read ?
-                        <p><strong>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}:
-                          {!c.latest_message.attachments ? c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ?
-                            'Sent an image' : c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</strong></p>
-                        :
-                        <p>{c.user_0.id == c.latest_message.sender_id ? c.user_0.first_name : c.user_1.first_name}: {!c.latest_message.attachments ?
-                          c.latest_message.message : c.latest_message.attachments[0].file_type.startsWith('image/') ? 'Sent an image' :
-                            c.latest_message.attachments[0].file_type.startsWith('video/') ? 'Sent a video' : 'Sent an attachment'}</p>
-                      }
-                    </div>
-                  </div>
-
-                  <div className="list-card-item-time-message">
-                    {uid != c.latest_message.sender_id && !c.latest_message.read &&
-                      <span>
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="7" cy="7" r="7" fill="#FF4646" />
-                        </svg>
-                      </span>
-                    }
-                    <span className="message-time">
-                      {timeAgo.format(new Date(c.latest_message.created_at.replace(" ", "T")), 'twitter-now')}
-
-                    </span>
-                  </div>
-                </div>
-              </div>
-            )
-          })
-            : <Loading />
+                )
+              }) 
           }
         </div>
       </div>
