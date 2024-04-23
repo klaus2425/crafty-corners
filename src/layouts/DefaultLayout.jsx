@@ -21,9 +21,6 @@ const DefaultLayout = () => {
     const { data, isLoading, } = useQuery({
         queryKey: ["user"],
         queryFn: () => axiosClient.get('/user')
-            .catch(() => {
-                navigate('/')            
-            }) 
     })
 
 

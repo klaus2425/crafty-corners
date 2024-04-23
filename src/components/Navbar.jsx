@@ -26,6 +26,7 @@ const Navbar = () => {
     const onLogout = () => {
 
         queryClient.setQueryData('user', {})
+        queryClient.removeQueries();
         axiosClient.post('/logout')
             .then(() => {
                 setUser({});

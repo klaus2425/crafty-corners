@@ -19,7 +19,6 @@ const AdminLayout = () => {
     const [isOpen, setIsOpen] = useState(false);
 
 
-    const navigate = useNavigate();
     if (!token) {
         return <Navigate to='./Landing' />;
     }

@@ -10,10 +10,11 @@ const AdminNavbar = () => {
     const queryClient = useQueryClient();
     const [openDropDown, setOpenDropDown] = useState(false);
     const navigate = useNavigate();
-    const onLogout = () => {
+    const onLogout = async () => {
+        queryClient.setQueryData('user', {})
+        queryClient.removeQueries();
         axiosClient.post('/logout')
             .then(() => {
-                queryClient.removeQueries("user");
                 setUser({});
                 setToken(null);
                 setOpenDropDown(false);
