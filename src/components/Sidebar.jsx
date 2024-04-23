@@ -27,9 +27,9 @@ export const Sidebar = () => {
                 }
                 else {
                     setMessageNotify(false);
+                    queryClient.refetchQueries('conversations')
                     playChatNotification();
                 }
-
             })
             .listen('PostInteraction', () => {
                 queryClient.refetchQueries('notifications');
