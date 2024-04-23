@@ -13,9 +13,8 @@ import { useThemeContext } from "../context/ThemeProvider";
 import '../styles/index.scss';
 
 const DefaultLayout = () => {
-    const { user, token, setUser, setToken } = useStateContext();
+    const { user, token, setUser,  } = useStateContext();
     const { theme } = useThemeContext();
-    const queryClient = useQueryClient();
     const navigate = useNavigate();
     const smallScreen = useMediaQuery({ query: '(max-width: 945px)' })
     const { data, isLoading, } = useQuery({

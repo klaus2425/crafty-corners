@@ -11,7 +11,6 @@ const AdminNavbar = () => {
     const [openDropDown, setOpenDropDown] = useState(false);
     const navigate = useNavigate();
     const onLogout = async () => {
-        queryClient.setQueryData('user', {})
         queryClient.removeQueries();
         axiosClient.post('/logout')
             .then(() => {
@@ -102,7 +101,7 @@ const AdminNavbar = () => {
                     <img className="navbar-img" src={storageBaseUrl + user.profile_picture} alt="Profile Picture" onClick={handleDropDown} />
 
                     {openDropDown && (
-                        <DropDownItem userData={user} logout={onLogout} picture={storageBaseUrl + user.profile_picture} type={user.type} />
+                        <DropDownItem setOpenDropDown={setOpenDropDown} userData={user} logout={onLogout} picture={storageBaseUrl + user.profile_picture} type={user.type} />
                     )}
                 </div>
             </div>
