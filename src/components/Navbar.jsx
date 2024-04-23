@@ -5,11 +5,12 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../context/ContextProvider";
-import LoginModal from "./LoginModal";
+import debounce from "./utils/debounce";
 
 const Navbar = () => {
     const PostModal = lazy(() => import('./PostModal'));
-    const DropDownItem = lazy(() => import('./DropDownItem'))
+    const DropDownItem = lazy(() => import('./DropDownItem'));
+    const LoginModal = lazy(() => import('./LoginModal'))
     const { isOpen, setIsOpen, setUser, setToken, user, token } = useStateContext();
     const queryClient = useQueryClient();
     const [openSearch, setOpenSearch] = useState(false);
@@ -33,14 +34,19 @@ const Navbar = () => {
     }
 
     const handleSearch = (ev) => {
-        axiosClient.get(`/search?search=${ev.target.value}`)
-            .then(res => {
-                setSearchResult(res.data)
-            })
-            .catch(err => {
-                if (err.response.status === 404) setSearchResult({ community: null, user: null })
-            })
+        if(ev.target.value != '') {
+            searchDebounce(ev.target.value)
+        }
+        else setSearchResult(null)
     }
+
+
+    const searchDebounce = debounce((value) => {
+        axiosClient.get(`/search?search=${value}`)
+            .then(res => {
+                setSearchResult(res.data);
+            })
+    }, 400)
 
     const handleDropDown = () => {
         openDropDown ? setOpenDropDown(false) : setOpenDropDown(true);
@@ -244,7 +250,9 @@ const Navbar = () => {
                 </div>
                 <div className="guest-buttons">
                     <button className="btn btn--purple" onClick={() => setIsOpen(true)}>Log In</button>
-                    <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
+                    <Suspense >
+                        <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
+                    </Suspense>
                 </div>
 
             </div>
