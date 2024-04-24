@@ -565,8 +565,10 @@ input::-webkit-inner-spin-button {
 }
 
 .attachment-image {
-  width: 100%;
-  max-width: 50vw;
+  height: fit-content;
+  width: fit-content;
+  max-width: 15vw;
+  min-width: 10rem;
   border-radius: 15px;
   cursor: pointer;
 }
@@ -2927,8 +2929,6 @@ input::-webkit-inner-spin-button {
 
   a {
     margin-left: 0.5rem;
-    font-size: 1.2rem;
-    color: #696969;
   }
 
   a:hover {
@@ -3135,8 +3135,7 @@ input::-webkit-inner-spin-button {
       z-index: 1000;
 
       .zoom-background-image {
-        width: 150vw;
-        height: 150vh;
+        width: 200vw;
         -webkit-filter: blur(1.5rem) brightness(90%);
         filter: blur(1.5rem) brightness(90%);
       }
@@ -4396,8 +4395,7 @@ input::-webkit-inner-spin-button {
     z-index: 1000;
 
     .zoom-background-image {
-      width: 150vw;
-      height: 150vh;
+      width: 200vw;
       -webkit-filter: blur(1.5rem) brightness(90%);
       filter: blur(1.5rem) brightness(90%);
     }
@@ -4410,7 +4408,6 @@ input::-webkit-inner-spin-button {
     border-radius: 25px;
     position: fixed;
     top: 50%;
-    width: fit-content;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
@@ -4419,8 +4416,8 @@ input::-webkit-inner-spin-button {
     cursor: pointer;
 
     img {
-      height: 100%;
-      width: 100%;
+      width: clamp(30rem, 100vw, 80rem);
+      height: clamp(30rem, 100vh, 50rem);
       object-fit: contain;
     }
   }
@@ -4513,18 +4510,30 @@ input::-webkit-inner-spin-button {
       }
 
 
+
       .chat {
+        word-break: break-all;
         height: fit-content;
+        width: fit-content;
         text-wrap: wrap;
         border-radius: 25px;
         background-color: $lighter_grey;
         padding: 1rem;
         color: #000000;
-        max-width: 60vw;
+        max-width: 50v;
         display: flex;
         justify-content: center;
         flex-direction: column;
 
+        .chat-image-attachment {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+
+          img {
+            width: 100%;
+          }
+        }
       }
     }
 
@@ -4568,20 +4577,30 @@ input::-webkit-inner-spin-button {
 
       .chat {
         border-radius: 25px;
+        word-break: break-all;
         height: fit-content;
         text-wrap: wrap;
         justify-content: center;
-        max-width: 60vw;
+        display: flex;
         flex-direction: column;
         background-color: $purple;
         padding: 0.7rem;
         color: #FFF;
-        max-width: 40ch;
+        align-items: center;
 
         a {
           text-align: center;
         }
 
+        .chat-image-attachment {
+          width: fit-content;
+          display: flex;
+          justify-content: center;
+
+          img {
+            width: 100%;
+          }
+        }
 
       }
     }
@@ -4652,7 +4671,7 @@ input::-webkit-inner-spin-button {
         border-radius: 1000px;
         font-size: 1rem;
         width: 100%;
-        padding: 0.75rem 3rem 0.75rem 1rem;
+        padding: 0.75rem 4.9rem 0.75rem 1rem;
       }
 
       input[type='file'] {
@@ -4826,10 +4845,8 @@ input::-webkit-inner-spin-button {
       .left {
         display: flex;
         width: calc(95%);
-        gap: 0.25rem;
-        img {
-          width: clamp(3rem, 12vw, 4rem);
-        }
+        gap: 1rem;
+
         .list-card-item-text {
           display: flex;
           justify-content: center;
