@@ -23,24 +23,15 @@ axiosClient.interceptors.request.use((config) => {
 });
 
 
-axiosClient.interceptors.response.use((response) => {
-
+axios.interceptors.response.use(response => {
     return response;
-},
-    (error) => {
-        try {
-            const { response } = error;
-            if (response.status === 401) {
-            }
-        } catch (e) {
-            
-        }
-
-        throw error;
+}, error => {
+    console.log(error.response.status);
+    if (error.response.status === 401) {
+        localStorage.removeItem("ACCESS_TOKEN")
     }
-
-
-)
+    return error;
+});
 
 
 export default axiosClient;
