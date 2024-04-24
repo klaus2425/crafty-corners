@@ -507,6 +507,7 @@ input::-webkit-inner-spin-button {
     outline: none;
     box-shadow: none;
   }
+
   .react-select__input-container {
     font-size: 1rem;
   }
@@ -1821,6 +1822,7 @@ input::-webkit-inner-spin-button {
     padding: 1rem 0.5rem 0 0.5rem;
     scrollbar-width: none;
 
+    
     .infinite-scroll-component__outerdiv {
       width: 100%;
       display: flex;
@@ -2059,7 +2061,7 @@ input::-webkit-inner-spin-button {
     .banner {
       position: relative;
       width: 100%;
-      height: clamp(10rem, 40vh, 17rem);
+      height: 100%;
 
       .banner-img {
         position: absolute;
@@ -2067,7 +2069,7 @@ input::-webkit-inner-spin-button {
         top: 0;
         object-fit: cover;
         border-radius: 15px 15px 0 0;
-        height: 50%;
+        height: 45%;        
       }
 
       .community-details {
@@ -2097,7 +2099,6 @@ input::-webkit-inner-spin-button {
 
           .community-name {
             color: #000;
-            margin-top: 2rem;
             font-size: clamp(1rem, 2vw, 2.42rem);
             font-weight: bold;
             width: fit-content;
@@ -2553,6 +2554,9 @@ input::-webkit-inner-spin-button {
 
 
   }
+  
+ 
+
 
   .badges-card {
     display: grid;
@@ -2731,7 +2735,9 @@ input::-webkit-inner-spin-button {
     .badges-card {
       grid-template-columns: repeat(1, 1fr);
     }
-
+    .community-details {
+      flex-direction: column;
+    }
   }
 
 
@@ -4408,7 +4414,7 @@ input::-webkit-inner-spin-button {
 
     .zoom-background-image {
       width: 100%;
-      height: 100%;  
+      height: 100%;
       -webkit-filter: blur(1.5rem) brightness(90%);
       filter: blur(1.5rem) brightness(90%);
       object-fit: cover;

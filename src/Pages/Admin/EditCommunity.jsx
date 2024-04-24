@@ -144,7 +144,7 @@ const EditCommunity = () => {
                   </div>
                   <div className="community-inputs__element">
                     <label>Add topics for community<br />(Use comma to separate topics)</label>
-                    <input onChange={(ev) => handleTextareaChange(ev)} required />
+                    <input onChange={(ev) => handleTextareaChange(ev)} />
                   </div>
                   <div><strong>Press topic to delete</strong></div>
 

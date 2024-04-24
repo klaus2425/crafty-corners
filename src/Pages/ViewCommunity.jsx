@@ -74,7 +74,7 @@ const ViewCommunity = () => {
 
 
   const getTopicPosts = async (pageParam, newTopic) => {
-    const fetchedData = await axiosClient.get(`subtopic/${id}/posts?subtopic=${newTopic}`);
+    const fetchedData = await axiosClient.get(`subtopic/${id}/posts?subtopic=${newTopic}&page=${pageParam}`);
     return { ...fetchedData.data, prevPage: pageParam };
   }
 
@@ -83,12 +83,14 @@ const ViewCommunity = () => {
     queryFn: ({ pageParam }) => getTopicPosts(pageParam, topic),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      // if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
-      //   return null;
-      // }
-      // return lastPage.meta.current_page + 1
+      if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
+        return null;
+      }
+      return lastPage.meta.current_page + 1
     },
     retry: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     enabled: !!topic,
   })
 
@@ -130,7 +132,7 @@ const ViewCommunity = () => {
           </svg>
           <h3>Community</h3>
         </div>
-        <div className="card">
+        <div className="card" id='community-card'>
           <div className="banner">
             <img className='banner-img' src="/banner.png" />
             <div className='community-details'>
