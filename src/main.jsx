@@ -13,7 +13,8 @@ TimeAgo.addDefaultLocale(en)
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60000, // 1 minute in milliseconds
+      staleTime: 60000,
+      refetchInterval: 120 * 1000,
     },
   },
 });

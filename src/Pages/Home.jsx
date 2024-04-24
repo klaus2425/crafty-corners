@@ -22,7 +22,7 @@ const UserFeed = () => {
             return lastPage.meta.current_page + 1
         },
         refetchOnWindowFocus: false,
-        keepPreviousData: true 
+        keepPreviousData: true,
     })
 
     const fetchedPosts = data?.pages.reduce((acc, page) => {
@@ -33,7 +33,8 @@ const UserFeed = () => {
         queryKey: ['recommended-communities'],
         queryFn: () => axiosClient.get('/recommend-communities')
             .then(({ data }) => (data.recommended_communities)),
-        staleTime: 300000,
+        staleTime: 300 * 1000,
+        refetchInterval: 120 * 1000
     })
 
     return (

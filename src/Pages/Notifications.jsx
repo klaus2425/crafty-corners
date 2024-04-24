@@ -1,9 +1,9 @@
-import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
-import UserNotifications from '../components/UserNotifications';
-import axiosClient from '../axios-client';
-import { useStateContext } from '../context/ContextProvider';
-import Loading from '../components/utils/Loading';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import axiosClient from '../axios-client';
+import UserNotifications from '../components/UserNotifications';
+import Loading from '../components/utils/Loading';
+import { useStateContext } from '../context/ContextProvider';
 
 
 const UserFeed = () => {
