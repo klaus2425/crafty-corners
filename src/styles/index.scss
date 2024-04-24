@@ -567,7 +567,7 @@ input::-webkit-inner-spin-button {
 .attachment-image {
   height: fit-content;
   width: fit-content;
-  max-width: 12vw;
+  max-width: 50vw;
   border-radius: 15px;
   cursor: pointer;
 }
@@ -3134,7 +3134,8 @@ input::-webkit-inner-spin-button {
       z-index: 1000;
 
       .zoom-background-image {
-        width: 200vw;
+        width: 150vw;
+        height: 150vh;
         -webkit-filter: blur(1.5rem) brightness(90%);
         filter: blur(1.5rem) brightness(90%);
       }
@@ -4394,7 +4395,8 @@ input::-webkit-inner-spin-button {
     z-index: 1000;
 
     .zoom-background-image {
-      width: 200vw;
+      width: 150vw;
+      height: 150vh;
       -webkit-filter: blur(1.5rem) brightness(90%);
       filter: blur(1.5rem) brightness(90%);
     }
@@ -4415,8 +4417,8 @@ input::-webkit-inner-spin-button {
     cursor: pointer;
 
     img {
-      width: clamp(30rem, 100vw, 80rem);
-      height: clamp(30rem, 100vh, 50rem);
+      height: 100%;
+      width: 100%;
       object-fit: contain;
     }
   }
@@ -4519,7 +4521,7 @@ input::-webkit-inner-spin-button {
         background-color: $lighter_grey;
         padding: 1rem;
         color: #000000;
-        max-width: 40ch;
+        max-width: 50vw;
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -4844,8 +4846,10 @@ input::-webkit-inner-spin-button {
       .left {
         display: flex;
         width: calc(95%);
-        gap: 1rem;
-
+        gap: 0.25rem;
+        img {
+          width: clamp(3rem, 12vw, 4rem);
+        }
         .list-card-item-text {
           display: flex;
           justify-content: center;
