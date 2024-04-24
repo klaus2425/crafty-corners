@@ -266,6 +266,7 @@ const PostModal = (props) => {
                     width='max-content'
                     maxMenuHeight='10rem'
                     placeholder='Community'
+                    isSearchable={false}
                   />
               }
             </div>
@@ -389,6 +390,7 @@ const PostModal = (props) => {
                   className='react-select-container'
                   classNamePrefix='react-select'
                   width='max-content'
+                  isSearchable={false}
                   maxMenuHeight='10rem'
                 />
               </div>
