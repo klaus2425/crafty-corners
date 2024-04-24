@@ -392,7 +392,7 @@ const PostModal = (props) => {
                   classNamePrefix='react-select'
                   width='max-content'
                   isSearchable={false}
-                  menuPlacement='auto'
+                  menuPlacement='top'
                   maxMenuHeight='10rem'
                 />
               </div>
