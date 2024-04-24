@@ -10,7 +10,13 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 TimeAgo.addDefaultLocale(en)
 
-const queryClient = new QueryClient({});
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60000, // 1 minute in milliseconds
+    },
+  },
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
