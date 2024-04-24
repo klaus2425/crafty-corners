@@ -565,8 +565,7 @@ input::-webkit-inner-spin-button {
 }
 
 .attachment-image {
-  height: fit-content;
-  width: fit-content;
+  width: 100%;
   max-width: 50vw;
   border-radius: 15px;
   cursor: pointer;
@@ -4411,6 +4410,7 @@ input::-webkit-inner-spin-button {
     border-radius: 25px;
     position: fixed;
     top: 50%;
+    width: fit-content;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
@@ -4513,30 +4513,18 @@ input::-webkit-inner-spin-button {
       }
 
 
-
       .chat {
-        word-break: break-all;
         height: fit-content;
-        width: fit-content;
         text-wrap: wrap;
         border-radius: 25px;
         background-color: $lighter_grey;
         padding: 1rem;
         color: #000000;
-        max-width: 50vw;
+        max-width: 60vw;
         display: flex;
         justify-content: center;
         flex-direction: column;
 
-        .chat-image-attachment {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-
-          img {
-            width: 100%;
-          }
-        }
       }
     }
 
@@ -4580,11 +4568,10 @@ input::-webkit-inner-spin-button {
 
       .chat {
         border-radius: 25px;
-        word-break: break-all;
         height: fit-content;
         text-wrap: wrap;
         justify-content: center;
-        display: flex;
+        max-width: 60vw;
         flex-direction: column;
         background-color: $purple;
         padding: 0.7rem;
@@ -4595,15 +4582,6 @@ input::-webkit-inner-spin-button {
           text-align: center;
         }
 
-        .chat-image-attachment {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-
-          img {
-            width: 100%;
-          }
-        }
 
       }
     }
