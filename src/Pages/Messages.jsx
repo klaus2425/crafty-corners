@@ -1,14 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client";
 import Loading from "../components/utils/Loading";
 import { useStateContext } from "../context/ContextProvider";
 import TimeAgo from 'javascript-time-ago';
 import debounce from "../components/utils/debounce";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Messages = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { user } = useStateContext();
   const params = new URLSearchParams(window.location.search);
   const uid = params.get('uid')
@@ -42,6 +43,10 @@ const Messages = () => {
         console.log(res.data);
       })
   }, 400)
+
+  useEffect(() => {
+    queryClient.refetchQueries('conversations')
+  }, [])
 
   return (
     <div className="authenticated-container">
