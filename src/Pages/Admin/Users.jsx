@@ -25,7 +25,6 @@ const Users = () => {
       if (result.isConfirmed) {
         axiosClient.delete(`/users/${user.id}`)
           .then(() => {
-            console.log('deleted');
             toast.success('User has been deleted')
             refetch();
           })
