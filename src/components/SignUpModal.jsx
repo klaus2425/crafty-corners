@@ -211,44 +211,40 @@ export default function SignUpModal(props) {
                                 accurate recommendations, we cannot guarantee the accuracy, completeness, or reliability of the
                                 recommendations.
                             </p>
+
                             <p>
-                                <strong>6. Intellectual Property:</strong> All content and materials on Crafty Corners, including but not limited to
-                                text, graphics, logos, images, and software, are the property of Crafty Corners or its licensors and
-                                are protected by intellectual property laws.
-                            </p>
-                            <p>
-                                <strong>7. Prohibited Activities:</strong> Users agree not to engage in any of the following activities:
+                                <strong>6. Prohibited Activities:</strong> Users agree not to engage in any of the following activities:
                                 <ul>
                                     <li>Violating any applicable laws or regulations.</li>
                                     <li>Interfering with the operation of Crafty Corners or the rights of other users.</li>
-                                    <li>Uploading or distributing malicious software or harmful content.</li>
+                                    <li>Uploading or distributing malicious software, sexual, or harmful content.</li>
                                     <li>Impersonating another person or entity</li>
                                     <li>Collecting or harvesting personal information from other users.</li>
                                 </ul>
                             </p>
                             <p>
-                                <strong>8. Privacy Policy:</strong> Crafty Corners respects your privacy and handles your personal information in
+                                <strong>7. Privacy Policy:</strong> Crafty Corners respects your privacy and handles your personal information in
                                 accordance with our Privacy Policy, which is incorporated herein by reference.
                             </p>
                             <p>
-                                <strong>9. Termination:</strong> Crafty Corners reserves the right to suspend or terminate your access to the
+                                <strong>8. Termination:</strong> Crafty Corners reserves the right to suspend or terminate your access to the
                                 website at any time, with cause, and with prior notice.
                             </p>
                             <p>
-                                <strong>10. Disclaimer of Warranties:</strong> Crafty Corners do not guarantee that the website will be error-free
+                                <strong>9. Disclaimer of Warranties:</strong> Crafty Corners do not guarantee that the website will be error-free
                                 or uninterrupted. The user will bear sole risk for use.
                             </p>
                             <p>
-                                <strong>11. Limitation of Liability:</strong> In no event shall Crafty Corners or its affiliates be liable for any indirect,
+                                <strong>10. Limitation of Liability:</strong> In no event shall Crafty Corners or its affiliates be liable for any indirect,
                                 incidental, special, or consequential damages arising out of or in connection with your use of the
                                 website.
                             </p>
                             <p>
-                                <strong>12. Governing Law:</strong> These Terms & Conditions shall be governed by and construed in accordance
+                                <strong>11. Governing Law:</strong> These Terms & Conditions shall be governed by and construed in accordance
                                 with the laws of the jurisdiction where Crafty Corners operates.
                             </p>
                             <p>
-                                <strong>13. Changes to Terms:</strong> Crafty Corners reserves the right to update or modify these Terms &
+                                <strong>12. Changes to Terms:</strong> Crafty Corners reserves the right to update or modify these Terms &
                                 Conditions at any time without prior notice. Your continued use of the website after any such
                                 changes constitutes acceptance of the modified terms
                             </p>
