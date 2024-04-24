@@ -16,16 +16,15 @@ const UserFeed = () => {
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     const [imageLoading, setImageLoading] = useState(true);
     const navigate = useNavigate();
-    const uid = useLocation().state?.id;
 
     const getPosts = async (page) => {
-        const fetchedData = await axiosClient.get(`/user/${uid}/posts?page=${page}`)
+        const fetchedData = await axiosClient.get(`/user/${user.id}/posts?page=${page}`)
         .catch(() => navigate('/home', {state: {id: user.id}})); 
         return { ...fetchedData.data, prevPage: page }
     }
     const { data, fetchNextPage, hasNextPage, } = useInfiniteQuery({
         queryKey: ['user-posts'],
-        queryFn: ({ pageParam }) => getPosts(pageParam,  uid),
+        queryFn: ({ pageParam }) => getPosts(pageParam,  user.id),
         initialPageParam: 1,
         getNextPageParam: (lastPage) => {
             if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
@@ -36,7 +35,7 @@ const UserFeed = () => {
     });
 
     const userData = useQuery({
-        queryKey: ['user-profile'], queryFn: () => axiosClient.get(`/users/${uid}`)
+        queryKey: ['user-profile'], queryFn: () => axiosClient.get(`/users/${user.id}`)
             .then((res) => res)
     })
 
@@ -81,7 +80,7 @@ const UserFeed = () => {
                                 <div className='lower-details'>
                                 </div>
                             </div>
-                            <div onClick={() => navigate(`/user-badges/?uid=${uid}`)} className='right'>
+                            <div onClick={() => navigate(`/user-badges/?uid=${user.id}`)} className='right'>
                                 <svg width="113" height="113" viewBox="0 0 113 113" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="56.75" cy="56.75" r="42.1875" fill="#EFBD0B" stroke="#222222" strokeWidth="4.6875" />
                                     <circle cx="56.6512" cy="56.6513" r="24.1776" fill="#6339DC" stroke="#222222" strokeWidth="6.0444" />
