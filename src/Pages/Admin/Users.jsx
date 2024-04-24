@@ -58,7 +58,7 @@ const Users = () => {
   return (
     <div className="communities-container">
       <div className="top-section">
-        <div className='user-count'>Current Number of users: {data?.pages[0].meta.total}</div>
+        <div className='user-count'>Current Number of users: {data?.pages[0].meta.total - 1}</div>
       </div>
       <div className='users-table' id='users-table'>
         {
