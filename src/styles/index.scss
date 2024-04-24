@@ -2927,8 +2927,15 @@ input::-webkit-inner-spin-button {
     margin: 0;
   }
 
+  .link-container {
+    display: flex;
+    
+  }
+
   a {
     margin-left: 0.5rem;
+    color: #696969;
+    font-size: 1.2rem;
   }
 
   a:hover {
