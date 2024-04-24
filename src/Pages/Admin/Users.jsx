@@ -4,9 +4,10 @@ import Swal from 'sweetalert2';
 import Loading from '../../components/utils/Loading';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import toast from "react-hot-toast";
 
 const Users = () => {
- 
+
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
 
 
@@ -25,13 +26,9 @@ const Users = () => {
         axiosClient.delete(`/users/${user.id}`)
           .then(() => {
             console.log('deleted');
+            toast.success('User has been deleted')
             refetch();
           })
-        Swal.fire({
-          title: "Deleted!",
-          text: "User has been deleted",
-          icon: "success"
-        });
       }
     });
   }
@@ -75,25 +72,23 @@ const Users = () => {
               loader={<Loading />}>
               {
                 fetchedUsers.map((users) => (
-                  users.map(u => 
-                  
-                  {
+                  users.map(u => {
                     return u.type != 'admin' &&
-                    <div key={u.id} className="community-item">
-                    <div className="community-item-details" >
-                      <div className="community-details-top">
-                        <span id='user-img-span'><img src={storageBaseUrl + u.profile_picture} /></span>
-                        <span style={{ wordBreak: 'break-word' }}><strong>Full Name: <br /> </strong>{`${u.first_name} ${u.middle_name} ${u.last_name}  `} </span>
-                        <span><strong>Username:  <br /></strong>{u.user_name}</span>
-                        <span><strong>Email:  <br /></strong>{u.email}</span>
-                        <span><strong>Date Created:  <br /></strong>{u.created_at}</span>
+                      <div key={u.id} className="community-item">
+                        <div className="community-item-details" >
+                          <div className="community-details-top">
+                            <span id='user-img-span'><img src={storageBaseUrl + u.profile_picture} /></span>
+                            <span style={{ wordBreak: 'break-word' }}><strong>Full Name: <br /> </strong>{`${u.first_name} ${u.middle_name} ${u.last_name}  `} </span>
+                            <span><strong>Username:  <br /></strong>{u.user_name}</span>
+                            <span><strong>Email:  <br /></strong>{u.email}</span>
+                            <span><strong>Date Created:  <br /></strong>{u.created_at}</span>
+                          </div>
+                          <div className="buttons-community">
+                            <Link to={'/edit-user/' + u.id} className="orange-button">View User</Link>
+                            <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete User</button>
+                          </div>
+                        </div>
                       </div>
-                      <div className="buttons-community">
-                        <Link to={'/edit-user/' + u.id} className="orange-button">View User</Link>
-                        <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete User</button>
-                      </div>
-                    </div>
-                  </div>
                   }
                   )
                 ))
