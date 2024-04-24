@@ -11,7 +11,10 @@ const NotFound = () => {
                 height: '100vh',
                 alignItems: 'center',
                 fontWeight: 'bold',
-                fontSize: '3rem'
+                fontSize: '3rem',
+                backgroundColor: '#D8DCE3',
+                color: '#696969',
+                fontFamily: 'Helvetica'
             }}>
                 404 - Page Not Found
             </div>
