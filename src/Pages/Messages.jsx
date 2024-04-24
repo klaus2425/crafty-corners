@@ -36,11 +36,9 @@ const Messages = () => {
   }
 
   const searchDebounce = debounce((value) => {
-    console.log(value);
     axiosClient.get(`/search-conversation?name=${value}`)
       .then(res => {
         setSearchResult(res.data.data)
-        console.log(res.data);
       })
   }, 400)
 

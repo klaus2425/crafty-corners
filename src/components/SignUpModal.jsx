@@ -109,8 +109,8 @@ export default function SignUpModal(props) {
                                 <div className="right">
                                     <label>Phone Number:</label>
                                     <input className='phoneNumberInput' id='phoneNumberInput' onChange={handleInputNumberChange} value={inputValue} ref={numberRef} required />
-                                    <label>Email Address:</label>
-                                    <input ref={emailRef} type='email' ></input>
+                                    <label>Email Address: (Use your BPSU email)</label>
+                                    <input ref={emailRef} type='text' ></input>
                                     <label>Student ID: <em>(Format: 20-00000)</em></label>
                                     <input ref={studentIdRef} type='text' pattern='^\d{2}-\d{5}$' ></input>
                                     <label>Program: </label>
