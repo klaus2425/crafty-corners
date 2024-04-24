@@ -50,7 +50,8 @@ export default function SignUpModal(props) {
                 return <b>Verification sent to email address</b>
             },
             error: (err) => {
-                return `${Object.values(err.response.data.errors)[0]}`
+                console.log(err);
+                return `${Object.values(err.response.data.errors)[0][0]}`
             },
         },
         )
