@@ -48,7 +48,7 @@ const PostModal = (props) => {
       formData.append('notifiable', notifiable);
       formData.append('post_type', 'video');
       toast.promise(axiosClient.post('/posts', formData)
-        , 
+        ,
         {
           loading: 'Posting',
           success: () => {
@@ -258,17 +258,16 @@ const PostModal = (props) => {
             <div className='close-left'>
               <span className="header-span">Create a post in</span>
               {
-                  <Select
-                    options={options}
-                    onChange={handleCommunityChange}
-                    className="react-select-container"
-                    classNamePrefix="react-select"
-                    width='max-content'
-                    maxMenuHeight='10rem'
-                    placeholder='Community'
-                    isSearchable={false}
-                    menuPlacement='auto'
-                  />
+                <Select
+                  options={options}
+                  onChange={handleCommunityChange}
+                  className="react-select-container"
+                  classNamePrefix="react-select"
+                  width='max-content'
+                  maxMenuHeight='10rem'
+                  placeholder='Community'
+                  menuPlacement='auto'
+                />
               }
             </div>
             <svg onClick={handleClose} xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
@@ -391,12 +390,11 @@ const PostModal = (props) => {
                   className='react-select-container'
                   classNamePrefix='react-select'
                   width='max-content'
-                  isSearchable={false}
                   menuPlacement='top'
                   maxMenuHeight='10rem'
                 />
               </div>
-              <button type='submit'  onClick={handleSubmit} className='purple-button' disabled={isButtonDisabled}>Post</button>
+              <button type='submit' onClick={handleSubmit} className='purple-button' disabled={isButtonDisabled}>Post</button>
             </div>
           </form>
         </div>
