@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import axiosClient from "../../axios-client";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
@@ -7,14 +6,10 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const userCount = users.length;
+ 
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
 
-  useEffect(() => {
-    getUsers();
-  }, [])
+
 
   const onDeleteClick = user => {
     Swal.fire({
@@ -29,7 +24,8 @@ const Users = () => {
       if (result.isConfirmed) {
         axiosClient.delete(`/users/${user.id}`)
           .then(() => {
-            getUsers();
+            console.log('deleted');
+            refetch();
           })
         Swal.fire({
           title: "Deleted!",
@@ -40,24 +36,14 @@ const Users = () => {
     });
   }
 
-  const getUsers = () => {
-    setLoading(true)
-    axiosClient.get('/users')
-      .then(({ data }) => {
-        setLoading(false)
-        setUsers(data.data)
-      })
-      .catch((err) => {
-        setLoading(false)
-      })
-  }
+
 
   const fetchUsers = async (pageParams) => {
     const fetchedData = await axiosClient.get(`/users?page=${pageParams}`)
     return { ...fetchedData.data, prevPage: pageParams };
   }
 
-  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
     queryKey: ['admin-users'],
     queryFn: ({ pageParam }) => fetchUsers(pageParam),
     initialPageParam: 1,
@@ -76,7 +62,7 @@ const Users = () => {
   return (
     <div className="communities-container">
       <div className="top-section">
-        <div className='user-count'>Current Number of users: {userCount}</div>
+        <div className='user-count'>Current Number of users: {data?.pages[0].meta.total}</div>
       </div>
       <div className='users-table' id='users-table'>
         {
@@ -89,48 +75,33 @@ const Users = () => {
               loader={<Loading />}>
               {
                 fetchedUsers.map((users) => (
-                  users.map(u => (
+                  users.map(u => 
+                  
+                  {
+                    return u.type != 'admin' &&
                     <div key={u.id} className="community-item">
-                      <div className="community-item-details" >
-                        <div className="community-details-top">
-                          <span id='user-img-span'><img src={storageBaseUrl + u.profile_picture} /></span>
-                          <span style={{ wordBreak: 'break-word' }}><strong>Full Name: <br /> </strong>{`${u.first_name} ${u.middle_name} ${u.last_name}  `} </span>
-                          <span><strong>Username:  <br /></strong>{u.user_name}</span>
-                          <span><strong>Email:  <br /></strong>{u.email}</span>
-                          <span><strong>Date Created:  <br /></strong>{u.created_at}</span>
-                        </div>
-                        <div className="buttons-community">
-                          <Link to={'/edit-user/' + u.id} className="orange-button">View User</Link>
-                          <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete User</button>
-                        </div>
+                    <div className="community-item-details" >
+                      <div className="community-details-top">
+                        <span id='user-img-span'><img src={storageBaseUrl + u.profile_picture} /></span>
+                        <span style={{ wordBreak: 'break-word' }}><strong>Full Name: <br /> </strong>{`${u.first_name} ${u.middle_name} ${u.last_name}  `} </span>
+                        <span><strong>Username:  <br /></strong>{u.user_name}</span>
+                        <span><strong>Email:  <br /></strong>{u.email}</span>
+                        <span><strong>Date Created:  <br /></strong>{u.created_at}</span>
+                      </div>
+                      <div className="buttons-community">
+                        <Link to={'/edit-user/' + u.id} className="orange-button">View User</Link>
+                        <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete User</button>
                       </div>
                     </div>
-                  ))
+                  </div>
+                  }
+                  )
                 ))
               }
             </InfiniteScroll>
             :
             <Loading />
         }
-        {/* {!loading &&
-          users.map(u => (
-            <div key={u.id} className="community-item">
-              <div className="community-item-details" >
-                <div className="community-details-top">
-                  <span id='user-img-span'><img src={storageBaseUrl + u.profile_picture} /></span>
-                  <span style={{ wordBreak: 'break-word' }}><strong>Full Name: <br /> </strong>{`${u.first_name} ${u.middle_name} ${u.last_name}  `} </span>
-                  <span><strong>Username:  <br /></strong>{u.user_name}</span>
-                  <span><strong>Email:  <br /></strong>{u.email}</span>
-                  <span><strong>Date Created:  <br /></strong>{u.created_at}</span>
-                </div>
-                <div className="buttons-community">
-                  <Link to={'/edit-user/' + u.id} className="orange-button">View User</Link>
-                  <button className="red-button" onClick={ev => onDeleteClick(u)}>Delete User</button>
-                </div>
-              </div>
-            </div>
-          ))
-        } */}
       </div>
     </div>
   )
