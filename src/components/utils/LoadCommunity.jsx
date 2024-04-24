@@ -6,11 +6,10 @@ import MembershipCheck from "./Membership";
 import { useNavigate } from 'react-router-dom';
 
 const LoadCommunity = (c) => {
+  const { user } = useStateContext()
   const [imageLoading, setImageLoading] = useState(true);
   const storageBaseUrl = import.meta.env.VITE_API_COMMUNITIES_URL;
   const navigate = useNavigate();
-  const params = new URLSearchParams(window.location.search);
-  const uid = params.get('uid')
   const openCommunity = () => {
     navigate(`/c/${c.name}`, {state: {id: `${c.c.id}`}});
   }
@@ -23,13 +22,13 @@ const LoadCommunity = (c) => {
           <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} src={storageBaseUrl + c.c.community_photo} onLoad={() => setImageLoading(false)} />
         </div>
         <div className="list-card-item-text">
-          <span>{c.c.name}</span>
+          <span><strong>{c.c.name}</strong></span>
           <p>{c.c.description}</p>
         </div>
       </div>
 
       <div className="list-card-item-join">
-        <MembershipCheck isMember={c.c.is_user_member} community_id={c.c.id} user_id={uid} />
+        <MembershipCheck isMember={c.c.is_user_member} community_id={c.c.id} user_id={user.id} />
       </div>
     </div>
   )
