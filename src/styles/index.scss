@@ -504,11 +504,13 @@ input::-webkit-inner-spin-button {
 .react-select-container {
   .react-select__control {
     border-radius: 10000px;
-    max-width: 100%;
     outline: none;
+    
     box-shadow: none;
   }
-
+  .react-select__input-container {
+    font-size: 1rem;
+  }
 
   .react-select__option:hover {
     color: #FFF;
