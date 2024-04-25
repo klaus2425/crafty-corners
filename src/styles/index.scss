@@ -4764,7 +4764,9 @@ input::-webkit-inner-spin-button {
     width: 100%;
     text-align: justify;
   }
-
+  .title {
+    margin: 0;
+  }
 
 }
 
@@ -5229,6 +5231,7 @@ input::-webkit-inner-spin-button {
     .mentor-name {
       font-weight: bold;
       color: #000;
+      text-align: center;
       font-size: 1.25rem;
     }
   }
