@@ -72,7 +72,6 @@ const ViewCommunity = () => {
 
 
 
-
   const getTopicPosts = async (pageParam, newTopic) => {
     const fetchedData = await axiosClient.get(`subtopic/${id}/posts?subtopic=${newTopic}&page=${pageParam}`);
     return { ...fetchedData.data, prevPage: pageParam };
@@ -90,6 +89,7 @@ const ViewCommunity = () => {
     },
     retry: false,
     refetchOnMount: false,
+    staleTime: Infinity,
     refetchOnWindowFocus: false,
     enabled: !!topic,
   })
