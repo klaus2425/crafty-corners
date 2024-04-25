@@ -10,6 +10,7 @@ const NotFound = () => {
                 justifyContent: 'center',
                 width: '100vw',
                 height: '100vh',
+                gap: '1rem',
                 alignItems: 'center',
                 fontWeight: 'bold',
                 fontSize: '3rem',
