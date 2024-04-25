@@ -48,6 +48,7 @@ const ViewCommunity = lazy(() => import("./Pages/ViewCommunity"));
 const ViewConversation = lazy(() => import("./Pages/ViewConversation"));
 const ViewPost = lazy(() => import("./Pages/ViewPost"));
 const ViewVideo = lazy(() => import("./Pages/ViewVideo"));
+const EditPost = lazy(() => import('./Pages/EditPost'));
 
 const router = createBrowserRouter([
     {
@@ -142,6 +143,10 @@ const router = createBrowserRouter([
             {
                 path: '/hobbyist-badges/:id',
                 element: <HobbyistBadges />
+            },
+            {
+                path: '/edit-post/:id',
+                element: <EditPost />
             }
 
         ],

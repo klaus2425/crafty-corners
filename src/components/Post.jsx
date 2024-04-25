@@ -97,6 +97,9 @@ const Post = (props) => {
         }
     }
 
+    const handleEditPost = () => {
+        navigate(`/edit-post/${post.id}`);
+    }
 
     useEffect(() => {
         setLiked(post.liked_by_user);
@@ -181,16 +184,24 @@ const Post = (props) => {
                         {
                             open && <div className="ellipsis-dropdown">
                                 <ul>
-                                    <li onClick={handleReport} >
-                                        Report Post
-                                    </li>
                                     {
-                                        user?.id == post_user.id ?
-                                            <li onClick={deletePost} >
-                                                Delete Post
-                                            </li>
-                                            :
-                                            null
+                                        user?.id == post_user.id &&
+                                        <li onClick={handleEditPost}>
+                                            Edit Post
+                                        </li>
+                                    }
+
+                          {
+                                        user?.id != post_user.id &&
+                                        <li onClick={handleReport} >
+                                            Report Post
+                                        </li>
+                                    }
+                                    {
+                                        user?.id == post_user.id &&
+                                        <li onClick={deletePost} >
+                                            Delete Post
+                                        </li>
                                     }
                                 </ul>
                             </div>
@@ -264,16 +275,24 @@ const Post = (props) => {
                         {
                             open && <div className="ellipsis-dropdown">
                                 <ul>
-                                    <li onClick={handleReport} >
-                                        Report Post
-                                    </li>
                                     {
-                                        user?.id == post_user.id ?
-                                            <li onClick={deletePost} >
-                                                Delete Post
-                                            </li>
-                                            :
-                                            null
+                                        user?.id == post_user.id &&
+                                        <li onClick={handleEditPost}>
+                                            Edit Post
+                                        </li>
+                                    }
+
+                          {
+                                        user?.id != post_user.id &&
+                                        <li onClick={handleReport} >
+                                            Report Post
+                                        </li>
+                                    }
+                                    {
+                                        user?.id == post_user.id &&
+                                        <li onClick={deletePost} >
+                                            Delete Post
+                                        </li>
                                     }
                                 </ul>
                             </div>
@@ -349,16 +368,24 @@ const Post = (props) => {
                         {
                             open && <div className="ellipsis-dropdown">
                                 <ul>
-                                    <li onClick={handleReport} >
-                                        Report Post
-                                    </li>
                                     {
-                                        user?.id == post_user.id ?
-                                            <li onClick={deletePost} >
-                                                Delete Post
-                                            </li>
-                                            :
-                                            null
+                                        user?.id == post_user.id &&
+                                        <li onClick={handleEditPost}>
+                                            Edit Post
+                                        </li>
+                                    }
+
+                          {
+                                        user?.id != post_user.id &&
+                                        <li onClick={handleReport} >
+                                            Report Post
+                                        </li>
+                                    }
+                                    {
+                                        user?.id == post_user.id &&
+                                        <li onClick={deletePost} >
+                                            Delete Post
+                                        </li>
                                     }
                                 </ul>
                             </div>
@@ -434,16 +461,23 @@ const Post = (props) => {
                         {
                             open && <div className="ellipsis-dropdown">
                                 <ul>
-                                    <li onClick={handleReport} >
-                                        Report Post
-                                    </li>
                                     {
-                                        user?.id == post_user.id ?
-                                            <li onClick={deletePost} >
-                                                Delete Post
-                                            </li>
-                                            :
-                                            null
+                                        user?.id == post_user.id &&
+                                        <li onClick={handleEditPost}>
+                                            Edit Post
+                                        </li>
+                                    }
+                                    {
+                                        user?.id != post_user.id &&
+                                        <li onClick={handleReport} >
+                                            Report Post
+                                        </li>
+                                    }
+                                    {
+                                        user?.id == post_user.id &&
+                                        <li onClick={deletePost} >
+                                            Delete Post
+                                        </li>
                                     }
                                 </ul>
                             </div>
@@ -471,6 +505,11 @@ export const UserPost = (props) => {
     const [likes, setLikes] = useState(props.post.likes_count);
     const [liked, setLiked] = useState(false);
     const { user } = useStateContext();
+    const menuRef = useRef();
+    const [reportOpen, setReportOpen] = useState(false);
+    const queryClient = useQueryClient();
+    const ReportModal = lazy(() => import('./ReportModal'));
+    const [open, setOpen] = useState(false);
 
     const updatePostDetails = () => {
         axiosClient.get(`/posts/${post.id}`)
@@ -478,6 +517,35 @@ export const UserPost = (props) => {
                 setLikes(res.data.data.likes_count);
             })
     }
+
+    const deletePost = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                toast.promise(axiosClient.delete(`/posts/${post.id}`), {
+                    loading: 'Deleting post',
+                    success: () => {
+                        queryClient.refetchQueries(`posts`)
+                        return <b>Post deleted!</b>
+                    },
+                    error: (err) => {
+                        return `${err}`
+                    },
+                },)
+            }
+        });
+
+    }
+
+
+
     const handleLike = (id) => {
         if (!liked) {
             axiosClient.post(`/like-post/${id}`)
@@ -501,10 +569,24 @@ export const UserPost = (props) => {
 
     useEffect(() => {
         setLiked(post.liked_by_user);
+        const listener = (ev) => {
+            if (!menuRef?.current?.contains(ev.target)) {
+                setOpen(false)
+            }
+        }
+
+        document.addEventListener("mousedown", listener)
+        return () => document.removeEventListener("mousedown", listener)
+
     }, [])
 
-
-
+    const handleReport = () => {
+        setReportOpen(true);
+        setOpen(false);
+    }
+    const handleEditPost = () => {
+        navigate(`/edit-post/${post.id}`);
+    }
     const handleShare = () => {
         toast('Link Copied', {
             icon: '🔗'
@@ -560,6 +642,27 @@ export const UserPost = (props) => {
                         </svg>
                         <span className="count"></span>
                     </div>
+                    <div ref={menuRef} className="footer-item dropdown-parent">
+                        <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
+                        {
+                            open && <div className="ellipsis-dropdown">
+                                <ul>
+                                    {
+                                        user?.id == post_user.id &&
+                                        <li onClick={handleEditPost}>
+                                            Edit Post
+                                        </li>
+                                    }
+                                    {
+                                        user?.id == post_user.id &&
+                                        <li onClick={deletePost} >
+                                            Delete Post
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         )
@@ -607,6 +710,27 @@ export const UserPost = (props) => {
                             <path fillRule="evenodd" clipRule="evenodd" d="M17.6348 3.34075C17.1454 3.42781 16.4515 3.65554 15.3404 4.0259L6.95621 6.82062C5.8875 7.17686 5.13347 7.42862 4.5911 7.64024C4.32286 7.7449 4.13604 7.82851 4.00613 7.89704C3.89612 7.95507 3.85656 7.98705 3.8542 7.9887C3.32996 8.4962 3.32996 9.33714 3.8542 9.84464C3.85657 9.84629 3.89613 9.87826 4.00613 9.9363C4.13604 10.0048 4.32286 10.0884 4.5911 10.1931C5.13347 10.4047 5.8875 10.6565 6.95621 11.0127C6.98075 11.0209 7.00508 11.029 7.02921 11.037C7.38232 11.1545 7.69234 11.2576 7.97775 11.4085C8.66553 11.7722 9.22789 12.3346 9.59163 13.0224C9.74256 13.3078 9.84568 13.6178 9.96312 13.9709C9.97115 13.9951 9.97924 14.0194 9.98742 14.0439C10.3437 15.1126 10.5954 15.8667 10.807 16.409C10.9117 16.6773 10.9953 16.8641 11.0638 16.994C11.1219 17.104 11.1538 17.1436 11.1555 17.1459C11.663 17.6702 12.5039 17.6702 13.0114 17.1459C13.0131 17.1436 13.0451 17.104 13.1031 16.994C13.1716 16.8641 13.2552 16.6773 13.3599 16.409C13.5715 15.8667 13.8233 15.1126 14.1795 14.0439L16.9742 5.65974C17.3446 4.54868 17.5723 3.85476 17.6594 3.36534C17.6612 3.35516 17.6629 3.34524 17.6645 3.3356C17.6549 3.33722 17.645 3.33894 17.6348 3.34075ZM17.9693 3.3109C17.969 3.31113 17.9648 3.31078 17.9573 3.30914C17.9658 3.30984 17.9696 3.31066 17.9693 3.3109ZM17.691 3.0428C17.6894 3.03536 17.689 3.03111 17.6892 3.03084C17.6895 3.03058 17.6903 3.03429 17.691 3.0428ZM17.1823 0.797347C17.894 0.670741 18.8686 0.63304 19.6179 1.38228C20.3671 2.13152 20.3294 3.10609 20.2028 3.81779C20.0784 4.51717 19.7859 5.3944 19.4558 6.38423L19.425 6.47666L16.6303 14.8608L16.6181 14.8974C16.2768 15.9214 16.0047 16.7377 15.7665 17.348C15.5427 17.9218 15.2773 18.5164 14.8775 18.9324C13.3527 20.5191 10.8142 20.5191 9.28942 18.9324C8.88968 18.5164 8.62426 17.9218 8.4004 17.348C8.16225 16.7376 7.89016 15.9214 7.54881 14.8973L7.53666 14.8608C7.38114 14.3943 7.34611 14.3022 7.30798 14.2301C7.18674 14.0009 6.99929 13.8134 6.77003 13.6922C6.69793 13.654 6.60585 13.619 6.13929 13.4635L6.10277 13.4513C5.07872 13.11 4.26248 12.8379 3.6521 12.5997C3.07836 12.3759 2.48372 12.1105 2.06774 11.7107C0.481001 10.1859 0.481001 7.6474 2.06774 6.12262C2.48372 5.72288 3.07836 5.45746 3.6521 5.23361C4.26249 4.99545 5.07875 4.72337 6.10282 4.38201L6.13929 4.36986L14.5235 1.57513L14.616 1.54429C15.6058 1.21425 16.483 0.921757 17.1823 0.797347Z" fill="#677186" />
                         </svg>
                         <span className="count"></span>
+                    </div>
+                    <div ref={menuRef} className="footer-item dropdown-parent">
+                        <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
+                        {
+                            open && <div className="ellipsis-dropdown">
+                                <ul>
+                                    {
+                                        user?.id == post_user.id &&
+                                        <li onClick={handleEditPost}>
+                                            Edit Post
+                                        </li>
+                                    }
+                                    {
+                                        user?.id == post_user.id &&
+                                        <li onClick={deletePost} >
+                                            Delete Post
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -658,6 +782,27 @@ export const UserPost = (props) => {
                         </svg>
                         <span className="count"></span>
                     </div>
+                    <div ref={menuRef} className="footer-item dropdown-parent">
+                        <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
+                        {
+                            open && <div className="ellipsis-dropdown">
+                                <ul>
+                                    {
+                                        user?.id == post_user.id &&
+                                        <li onClick={handleEditPost}>
+                                            Edit Post
+                                        </li>
+                                    }
+                                    {
+                                        user?.id == post_user.id &&
+                                        <li onClick={deletePost} >
+                                            Delete Post
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         )
@@ -708,6 +853,27 @@ export const UserPost = (props) => {
                         <svg onClick={() => handleShare()} xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                             <path fillRule="evenodd" clipRule="evenodd" d="M17.6348 3.34075C17.1454 3.42781 16.4515 3.65554 15.3404 4.0259L6.95621 6.82062C5.8875 7.17686 5.13347 7.42862 4.5911 7.64024C4.32286 7.7449 4.13604 7.82851 4.00613 7.89704C3.89612 7.95507 3.85656 7.98705 3.8542 7.9887C3.32996 8.4962 3.32996 9.33714 3.8542 9.84464C3.85657 9.84629 3.89613 9.87826 4.00613 9.9363C4.13604 10.0048 4.32286 10.0884 4.5911 10.1931C5.13347 10.4047 5.8875 10.6565 6.95621 11.0127C6.98075 11.0209 7.00508 11.029 7.02921 11.037C7.38232 11.1545 7.69234 11.2576 7.97775 11.4085C8.66553 11.7722 9.22789 12.3346 9.59163 13.0224C9.74256 13.3078 9.84568 13.6178 9.96312 13.9709C9.97115 13.9951 9.97924 14.0194 9.98742 14.0439C10.3437 15.1126 10.5954 15.8667 10.807 16.409C10.9117 16.6773 10.9953 16.8641 11.0638 16.994C11.1219 17.104 11.1538 17.1436 11.1555 17.1459C11.663 17.6702 12.5039 17.6702 13.0114 17.1459C13.0131 17.1436 13.0451 17.104 13.1031 16.994C13.1716 16.8641 13.2552 16.6773 13.3599 16.409C13.5715 15.8667 13.8233 15.1126 14.1795 14.0439L16.9742 5.65974C17.3446 4.54868 17.5723 3.85476 17.6594 3.36534C17.6612 3.35516 17.6629 3.34524 17.6645 3.3356C17.6549 3.33722 17.645 3.33894 17.6348 3.34075ZM17.9693 3.3109C17.969 3.31113 17.9648 3.31078 17.9573 3.30914C17.9658 3.30984 17.9696 3.31066 17.9693 3.3109ZM17.691 3.0428C17.6894 3.03536 17.689 3.03111 17.6892 3.03084C17.6895 3.03058 17.6903 3.03429 17.691 3.0428ZM17.1823 0.797347C17.894 0.670741 18.8686 0.63304 19.6179 1.38228C20.3671 2.13152 20.3294 3.10609 20.2028 3.81779C20.0784 4.51717 19.7859 5.3944 19.4558 6.38423L19.425 6.47666L16.6303 14.8608L16.6181 14.8974C16.2768 15.9214 16.0047 16.7377 15.7665 17.348C15.5427 17.9218 15.2773 18.5164 14.8775 18.9324C13.3527 20.5191 10.8142 20.5191 9.28942 18.9324C8.88968 18.5164 8.62426 17.9218 8.4004 17.348C8.16225 16.7376 7.89016 15.9214 7.54881 14.8973L7.53666 14.8608C7.38114 14.3943 7.34611 14.3022 7.30798 14.2301C7.18674 14.0009 6.99929 13.8134 6.77003 13.6922C6.69793 13.654 6.60585 13.619 6.13929 13.4635L6.10277 13.4513C5.07872 13.11 4.26248 12.8379 3.6521 12.5997C3.07836 12.3759 2.48372 12.1105 2.06774 11.7107C0.481001 10.1859 0.481001 7.6474 2.06774 6.12262C2.48372 5.72288 3.07836 5.45746 3.6521 5.23361C4.26249 4.99545 5.07875 4.72337 6.10282 4.38201L6.13929 4.36986L14.5235 1.57513L14.616 1.54429C15.6058 1.21425 16.483 0.921757 17.1823 0.797347Z" fill="#677186" />
                         </svg>
+                    </div>
+                    <div ref={menuRef} className="footer-item dropdown-parent">
+                        <FontAwesomeIcon icon={faEllipsis} onClick={() => setOpen(!open)} />
+                        {
+                            open && <div className="ellipsis-dropdown">
+                                <ul>
+                                    {
+                                        user?.id == post_user.id &&
+                                        <li onClick={handleEditPost}>
+                                            Edit Post
+                                        </li>
+                                    }
+                                    {
+                                        user?.id == post_user.id &&
+                                        <li onClick={deletePost} >
+                                            Delete Post
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

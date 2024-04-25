@@ -374,7 +374,7 @@ input::-webkit-inner-spin-button {
   color: #FFF;
   font-size: 1rem;
   border: 0;
-  padding: 0.7rem;
+  padding: 0.6rem;
   border-radius: 1000px;
   transition: 0.3s;
   cursor: pointer;
@@ -2813,19 +2813,33 @@ input::-webkit-inner-spin-button {
     }
   }
 
+
+  @media screen and (max-width: 1200px) {
+    .profile-details {
+      flex-direction: column;
+    }
+  }
+  @media screen and (max-width: 945px) {
+    .profile-details {
+      flex-direction: row ;
+    }
+
+  }
+
+  @media screen and (max-width: 560px) {
+    .profile-details {
+      flex-direction: column ;
+    }
+  }
   @media screen and (max-width: 630px) {
     .input-container {
       flex-direction: column;
     }
 
+
   }
 
 
-  @media screen and (max-width: 360px) {
-    .profile-details {
-      flex-direction: column;
-    }
-  }
 
 }
 
@@ -2890,7 +2904,7 @@ input::-webkit-inner-spin-button {
   padding: 0.5rem;
   border-radius: 15px;
   width: 10rem;
-
+  z-index: 100;
   ul {
     list-style-type: none;
 
@@ -3023,7 +3037,13 @@ input::-webkit-inner-spin-button {
       width: fit-content;
     }
   }
-
+  .edit-title-input {
+    width: 90%;
+    align-self: center;
+    padding: 0.5rem;
+    border: 2px solid $light_grey;
+    border-radius: 10px;
+  }
   .title-content-container {
     cursor: pointer;
   }
