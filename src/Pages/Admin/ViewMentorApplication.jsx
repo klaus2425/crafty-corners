@@ -167,12 +167,9 @@ const ViewMentorApplication = () => {
                 Confirm Application
               </button>
 
-              {
-                applicant?.status !== 'revoked' &&
                 <button onClick={handleRejectMentor} className="red-button">
                   Reject Application
                 </button>
-              }
 
             </div>
         }
