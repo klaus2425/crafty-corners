@@ -16,7 +16,6 @@ const UserFeed = () => {
     const getNotifications = async (pageParam) => {
         const fetchedData = await axiosClient.get(`/notifications?page=${pageParam}`)
         return { ...fetchedData.data, prevPage: pageParam };
-
     }
 
     const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
@@ -74,7 +73,9 @@ const UserFeed = () => {
                                     notifications.map(notification => (
                                         <UserNotifications uid={user.id} created_at={notification.created_at} post_id={notification.data.post_id} type={notification.type}
                                             notifier={notification.data.first_name + ' ' + notification.data.last_name} id={notification.id}
-                                            notifierImage={storageUrl + notification.data.profile_picture} community={notification.data.community_name} read={notification.read_at ? true : false} />
+                                            notifierImage={storageUrl + notification.data.profile_picture} community={notification.data.community_name} read={notification.read_at ? true : false}
+                                            message={notification.data.message}
+                                        />
                                     ))
                                 ))
                             }
