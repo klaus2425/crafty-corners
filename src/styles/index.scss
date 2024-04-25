@@ -6166,7 +6166,9 @@ input::-webkit-inner-spin-button {
       transition: 0.3s;
     }
   }
-
+  .video:hover {
+    background-color: $darker;
+  }
 
   .post-header {
     .notification-bell {
