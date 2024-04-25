@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import axiosClient from "../../axios-client";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import toast from 'react-hot-toast';
 import Swal from "sweetalert2";
 import Loading from "../../components/utils/Loading";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ViewMentorApplication = () => {
   const { id } = useParams();
   const [applicant, setApplicant] = useState({});
   const dateTimeRef = useRef();
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
-
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const handleSubmit = () => {
     const formData = new FormData();
     formData.append('date_of_Assessment', dateTimeRef.current.value)
@@ -87,10 +89,11 @@ const ViewMentorApplication = () => {
       confirmButtonText: "Yes"
     }).then((result) => {
       if (result.isConfirmed) {
-        toast.promise(axiosClient.post(`/accept-mentorship-application/${applicant.id}`), {
+        toast.promise(axiosClient.post(`/reject-mentorship-application/${applicant.id}`), {
           loading: 'Declining application',
           success: () => {
-            getApplicant();
+            navigate('/mentor-applicants');
+            queryClient.refetchQueries('mentor-applicants')
             return <b>Application declined</b>
           },
           error: (err) => {
@@ -117,60 +120,65 @@ const ViewMentorApplication = () => {
 
   return (
     applicant.user ?
-    <div className="communities-container">
-      <div className="top-section">
-        <h2>Applicant's Information</h2>
-      </div>
-      <div className="applicant-image">
-        <img src={`${storageBaseUrl + applicant.user?.profile_picture}`} alt="" />
-      </div>
-      <div className="applicant-info-container">
-        <div className="left">
-          <div>First Name</div>
-          <input type="text" name="" id="" readOnly value={applicant.user?.first_name} />
-          <div>Middle Name</div>
-          <input type="text" name="" id="" readOnly value={applicant.user?.middle_name} />
-          <div>Last Name</div>
-          <input type="text" name="" id="" readOnly value={applicant.user?.last_name} />
-          <div>Student ID</div>
-          <input type="text" name="" id="" readOnly value={applicant.student_id} />
+      <div className="communities-container">
+        <div className="top-section">
+          <h2>Applicant's Information</h2>
         </div>
-        <div className="right">
-          <div>Program</div>
-          <input type="text" name="" id="" readOnly value={applicant.program} />
-          <div>Community Applying For</div>
-          <input type="text" name="" id="" readOnly value={applicant.community?.name} />
-          <div>Specialization</div>
-          <input type="text" name="" id="" readOnly value={applicant.specialization} />
-          <div>Select Date for Assessment</div>
-          <input ref={dateTimeRef} onChange={ev => setApplicant({ ...applicant, date_of_Assessment: ev.target.value })} type="datetime-local" name="" id="" value={applicant?.date_of_Assessment} />
+        <div className="applicant-image">
+          <img src={`${storageBaseUrl + applicant.user?.profile_picture}`} alt="" />
         </div>
+        <div className="applicant-info-container">
+          <div className="left">
+            <div>First Name</div>
+            <input type="text" name="" id="" readOnly value={applicant.user?.first_name} />
+            <div>Middle Name</div>
+            <input type="text" name="" id="" readOnly value={applicant.user?.middle_name} />
+            <div>Last Name</div>
+            <input type="text" name="" id="" readOnly value={applicant.user?.last_name} />
+            <div>Student ID</div>
+            <input type="text" name="" id="" readOnly value={applicant.student_id} />
+          </div>
+          <div className="right">
+            <div>Program</div>
+            <input type="text" name="" id="" readOnly value={applicant.program} />
+            <div>Community Applying For</div>
+            <input type="text" name="" id="" readOnly value={applicant.community?.name} />
+            <div>Specialization</div>
+            <input type="text" name="" id="" readOnly value={applicant.specialization} />
+            <div>Select Date for Assessment</div>
+            <input ref={dateTimeRef} onChange={ev => setApplicant({ ...applicant, date_of_Assessment: ev.target.value })} type="datetime-local" name="" id="" value={applicant?.date_of_Assessment} />
+          </div>
+        </div>
+
+        {
+          applicant?.status === 'approved' ?
+            <div className="application-bottom">
+              <button onClick={handleRevokeMentor} className="red-button">
+                Revoke Mentorship
+              </button>
+            </div>
+            :
+
+            <div className="application-bottom">
+              <button className="purple-button" onClick={handleSubmit}>
+                Set Assessment
+              </button>
+              <button onClick={handleConfirmMentor} className="green-button">
+                Confirm Application
+              </button>
+
+              {
+                applicant?.status !== 'revoked' &&
+                <button onClick={handleRejectMentor} className="red-button">
+                  Reject Application
+                </button>
+              }
+
+            </div>
+        }
       </div>
-
-      {
-        applicant?.status === 'approved' ?
-          <div className="application-bottom">
-            <button onClick={handleRevokeMentor} className="red-button">
-              Revoke Mentorship
-            </button>
-          </div>
-          :
-
-          <div className="application-bottom">
-            <button className="purple-button" onClick={handleSubmit}>
-              Set Assessment
-            </button>
-            <button onClick={handleConfirmMentor} className="green-button">
-              Confirm Application
-            </button>
-            <button onClick={handleRejectMentor} className="red-button">
-              Reject Application
-            </button>
-          </div>
-      }
-    </div>
-    :
-    <Loading />
+      :
+      <Loading />
   )
 
 }

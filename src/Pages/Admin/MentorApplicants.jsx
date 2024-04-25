@@ -20,7 +20,7 @@ const MentorApplicants = () => {
   return (
     <div className="communities-container">
       <div className="top-section">
-        <div className='user-count'>{useApplicants.data?.length} <br />Pending Mentor Applicants</div>
+        <div><h1>Community Mentors</h1></div>
       </div>
       <div className='users-table'>
         {
