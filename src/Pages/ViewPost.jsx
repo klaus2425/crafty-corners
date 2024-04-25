@@ -123,7 +123,7 @@ const ViewPost = () => {
 
 
   const useComments = useQuery({
-    queryKey: ['comments'],
+    queryKey: [`comments-${id}`],
     queryFn: getComments,
   })
 

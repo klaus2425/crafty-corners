@@ -44,7 +44,6 @@ export const EditPost = () => {
   }
 
 
-  console.log(data);
   return !isLoading ?
     <div className="authenticated-container">
       <div className="feed">

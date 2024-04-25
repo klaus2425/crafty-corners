@@ -50,7 +50,6 @@ export default function SignUpModal(props) {
                 return <b>Verification sent to email address</b>
             },
             error: (err) => {
-                console.log(err);
                 return `${Object.values(err.response.data.errors)[0][0]}`
             },
         },
@@ -309,7 +308,7 @@ export default function SignUpModal(props) {
                                 </ul>
                             </p>
                             <p>
-                                <strong>3. Sharing of Information</strong>  We may share your information with third parties for the following purposes:
+                                <strong>3. Sharing of Information</strong> <br /> We may share your information with third parties for the following purposes:
                                 <ul>
                                     <li>With service providers who assist us in operating our Site and providing our services.</li>
                                     <li>With third-party vendors, consultants, and other service providers who need access to such information to perform services on our behalf.</li>
@@ -317,7 +316,7 @@ export default function SignUpModal(props) {
                                 </ul>
                             </p>
                             <p>
-                                <strong>4. Changes to this Privacy Policy</strong>We may update this Privacy Policy from time to time, and any changes will be posted on this page. Please review this Privacy Policy periodically for any updates.
+                                <strong>4. Changes to this Privacy Policy</strong> <br />We may update this Privacy Policy from time to time, and any changes will be posted on this page. Please review this Privacy Policy periodically for any updates.
                             </p>
                             <p>
 
