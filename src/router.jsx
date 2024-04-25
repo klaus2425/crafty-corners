@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const DefaultLayout = lazy(() => import('./layouts/DefaultLayout'));
 const Notifications = lazy(() => import('./Pages/Notifications'));
@@ -51,7 +52,7 @@ const ViewVideo = lazy(() => import("./Pages/ViewVideo"));
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <DefaultLayout />,
+        element: <ErrorBoundary><DefaultLayout /></ErrorBoundary>,
         children: [
             {
                 path: '/',
@@ -152,7 +153,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/',
-        element: <AdminLayout />,
+        element: <ErrorBoundary><AdminLayout /></ErrorBoundary>,
         children: [
             {
                 path: '/',

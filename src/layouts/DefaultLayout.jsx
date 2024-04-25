@@ -11,6 +11,7 @@ import { Sidebar } from "../components/Sidebar";
 import { useStateContext } from "../context/ContextProvider";
 import { useThemeContext } from "../context/ThemeProvider";
 import '../styles/index.scss';
+import ErrorBoundary from "../components/ErrorBoundary";
 
 const DefaultLayout = () => {
     const { user, token, setUser, } = useStateContext();
@@ -22,7 +23,6 @@ const DefaultLayout = () => {
         queryFn: () => axiosClient.get('/user').catch((err) => {
             if (err.response.status === 401) {
                 localStorage.clear();
-                window.location.reload();
             }
         })
     })
@@ -56,29 +56,29 @@ const DefaultLayout = () => {
     else
         return (
             user.type &&
-            <div className="body-container" id={theme} style={{ height: "100dvh", overflowY: 'scroll' }}>
-                <Toaster
-                    position="bottom-center"
-                    duration='3000'
-                    toastOptions={{
-                        className: 'toaster',
-                        duration: 5000,
-                        boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
+                <div className="body-container" id={theme} style={{ height: "100dvh", overflowY: 'scroll' }}>
+                    <Toaster
+                        position="bottom-center"
+                        duration='3000'
+                        toastOptions={{
+                            className: 'toaster',
+                            duration: 5000,
+                            boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
 
-                    }}
-                />
-                <Navbar />
-                <div className="authenticated-container" >
-                    <Sidebar />
-                    <Suspense fallback={<Fallback />}>
-                        <Outlet />
-                    </Suspense>
+                        }}
+                    />
+                    <Navbar />
+                    <div className="authenticated-container" >
+                        <Sidebar />
+                        <Suspense fallback={<Fallback />}>
+                            <Outlet />
+                        </Suspense>
+                    </div>
+                    {
+                        smallScreen &&
+                        <BottomNav />
+                    }
                 </div>
-                {
-                    smallScreen &&
-                    <BottomNav />
-                }
-            </div>
         );
 }
 
