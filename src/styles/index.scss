@@ -2069,8 +2069,8 @@ input::-webkit-inner-spin-button {
         top: 0;
         object-fit: cover;
         border-radius: 15px 15px 0 0;
-        max-height: 15vh;
-        height: 45%;        
+        min-height: 7rem;
+        max-height: 12vh;
       }
 
       .community-details {
@@ -2100,7 +2100,7 @@ input::-webkit-inner-spin-button {
 
           .community-name {
             color: #000;
-            font-size: clamp(1rem, 2vw, 2.42rem);
+            font-size: clamp(1.8rem, 2vw, 2.42rem);
             font-weight: bold;
             width: fit-content;
           }
