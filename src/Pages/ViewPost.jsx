@@ -42,6 +42,11 @@ const ViewPost = () => {
     notifyShare();
   }
 
+
+  const handleEditPost = () => {
+    navigate(`/edit-post/${post.id}`);
+  }
+
   const { theme } = useThemeContext();
 
   const handleReport = () => {
@@ -290,6 +295,12 @@ const ViewPost = () => {
                         Report Post
                       </li>
                       {
+                        user?.id == postUser.id &&
+                        <li onClick={handleEditPost}>
+                          Edit Post
+                        </li>
+                      }
+                      {
                         user?.id == postUser.id ?
                           <li onClick={deletePost} >
                             Delete Post
@@ -441,6 +452,12 @@ const ViewPost = () => {
                         Report Post
                       </li>
                       {
+                        user?.id == postUser.id &&
+                        <li onClick={handleEditPost}>
+                          Edit Post
+                        </li>
+                      }
+                      {
                         user?.id == postUser.id ?
                           <li onClick={deletePost} >
                             Delete Post
@@ -590,6 +607,12 @@ const ViewPost = () => {
                       <li onClick={handleReport} >
                         Report Post
                       </li>
+                      {
+                        user?.id == postUser.id &&
+                        <li onClick={handleEditPost}>
+                          Edit Post
+                        </li>
+                      }
                       {
                         user?.id == postUser.id ?
                           <li onClick={deletePost} >
@@ -745,6 +768,12 @@ const ViewPost = () => {
                       <li onClick={handleReport} >
                         Report Post
                       </li>
+                      {
+                        user?.id == postUser.id &&
+                        <li onClick={handleEditPost}>
+                          Edit Post
+                        </li>
+                      }
                       {
                         user?.id == postUser.id ?
                           <li onClick={deletePost} >

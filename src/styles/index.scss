@@ -5419,6 +5419,11 @@ input::-webkit-inner-spin-button {
       stroke: #e4e6eb;
     }
   }
+  .edit-title-input {
+    background-color: $darker;
+    border: 2px solid $darker;
+    color: $white;
+  }
 
   .emoji-icon {
     path {
