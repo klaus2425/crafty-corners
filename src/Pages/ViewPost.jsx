@@ -236,7 +236,7 @@ const ViewPost = () => {
                 <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${postUser?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                 <div className='post-user'>
                   <h4>{postUser?.first_name}</h4>
-                  <span id='post-time'>{ago} ago</span>
+                  <span id='post-time'>{ago} </span>
                 </div>
                 {
                   uid == usePost.data.user.id ?
@@ -354,7 +354,7 @@ const ViewPost = () => {
               <div key={c.id} className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} </span></div>
                   {c.content}
                 </div>
               </div>
@@ -394,7 +394,7 @@ const ViewPost = () => {
                 <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${postUser?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                 <div className='post-user'>
                   <h4>{postUser?.first_name}</h4>
-                  <span id='post-time'>{ago} ago</span>
+                  <span id='post-time'>{ago} </span>
                 </div>
                 {
                   uid == usePost.data.user.id ?
@@ -511,7 +511,7 @@ const ViewPost = () => {
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} </span></div>
                   {c.content}
                 </div>
               </div>
@@ -551,7 +551,7 @@ const ViewPost = () => {
                 <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${postUser?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                 <div className='post-user'>
                   <h4>{postUser?.first_name}</h4>
-                  <span id='post-time'>{ago} ago</span>
+                  <span id='post-time'>{ago} </span>
                 </div>
                 {
                   uid == usePost.data.user.id ?
@@ -667,7 +667,7 @@ const ViewPost = () => {
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} </span></div>
                   {c.content}
                 </div>
               </div>
@@ -707,7 +707,7 @@ const ViewPost = () => {
                 <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${postUser?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                 <div className='post-user'>
                   <h4>{postUser?.first_name}</h4>
-                  <span id='post-time'>{ago} ago</span>
+                  <span id='post-time'>{ago} </span>
                 </div>
                 {
                   uid == usePost.data.user.id ?
@@ -829,7 +829,7 @@ const ViewPost = () => {
               <div className="comment-card">
                 <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
                 <div className="name-comment">
-                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} ago</span></div>
+                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} </span></div>
                   {c.content}
                 </div>
               </div>
