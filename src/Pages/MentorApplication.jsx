@@ -80,6 +80,17 @@ const MentorApplication = () => {
         }
       </div>
       <div className="recommended">
+        <div className="section-header"></div>
+        <div className="card mentor-steps">
+          <h3>Steps to be a mentor</h3>
+          <div className="steps">
+            <p><strong>Step 1:</strong> Apply for mentorship to a specific community.</p>
+            <p><strong>Step 2:</strong> Wait for the assessment date to be confirmed.</p>
+            <p><strong>Step 3:</strong> Go to the Assigned Organization Office to present your CV together with your portfolio</p>
+            <p><strong>Step 4:</strong> Wait for the application to be accepted.</p>
+            <p><strong>Step 5:</strong> Start mentoring your fellow hobbyists</p>
+          </div>
+        </div>
       </div>
     </div>
   )
