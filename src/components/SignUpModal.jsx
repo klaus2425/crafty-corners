@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import axiosClient from '../axios-client';
 import toast from 'react-hot-toast';
+import ReactSelect from 'react-select';
 
 
 export default function SignUpModal(props) {
@@ -39,7 +40,7 @@ export default function SignUpModal(props) {
         formData.append('profile_picture', profilePictureRef.current.files[0]);
         formData.append('phone_number', numberRef.current.value);
         formData.append('gender', genderRef.current.value);
-        formData.append('program', programRef.current.value);
+        formData.append('program', programRef.current);
         formData.append('student_id', studentIdRef.current.value)
 
         toast.promise(axiosClient.post('/register', formData), {
@@ -58,16 +59,46 @@ export default function SignUpModal(props) {
 
     const handleInputNumberChange = (event) => {
         const value = event.target.value;
-
-        // Regex to match only digits
         const regex = /^[0-9]*$/;
-
-        // If the input is empty or matches the regex, update the state
         const numericValue = value.replace(/\D/g, '');
-
-        // Update the state
         setInputValue(numericValue);
     }
+
+    const options = [
+        { value: "Bachelor of Science in Agriculture", label: "Bachelor of Science in Agriculture" },
+        { value: "Bachelor of Technical-Vocational Teacher Education", label: "Bachelor of Technical-Vocational Teacher Education" },
+        { value: "BS Agricultural and Biosystem Engineering", label: "BS Agricultural and Biosystem Engineering" },
+        { value: "Bachelor of Elementary Education", label: "Bachelor of Elementary Education" },
+        { value: "Bachelor of Science in Industrial Technology", label: "Bachelor of Science in Industrial Technology" },
+        { value: "Bachelor in Secondary Education", label: "Bachelor in Secondary Education" },
+        { value: "Bachelor in Public Administration", label: "Bachelor in Public Administration" },
+        { value: "Bachelor of Science in Accountancy", label: "Bachelor of Science in Accountancy" },
+        { value: "Bachelor of Science in Business Administration", label: "Bachelor of Science in Business Administration" },
+        { value: "Bachelor of Science in Psychology", label: "Bachelor of Science in Psychology" },
+        { value: "Bachelor of Arts in Psychology", label: "Bachelor of Arts in Psychology" },
+        { value: "Bachelor of Early Childhood Education", label: "Bachelor of Early Childhood Education" },
+        { value: "Bachelor of Science in Architecture", label: "Bachelor of Science in Architecture" },
+        { value: "Bachelor of Science in Civil Engineering", label: "Bachelor of Science in Civil Engineering" },
+        { value: "Bachelor of Science in Electrical Engineering", label: "Bachelor of Science in Electrical Engineering" },
+        { value: "Bachelor of Science in Electronics Engineering", label: "Bachelor of Science in Electronics Engineering" },
+        { value: "Bachelor of Science in Mechanical Engineering", label: "Bachelor of Science in Mechanical Engineering" },
+        { value: "Bachelor of Science in Industrial Engineering", label: "Bachelor of Science in Industrial Engineering" },
+        { value: "Bachelor of Science in Nursing", label: "Bachelor of Science in Nursing" },
+        { value: "Bachelor of Science in Hospitality Management", label: "Bachelor of Science in Hospitality Management" },
+        { value: "Bachelor of Science in Tourism Management", label: "Bachelor of Science in Tourism Management" },
+        { value: "Bachelor of Arts in Communication", label: "Bachelor of Arts in Communication" },
+        { value: "Bachelor of Science in Midwifery", label: "Bachelor of Science in Midwifery" },
+        { value: "Bachelor of Technical-Vocational Teacher Education", label: "Bachelor of Technical-Vocational Teacher Education" },
+        { value: "Bachelor of Science in Computer Science", label: "Bachelor of Science in Computer Science" },
+        { value: "Bachelor of Science in Information Technology", label: "Bachelor of Science in Information Technology" },
+        { value: "BS Entertainment & Multimedia Computing", label: "BS Entertainment & Multimedia Computing" },
+        { value: "Bachelor of Industrial Technology", label: "Bachelor of Industrial Technology" },
+        { value: "Bachelor of Sscience in Fisheries", label: "Bachelor of Science in Fisheries" },
+        { value: "Bachelor of Technical Livelihood Education", label: "Bachelor of Technical Livelihood Education" },
+        { value: "Bachelor of Physical Education", label: "Bachelor of Physical Education" },
+        { value: "Bachelor of Science in Exercise and Sports Science", label: "Bachelor of Science in Exercise and Sports Science" }
+    ];
+
 
     if (!props.isOpen) return null;
     return (
@@ -114,44 +145,23 @@ export default function SignUpModal(props) {
                                     <label>Student ID: <em>(Format: 20-00000)</em></label>
                                     <input ref={studentIdRef} type='text' pattern='^\d{2}-\d{5}$' ></input>
                                     <label>Program: </label>
-                                    <select ref={programRef} >
-                                        <option value="Bachelor of Science in Agriculture">Bachelor of Science in Agriculture</option>
-                                        <option value="Bachelor of Technical-Vocational Teacher Education">Bachelor of Technical-Vocational Teacher Education</option>
-                                        <option value="BS Agricultural and Biosystem Engineering">BS Agricultural and Biosystem Engineering</option>
-                                        <option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
-                                        <option value="Bachelor of Science in Industrial Technology">Bachelor of Science in Industrial Technology</option>
-                                        <option value="Bachelor in Secondary Education">Bachelor in Secondary Education</option>
-                                        <option value="Bachelor in Public Administration">Bachelor in Public Administration</option>
-                                        <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy</option>
-                                        <option value="Bachelor of Science in Business Administration">Bachelor of Science in Business Administration</option>
-                                        <option value="Bachelor of Science in Psychology">Bachelor of Science in Psychology</option>
-                                        <option value="Bachelor of Arts in Psychology">Bachelor of Arts in Psychology</option>
-                                        <option value="Bachelor of Early Childhood Education">Bachelor of Early Childhood Education</option>
-                                        <option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
-                                        <option value="Bachelor in Secondary Education">Bachelor in Secondary Education</option>
-                                        <option value="Bachelor of Science in Architecture">Bachelor of Science in Architecture</option>
-                                        <option value="Bachelor of Science in Civil Engineering">Bachelor of Science in Civil Engineering</option>
-                                        <option value="Bachelor of Science in Electrical Engineering">Bachelor of Science in Electrical Engineering</option>
-                                        <option value="Bachelor of Science in Electronics Engineering">Bachelor of Science in Electronics Engineering</option>
-                                        <option value="Bachelor of Science in Mechanical Engineering">Bachelor of Science in Mechanical Engineering</option>
-                                        <option value="Bachelor of Science in Industrial Engineering">Bachelor of Science in Industrial Engineering</option>
-                                        <option value="Bachelor of Science in Nursing">Bachelor of Science in Nursing</option>
-                                        <option value="Bachelor of Science in Hospitality Management">Bachelor of Science in Hospitality Management</option>
-                                        <option value="Bachelor of Science in Tourism Management">Bachelor of Science in Tourism Management</option>
-                                        <option value="Bachelor of Arts in Communication">Bachelor of Arts in Communication</option>
-                                        <option value="Bachelor of Science in Midwifery">Bachelor of Science in Midwifery</option>
-                                        <option value="Bachelor of Technical-Vocational Teacher Education">Bachelor of Technical-Vocational Teacher Education</option>
-                                        <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
-                                        <option value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</option>
-                                        <option value="BS Entertainment & Multimedia Computing">BS Entertainment & Multimedia Computing</option>
-                                        <option value="Bachelor of Industrial Technology">Bachelor of Industrial Technology</option>
-                                        <option value="Bachelor of Sscience in Fisheries">Bachelor of Science in Fisheries</option>
-                                        <option value="Bachelor of Technical Livelihood Education">Bachelor of Technical Livelihood Education</option>
-                                        <option value="Bachelor of Physical Education">Bachelor of Physical Education</option>
-                                        <option value="Bachelor of Science in Exercise and Sports Science">Bachelor of Science in Exercise and Sports Science</option>
+                                    <ReactSelect options={options}
+                                        className="react-select-container"
+                                        classNamePrefix="react-select"
+                                        autoFocus={false}
+                                        maxMenuHeight='10rem'
+                                        placeholder='Program'
+                                        menuPlacement='auto'
+                                        onChange={(value) => {
+                                            console.log(value.value);
+                                            programRef.current = value.value
+                                        }}
+                                    />
+                                    <label>Sex:</label>
+                                    <select ref={genderRef} name="sex" id="sex">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
                                     </select>
-                                    <label>Gender:</label>
-                                    <input ref={genderRef} type='text' placeholder='' required></input>
                                 </div>
                             </div>
                         </div>
