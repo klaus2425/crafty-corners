@@ -1,18 +1,18 @@
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useQueryClient } from "@tanstack/react-query";
 import { lazy, useEffect, useRef, useState, Suspense } from "react";
 import toast from 'react-hot-toast';
 import Skeleton from "react-loading-skeleton";
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import axiosClient from "../axios-client";
 import { useStateContext } from "../context/ContextProvider";
 import TimeAgo from 'javascript-time-ago';
+import { useQueryClient } from '@tanstack/react-query';
+import Swal from 'sweetalert2';
 
 const Post = (props) => {
     const post = props.post;
-    const ReportModal = lazy(() => import('./ReportModal'));
+    const ReportModal = lazy(() => import('./ReportModal'))
     const timeAgo = new TimeAgo('en-US')
     const post_user = post.user;
     const { user } = useStateContext();
@@ -29,7 +29,6 @@ const Post = (props) => {
     const [open, setOpen] = useState(false);
     const [reportOpen, setReportOpen] = useState(false);
     const queryClient = useQueryClient();
-
     const viewPost = () => {
         navigate(`/p/${post.id}?uid=${user.id}`)
     }
@@ -48,6 +47,7 @@ const Post = (props) => {
                 toast.promise(axiosClient.delete(`/posts/${post.id}`), {
                     loading: 'Deleting post',
                     success: () => {
+                        queryClient.invalidateQueries('post')
                         return <b>Post deleted!</b>
                     },
                     error: (err) => {
@@ -490,6 +490,7 @@ const Post = (props) => {
 
 export const UserPost = (props) => {
     const post = props.post;
+    const queryClient = useQueryClient();
     const post_user = props.user;
     const community = post.community;
     const storagePostUrl = import.meta.env.VITE_API_POSTS_URL;
@@ -503,9 +504,6 @@ export const UserPost = (props) => {
     const [liked, setLiked] = useState(false);
     const { user } = useStateContext();
     const menuRef = useRef();
-    const [reportOpen, setReportOpen] = useState(false);
-    const queryClient = useQueryClient();
-    const ReportModal = lazy(() => import('./ReportModal'));
     const [open, setOpen] = useState(false);
 
     const updatePostDetails = () => {
@@ -529,6 +527,7 @@ export const UserPost = (props) => {
                 toast.promise(axiosClient.delete(`/posts/${post.id}`), {
                     loading: 'Deleting post',
                     success: () => {
+                        queryClient.invalidateQueries('user-post')
                         return <b>Post deleted!</b>
                     },
                     error: (err) => {
@@ -576,10 +575,7 @@ export const UserPost = (props) => {
 
     }, [])
 
-    const handleReport = () => {
-        setReportOpen(true);
-        setOpen(false);
-    }
+
     const handleEditPost = () => {
         navigate(`/edit-post/${post.id}`);
     }

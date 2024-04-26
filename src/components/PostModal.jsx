@@ -10,6 +10,7 @@ import { useStateContext } from '../context/ContextProvider';
 import Loading from "./utils/Loading";
 
 const PostModal = (props) => {
+
   const { id } = useParams();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [community_id, setCommunity_id] = useState(id);
@@ -52,8 +53,7 @@ const PostModal = (props) => {
         {
           loading: 'Posting',
           success: () => {
-            queryClient.refetchQueries(`posts`);
-            queryClient.refetchQueries(`community-${community_id}`);
+            queryClient.invalidateQueries(`posts`);
             handleClose();
             return <b>Post success!</b>
           },
@@ -88,8 +88,7 @@ const PostModal = (props) => {
         , {
           loading: 'Posting',
           success: () => {
-            queryClient.refetchQueries(`community-${community_id}`);
-            queryClient.refetchQueries(`posts`);
+            queryClient.invalidateQueries(`posts`);
             handleClose();
             return <b>Post success!</b>
           },
@@ -124,8 +123,7 @@ const PostModal = (props) => {
         , {
           loading: 'Posting',
           success: () => {
-            queryClient.refetchQueries(`posts`);
-            queryClient.refetchQueries(`community-${community_id}`);
+            queryClient.invalidateQueries(`posts`);
             handleClose();
             return <b>Post success!</b>
           },
@@ -161,8 +159,7 @@ const PostModal = (props) => {
         , {
           loading: 'Posting',
           success: () => {
-            queryClient.refetchQueries(`posts`);
-            queryClient.refetchQueries(`community-${community_id}`);
+            queryClient.invalidateQueries(`posts`);
             handleClose();
             return <b>Post success!</b>
           },
@@ -263,7 +260,6 @@ const PostModal = (props) => {
                   onChange={handleCommunityChange}
                   className="react-select-container"
                   classNamePrefix="react-select"
-                  width='max-content'
                   maxMenuHeight='10rem'
                   placeholder='Community'
                   menuPlacement='auto'
