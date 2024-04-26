@@ -18,7 +18,7 @@ const Mentor = (mentor) => {
       toast.promise(axiosClient.post(`/unlike-mentor/${mentor.mentor_id}`), {
         loading: 'Unliking mentor...',
         success: () => {
-          queryClient.refetchQueries('mentor-list')
+          queryClient.invalidateQueries('mentor-list')
           return <b>Mentor unliked</b>
         },
         error: (err) => {
@@ -31,7 +31,7 @@ const Mentor = (mentor) => {
       toast.promise(axiosClient.post(`/like-mentor/${mentor.mentor_id}`), {
         loading: 'Liking mentor...',
         success: () => {
-          queryClient.refetchQueries('mentor-list')
+          queryClient.invalidateQueries('mentor-list')
           return <b>Mentor liked</b>
         },
         error: (err) => {

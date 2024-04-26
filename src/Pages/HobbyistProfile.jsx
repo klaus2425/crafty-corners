@@ -48,6 +48,7 @@ const HobbyistProfile = () => {
     axiosClient.get(`/users/${id}`)
       .then(res => {
         setCurrentUser(res.data.data)
+        console.log(res.data.data);
       })
   }
   const sendMessage = () => {
@@ -61,7 +62,7 @@ const HobbyistProfile = () => {
 
   useEffect(() => {
     if (user.id == id) {
-      navigate(`/profile?uid=${id}`, {state: {id: user.id}});
+      navigate(`/profile?uid=${id}`, { state: { id: user.id } });
     }
     getUser();
     getPosts();
@@ -138,7 +139,17 @@ const HobbyistProfile = () => {
           </div>
         </div>
       </div>
-      <div className="recommended"></div>
+      <div className="recommended">
+        {
+          currentUser.type === 'mentor' &&
+          <div className="card tip-card">
+            <h3>Buy this mentor a cup of Coffee!</h3>
+            <img src={'/GCash.png'} alt="" />
+            <span><strong>Gcash Number:</strong></span>
+            <span>{currentUser.phone_number}</span>
+          </div>
+        }
+      </div>
     </div>
   )
 }
