@@ -14,7 +14,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: Infinity,
-      refetchInterval: 120 * 1000,
+      gcTime: 120 * 1000,
     },
   },
 });
