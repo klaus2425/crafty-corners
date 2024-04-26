@@ -3,11 +3,13 @@ import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../context/ContextProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginModal(props) {
   const { setUser, setToken } = useStateContext();
   const emailRef = useRef();
   const passwordRef = useRef();
+  const navigate = useNavigate();
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
 
   const onForgotSubmit = (ev) => {
@@ -39,7 +41,6 @@ export default function LoginModal(props) {
         if (data.user.email_verified_at === null) {
           axios.post(`${import.meta.env.VITE_API_BASE_URL}/send-email-verification`, null, {
             headers: {
-
               'Authorization': `Bearer ${data.token}`,
               'Content-Type': 'application/json'
             }
@@ -47,6 +48,7 @@ export default function LoginModal(props) {
           return 'Verify your email first'
         }
         else {
+          navigate('/')
           setUser(data.user);
           setToken(data.token);
           props.setIsOpen(false);

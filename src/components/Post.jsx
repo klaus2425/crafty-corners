@@ -48,7 +48,6 @@ const Post = (props) => {
                 toast.promise(axiosClient.delete(`/posts/${post.id}`), {
                     loading: 'Deleting post',
                     success: () => {
-                        queryClient.refetchQueries(`posts`)
                         return <b>Post deleted!</b>
                     },
                     error: (err) => {
@@ -83,7 +82,6 @@ const Post = (props) => {
                 .then(() => {
                     setLiked(true);
                     updatePostDetails(id);
-                    queryClient.refetchQueries(`community-posts-${props.community.id}`)
                 })
 
         }
@@ -92,7 +90,6 @@ const Post = (props) => {
                 .then(() => {
                     setLiked(false);
                     updatePostDetails(id);
-                    queryClient.refetchQueries(`community-posts-${props.community.id}`)
                 })
         }
     }
@@ -532,7 +529,6 @@ export const UserPost = (props) => {
                 toast.promise(axiosClient.delete(`/posts/${post.id}`), {
                     loading: 'Deleting post',
                     success: () => {
-                        queryClient.refetchQueries(`posts`)
                         return <b>Post deleted!</b>
                     },
                     error: (err) => {

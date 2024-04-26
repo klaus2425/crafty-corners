@@ -11,7 +11,6 @@ import { Sidebar } from "../components/Sidebar";
 import { useStateContext } from "../context/ContextProvider";
 import { useThemeContext } from "../context/ThemeProvider";
 import '../styles/index.scss';
-import ErrorBoundary from "../components/ErrorBoundary";
 
 const DefaultLayout = () => {
     const { user, token, setUser, } = useStateContext();

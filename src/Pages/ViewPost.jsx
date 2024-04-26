@@ -141,7 +141,6 @@ const ViewPost = () => {
     mutationFn: likePost,
     onSuccess: () => {
       usePost.refetch();
-      queryClient.refetchQueries('posts')
     },
   })
 
@@ -149,14 +148,12 @@ const ViewPost = () => {
     mutationFn: unlikePost,
     onSuccess: () => {
       usePost.refetch()
-      queryClient.refetchQueries('posts')
     },
   })
 
   const handleNotify = (val) => {
     axiosClient.post(`/posts/${id}`, { _method: 'PUT', notifiable: val })
       .then(() => {
-        queryClient.refetchQueries(`post-${id}`)
       })
   }
 

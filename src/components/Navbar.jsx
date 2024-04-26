@@ -145,7 +145,7 @@ const Navbar = () => {
                             <span className="search-category">/Communities</span>
                             {searchResult?.community?.length > 0 ? searchResult.community.map(((community, index) => (
                                 <span key={index} onClick={() => {
-                                    navigate(`/c/${community.id}?uid=${user.id}`)
+                                    navigate(`/c/${community.id}?uid=${user.id}`, {state: {id: `${community.id}`}})
                                     setOpenSearch(false);
                                 }} className="search-result">{community.name}</span>
                             )))
