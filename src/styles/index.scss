@@ -1474,9 +1474,9 @@ input::-webkit-inner-spin-button {
 
 
   .recommended {
-    margin-top: 5.28rem;
+    margin-top: 5rem;
     width: 30%;
-
+    
     #community-level-card {
       display: flex;
       flex-direction: column;
@@ -1642,11 +1642,17 @@ input::-webkit-inner-spin-button {
         display: flex;
         border-radius: 15px;
         cursor: pointer;
+
         width: 100%;
+        color: $purple;
         padding: 0.6rem 0.67rem;
         gap: 1rem;
         justify-content: flex-start;
         font-size: clamp(0.5rem, 1vw, 2rem);
+
+        h2 {
+          text-wrap: nowrap;
+        }
 
         #rank {
           font-size: 1.6rem;
@@ -1663,6 +1669,7 @@ input::-webkit-inner-spin-button {
 
         img {
           object-fit: cover;
+          flex-shrink: 0;
           width: 2.6rem;
           height: 2.6rem;
           border-radius: 1000px;
@@ -1679,12 +1686,41 @@ input::-webkit-inner-spin-button {
 
           .rec-community__member-count {
             font-size: clamp(0.8rem, 2vw, 1rem);
+            color: $grey;
           }
         }
       }
 
       .rec-community__item:hover {
         background-color: $lighter_grey;
+      }
+    }
+    .tip-card {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      img {
+        width: clamp(2rem, 10vw, 10rem);
+        aspect-ratio: 1 / 1;
+      }
+    }
+    .mentor-steps {
+      gap: 1rem;
+
+      .steps {
+        display: flex;
+        gap: 0.5rem;
+        flex-direction: column;
+      }
+
+      h3 {
+        text-align: center;
+        color: $darker;
+      }
+
+      p {
+        font-size: 1.1rem;
       }
     }
 
@@ -1822,7 +1858,7 @@ input::-webkit-inner-spin-button {
     padding: 1rem 0.5rem 0 0.5rem;
     scrollbar-width: none;
 
-    
+
     .infinite-scroll-component__outerdiv {
       width: 100%;
       display: flex;
@@ -2555,8 +2591,8 @@ input::-webkit-inner-spin-button {
 
 
   }
-  
- 
+
+
 
 
   .badges-card {
@@ -2736,6 +2772,7 @@ input::-webkit-inner-spin-button {
     .badges-card {
       grid-template-columns: repeat(1, 1fr);
     }
+
     .community-details {
       flex-direction: column;
     }
@@ -2819,18 +2856,20 @@ input::-webkit-inner-spin-button {
       flex-direction: column;
     }
   }
+
   @media screen and (max-width: 945px) {
     .profile-details {
-      flex-direction: row ;
+      flex-direction: row;
     }
 
   }
 
   @media screen and (max-width: 560px) {
     .profile-details {
-      flex-direction: column ;
+      flex-direction: column;
     }
   }
+
   @media screen and (max-width: 630px) {
     .input-container {
       flex-direction: column;
@@ -2905,6 +2944,7 @@ input::-webkit-inner-spin-button {
   border-radius: 15px;
   width: 10rem;
   z-index: 100;
+
   ul {
     list-style-type: none;
 
@@ -3037,6 +3077,7 @@ input::-webkit-inner-spin-button {
       width: fit-content;
     }
   }
+
   .edit-title-input {
     width: 90%;
     align-self: center;
@@ -3044,6 +3085,7 @@ input::-webkit-inner-spin-button {
     border: 2px solid $light_grey;
     border-radius: 10px;
   }
+
   .title-content-container {
     cursor: pointer;
   }
@@ -4764,6 +4806,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     text-align: justify;
   }
+
   .title {
     margin: 0;
   }
@@ -5422,6 +5465,7 @@ input::-webkit-inner-spin-button {
       stroke: #e4e6eb;
     }
   }
+
   .edit-title-input {
     background-color: $darker;
     border: 2px solid $darker;
@@ -5467,6 +5511,20 @@ input::-webkit-inner-spin-button {
         fill: none;
       }
     }
+  }
+
+  .rec-community__name {
+    color: $white;
+    font-weight: bold;
+  }
+  .rec-community__item {
+    color: $white;
+    font-weight: bold;
+  }
+
+  .rec-community__member-count {
+    color: $white;
+    font-weight: normal;
   }
 
   .react-select-container {
@@ -5597,6 +5655,12 @@ input::-webkit-inner-spin-button {
           stroke: #e4e6eb;
         }
       }
+    }
+  }
+
+  .mentor-steps {
+    h3 {
+      color: $white;
     }
   }
 
@@ -6166,6 +6230,7 @@ input::-webkit-inner-spin-button {
       transition: 0.3s;
     }
   }
+
   .video:hover {
     background-color: $darker;
   }
