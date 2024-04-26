@@ -73,7 +73,7 @@ const UserFeed = () => {
                 }
             </div>
             <div className="recommended">
-                <div className="card">
+                <div className="card" id='recommended-card'>
                     <h3>Recommended Communities</h3>
                     {
                         !useRecommended.isLoading ?

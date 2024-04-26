@@ -502,6 +502,8 @@ input::-webkit-inner-spin-button {
 }
 
 .react-select-container {
+  width: 10rem;
+
   .react-select__control {
     border-radius: 10000px;
     outline: none;
@@ -529,6 +531,9 @@ input::-webkit-inner-spin-button {
     max-width: 100%;
   }
 
+  .react-select__indicator {
+    width: 3rem;
+  }
 
 }
 
@@ -1642,7 +1647,7 @@ input::-webkit-inner-spin-button {
         display: flex;
         border-radius: 15px;
         cursor: pointer;
-
+        align-items: center;
         width: 100%;
         color: $purple;
         padding: 0.6rem 0.67rem;
@@ -1787,7 +1792,8 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     gap: clamp(0.5rem, 5.5vh + 2rem, 5rem);
     align-items: end;
-    margin-left: clamp(0.5rem, 2vw, 2.25rem);
+    margin-left: clamp(0.5rem, 3vw, 3rem);
+    margin-right: 3rem;
     margin-top: clamp(2rem, 13vh, 10rem);
 
     .sidebar-upper {
@@ -2592,7 +2598,11 @@ input::-webkit-inner-spin-button {
 
   }
 
-
+  #recommended-card {
+    .rec-community__name {
+        word-break: break-all;
+    }
+  }
 
 
   .badges-card {
@@ -2768,6 +2778,27 @@ input::-webkit-inner-spin-button {
     }
   }
 
+
+  @media screen and (max-width: 1700px) {
+    .badges-card {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+  }
+
+  @media screen and (max-width: 1530px) {
+    .badges-card {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+  }
+
+  @media screen and (max-width: 1250px) {
+    .badges-card {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+  }
   @media screen and (max-width: 600px) {
     .badges-card {
       grid-template-columns: repeat(1, 1fr);
@@ -2780,19 +2811,7 @@ input::-webkit-inner-spin-button {
 
 
 
-  @media screen and (max-width: 1600px) {
-    .badges-card {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-
-  @media screen and (max-width: 1250px) {
-    .badges-card {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-  }
+ 
 
 
   @media screen and (max-width: 945px) {
@@ -4128,7 +4147,6 @@ input::-webkit-inner-spin-button {
   justify-content: center;
   gap: 1rem;
   margin-bottom: 0.65rem;
-
   select {
     outline: 0;
     font-size: 1rem;
@@ -4136,39 +4154,43 @@ input::-webkit-inner-spin-button {
     color: $grey;
     padding: 0.6rem;
   }
-
-  .gender-field-holder {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-
-    .gender-radio {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      align-items: center;
-
-      input[type=radio] {
-        border: 0px;
-        height: 1rem;
-        min-width: 0;
-        width: 2rem;
-      }
+  .react-select-container {
+    width: 20rem;
+    margin-bottom: 0.8rem;
+    .react-select__control {
+      border-radius: 10000px;
+      outline: none;
+      box-shadow: none;
     }
+  
+    .react-select__input-container {
+      font-size: 1rem;
+    }
+  
+    .react-select__option:hover {
+      color: #FFF;
+      background-color: $purple;
+    }
+  
+    .react-select__option--is-focused {
+      background-color: #FFF;
+    }
+  
+    .react-select__option--is-selected {
+      background-color: $dark_purple;
+    }
+  
+    .react-select__value-container {
+      max-width: 100%;
+    }
+  
+    .react-select__indicator {
+      width: 3rem;
+    }
+  
   }
 
-  .gender-container {
-    display: flex;
-    flex-direction: row;
-    width: clamp(4rem, 6vw, 8rem);
-    justify-content: center;
-    align-items: flex-start;
 
-    input[type=radio] {
-      border: 0px;
-      margin: 0;
-    }
-  }
 
   .left {
     display: flex;
