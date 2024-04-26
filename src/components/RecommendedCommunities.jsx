@@ -7,6 +7,7 @@ const RecommendedCommunities = (props) => {
 
     return (
         <div onClick={() => navigate(`/c/${props.communityName}`, { state: { id: `${props.communityId}` } })} className="rec-community__item" >
+            <h2>{props.index} )</h2>
             <img src={storageUrl + props.communityIcon} />
             <div className="com-count">
                 <div className="top">
