@@ -33,7 +33,6 @@ export const ContextProvider = ({ children }) => {
             setIsOpen,
             isSignUpOpen,
             setIsSignUpOpen,
-
         }}>
             {children}
         </StateContext.Provider>

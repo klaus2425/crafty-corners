@@ -9,12 +9,12 @@ import { useEffect, useState } from "react";
 
 const Messages = () => {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const { user } = useStateContext();
+  const { user, setHasMessageNotification, hasMessageNotification } = useStateContext();
   const params = new URLSearchParams(window.location.search);
   const uid = params.get('uid')
   const timeAgo = new TimeAgo();
   const [searchResults, setSearchResult] = useState(null);
+  const queryClient = useQueryClient();
 
   const viewConversation = (conversation_id, id1, id2) => {
     axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
@@ -43,8 +43,9 @@ const Messages = () => {
   }, 400)
 
   useEffect(() => {
-    queryClient.refetchQueries('conversations')
+    queryClient.invalidateQueries('conversations');
   }, [])
+
 
   return (
     <div className="authenticated-container">
@@ -62,7 +63,9 @@ const Messages = () => {
 
           {
             !searchResults ?
+
               !useConversations.isLoading ? useConversations.data.map(c => {
+                if (!c.latest_message) return null;
                 if (c.user_0.id == uid) {
                   return (
                     <div key={c.id} onClick={() => viewConversation(c.id, c.user_0.id, c.user_1.id)} className="list-card-items">
@@ -222,7 +225,7 @@ const Messages = () => {
                     </div>
                   </div>
                 )
-              }) 
+              })
           }
         </div>
       </div>

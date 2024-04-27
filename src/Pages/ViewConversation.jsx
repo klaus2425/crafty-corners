@@ -130,6 +130,7 @@ const ViewConversation = () => {
 
     if (messageRef.current.value != '' || fileRef.current.files[0]) {
       formData.append('message', messageRef.current.value);
+      messageRef.current.value = "";
       axiosClient.post(`/conversation/message/${receiver.id}`, formData)
         .then(res => {
           setIsButtonDisabled(false);
@@ -167,7 +168,7 @@ const ViewConversation = () => {
     axiosClient.post(`/conversation/mark-as-read/${conversation_id}`)
     echo.private(`user-${uid}`)
       .listen('MessageSent', (data) => {
-        if (data.user != uid && data.message.conversation_id == conversation_id) {
+        if (data.user != uid && data.message.conversation_id == conversation_id && window.location.pathname == `/conversation/${data.message.conversation_id}`) {
           getMessages(data.user)
         }
       })

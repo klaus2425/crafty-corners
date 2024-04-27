@@ -16,18 +16,20 @@ export const Sidebar = () => {
     const playChatNotification = () => {
         chat_sound.play();
     }
-
+    
     useEffect(() => {
         echo.private(`user-${user.id}`)
             .listen('MessageSent', (data) => {
                 if (!(window.location.pathname == '/messages') && !(window.location.pathname == `/conversation/${data.message.conversation_id}`)) {
                     setMessageNotify(true);
                     playChatNotification();
-                    queryClient.refetchQueries('conversations')
+                }
+                if ((window.location.pathname == '/messages')) {
+                    queryClient.invalidateQueries('conversations')
+                    playChatNotification();
                 }
                 else {
                     setMessageNotify(false);
-                    queryClient.refetchQueries('conversations')
                     playChatNotification();
                 }
             })
