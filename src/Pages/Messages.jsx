@@ -29,10 +29,7 @@ const Messages = () => {
   })
 
   const handleSearch = (ev) => {
-    if (ev.target.value != '') {
-      searchDebounce(ev.target.value);
-    }
-    else setSearchResult(null);
+    searchDebounce(ev.target.value);
   }
 
   const searchDebounce = debounce((value) => {

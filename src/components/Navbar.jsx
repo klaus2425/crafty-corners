@@ -35,10 +35,7 @@ const Navbar = () => {
     }
 
     const handleSearch = (ev) => {
-        if (ev.target.value != '') {
-            searchDebounce(ev.target.value)
-        }
-        else setSearchResult(null)
+        searchDebounce(ev.target.value)
     }
 
 
@@ -145,7 +142,7 @@ const Navbar = () => {
                             <span className="search-category">/Communities</span>
                             {searchResult?.community?.length > 0 ? searchResult.community.map(((community, index) => (
                                 <span key={index} onClick={() => {
-                                    navigate(`/c/${community.id}?uid=${user.id}`, {state: {id: `${community.id}`}})
+                                    navigate(`/c/${community.id}?uid=${user.id}`, { state: { id: `${community.id}` } })
                                     setOpenSearch(false);
                                 }} className="search-result">{community.name}</span>
                             )))
