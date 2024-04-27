@@ -68,6 +68,9 @@ $dark: #242526;
   gap: 1rem;
 }
 
+.text-align-end {
+  text-align: end;
+}
 
 :root {
   font-family: Helvetica;
@@ -1025,7 +1028,11 @@ input::-webkit-inner-spin-button {
 
   @media screen and (max-width: 550px) {
 
-
+    .search-post {
+      input {
+        width: 100%;
+      }
+    }
 
     .navbar-header {
       display: none !important;
@@ -5368,7 +5375,27 @@ input::-webkit-inner-spin-button {
 
   .tabs {
     display: flex;
-    gap: 0.5rem;
+    
+    justify-content: space-between;
+    width: 100%;
+    .tab-holder {
+      display: flex;
+      align-items: center;
+    }
+    span {
+      text-wrap: nowrap;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+    .learning-search {
+      border-radius: 25px;
+      width: 40%;
+      outline: none;
+      flex-shrink: 1;
+      border: 2px solid $light_grey;
+      padding: 0.5rem 0.8rem;
+      font-size: 1rem;
+      color: $dark_grey;
+    }
   }
 
   .active {

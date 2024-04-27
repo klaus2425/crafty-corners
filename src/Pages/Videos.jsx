@@ -10,8 +10,7 @@ const UserFeed = () => {
 
     const { user } = useStateContext();
     const [active, setActive] = useState("1");
-    const [videos, setVideos] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [searchKey, setSearchKey] = useState();
     const navigate = useNavigate();
 
     const handleAddVideo = () => {
@@ -34,7 +33,9 @@ const UserFeed = () => {
         queryFn: () => axiosClient.get(`/videos`).then(({ data }) => (data.data))
     })
 
-
+    const handleSearch = (ev) => {
+        setSearchKey(ev.target.value)
+    }
     return (
         <div className="authenticated-container">
             <div className="feed">
@@ -47,24 +48,31 @@ const UserFeed = () => {
                     </div>
                     <div className="round-card">
                         <div className="tabs">
-                            <span id="1" className={active === "1" ? "active" : undefined} onClick={handleClick}>All</span>
-                            <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
+                            <div className="tab-holder">
+                                <span id="1" className={active === "1" ? "active" : undefined} onClick={handleClick}>All</span>
+                                <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
+                            </div>
+                            <input onChange={handleSearch} className="learning-search" type="text" placeholder='Search for Communities or Articles' />
                         </div>
-
                         {
                             user?.type === 'mentor' && //Change to mentor later
                             <button onClick={handleAddVideo} className="purple-button round">Add Video</button>
-
                         }
                     </div>
                 </div>
                 <div className="card">
                     {active === '1' ?
                         !allVideos.isLoading ?
-                            allVideos.data.map(v => (
-                                <Video user={v.user.first_name + ' ' + v.user.last_name} key={v.id} link={v.video_url} title={v.video_title}
-                                    description={v.video_description} creator={v.creator} community={v.community.name} id={v.id} />
-                            ))
+                            searchKey ?
+                                allVideos.data.filter(v => v.community.name.toLowerCase().includes(searchKey.toLowerCase()) || v.video_title.toLowerCase().includes(searchKey.toLowerCase())).map(v => (
+                                    <Video user={v.user.first_name + ' ' + v.user.last_name} key={v.id} link={v.video_url} title={v.video_title}
+                                        description={v.video_description} creator={v.creator} community={v.community.name} id={v.id} />
+                                ))
+                                :
+                                allVideos.data.map(v => (
+                                    <Video user={v.user.first_name + ' ' + v.user.last_name} key={v.id} link={v.video_url} title={v.video_title}
+                                        description={v.video_description} creator={v.creator} community={v.community.name} id={v.id} />
+                                ))
                             :
                             <Loading />
                         :
@@ -72,10 +80,16 @@ const UserFeed = () => {
                     }
                     {active === '2' ?
                         !joinedVideos.isLoading ?
-                            joinedVideos.data.map(v => (
-                                <Video user={v.user.first_name + ' ' + v.user.last_name} key={v.id} link={v.video_url} title={v.video_title}
-                                    description={v.video_description} creator={v.creator} community={v.community.name} id={v.id} />
-                            ))
+                            searchKey ?
+                                joinedVideos.data.filter(a => a.community.name.toLowerCase().includes(searchKey.toLowerCase()) || a.video_title.toLowerCase().includes(searchKey.toLowerCase())).map(v => (
+                                    <Video user={v.user.first_name + ' ' + v.user.last_name} key={v.id} link={v.video_url} title={v.video_title}
+                                        description={v.video_description} creator={v.creator} community={v.community.name} id={v.id} />
+                                ))
+                                :
+                                joinedVideos.data.map(v => (
+                                    <Video user={v.user.first_name + ' ' + v.user.last_name} key={v.id} link={v.video_url} title={v.video_title}
+                                        description={v.video_description} creator={v.creator} community={v.community.name} id={v.id} />
+                                ))
                             :
                             <Loading />
                         :

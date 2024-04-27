@@ -12,8 +12,9 @@ const Article = (props) => {
                 <span className="community-title">/{props.community}</span>
             </div>
             <div className="bottom">
-                <span className="flex flex--justify-space-between gap-1"><strong>{props.author}</strong> <strong>Posted by: {props.user}</strong></span>
-                <span>{props.description}</span>
+                <span className="flex flex--justify-space-between gap-1"><strong>{props.author}</strong> 
+                <strong className="text-align-end">Posted by: {props.user}</strong></span>
+                <span >{props.description}</span>
             </div>
         </div>
     )

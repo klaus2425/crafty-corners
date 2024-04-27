@@ -1,16 +1,16 @@
-import { useState } from "react";
-import Article from "../components/Article";
-import axiosClient from "../axios-client";
-import Loading from "../components/utils/Loading";
-import { useNavigate } from "react-router-dom";
-import { useStateContext } from "../context/ContextProvider";
 import { useQuery } from '@tanstack/react-query';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axiosClient from "../axios-client";
+import Article from "../components/Article";
+import Loading from "../components/utils/Loading";
+import { useStateContext } from "../context/ContextProvider";
 
 const UserFeed = () => {
     const { user } = useStateContext();
     const [active, setActive] = useState("1");
+    const [searchKey, setSearchKey] = useState();
     const navigate = useNavigate();
-
 
     const handleClick = (ev) => {
         ev.preventDefault();
@@ -21,19 +21,20 @@ const UserFeed = () => {
         navigate(`/mentor/add-article/?uid=${user.id}`)
     }
 
-
     const allArticles = useQuery({
         queryKey: ['all-articles'],
-        queryFn: () => axiosClient.get(`/articles`).then(({data}) => (data.data))
+        queryFn: () => axiosClient.get(`/articles`).then(({ data }) => (data.data))
     })
 
 
-    const joinedArticles = useQuery({ 
+    const joinedArticles = useQuery({
         queryKey: ['joined-articles'],
-        queryFn: () => axiosClient.get(`joined/articles`).then(({data}) => (data.data))
+        queryFn: () => axiosClient.get(`joined/articles`).then(({ data }) => (data.data))
     })
 
-
+    const handleSearch = (ev) => {
+        setSearchKey(ev.target.value)
+    }
 
 
     return (
@@ -47,8 +48,11 @@ const UserFeed = () => {
                     </div>
                     <div className="round-card">
                         <div className="tabs">
-                            <span id="1" className={active === "1" ? "active" : undefined} onClick={handleClick}>All</span>
-                            <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
+                            <div className='tab-holder'>
+                                <span id="1" className={active === "1" ? "active" : undefined} onClick={handleClick}>All</span>
+                                <span id="2" className={active === "2" ? "active" : undefined} onClick={handleClick}>Your Communities</span>
+                            </div>
+                            <input onChange={handleSearch} className="learning-search" type="text" placeholder='Search for Communities or Articles' />
                         </div>
                         {
                             user?.type === 'mentor' && //Change to mentor later
@@ -61,28 +65,36 @@ const UserFeed = () => {
 
                     {
                         active === '1' ?
-                        !allArticles.isLoading ?
-                        (
-                            allArticles.data.map(a => (
-                                <Article user={a.user.first_name + ' ' + a.user.last_name} key={a.id} author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name} />
-                            ))
-                        )
-                        :
-                        <Loading />
-                        :
-                        null
+                            !allArticles.isLoading ?
+                                searchKey ?
+                                    allArticles.data.filter(a => a.community.name.toLowerCase().includes(searchKey.toLowerCase()) || a.title.toLowerCase().includes(searchKey.toLowerCase())).map(a => (
+                                        <Article user={a.user.first_name + ' ' + a.user.last_name} key={a.id} author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name} />
+                                    ))
+                                    :
+                                    allArticles.data.map(a => (
+                                        <Article user={a.user.first_name + ' ' + a.user.last_name} key={a.id} author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name} />
+                                    ))
+                                :
+                                <Loading />
+                            :
+                            null
                     }
-                                        {
+                    {
                         active === '2' ?
-                        !joinedArticles.isLoading ?
-                        joinedArticles?.data.map(a => (
-                            <Article user={a.user.first_name + ' ' + a.user.last_name} key={a.id} author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name} />
-                        ))
-                        :
-                        <Loading />
-                        :
-                        null
-            
+                            !joinedArticles.isLoading ?
+                                searchKey ?
+                                    joinedArticles.data.filter(a => a.community.name.toLowerCase().includes(searchKey.toLowerCase()) || a.title.toLowerCase().includes(searchKey.toLowerCase())).map(a => (
+                                        <Article user={a.user.first_name + ' ' + a.user.last_name} key={a.id} author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name} />
+                                    ))
+                                    :
+                                    joinedArticles.data.map(a => (
+                                        <Article user={a.user.first_name + ' ' + a.user.last_name} key={a.id} author={a.author} title={a.title} description={a.description} link={a.link} community={a.community.name} />
+                                    ))
+                                :
+                                <Loading />
+                            :
+                            null
+
                     }
                 </div>
 
