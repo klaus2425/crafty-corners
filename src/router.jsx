@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import ErrorBoundary from "./components/ErrorBoundary";
+import ReportedComments from "./Pages/Admin/ReportedComments";
 
 const DefaultLayout = lazy(() => import('./layouts/DefaultLayout'));
 const Notifications = lazy(() => import('./Pages/Notifications'));
@@ -221,7 +222,7 @@ const router = createBrowserRouter([
                 element: <ReportedPosts />
             },
             {
-                path: '/view-reported-post/:postId/:reportId',
+                path: '/view-reported-post/:reportId',
                 element: <ViewReportedPost />
             },
             {
@@ -235,6 +236,10 @@ const router = createBrowserRouter([
             {
                 path: '/deactivated-users',
                 element: <DeactivatedUsers />
+            },
+            {
+                path: '/reported-comments/',
+                element: <ReportedComments />
             }
 
         ]
