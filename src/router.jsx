@@ -22,7 +22,7 @@ const AdminCommunities = lazy(() => import("./Pages/Admin/AdminCommunities"));
 const AdminVideos = lazy(() => import("./Pages/Admin/AdminVideos"));
 const EditArticle = lazy(() => import("./Pages/Admin/EditArticle"));
 const EditCommunity = lazy(() => import("./Pages/Admin/EditCommunity"));
-const EditUser = lazy(() => import("./Pages/Admin/EditUser"));
+const ViewUser = lazy(() => import("./Pages/Admin/ViewUser"));
 const EditVideo = lazy(() => import("./Pages/Admin/EditVideo"));
 const MentorApplicants = lazy(() => import("./Pages/Admin/MentorApplicants"));
 const ReportedPosts = lazy(() => import("./Pages/Admin/ReportedPosts"));
@@ -170,7 +170,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/view-user/:id',
-                element: <EditUser />
+                element: <ViewUser />
             },
             {
                 path: '/admin-communities',

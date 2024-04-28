@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import axiosClient from "../../axios-client";
 import Loading from "../../components/utils/Loading";
 
-const EditUser = () => {
+const ViewUser = () => {
     const { id } = useParams();
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
     const [e_user, setE_User] = useState({});
@@ -183,4 +183,4 @@ const EditUser = () => {
     )
 }
 
-export default EditUser;
+export default ViewUser;
