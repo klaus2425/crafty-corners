@@ -8,7 +8,7 @@ const UserNotifications = (props) => {
     const navigate = useNavigate();
     const handlePostClick = () => {
         navigate(`/p/${props.post_id}?uid=${props.uid}`)
-        axiosClient.post(`/notifications/mark-as-read/${props.id}`).then(() => queryClient.refetchQueries('notifications')
+        axiosClient.post(`/notifications/mark-as-read/${props.id}`).then(() => queryClient.invalidateQueries('notifications')
         
         )
     }
