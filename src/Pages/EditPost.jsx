@@ -31,8 +31,8 @@ export const EditPost = () => {
       {
         loading: 'Editing post',
         success: () => {
-          queryClient.refetchQueries(`post-${id}`)
-          queryClient.refetchQueries(`posts`)
+          queryClient.invalidateQueries(`post-${id}`)
+          queryClient.invalidateQueries(`posts`)
           navigate(`/p/${id}?uid=user.id`)
           return <b>Success</b>
         },
