@@ -11,7 +11,7 @@ const ReportModal = (props) => {
     formData.append('reason', reasonRef.current.value);
     formData.append('description', descriptionRef.current.value);
 
-    toast.promise(axiosClient.post(`/report-post/${props.postId}`, formData)
+    toast.promise(axiosClient.post(`/report/${props.type}/${props.postId}`, formData)
       , {
         loading: 'Submitting Report',
         success: () => {
