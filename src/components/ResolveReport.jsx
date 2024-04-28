@@ -4,11 +4,14 @@ import toast from "react-hot-toast";
 
 const ResolveReport = (props) => {
   const selectRef = useRef();
+  const resolutionDescRef = useRef();
 
   const handleClose = () => {
     props.setResolveOpen(false);
   }
 
+  console.log(props.type);
+  console.log(props.reportId);
   const handleSubmit = () => {
     const formData = new FormData();
     const originalDate = new Date();
@@ -16,12 +19,12 @@ const ResolveReport = (props) => {
     const formattedDateTime = originalDate.toISOString().slice(0, 19).replace('T', ' '); // Format as YYYY-MM-DD HH:MM:SS
     formData.append('report_id', props.reportId);
     formData.append('resolution_option', selectRef.current.value);
-
+    formData.append('resolution_description', resolutionDescRef.current.value);
     if (selectRef.current.value === 'suspend') {
       formData.append('unsuspend_date', formattedDateTime);
     }
 
-    toast.promise(axiosClient.post(`/resolve-report/${props.postId}`, formData),
+    toast.promise(axiosClient.post(`/resolve-report/${props.type}/${props.reportableId}`, formData),
       {
         loading: 'Resolving problem',
         success: () => {
@@ -55,6 +58,7 @@ const ResolveReport = (props) => {
           <option value="suspend">Suspend user</option>
           <option value="ignore">Ignore report</option>
         </select>
+        <textarea ref={resolutionDescRef} name="resolution_description" id="" cols="15" rows="5" placeholder="Explain the reason for your conclusion"></textarea>
         <button onClick={handleSubmit} className="purple-button">Submit</button>
 
       </div>

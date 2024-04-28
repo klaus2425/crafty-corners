@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import axiosClient from "../../axios-client";
 import Loading from "../../components/utils/Loading";
 import { Link } from "react-router-dom";
@@ -7,8 +6,8 @@ import { useQuery } from '@tanstack/react-query';
 const ReportedPosts = () => {
 
   const useReports = useQuery({
-    queryKey: ['reports'],
-    queryFn: () => axiosClient.get('/show-all-reports')
+    queryKey: ['reported-posts'],
+    queryFn: () => axiosClient.get('/report/posts')
       .then(({ data }) => data.data)
   })
 
@@ -18,10 +17,7 @@ const ReportedPosts = () => {
         <h2>Posts for review</h2>
       </div>
       <div className='users-table'>
-
-
         {useReports.data ?
-
           useReports.data?.map(u => (
             <div key={u.id} className="community-item">
               <div className="community-item-details" >
@@ -32,7 +28,7 @@ const ReportedPosts = () => {
                   <span><strong>Status:  <br /></strong><span className={u.is_resolved ? 'green' : 'red'}>{u.is_resolved ? 'Resolved' : 'Unresolved'}</span></span>
                 </div>
                 <div className="buttons-community">
-                  <Link to={'/view-reported-post/' + u.post.id + '/' + u.id} className="orange-button">View Post</Link>
+                  <Link to={`/view-reported-post/${u.id}/${u.post.id}` } className="orange-button">View Post</Link>
                 </div>
 
 

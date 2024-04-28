@@ -222,7 +222,7 @@ const router = createBrowserRouter([
                 element: <ReportedPosts />
             },
             {
-                path: '/view-reported-post/:reportId',
+                path: '/view-reported-post/:reportId/:postId',
                 element: <ViewReportedPost />
             },
             {

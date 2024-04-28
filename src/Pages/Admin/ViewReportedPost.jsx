@@ -1,16 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState } from "react";
+import { lazy, useState, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import axiosClient from "../../axios-client";
-import ResolveReport from "../../components/ResolveReport";
 import Loading from "../../components/utils/Loading";
 
 const ViewReportedPost = () => {
   const { postId, reportId } = useParams();
   const [resolveOpen, setResolveOpen] = useState(false);
   const storageUrl = import.meta.env.VITE_API_POSTS_URL;
-
-
+  const ResolveReport = lazy(() => import('../../components/ResolveReport'));
   const handleResolve = () => {
     setResolveOpen(!resolveOpen);
   }
@@ -19,17 +17,21 @@ const ViewReportedPost = () => {
 
   const useReport = useQuery({
     queryKey: [`report-${reportId}`],
-    queryFn: () => axiosClient.get(`/show-report/${postId}/${reportId}`).then(({data}) => data.data)
+    queryFn: () => axiosClient.get(`/report/${reportId}`).then(({ data }) => data.data)
   })
 
 
   if (useReport.isLoading) {
     return <Loading />
   }
-  if (useReport?.data.post_type === 'text') {
+  console.log(useReport.data);
+  if (useReport?.data.reportable.post_type === 'text') {
     return (
       <div className="communities-container">
-        <ResolveReport resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} postId={postId} reportId={reportId} />
+        {resolveOpen &&
+          <Suspense>
+            <ResolveReport type={'post'} resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} reportableId={postId} reportId={reportId} />
+          </Suspense>}
         <div className="top-section">
           <h2>Report Details</h2>
         </div>
@@ -76,11 +78,14 @@ const ViewReportedPost = () => {
       </div>
     )
   }
-  if (useReport?.data.post_type === 'link') {
+  if (useReport?.data.reportable.post_type === 'link') {
     return (
       <div className="communities-container">
-        <ResolveReport resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} postId={postId} reportId={reportId} />
-        <div className="top-section">
+        {resolveOpen &&
+          <Suspense>
+            <ResolveReport type={'post'} resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} reportableId={postId} reportId={reportId} />
+          </Suspense>
+        }        <div className="top-section">
           <h2>Report Details</h2>
         </div>
         <div className='report-post-details'>
@@ -126,11 +131,13 @@ const ViewReportedPost = () => {
       </div>
     )
   }
-  if (useReport?.data.post_type === 'video') {
+  if (useReport?.data.reportable.post_type === 'video') {
     return (
       <div className="communities-container">
-        <ResolveReport resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} postId={postId}  reportId={reportId}  />
-        <div className="top-section">
+        {resolveOpen &&
+          <Suspense>
+            <ResolveReport type={'post'} resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} reportableId={postId} reportId={reportId} />
+          </Suspense>}        <div className="top-section">
           <h2>Report Details</h2>
         </div>
         <div className='report-post-details'>
@@ -161,7 +168,7 @@ const ViewReportedPost = () => {
             <div className="right">
               <div style={{ marginBottom: '2rem' }} className="report-details">
                 <strong>Content: <br /></strong>
-                <video className='report-video' controls src={storageUrl+useReport?.data.video} type="video/mp4"/>
+                <video className='report-video' controls src={storageUrl + useReport?.data.reportable.video} type="video/mp4" />
               </div>
               <span><strong>Reason for reporting:</strong><br />{useReport?.data.reason}</span>
               <div><strong>Description:</strong></div>
@@ -175,11 +182,13 @@ const ViewReportedPost = () => {
       </div>
     )
   }
-  if (useReport?.data.post_type === 'image') {
+  if (useReport?.data.reportable.post_type === 'image') {
     return (
       <div className="communities-container">
-        <ResolveReport resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} postId={postId}  reportId={reportId}  />
-        <div className="top-section">
+        {resolveOpen &&
+          <Suspense>
+            <ResolveReport type={'post'} resolveOpen={resolveOpen} setResolveOpen={setResolveOpen} reportableId={postId} reportId={reportId} />
+          </Suspense>}        <div className="top-section">
           <h2>Report Details</h2>
         </div>
         <div className='report-post-details'>
@@ -210,7 +219,7 @@ const ViewReportedPost = () => {
             <div className="right">
               <div style={{ marginBottom: '2rem' }} className="report-details">
                 <strong>Content: <br /></strong>
-                <img className='report-details__image' src={storageUrl+useReport?.data.image} alt='post image' />
+                <img className='report-details__image' src={storageUrl + useReport?.data.reportable.image} alt='post image' />
               </div>
               <span><strong>Reason for reporting:</strong><br />{useReport?.data.reason}</span>
               <div><strong>Description:</strong></div>
