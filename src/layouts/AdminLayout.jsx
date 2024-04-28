@@ -50,19 +50,22 @@ const AdminLayout = () => {
                         <span className="admin-header"> <FontAwesomeIcon icon={faTableColumns} /> ADMIN DASHBOARD</span>
                         <hr />
                         <div className="links">
-                            <Link id="1" className={active === "1" ? "active" : undefined} to="/Users" onClick={handleClick}><FontAwesomeIcon icon={faUsers} /> Users</Link>
-                            <Link id="2" className={active === "2" ? "active" : undefined} to="/deactivated-users" onClick={handleClick}><FontAwesomeIcon icon={faUsers} /> Deactivated Users</Link>
-                            <Link id="3" className={active === "3" ? "active" : undefined} to="/admin-communities" onClick={handleClick}><FontAwesomeIcon icon={faGroupArrowsRotate} /> Communities</Link>
-                            <Link id="4" className={active === "4" ? "active" : undefined} to="/admin-articles" onClick={handleClick}><FontAwesomeIcon icon={faNewspaper} /> Articles</Link>
-                            <Link id="5" className={active === "5" ? "active" : undefined} to="/admin-videos" onClick={handleClick}><FontAwesomeIcon icon={faFilm} /> Videos</Link>
+                            <Link to="/Users" onClick={handleClick}><FontAwesomeIcon icon={faUsers} /> Users</Link>
+                            <Link to="/deactivated-users" onClick={handleClick}><FontAwesomeIcon icon={faUsers} /> Deactivated Users</Link>
+                            <Link to="/admin-communities" onClick={handleClick}><FontAwesomeIcon icon={faGroupArrowsRotate} /> Communities</Link>
+                            <Link to="/admin-articles" onClick={handleClick}><FontAwesomeIcon icon={faNewspaper} /> Articles</Link>
+                            <Link to="/admin-videos" onClick={handleClick}><FontAwesomeIcon icon={faFilm} /> Videos</Link>
                             <a onClick={() => {
                                 setIsOpen(!isOpen);
                             }} style={{ cursor: 'pointer' }}><FontAwesomeIcon icon={faFlag} /> Reports</a>
                             <div className={`collapsible ${isOpen ? 'open' : ''}`}>
-                                <Link id="6" className={active === "6" ? "active" : undefined} to="/reported-posts" onClick={handleClick}><FontAwesomeIcon icon={faClipboard} /> Posts</Link>
-                                <Link id="7" className={active === "7" ? "active" : undefined} to="/reports/archives" onClick={handleClick}><FontAwesomeIcon icon={faBoxArchive} /> Archived</Link>
+                                <Link to="/reported-posts" onClick={handleClick}><FontAwesomeIcon icon={faClipboard} /> Posts</Link>
+                                <Link to="/reported-comments" onClick={handleClick}><FontAwesomeIcon icon={faBoxArchive} /> Comments</Link>
+                                <Link to="/reported-conversations" onClick={handleClick}><FontAwesomeIcon icon={faBoxArchive} /> Archived</Link>
+                                <Link to="/reports/archives" onClick={handleClick}><FontAwesomeIcon icon={faBoxArchive} /> Archived</Link>
+
                             </div>
-                            <Link id="8" className={active === "8" ? "active" : undefined} to="/mentor-applicants" onClick={handleClick}><FontAwesomeIcon icon={faChalkboardUser} /> Mentors</Link>
+                            <Link to="/mentor-applicants" onClick={handleClick}><FontAwesomeIcon icon={faChalkboardUser} /> Mentors</Link>
                         </div>
                     </div>
                     <div className="dashboard-right">
