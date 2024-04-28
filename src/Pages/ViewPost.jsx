@@ -395,15 +395,25 @@ const ViewPost = () => {
             <hr />
           </div>
           <div className="comments-container">
-            {useComments.data && useComments?.data.map((c) => (
-              <div key={c.id} onClick={() => handleCommentClick(c.id)} className="comment-card">
-                <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
-                <div className="name-comment">
-                  <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} </span></div>
-                  {c.content}
+            {useComments.data && useComments?.data.map((c) => {
+              return c.commenter.id != user.id ? (
+                <div key={c.id} onClick={() => handleCommentClick(c.id)} className="comment-card comment-card--pointer">
+                  <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
+                  <div className="name-comment">
+                    <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} </span></div>
+                    {c.content}
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+                :
+                <div key={c.id} className="comment-card">
+                  <img className='user-img-comment' src={`${storageUserUrl}${c.commenter.profile_picture}`} />
+                  <div className="name-comment">
+                    <div className="name-time">{c.commenter.first_name} <span>{timeAgo.format(new Date(c.created_at.replace(' ', 'T')), 'twitter-now')} </span></div>
+                    {c.content}
+                  </div>
+                </div>
+            })}
           </div>
         </div>
         <div className="recommended">
