@@ -49,7 +49,7 @@ const ViewConversation = lazy(() => import("./Pages/ViewConversation"));
 const ViewPost = lazy(() => import("./Pages/ViewPost"));
 const ViewVideo = lazy(() => import("./Pages/ViewVideo"));
 const EditPost = lazy(() => import('./Pages/EditPost'));
-
+const DeactivatedUsers = lazy(() => import('./Pages/Admin/DeactivatedUsers'));
 const router = createBrowserRouter([
     {
         path: '/',
@@ -232,6 +232,10 @@ const router = createBrowserRouter([
                 path: '/archived-post/:id',
                 element: <ViewArchivedPost />
             },
+            {
+                path: '/deactivated-users',
+                element: <DeactivatedUsers />
+            }
 
         ]
     },

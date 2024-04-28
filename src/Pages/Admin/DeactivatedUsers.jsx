@@ -6,7 +6,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import toast from "react-hot-toast";
 
-const Users = () => {
+const DeactivatedUsers = () => {
 
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
 
@@ -35,12 +35,12 @@ const Users = () => {
 
 
   const fetchUsers = async (pageParams) => {
-    const fetchedData = await axiosClient.get(`/users?page=${pageParams}`)
+    const fetchedData = await axiosClient.get(`/deactivated-users?page=${pageParams}`)
     return { ...fetchedData.data, prevPage: pageParams };
   }
 
   const { data, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
-    queryKey: ['admin-users'],
+    queryKey: ['deactivated-users'],
     queryFn: ({ pageParam }) => fetchUsers(pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
@@ -103,4 +103,4 @@ const Users = () => {
 
 }
 
-export default Users;
+export default DeactivatedUsers;
