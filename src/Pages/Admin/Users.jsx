@@ -1,10 +1,10 @@
-import axiosClient from "../../axios-client";
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import toast from "react-hot-toast";
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
+import axiosClient from "../../axios-client";
 import Loading from '../../components/utils/Loading';
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import toast from "react-hot-toast";
 
 const Users = () => {
 
@@ -40,7 +40,7 @@ const Users = () => {
     return { ...fetchedData.data, prevPage: pageParams };
   }
 
-  const { data, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage, } = useInfiniteQuery({
     queryKey: ['admin-users'],
     queryFn: ({ pageParam }) => fetchUsers(pageParam),
     initialPageParam: 1,
