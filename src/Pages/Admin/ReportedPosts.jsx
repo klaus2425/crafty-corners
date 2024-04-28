@@ -2,6 +2,8 @@ import axiosClient from "../../axios-client";
 import Loading from "../../components/utils/Loading";
 import { Link } from "react-router-dom";
 import { useQuery } from '@tanstack/react-query';
+import ReactSelect from "react-select";
+import { useState } from "react";
 
 const ReportedPosts = () => {
 
@@ -10,29 +12,108 @@ const ReportedPosts = () => {
     queryFn: () => axiosClient.get('/report/posts')
       .then(({ data }) => data.data)
   })
+  const [isFiltering, setIsFiltering] = useState(false);
+  const [reasonFilterKey, setReasonFilterKey] = useState({value: null, label: 'Select Reason'});
+  const [statusFilterKey, setStatusFilterKey] = useState({value: null, label: 'Select Status'})
+  const options = [
+    { value: "Spam", label: "Spam" },
+    { value: "Violence", label: "Violence" },
+    { value: "Hate Speech", label: "Hate Speech" },
+    { value: "False Information", label: "False Information" },
+    { value: "Harassment", label: "Harassment" }, // Fixed typo in 'Harassment'
+    { value: "Nudity", label: "Nudity" },
+    { value: "Irrelevant Topic", label: "Irrelevant Topic" },
+    { value: "Plagiarism", label: "Plagiarism" }
+  ];
+  const statusOptions = [
+    {value: true, label: "Resolved"},
+    {value: false, label: "Unresolved"}
+  ]
+  const handleSelectChangeReason = (value) => {
+    setIsFiltering(true);
+    setReasonFilterKey(value)
+  }
+  const handleSelectChangeStatus = (value) => {
+    setIsFiltering(true);
+    console.log(value);
+    setStatusFilterKey(value)
+  }
+  const handleClear = () => {
+    setIsFiltering(false);
+    setReasonFilterKey({value: null, label: 'Select Reason'});
+    setStatusFilterKey({value: null, label: 'Select Status'})
+  }
 
   return (
     <div className="communities-container">
       <div className="top-section">
         <h2>Posts for review</h2>
       </div>
+      <div className="filters">
+        <span><strong>Filters:</strong></span>
+        <ReactSelect
+          value={reasonFilterKey}
+          placeholder="Report reason"
+          className="react-select-container"
+          classNamePrefix="react-select"
+          options={options}
+          onChange={handleSelectChangeReason}
+        />
+        <ReactSelect
+          value={statusFilterKey}
+          placeholder="Report reason"
+          className="react-select-container"
+          classNamePrefix="react-select"
+          options={statusOptions}
+          onChange={handleSelectChangeStatus}
+        />
+        <button onClick={handleClear} className="btn btn--purple">Clear</button>
+      </div>
       <div className='users-table'>
-        {useReports.data ?
-          useReports.data?.map(u => (
-            <div key={u.id} className="community-item">
-              <div className="community-item-details" >
-                <div className="community-details-top">
-                  <span><strong>Report ID: <br /> </strong>{u.id} </span>
-                  <span><strong>Reason for reporting:  <br /></strong>{u.reason}</span>
-                  <span className='desc'><strong>Description:  <br /></strong>{u.description}</span>
-                  <span><strong>Status:  <br /></strong><span className={u.is_resolved ? 'green' : 'red'}>{u.is_resolved ? 'Resolved' : 'Unresolved'}</span></span>
-                </div>
-                <div className="buttons-community">
-                  <Link to={`/view-reported-post/${u.id}/${u.post.id}` } className="orange-button">View Post</Link>
+        {!useReports.isLoading ?
+          !isFiltering ?
+            useReports.data?.map(u => (
+              <div key={u.id} className="community-item">
+                <div className="community-item-details" >
+                  <div className="community-details-top">
+                    <span><strong>Report ID: <br /> </strong>{u.id} </span>
+                    <span><strong>Reason for reporting:  <br /></strong>{u.reason}</span>
+                    <span className='desc'><strong>Description:  <br /></strong>{u.description}</span>
+                    <span><strong>Status:  <br /></strong><span className={u.is_resolved ? 'green' : 'red'}>{u.is_resolved ? 'Resolved' : 'Unresolved'}</span></span>
+                  </div>
+                  <div className="buttons-community">
+                    <Link to={`/view-reported-post/${u.id}/${u.post.id}`} className="orange-button">View Post</Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
+            ))
+            :
+            useReports.data.filter(post => {
+              if (reasonFilterKey.value !== null && statusFilterKey.value !== null) {
+                return post.reason === reasonFilterKey.value && post.is_resolved === statusFilterKey.value;
+              } else if (reasonFilterKey.value !== null) {
+                return post.reason === reasonFilterKey.value;
+              } else if (statusFilterKey.value !== null) {
+                return post.is_resolved === statusFilterKey.value;
+              } else {
+                // If both filter keys are empty, return true to include all data
+                return true;
+              }
+            }).map(u => (
+              <div key={u.id} className="community-item">
+                <div className="community-item-details" >
+                  <div className="community-details-top">
+                    <span><strong>Report ID: <br /> </strong>{u.id} </span>
+                    <span><strong>Reason for reporting:  <br /></strong>{u.reason}</span>
+                    <span className='desc'><strong>Description:  <br /></strong>{u.description}</span>
+                    <span><strong>Status:  <br /></strong><span className={u.is_resolved ? 'green' : 'red'}>{u.is_resolved ? 'Resolved' : 'Unresolved'}</span></span>
+                  </div>
+                  <div className="buttons-community">
+                    <Link to={`/view-reported-post/${u.id}/${u.post.id}`} className="orange-button">View Post</Link>
+                  </div>
+                </div>
+              </div>
+            ))
           :
           <Loading />
         }
