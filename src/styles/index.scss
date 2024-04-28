@@ -167,7 +167,13 @@ $dark: #242526;
       width: 100%;
       flex-direction: column;
       align-items: center;
-
+      .community-description {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+      }
       .community-name {
         font-weight: bold;
         color: $darker;
