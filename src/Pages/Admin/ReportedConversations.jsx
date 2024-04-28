@@ -35,9 +35,7 @@ const ReportedConversations = () => {
             </div>
           ))
           :
-
           <Loading />
-
         }
 
       </div>
