@@ -2,31 +2,33 @@ import axiosClient from "../../axios-client";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import Loading from '../../components/utils/Loading';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import toast from "react-hot-toast";
 
 const DeactivatedUsers = () => {
 
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
+  const queryClient = useQueryClient();
 
 
-
-  const onDeleteClick = user => {
+  const onActivateClick = (user) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "This will give the user access to their account",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonText: "Yes"
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosClient.post(`/deactivate/${user.id}`)
+        axiosClient.post(`/activate/${user.id}`)
           .then(() => {
-            toast.success('User has been deactivated')
-            refetch();
+            toast.success('User has been activated')
+            queryClient.invalidateQueries('deactivated-users');
+            queryClient.invalidateQueries('admin-users');
+
           })
       }
     });
@@ -58,7 +60,7 @@ const DeactivatedUsers = () => {
   return (
     <div className="communities-container">
       <div className="top-section">
-        <div className='user-count'>Current Number of users: {data?.pages[0].meta.total - 1}</div>
+        <div className='user-count'>Current number of deactivated users: {data?.pages[0].meta.total}</div>
       </div>
       <div className='users-table' id='users-table'>
         {
@@ -83,8 +85,8 @@ const DeactivatedUsers = () => {
                             <span><strong>Date Created:  <br /></strong>{u.created_at}</span>
                           </div>
                           <div className="buttons-community">
-                            <Link to={'/edit-user/' + u.id} className="orange-button">View User</Link>
-                            <button className="red-button" onClick={ev => onDeleteClick(u)}>Deactivate User</button>
+                            <Link to={'/view-user/' + u.id} className="orange-button">View User</Link>
+                            <button className="red-button" onClick={() => onActivateClick(u)}>Activate User</button>
                           </div>
                         </div>
                       </div>

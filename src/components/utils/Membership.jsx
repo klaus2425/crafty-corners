@@ -18,10 +18,10 @@ const MembershipCheck = (props) => {
 
   const joinCommunity = (id) => {
     axiosClient.post(`/join-community/${id}`)
-      .then(() => {
+      .then((res) => {
         getCommunity();
         setIsMember(true);
-
+        console.log(res);
       })
       .catch(err => {
         setIsMember(false);
