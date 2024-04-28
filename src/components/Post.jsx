@@ -121,7 +121,7 @@ const Post = (props) => {
                 {
                     reportOpen &&
                     <Suspense>
-                        <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                        <ReportModal type={'post'} poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                     </Suspense>
                 }
 
@@ -217,7 +217,7 @@ const Post = (props) => {
                     {
                         reportOpen &&
                         <Suspense>
-                            <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                            <ReportModal type={'post'} poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                         </Suspense>
                     }
                     <div className="left">
@@ -308,7 +308,7 @@ const Post = (props) => {
                     {
                         reportOpen &&
                         <Suspense>
-                            <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                            <ReportModal type={'post'} poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                         </Suspense>
                     }
                     <div className="left">
@@ -401,7 +401,7 @@ const Post = (props) => {
                         {
                             reportOpen &&
                             <Suspense>
-                                <ReportModal poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                                <ReportModal type={'post'} poster_id={post.user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
                             </Suspense>
                         }
 
