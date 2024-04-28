@@ -59,7 +59,6 @@ const ReportConversationModal = (props) => {
           <option value="False Information">False Information</option>
           <option value="Harrasment">Harrasment</option>
           <option value="Nudity">Nudity</option>
-          <option value="Irrelevant Topic">Irrelevant Topic</option>
           <option value="Plagiarism">Plagiarism</option>
         </select>
         <textarea ref={descriptionRef} cols="15" rows="5" placeholder="Report description"></textarea>
