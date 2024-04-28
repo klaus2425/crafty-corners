@@ -1,24 +1,25 @@
-import axiosClient from "../../axios-client";
+import { useQuery } from "@tanstack/react-query";
+import axiosClient from "../../axios-client"
 import Loading from "../../components/utils/Loading";
 import { Link } from "react-router-dom";
-import { useQuery } from '@tanstack/react-query';
 
-const ReportedPosts = () => {
-
-  const useReports = useQuery({
-    queryKey: ['reported-post'],
-    queryFn: () => axiosClient.get('/report/posts')
+const ReportedConversations = () => {
+  const { data, isLoading} = useQuery({
+    queryKey: ['reported-conversation'],
+    queryFn: () => axiosClient.get('/report/conversations')
       .then(({ data }) => data.data)
+
   })
 
+  console.log(data);
   return (
     <div className="communities-container">
       <div className="top-section">
-        <h2>Posts for review</h2>
+        <h2>Conversations for review</h2>
       </div>
       <div className='users-table'>
-        {useReports.data ?
-          useReports.data?.map(u => (
+        {!isLoading ?
+          data.map(u => (
             <div key={u.id} className="community-item">
               <div className="community-item-details" >
                 <div className="community-details-top">
@@ -28,13 +29,15 @@ const ReportedPosts = () => {
                   <span><strong>Status:  <br /></strong><span className={u.is_resolved ? 'green' : 'red'}>{u.is_resolved ? 'Resolved' : 'Unresolved'}</span></span>
                 </div>
                 <div className="buttons-community">
-                  <Link to={`/view-reported-post/${u.id}/${u.post.id}` } className="orange-button">View Post</Link>
+                  <Link to={`/view-reported-conversation/${u.id}/${u.conversation.id}`} className="orange-button">View Post</Link>
                 </div>
               </div>
             </div>
           ))
           :
+
           <Loading />
+
         }
 
       </div>
@@ -42,4 +45,4 @@ const ReportedPosts = () => {
   )
 }
 
-export default ReportedPosts;
+export default ReportedConversations;

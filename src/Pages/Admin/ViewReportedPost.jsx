@@ -40,7 +40,7 @@ const ViewReportedPost = () => {
             <div className="left">
               <div className="report-details">
                 <strong>Post Title: </strong>
-                {useReport?.data.title}
+                {useReport?.data.reportable.title}
               </div>
               <div className="report-details">
                 <strong>Posted by: </strong>
@@ -67,7 +67,7 @@ const ViewReportedPost = () => {
             <div className="right">
               <div style={{ marginBottom: '2rem' }} className="report-details">
                 <strong>Content: <br /></strong>
-                {useReport?.data.content}
+                {useReport?.data.reportable.content}
               </div>
             </div>
           </div>
@@ -93,7 +93,7 @@ const ViewReportedPost = () => {
             <div className="left">
               <div className="report-details">
                 <strong>Post Title: </strong>
-                {useReport?.data.title}
+                {useReport?.data.reportable.title}
               </div>
               <div className="report-details">
                 <strong>Posted by: </strong>
@@ -120,7 +120,7 @@ const ViewReportedPost = () => {
             <div className="right">
               <div style={{ marginBottom: '2rem' }} className="report-details">
                 <strong>Content: <br /></strong>
-                {useReport?.data.link}
+                {useReport?.data.reportable.link}
               </div>
             </div>
           </div>
@@ -145,7 +145,7 @@ const ViewReportedPost = () => {
             <div className="left">
               <div className="report-details">
                 <strong>Post Title: </strong>
-                {useReport?.data.title}
+                {useReport?.data.reportable.title}
               </div>
               <div className="report-details">
                 <strong>Posted by: </strong>
@@ -196,7 +196,7 @@ const ViewReportedPost = () => {
             <div className="left">
               <div className="report-details">
                 <strong>Post Title: </strong>
-                {useReport?.data.title}
+                {useReport?.data.reportable.title}
               </div>
               <div className="report-details">
                 <strong>Posted by: </strong>

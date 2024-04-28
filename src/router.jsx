@@ -2,6 +2,9 @@ import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ReportedComments from "./Pages/Admin/ReportedComments";
+import ViewReportedComment from "./Pages/Admin/ViewReportedComment";
+import ReportedConversations from "./Pages/Admin/ReportedConversations";
+import ViewReportedConverstion from "./Pages/Admin/ViewReportedConversation";
 
 const DefaultLayout = lazy(() => import('./layouts/DefaultLayout'));
 const Notifications = lazy(() => import('./Pages/Notifications'));
@@ -222,9 +225,22 @@ const router = createBrowserRouter([
                 element: <ReportedPosts />
             },
             {
+                path: '/reported-conversations/',
+                element: <ReportedConversations />
+            },
+            {
                 path: '/view-reported-post/:reportId/:postId',
                 element: <ViewReportedPost />
             },
+            {
+                path: '/view-reported-comment/:reportId/:commentId',
+                element: <ViewReportedComment />
+            },
+            {
+                path:'/view-reported-conversation/:reportId/:conversationId',
+                element: <ViewReportedConverstion />
+            },
+            
             {
                 path: '/reports/archives',
                 element: <ReportsArchived />,

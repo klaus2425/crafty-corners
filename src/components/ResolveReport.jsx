@@ -1,11 +1,12 @@
 import { useRef } from "react";
 import axiosClient from "../axios-client";
 import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ResolveReport = (props) => {
   const selectRef = useRef();
   const resolutionDescRef = useRef();
-
+  const queryClient = useQueryClient();
   const handleClose = () => {
     props.setResolveOpen(false);
   }
@@ -29,6 +30,7 @@ const ResolveReport = (props) => {
         loading: 'Resolving problem',
         success: () => {
           handleClose()
+          queryClient.invalidateQueries(`reported-${props.type}`)
           return <b>Report resolved</b>
         },
         error: (err) => {
