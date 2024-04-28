@@ -2,9 +2,40 @@ import { useQuery } from "@tanstack/react-query";
 import axiosClient from "../../axios-client"
 import Loading from "../../components/utils/Loading";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import ReactSelect from "react-select";
 
 const ReportedConversations = () => {
-  const { data, isLoading} = useQuery({
+
+
+  const [reasonFilterKey, setReasonFilterKey] = useState({ value: null, label: 'Select Reason' });
+  const [statusFilterKey, setStatusFilterKey] = useState({ value: null, label: 'Select Status' });
+  const options = [
+    { value: "Spam", label: "Spam" },
+    { value: "Violence", label: "Violence" },
+    { value: "Hate Speech", label: "Hate Speech" },
+    { value: "False Information", label: "False Information" },
+    { value: "Harassment", label: "Harassment" },
+    { value: "Nudity", label: "Nudity" },
+    { value: "Plagiarism", label: "Plagiarism" }
+  ];
+  const statusOptions = [
+    { value: true, label: "Resolved" },
+    { value: false, label: "Unresolved" }
+  ]
+  const handleSelectChangeReason = (value) => {
+    setReasonFilterKey(value)
+  }
+  const handleSelectChangeStatus = (value) => {
+    console.log(value);
+    setStatusFilterKey(value)
+  }
+  const handleClear = () => {
+    setReasonFilterKey({ value: null, label: 'Select Reason' });
+    setStatusFilterKey({ value: null, label: 'Select Status' });
+  }
+
+  const { data, isLoading } = useQuery({
     queryKey: ['reported-conversation'],
     queryFn: () => axiosClient.get('/report/conversations')
       .then(({ data }) => data.data)
@@ -17,9 +48,39 @@ const ReportedConversations = () => {
       <div className="top-section">
         <h2>Conversations for review</h2>
       </div>
+      <div className="filters">
+        <span><strong>Filters:</strong></span>
+        <ReactSelect
+          value={reasonFilterKey}
+          placeholder="Report reason"
+          className="react-select-container"
+          classNamePrefix="react-select"
+          options={options}
+          onChange={handleSelectChangeReason}
+        />
+        <ReactSelect
+          value={statusFilterKey}
+          placeholder="Report reason"
+          className="react-select-container"
+          classNamePrefix="react-select"
+          options={statusOptions}
+          onChange={handleSelectChangeStatus}
+        />
+        <button onClick={handleClear} className="btn btn--purple">Clear</button>
+      </div>
       <div className='users-table'>
         {!isLoading ?
-          data.map(u => (
+          data.filter(post => {
+            if (reasonFilterKey.value !== null && statusFilterKey.value !== null) {
+              return post.reason === reasonFilterKey.value && post.is_resolved === statusFilterKey.value;
+            } else if (reasonFilterKey.value !== null) {
+              return post.reason === reasonFilterKey.value;
+            } else if (statusFilterKey.value !== null) {
+              return post.is_resolved === statusFilterKey.value;
+            } else {
+              return true;
+            }
+          }).map(u => (
             <div key={u.id} className="community-item">
               <div className="community-item-details" >
                 <div className="community-details-top">
