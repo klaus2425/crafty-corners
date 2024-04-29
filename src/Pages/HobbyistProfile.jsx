@@ -89,9 +89,10 @@ const HobbyistProfile = () => {
                   <div className='display-name'>
                     <h2>{currentUser.first_name ? `${currentUser.first_name} ${currentUser.middle_name} ${currentUser.last_name}` : <Skeleton />}</h2>
                     {currentUser.user_name ? `@${currentUser.user_name}` : <Skeleton />}
+                    <span>{currentUser.sex || <Skeleton />}</span>
                     <span>{currentUser.program || <Skeleton />}</span>
 
-                    <span>{currentUser.id ? `${currentUser.communities?.length} Communities` : <Skeleton className='skeleton' />}</span>
+                    <span><strong>{currentUser.id ? `${currentUser.communities?.length} Communities` : <Skeleton className='skeleton' />} </strong></span>
                   </div>
                 </div>
                 <div className='lower-details'>

@@ -4,7 +4,7 @@ import axiosClient from "../../axios-client";
 import { lazy, useState, Suspense } from "react";
 import Loading from "../../components/utils/Loading";
 
-const ViewReportedConverstion = () => {
+const ViewReportedConversation = () => {
   const { reportId, conversationId } = useParams();
   const [resolveOpen, setResolveOpen] = useState(false);
   const ResolveReport = lazy(() => import('../../components/ResolveReport'));
@@ -73,4 +73,4 @@ const ViewReportedConverstion = () => {
     <Loading />
 }
 
-export default ViewReportedConverstion;
+export default ViewReportedConversation;
