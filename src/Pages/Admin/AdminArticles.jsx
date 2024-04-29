@@ -9,6 +9,7 @@ import Loading from '../../components/utils/Loading';
 const AdminArticles = () => {
     const [loading, setLoading] = useState(false);
     const [articles, setArticles] = useState([]);
+    const [searchKey, setSearchKey] = useState('')
 
     const onDeleteClick = article => {
         Swal.fire({
@@ -44,6 +45,8 @@ const AdminArticles = () => {
             })
     }
 
+    console.log(articles);
+
     useEffect(() => {
         getArticles();
     }, [])
@@ -52,6 +55,10 @@ const AdminArticles = () => {
             <div className="top-section">
                 <Link className="add-community-button" to={'/add-article'}><span><FontAwesomeIcon icon={faPlus} /></span> Add an Article</Link>
             </div>
+            <div className="filters">
+                <span><strong>Filters:</strong></span>
+                <input onChange={(ev) => setSearchKey(ev.target.value)} className='student-id-search' type="text" placeholder='Search by Title' />
+            </div>
             <div className='users-table'>
 
                 {loading &&
@@ -59,13 +66,22 @@ const AdminArticles = () => {
                 }
 
                 {!loading &&
-
-                    articles.map(u => (
+                    articles.filter(u => {
+                        console.log(u.title.toLowerCase().includes(searchKey.toLowerCase()));
+                        if (u.title.toLowerCase().includes(searchKey.toLowerCase())) {
+                            return u
+                        }
+                        else if (searchKey === '') {
+                            return u
+                        }
+                    }).map(u => (
                         <div key={u.id} className="community-item">
+
                             <div className="community-item-details" >
                                 <div className="community-details-top">
                                     <span><strong>Title: <br /> </strong>{u.title} </span>
                                     <span><strong>Author:  <br /></strong>{u.author}</span>
+                                    <span><strong>Uploaded by:  <br /></strong>{u.user.first_name} {u.user.middle_name} {u.user.last_name}</span>
                                     <span className='desc'><strong>Description:  <br /></strong>{u.description}</span>
                                 </div>
                                 <div className="buttons-community">

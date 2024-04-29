@@ -3855,6 +3855,13 @@ input::-webkit-inner-spin-button {
     width: 100%;
     margin-bottom: 1rem;
     align-items: center;
+    .student-id-search {
+      border: 1px solid $light_grey;
+      border-radius: 25px;
+      padding: 0.55rem;
+      color: $dark_grey;
+      font-size: 1rem;
+    }
     .react-select-container {
       width: 12rem;
   

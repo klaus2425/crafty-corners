@@ -1,4 +1,5 @@
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import toast from "react-hot-toast";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from "react-router-dom";
@@ -10,7 +11,7 @@ const Users = () => {
 
   const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
   const queryClient = useQueryClient();
-
+  const [searchKey, setSearchKey] = useState('')
 
   const onDeleteClick = user => {
     Swal.fire({
@@ -56,10 +57,16 @@ const Users = () => {
     return [...acc, page.data];
   }, [])
 
+  console.log(fetchedUsers);
+
   return (
     <div className="communities-container">
       <div className="top-section">
         <div className='user-count'>Current number of users: {data?.pages[0].meta.total - 1}</div>
+      </div>
+      <div className="filters">
+        <span><strong>Filters:</strong></span>
+        <input onChange={(ev) => setSearchKey(ev.target.value)} className='student-id-search' type="text" placeholder='Search by Student ID' />
       </div>
       <div className='users-table' id='users-table'>
         {
@@ -72,7 +79,15 @@ const Users = () => {
               loader={<Loading />}>
               {
                 fetchedUsers.map((users) => (
-                  users.map(u => {
+                  users.filter(u => {
+                    console.log(u.student_id.includes(searchKey));
+                    if (u.student_id.includes(searchKey)) {
+                      return u
+                    } 
+                    else if (searchKey === '') {
+                      return u
+                    }
+                  }).map(u => {
                     return u.type != 'admin' &&
                       <div key={u.id} className="community-item">
                         <div className="community-item-details" >
