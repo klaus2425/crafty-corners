@@ -3891,6 +3891,9 @@ input::-webkit-inner-spin-button {
     width: 100%;
     margin-bottom: 1rem;
     align-items: center;
+    input {
+      width: 15rem;
+    }
     .student-id-search {
       border: 1px solid $light_grey;
       border-radius: 25px;

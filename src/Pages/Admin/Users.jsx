@@ -57,7 +57,6 @@ const Users = () => {
     return [...acc, page.data];
   }, [])
 
-
   return (
     <div className="communities-container">
       <div className="top-section">
@@ -65,7 +64,7 @@ const Users = () => {
       </div>
       <div className="filters">
         <span><strong>Filters:</strong></span>
-        <input onChange={(ev) => setSearchKey(ev.target.value)} className='student-id-search' type="text" placeholder='Search by Student ID' />
+        <input onChange={(ev) => setSearchKey(ev.target.value)} className='student-id-search' type="text" placeholder='Search by Student ID or name' />
       </div>
       <div className='users-table' id='users-table'>
         {
@@ -79,9 +78,11 @@ const Users = () => {
               {
                 fetchedUsers.map((users) => (
                   users.filter(u => {
-                    if (u.student_id.includes(searchKey)) {
+                    if (u.student_id.includes(searchKey) || u.first_name.includes(searchKey)
+                    || u.middle_name.includes(searchKey) || u.last_name.includes(searchKey)
+                    ) {
                       return u
-                    } 
+                    }
                     else if (searchKey === '') {
                       return u
                     }

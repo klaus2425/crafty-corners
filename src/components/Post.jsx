@@ -505,7 +505,6 @@ export const UserPost = (props) => {
     const { user } = useStateContext();
     const menuRef = useRef();
     const [open, setOpen] = useState(false);
-    console.log(post);
     const updatePostDetails = () => {
         axiosClient.get(`/posts/${post.id}`)
             .then(res => {

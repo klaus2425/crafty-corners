@@ -56,7 +56,7 @@ const AdminVideos = () => {
             </div>
             <div className="filters">
                 <span><strong>Filters:</strong></span>
-                <input onChange={(ev) => setSearchKey(ev.target.value)} className='student-id-search' type="text" placeholder='Search by Student ID' />
+                <input onChange={(ev) => setSearchKey(ev.target.value)} className='student-id-search' type="text" placeholder='Search by title' />
             </div>
             <div className='users-table'>
 

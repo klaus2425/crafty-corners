@@ -166,7 +166,6 @@ const ViewPost = () => {
   const community = usePost?.data?.community;
   const postUser = usePost?.data?.user;
 
-  console.log(post);
   useEffect(() => {
     const listener = (ev) => {
       if (!menuRef?.current?.contains(ev.target)) {
