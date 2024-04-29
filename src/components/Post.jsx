@@ -63,12 +63,7 @@ const Post = (props) => {
         icon: '🔗',
     });
 
-    const updatePostDetails = () => {
-        axiosClient.get(`/posts/${post.id}`)
-            .then(res => {
-                setLikes(res.data.data.likes_count);
-            })
-    }
+
 
 
     const handleReport = () => {
@@ -78,19 +73,15 @@ const Post = (props) => {
 
     const handleLike = (id) => {
         if (!liked) {
+            setLiked(true)
+            setLikes(likes + 1);
             axiosClient.post(`/like-post/${id}`)
-                .then(() => {
-                    setLiked(true);
-                    updatePostDetails(id);
-                })
-
+  
         }
         else {
+            setLiked(false)
+            setLikes(likes - 1);
             axiosClient.post(`/unlike-post/${id}`)
-                .then(() => {
-                    setLiked(false);
-                    updatePostDetails(id);
-                })
         }
     }
 
@@ -505,12 +496,6 @@ export const UserPost = (props) => {
     const { user } = useStateContext();
     const menuRef = useRef();
     const [open, setOpen] = useState(false);
-    const updatePostDetails = () => {
-        axiosClient.get(`/posts/${post.id}`)
-            .then(res => {
-                setLikes(res.data.data.likes_count);
-            })
-    }
 
     const deletePost = () => {
         Swal.fire({
@@ -542,22 +527,16 @@ export const UserPost = (props) => {
 
     const handleLike = (id) => {
         if (!liked) {
+            setLiked(true)
+            setLikes(likes + 1);
             axiosClient.post(`/like-post/${id}`)
-                .then(res => {
-                    setLiked(true);
-                    updatePostDetails(id);
-                })
-                .catch(err => {
-                })
+        
         }
         else {
+            setLiked(false)
+            setLikes(likes - 1);
             axiosClient.post(`/unlike-post/${id}`)
-                .then(res => {
-                    setLiked(false);
-                    updatePostDetails(id);
-                })
-                .catch(err => {
-                })
+      
         }
     }
 
