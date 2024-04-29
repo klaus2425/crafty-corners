@@ -24,7 +24,6 @@ const ViewReportedPost = () => {
   if (useReport.isLoading) {
     return <Loading />
   }
-  console.log(useReport.data);
   if (useReport?.data.reportable.post_type === 'text') {
     return (
       <div className="communities-container">

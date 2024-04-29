@@ -11,8 +11,6 @@ const ResolveReport = (props) => {
     props.setResolveOpen(false);
   }
 
-  console.log(props.type);
-  console.log(props.reportId);
   const handleSubmit = () => {
     const formData = new FormData();
     const originalDate = new Date();

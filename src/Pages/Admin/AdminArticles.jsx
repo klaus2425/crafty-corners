@@ -45,7 +45,6 @@ const AdminArticles = () => {
             })
     }
 
-    console.log(articles);
 
     useEffect(() => {
         getArticles();
@@ -67,7 +66,6 @@ const AdminArticles = () => {
 
                 {!loading &&
                     articles.filter(u => {
-                        console.log(u.title.toLowerCase().includes(searchKey.toLowerCase()));
                         if (u.title.toLowerCase().includes(searchKey.toLowerCase())) {
                             return u
                         }

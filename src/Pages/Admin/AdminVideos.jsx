@@ -63,7 +63,6 @@ const AdminVideos = () => {
                 {loading ? <Loading /> :
 
                     videos.filter(u => {
-                        console.log(u.video_title.toLowerCase().includes(searchKey.toLowerCase()));
                         if (u.video_title.toLowerCase().includes(searchKey.toLowerCase())) {
                             return u
                         }

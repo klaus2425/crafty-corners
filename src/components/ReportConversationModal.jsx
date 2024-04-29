@@ -33,7 +33,6 @@ const ReportConversationModal = (props) => {
         return <b>Report Submitted</b>
       },
       error: (err) => {
-        console.log(err);
         return `${err.response.data.message}`
       },
     },)

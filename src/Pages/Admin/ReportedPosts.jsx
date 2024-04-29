@@ -32,7 +32,6 @@ const ReportedPosts = () => {
     setReasonFilterKey(value)
   }
   const handleSelectChangeStatus = (value) => {
-    console.log(value);
     setStatusFilterKey(value)
   }
   const handleClear = () => {

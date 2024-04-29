@@ -57,7 +57,6 @@ const Users = () => {
     return [...acc, page.data];
   }, [])
 
-  console.log(fetchedUsers);
 
   return (
     <div className="communities-container">
@@ -80,7 +79,6 @@ const Users = () => {
               {
                 fetchedUsers.map((users) => (
                   users.filter(u => {
-                    console.log(u.student_id.includes(searchKey));
                     if (u.student_id.includes(searchKey)) {
                       return u
                     } 

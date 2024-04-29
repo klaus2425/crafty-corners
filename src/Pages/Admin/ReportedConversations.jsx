@@ -27,7 +27,6 @@ const ReportedConversations = () => {
     setReasonFilterKey(value)
   }
   const handleSelectChangeStatus = (value) => {
-    console.log(value);
     setStatusFilterKey(value)
   }
   const handleClear = () => {
@@ -42,7 +41,6 @@ const ReportedConversations = () => {
 
   })
 
-  console.log(data);
   return (
     <div className="communities-container">
       <div className="top-section">

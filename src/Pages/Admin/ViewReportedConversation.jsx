@@ -19,7 +19,6 @@ const ViewReportedConverstion = () => {
   }
 
 
-  console.log(data);
   
   return !isLoading ? (
     <div className="communities-container">
@@ -58,7 +57,6 @@ const ViewReportedConverstion = () => {
           <div className="right">
           <div style={{ marginBottom: '2rem' }} className="report-details">
                 <strong>Proof:</strong>
-                {console.log(`${storageUrl}${data.proof}`)}
                 <img className="report-details__image" src={`${storageUrl}${data.proof}`} alt="" />
               </div>
             <span><strong>Reason for reporting:</strong><br />{data.reason}</span>

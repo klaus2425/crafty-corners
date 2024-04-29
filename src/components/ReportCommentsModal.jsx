@@ -25,7 +25,6 @@ const ReportCommentsModal = (props) => {
     );
 
   }
-  console.log(props);
 
   const handleClose = () => {
     props.setIsOpen(false);

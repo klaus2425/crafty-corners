@@ -25,7 +25,6 @@ const ReportedComments = () => {
     setReasonFilterKey(value)
   }
   const handleSelectChangeStatus = (value) => {
-    console.log(value);
     setStatusFilterKey(value)
   }
   const handleClear = () => {
@@ -41,7 +40,6 @@ const ReportedComments = () => {
 
 
 
-  console.log(useReports.data);
   return (
     <div className="communities-container">
       <div className="top-section">

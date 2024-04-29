@@ -21,7 +21,6 @@ const MembershipCheck = (props) => {
       .then((res) => {
         getCommunity();
         setIsMember(true);
-        console.log(res);
       })
       .catch(err => {
         setIsMember(false);

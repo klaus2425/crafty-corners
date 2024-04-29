@@ -22,7 +22,6 @@ const ReportsArchived = () => {
     }
   })
 
-  console.log(data);
   const fetchedPosts = data?.pages.reduce((acc, page) => {
     return [...acc, page.data];
   }, [])

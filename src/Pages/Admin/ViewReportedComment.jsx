@@ -16,7 +16,6 @@ const ViewReportedComment = () => {
   const handleResolve = () => {
     setResolveOpen(!resolveOpen);
   }
-  console.log(data);
 
   return !isLoading ? (
     <div className="communities-container">

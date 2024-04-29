@@ -48,7 +48,6 @@ const HobbyistProfile = () => {
     axiosClient.get(`/users/${id}`)
       .then(res => {
         setCurrentUser(res.data.data)
-        console.log(res.data.data);
       })
   }
   const sendMessage = () => {
@@ -88,8 +87,10 @@ const HobbyistProfile = () => {
                   {imageLoading && <Skeleton className='profile-picture' circle={true} />}
                   <img style={imageLoading ? { display: 'none' } : { display: 'inline' }} onLoad={() => setImageLoading(false)} className='profile-picture' src={`${storageBaseUrl}/${currentUser.profile_picture}`} alt='Profile Picture' />
                   <div className='display-name'>
-                    <h2>{currentUser.first_name || <Skeleton />}</h2>
+                    <h2>{currentUser.first_name ? `${currentUser.first_name} ${currentUser.middle_name} ${currentUser.last_name}` : <Skeleton />}</h2>
                     {currentUser.user_name ? `@${currentUser.user_name}` : <Skeleton />}
+                    <span>{currentUser.program || <Skeleton />}</span>
+
                     <span>{currentUser.id ? `${currentUser.communities?.length} Communities` : <Skeleton className='skeleton' />}</span>
                   </div>
                 </div>
