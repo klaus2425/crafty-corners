@@ -1635,12 +1635,16 @@ input::-webkit-inner-spin-button {
 
   }
 
-
+  .recommended::-webkit-scrollbar {
+    display: none;
+  }
 
   .recommended {
-    margin-top: 5rem;
     width: 30%;
-
+    height: calc(100vh - 4rem);
+    padding-top: 5rem;
+    overflow-y: scroll;
+    scrollbar-width: none;
     #community-level-card {
       display: flex;
       flex-direction: column;
