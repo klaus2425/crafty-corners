@@ -645,7 +645,7 @@ input::-webkit-inner-spin-button {
 
   h1 {
     color: $dark_grey;
-    font-family: Peotsen;
+    font-family: Poetsen;
     font-size: max(1.8vw, 1.2rem);
     font-style: normal;
     font-weight: 700;
@@ -2618,7 +2618,8 @@ input::-webkit-inner-spin-button {
 
       .field-holder {
         position: relative;
-
+        display: flex;
+        flex-direction: column;
         input {
           border-radius: 10px;
           border: 2px solid #D8DCE3;
@@ -2630,6 +2631,42 @@ input::-webkit-inner-spin-button {
           min-width: 14rem;
           width: 100%;
           max-width: calc(100% - 10rem);
+        }
+        .react-select-container {
+          width: 100%;
+          margin-bottom: 1rem;
+          .react-select__control {
+            border-radius: 15px;
+            outline: none;
+            border: 2px solid $light_grey;
+            box-shadow: none;
+          }
+          .react-select__input-container {
+            font-size: 1rem;
+          }
+        
+          .react-select__option:hover {
+            color: #FFF;
+            background-color: $purple;
+          }
+        
+          .react-select__option--is-focused {
+            background-color: #FFF;
+          }
+        
+          .react-select__option--is-selected {
+            background-color: $dark_purple;
+          }
+        
+          .react-select__value-container {
+            max-width: 100%;
+            text-wrap: nowrap;
+          }
+        
+          .react-select__indicator {
+            width: 3rem;
+          }
+        
         }
 
         textarea {
@@ -2649,7 +2686,6 @@ input::-webkit-inner-spin-button {
         label {
           transition: 0.3s;
           pointer-events: none;
-          position: absolute;
           padding-left: 0.85rem;
           padding-top: 0.2rem;
           left: 0;

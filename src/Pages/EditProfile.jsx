@@ -6,6 +6,7 @@ import { useStateContext } from "../context/ContextProvider";
 import Loading from '../components/utils/Loading';
 import toast from 'react-hot-toast';
 import { useQueryClient } from '@tanstack/react-query';
+import ReactSelect from 'react-select';
 
 const EditProfile = () => {
 
@@ -49,9 +50,9 @@ const EditProfile = () => {
             formData.append('last_name', currentUser.last_name);
             formData.append('email', currentUser.email);
             formData.append('password', currentUser.password);
-            formData.append('gender', currentUser.gender);
+            formData.append('sex', currentUser.sex);
 
-            toast.promise( axiosClient.post(`users/${currentUser.id}`, formData), {
+            toast.promise(axiosClient.post(`users/${currentUser.id}`, formData), {
                 loading: 'Updating Profile',
                 success: () => {
                     queryClient.refetchQueries('user');
@@ -70,7 +71,7 @@ const EditProfile = () => {
             for (const key in currentUser) {
                 formData.append(key, currentUser[key]);
             }
-            toast.promise( axiosClient.post(`users/${currentUser.id}`, formData), {
+            toast.promise(axiosClient.post(`users/${currentUser.id}`, formData), {
                 loading: 'Updating Profile',
                 success: () => {
                     queryClient.refetchQueries('user');
@@ -122,23 +123,29 @@ const EditProfile = () => {
                                 <div className='input-container'>
                                     <div className="input-col-container">
                                         <div className="field-holder">
-                                            <input type="text" value={currentUser.first_name} onChange={ev => setCurrentUser({ ...currentUser, first_name: ev.target.value })} required />
                                             <label>First Name</label>
+                                            <input type="text" value={currentUser.first_name} onChange={ev => setCurrentUser({ ...currentUser, first_name: ev.target.value })} required />
                                         </div>
                                         <div className="field-holder">
-                                            <input type="text" value={currentUser.middle_name} onChange={ev => setCurrentUser({ ...currentUser, middle_name: ev.target.value })} required />
                                             <label>Middle Name</label>
+                                            <input type="text" value={currentUser.middle_name} onChange={ev => setCurrentUser({ ...currentUser, middle_name: ev.target.value })} required />
                                         </div>
 
                                     </div>
                                     <div className="input-col-container">
                                         <div className="field-holder">
-                                            <input type="text" value={currentUser.last_name} onChange={ev => setCurrentUser({ ...currentUser, last_name: ev.target.value })} required />
                                             <label>Last Name</label>
+                                            <input type="text" value={currentUser.last_name} onChange={ev => setCurrentUser({ ...currentUser, last_name: ev.target.value })} required />
                                         </div>
                                         <div className="field-holder">
-                                            <input type="text" value={currentUser.gender} onChange={ev => setCurrentUser({ ...currentUser, gender: ev.target.value })} required />
-                                            <label>Gender</label>
+                                            <label>Sex</label>
+                                            <ReactSelect
+                                                className="react-select-container"
+                                                classNamePrefix="react-select"
+                                                options={[{ value: 'Male', label: 'Male' }, { value: 'Female', label: 'Female' }]}
+                                                onChange={(value) => setCurrentUser({ ...currentUser, sex: value.value })}
+                                                value={{ value: currentUser.sex, label: currentUser.sex }}
+                                            />
                                         </div>
                                     </div>
                                 </div>

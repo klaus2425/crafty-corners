@@ -72,7 +72,7 @@ const UserFeed = () => {
                                         {
                                             user.first_name ? <h2>{user.first_name + ' ' + user.last_name}</h2> : <Skeleton />
                                         }
-                                        <span>{user.gender ? user.gender : <Skeleton />}</span>
+                                        <span>{user.sex ? user.sex : <Skeleton />}</span>
                                         <span>{!userData.isLoading ? `@${userData?.data?.data?.data?.user_name}` : <Skeleton />}</span>
                                         <span>{!userData.isLoading ? `${userData.data.data.data.communities.length} Communities` : <Skeleton />}</span>
                                     </div>

@@ -22,7 +22,7 @@ export default function SignUpModal(props) {
     const passwordConfirmationRef = useRef();
     const numberRef = useRef();
     const profilePictureRef = useRef();
-    const genderRef = useRef();
+    const sexRef = useRef();
     const [isTermsOpen, setIsTermsOpen] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [isPolicyOpen, setIsPolicyOpen] = useState(false);
@@ -39,7 +39,7 @@ export default function SignUpModal(props) {
         formData.append('password_confirmation', passwordConfirmationRef.current.value);
         formData.append('profile_picture', profilePictureRef.current.files[0]);
         formData.append('phone_number', numberRef.current.value);
-        formData.append('gender', genderRef.current.value);
+        formData.append('sex', sexRef.current.value);
         formData.append('program', programRef.current);
         formData.append('student_id', studentIdRef.current.value)
 
@@ -153,12 +153,11 @@ export default function SignUpModal(props) {
                                         placeholder='Program'
                                         menuPlacement='auto'
                                         onChange={(value) => {
-                                            console.log(value.value);
                                             programRef.current = value.value
                                         }}
                                     />
                                     <label>Sex:</label>
-                                    <select ref={genderRef} name="sex" id="sex">
+                                    <select ref={sexRef} name="sex" id="sex">
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
