@@ -11,6 +11,7 @@ import getTimestamp from '../components/utils/GetTimeStamp';
 import EmojiPicker from 'emoji-picker-react';
 import { useThemeContext } from '../context/ThemeProvider';
 import ReportConversationModal from '../components/ReportConversationModal';
+import ConfirmDeleteMessageModal from '../components/ConfirmDeleteMessageModal';
 
 const ViewConversation = () => {
 
@@ -47,11 +48,9 @@ const ViewConversation = () => {
     setFile(null);
     fileRef.current.value = null;
   }
-
   const handleBack = () => {
     navigate(`/messages?uid=${uid}`);
   }
-  const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteMessageOpen, setDeleteMessageOpen] = useState(false);
 
   const viewFullImage = (path) => {
@@ -200,7 +199,11 @@ const ViewConversation = () => {
     <div className="authenticated-container">
       {
         openReport &&
-        <ReportConversationModal setOpenReport={setOpenReport} id={conversation_id}/>
+        <ReportConversationModal setOpenReport={setOpenReport} id={conversation_id} />
+      }
+      {
+        deleteMessageOpen &&
+        <ConfirmDeleteMessageModal id={message_id} receiver_id={receiver?.id} getMessages={getMessages} deleteMessageOpen={deleteMessageOpen} setDeleteMessageOpen={setDeleteMessageOpen} />
       }
       <div className="feed">
         <div className='section-header'>
