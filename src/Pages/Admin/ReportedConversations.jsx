@@ -40,7 +40,6 @@ const ReportedConversations = () => {
       .then(({ data }) => data.data)
 
   })
-
   return (
     <div className="communities-container">
       <div className="top-section">
@@ -67,7 +66,7 @@ const ReportedConversations = () => {
         <button onClick={handleClear} className="btn btn--purple">Clear</button>
       </div>
       <div className='users-table'>
-        {!isLoading ?
+        {!isLoading ? data &&
           data.filter(post => {
             if (reasonFilterKey.value !== null && statusFilterKey.value !== null) {
               return post.reason === reasonFilterKey.value && post.is_resolved === statusFilterKey.value;
