@@ -188,7 +188,7 @@ const Post = (props) => {
                                         </li>
                                     }
 
-                          {
+                                    {
                                         user?.id != post_user.id &&
                                         <li onClick={handleReport} >
                                             Report Post
@@ -279,7 +279,7 @@ const Post = (props) => {
                                         </li>
                                     }
 
-                          {
+                                    {
                                         user?.id != post_user.id &&
                                         <li onClick={handleReport} >
                                             Report Post
@@ -372,7 +372,7 @@ const Post = (props) => {
                                         </li>
                                     }
 
-                          {
+                                    {
                                         user?.id != post_user.id &&
                                         <li onClick={handleReport} >
                                             Report Post
@@ -505,7 +505,7 @@ export const UserPost = (props) => {
     const { user } = useStateContext();
     const menuRef = useRef();
     const [open, setOpen] = useState(false);
-
+    console.log(post);
     const updatePostDetails = () => {
         axiosClient.get(`/posts/${post.id}`)
             .then(res => {
@@ -604,6 +604,11 @@ export const UserPost = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
+                        <div className="flair">
+                            <span className="flair__text">
+                                {post.subtopics}
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div className="title-content-container" onClick={() => viewPost()}>
@@ -674,6 +679,11 @@ export const UserPost = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
+                        <div className="flair">
+                            <span className="flair__text">
+                                {post.subtopics}
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div className="title-content-container" onClick={() => viewPost()}>
@@ -743,6 +753,11 @@ export const UserPost = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
+                        <div className="flair">
+                            <span className="flair__text">
+                                {post.subtopics}
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div className="title-content-container" onClick={() => viewPost()}>
@@ -815,6 +830,11 @@ export const UserPost = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
+                        <div className="flair">
+                            <span className="flair__text">
+                                {post.subtopics}
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div className="title-content-container" onClick={() => viewPost()}>

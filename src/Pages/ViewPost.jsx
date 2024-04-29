@@ -166,6 +166,7 @@ const ViewPost = () => {
   const community = usePost?.data?.community;
   const postUser = usePost?.data?.user;
 
+  console.log(post);
   useEffect(() => {
     const listener = (ev) => {
       if (!menuRef?.current?.contains(ev.target)) {
@@ -272,6 +273,11 @@ const ViewPost = () => {
               </div>
               <div className="right">
                 <span>/{community?.name}</span>
+                <div className="flair">
+                  <span className="flair__text">
+                    {post.subtopics}
+                  </span>
+                </div>
               </div>
             </div>
             <span className="post-title">{post.title}</span>
