@@ -78,8 +78,8 @@ const Users = () => {
               {
                 fetchedUsers.map((users) => (
                   users.filter(u => {
-                    if (u.student_id.includes(searchKey) || u.first_name.includes(searchKey)
-                    || u.middle_name.includes(searchKey) || u.last_name.includes(searchKey)
+                    if (u?.student_id.toLowerCase().includes(searchKey.toLowerCase()) || u?.first_name.toLowerCase().includes(searchKey.toLowerCase())
+                    || u?.middle_name.toLowerCase().includes(searchKey.toLowerCase()) || u?.last_name.toLowerCase().includes(searchKey.toLowerCase())
                     ) {
                       return u
                     }
