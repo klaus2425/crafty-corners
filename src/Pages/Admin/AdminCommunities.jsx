@@ -6,7 +6,6 @@ import Swal from 'sweetalert2'
 import Loading from "../../components/utils/Loading";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useState } from "react";
 
 
 const AdminCommunities = () => {
@@ -15,7 +14,6 @@ const AdminCommunities = () => {
         const fetchedData = await axiosClient.get(`/list/communities?page=${pageParams}`);
         return { ...fetchedData.data, prevPage: pageParams };
     }
-    const [searchKey, setSearchKey] = useState('')
 
     const { data, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
         queryKey: ['admin-communities'],
@@ -64,10 +62,7 @@ const AdminCommunities = () => {
             <div className="top-section">
                 <Link className="add-community-button" to={'/add-communities'}><span><FontAwesomeIcon icon={faPlus} /></span> Add a Community</Link>
             </div>
-            <div className="filters">
-                <span><strong>Filters:</strong></span>
-                <input onChange={(ev) => setSearchKey(ev.target.value)} className='student-id-search' type="text" placeholder='Enter Community name' />
-            </div>
+
             <div className="community-scroll" id="community-scroll">
                 {fetchedCommunities ?
                     <InfiniteScroll
@@ -77,14 +72,7 @@ const AdminCommunities = () => {
                         hasMore={hasNextPage}
                         loader={<Loading />}>
                         {fetchedCommunities?.map((community) =>
-                            community.filter(c => {
-                                if (c.name?.includes(searchKey)) {
-                                  return c
-                                } 
-                                else if (searchKey === '') {
-                                  return c  
-                                }
-                              }).map(c => (
+                            community.map(c => (
                                 <div key={c.id} className="community-item">
                                     <div><img src={storageBaseUrl + c.community_photo} alt="" /></div>
                                     <div className="community-item-details" >
