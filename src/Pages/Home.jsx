@@ -1,41 +1,8 @@
-import Post from '../components/Post'
-import RecommendedCommunities from '../components/RecommendedCommunities'
-import axiosClient from '../axios-client';
-import InfiniteScroll from 'react-infinite-scroll-component'
-import Loading from '../components/utils/Loading';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+
+import HomePosts from '../components/HomePosts';
+import RecommendedCard from '../components/RecommendedCard';
 
 const UserFeed = () => {
-    const getUserPosts = async (pageParam) => {
-        const fetchedData = await axiosClient.get(`/homepage-post?page=${pageParam}`)
-        return { ...fetchedData.data, prevPage: pageParam };
-    }
-
-    const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
-        queryKey: ['posts'],
-        queryFn: ({ pageParam }) => getUserPosts(pageParam),
-        initialPageParam: 1,
-        getNextPageParam: (lastPage) => {
-            if (lastPage.meta.current_page + 1 > lastPage.meta.last_page) {
-                return null;
-            }
-            return lastPage.meta.current_page + 1
-        },
-        refetchOnWindowFocus: false,
-        keepPreviousData: true,
-    })
-
-    const fetchedPosts = data?.pages.reduce((acc, page) => {
-        return [...acc, page.data];
-    }, []);
-
-    const useRecommended = useQuery({
-        queryKey: ['recommended-communities'],
-        queryFn: () => axiosClient.get('/recommend-communities')
-            .then(({ data }) => (data.recommended_communities)),
-        staleTime: 300 * 1000,
-        refetchInterval: 120 * 1000
-    })
 
     return (
         <div className="authenticated-container" id='home'>
@@ -46,49 +13,12 @@ const UserFeed = () => {
                     </svg>
                     <h3>Home</h3>
                 </div>
-                {
-                    fetchedPosts ?
-                        <InfiniteScroll
-                            scrollableTarget='feed'
-                            dataLength={fetchedPosts ? fetchedPosts.length : 0}
-                            next={fetchNextPage}
-                            hasMore={hasNextPage}
-                            loader={<Loading />}
-                            endMessage={
-                                <div style={{ textAlign: 'center' }}>
-                                    <h2>End of Feed</h2>
-                                </div>
-                            }>
-                            {
-                                fetchedPosts &&
-                                fetchedPosts.map((post) => (
-                                    post.map(p => (
-                                        <Post key={p.id} post={p} community={p.community} />
-                                    ))
-                                ))
-                            }
-                        </InfiniteScroll>
-                        :
-                        <Loading />
-                }
+                <HomePosts />
             </div>
             <div className="recommended">
                 <div className="card" id='recommended-card'>
                     <h3>Recommended Communities</h3>
-                    {
-                        !useRecommended.isLoading ?
-                            useRecommended.data?.length > 0 ?
-                                useRecommended.data.map((community, index) => (
-                                    <RecommendedCommunities key={index} index={index+1} communityName={community.name}
-                                        communityMemberCount={community.members_count} communityId={community.id}
-                                        communityIcon={community.community_photo} userId={community.user_id} />
-                                ))
-                                :
-                                <div className='rec-community-empty'>
-                                    No recommended communities
-                                </div>
-                            : <Loading />
-                    }
+                    <RecommendedCard />
                 </div>
             </div>
         </div>
