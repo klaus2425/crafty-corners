@@ -7,8 +7,6 @@ const RecommendedCard = () => {
     queryKey: ['recommended-communities'],
     queryFn: () => axiosClient.get('/recommend-communities')
       .then(({ data }) => (data.recommended_communities)),
-    staleTime: 300 * 1000,
-    refetchInterval: 120 * 1000,
     refetchOnMount: false,
   })
 
