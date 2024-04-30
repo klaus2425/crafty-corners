@@ -34,7 +34,7 @@ export const Sidebar = () => {
                 }
             })
             .listen('PostInteraction', () => {
-                queryClient.refetchQueries('notifications');
+                queryClient.invalidateQueries('notifications');
                 if (window.location.pathname != '/notifications') {
                     setHasNotification(true);
                 }

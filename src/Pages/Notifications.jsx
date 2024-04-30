@@ -4,6 +4,7 @@ import axiosClient from '../axios-client';
 import UserNotifications from '../components/UserNotifications';
 import Loading from '../components/utils/Loading';
 import { useStateContext } from '../context/ContextProvider';
+import RecommendedCard from '../components/RecommendedCard';
 
 
 const UserFeed = () => {
@@ -47,7 +48,7 @@ const UserFeed = () => {
                             <h3>Notifications</h3>
                         </div>
                         <span onClick={() => axiosClient.post('/notifications/mark-all-as-read')
-                            .then(() => queryClient.refetchQueries('notifications'))
+                            .then(() => queryClient.invalidateQueries('notifications'))
                         } className='mark-all-span'>Mark All As Read</span>
                     </div>
 

@@ -93,7 +93,7 @@ const ViewMentorApplication = () => {
           loading: 'Declining application',
           success: () => {
             navigate('/mentor-applicants');
-            queryClient.refetchQueries('mentor-applicants')
+            queryClient.invalidateQueries('mentor-applicants')
             return <b>Application declined</b>
           },
           error: (err) => {

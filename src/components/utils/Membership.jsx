@@ -11,7 +11,7 @@ const MembershipCheck = (props) => {
   const getCommunity = () => {
     axiosClient.get(`/communities/${props.community_id}/users`)
       .then(() => {
-        queryClient.refetchQueries('communities');
+        queryClient.invalidateQueries('communities');
       })
   }
 

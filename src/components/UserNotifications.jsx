@@ -46,7 +46,7 @@ const UserNotifications = (props) => {
                 {
                     <div onClick={() => axiosClient.post(`/notifications/mark-as-read/${props.id}`)
                         .then(
-                            () => queryClient.refetchQueries('notifications')
+                            () => queryClient.invalidateQueries('notifications')
 
                         )
 
