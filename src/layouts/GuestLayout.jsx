@@ -11,7 +11,7 @@ const GuestLayout = () => {
         return <Navigate to='/' />
     };
     return (
-        <div>
+        <div className="landing-bg">
             <Toaster
                 position="bottom-center"
                 duration='3000'
