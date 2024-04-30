@@ -1598,6 +1598,13 @@ input::-webkit-inner-spin-button {
         transition: 0.4s;
         outline: none;
       }
+      input[type=checkbox] {
+        width: fit-content;
+        margin: 0;
+        align-self: center;
+        margin-bottom: 0.2rem;
+        margin-right: 0.5rem;
+      }
 
       .color-picker {
         height: 2rem !important;
@@ -4336,6 +4343,12 @@ input::-webkit-inner-spin-button {
         align-self: flex-start;
       }
     }
+    .terms-conditions {
+      color: $dark_purple;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: underline;
+    }
 
   }
 
@@ -4385,7 +4398,9 @@ input::-webkit-inner-spin-button {
     }
   }
 }
-
+#login-modal {
+  height: fit-content;
+}
 .sign-up {
   border: 0;
   background-color: $purple;
