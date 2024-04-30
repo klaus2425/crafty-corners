@@ -132,7 +132,6 @@ const EditCommunity = () => {
             <h1>Edit {communityName} Community</h1>
             <div className="community-form">
               <div className="community-input-label">
-
                 <div className="community-inputs">
                   <div className="community-inputs__element">
                     <label>Community Name</label>

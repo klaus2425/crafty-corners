@@ -7,30 +7,73 @@ const AddScheduleModal = (props) => {
 
     const scheduleNameRef = useRef();
     const startingTimeRef = useRef();
+    const endRecurrenceDate = useRef();
     const endTimeRef = useRef();
-    const [color, setColor] = useState();
+    const [color, setColor] = useState('#FFFFFF');
+    const [repeat, setRepeat] = useState(false);
+    const [selectedDays, setSelectedDays] = useState([]);
 
-    const onSubmit = (ev) => {
+    const handleCheckboxChange = (day, isChecked) => {
+        if (isChecked) {
+            setSelectedDays([...selectedDays, day]);
+        } else {
+            setSelectedDays(selectedDays.filter(selectedDay => selectedDay !== day));
+        }
+        (selectedDays);
+    };
+
+
+    const onSubmit = async (ev) => {
         ev.preventDefault();
-        const formData = new FormData();
-        formData.append('title', scheduleNameRef.current.value);
-        formData.append('start', props.startDate + ' ' + startingTimeRef.current.value);
-        formData.append('end', props.startDate + ' ' + endTimeRef.current.value);
-        formData.append('backgroundColor', color);
-        axiosClient.post('/schedule', formData)
-            .then(() => {
+        if (repeat) {
+            const formData = new FormData();
+            formData.append('title', scheduleNameRef.current.value);
+            formData.append('backgroundColor', color);
+            formData.append('startTime', startingTimeRef.current.value);
+            formData.append('endTime', endTimeRef.current.value);
+            formData.append('startRecur', props.startDate + ' ' + startingTimeRef.current.value);
+            formData.append('endRecur', endRecurrenceDate.current.value + ' ' + endTimeRef.current.value);
+            selectedDays.map((day, index) => {
+                formData.append(`daysOfWeek[${index}]`, day)
+            })
+
+            try {
+                const response = await axiosClient.post('/schedule-recurring', formData);
+                ('Data Uploaded: ', response.data);
+                ('Days of Week Values: ', selectedDays);
                 props.getAllSched();
                 props.setOpen(false);
                 toast.success('Schedule Added')
-            })
-            .catch(err => {
+            } catch (err) {
                 const response = err.response;
+                (err);
                 if (response && response.status === 422) {
                     toast.error(`${Object.values(response.data.errors)[0]}`)
                 }
-            })
-    }
+            }
+        }
+        else {
+            const formData = new FormData();
+            formData.append('title', scheduleNameRef.current.value);
+            formData.append('start', props.startDate + ' ' + startingTimeRef.current.value);
+            formData.append('end', props.startDate + ' ' + endTimeRef.current.value);
+            formData.append('backgroundColor', color);
+            axiosClient.post('/schedule', formData)
+                .then(({ data }) => {
+                    (data);
+                    props.getAllSched();
+                    props.setOpen(false);
+                    toast.success('Schedule Added')
+                })
+                .catch(err => {
+                    const response = err.response;
+                    if (response && response.status === 422) {
+                        toast.error(`${Object.values(response.data.errors)[0]}`)
+                    }
+                })
+        }
 
+    }
 
 
     if (!props.isOpen) return null;
@@ -49,7 +92,7 @@ const AddScheduleModal = (props) => {
 
                 <form onSubmit={onSubmit}>
                     <div className="schedule-input">
-                        <label>Schedule Name:</label>
+                        <label>Schedule name:</label>
                         <input ref={scheduleNameRef} type="text" required />
                     </div>
                     <div className="schedule-input">
@@ -57,11 +100,65 @@ const AddScheduleModal = (props) => {
                         <input ref={startingTimeRef} type="time" required />
                     </div>
                     <div className="schedule-input">
-                        <label>End Time:</label>
+                        <label>End time:</label>
                         <input ref={endTimeRef} type="time" required />
                     </div>
+                    <div className="schedule-input" style={{ flexDirection: 'row-reverse', justifyContent: 'flex-start' }}>
+                        <label>Repeat Weekly</label>
+                        <input type="checkbox" onChange={() => setRepeat(!repeat)} />
+                    </div>
+                    {
+                        repeat &&
+                        <>
+                            <div className="schedule-input" >
+                                <label>Repeat every:</label>
+                                <div className="weekday-checkbox-container">
+                                    <label className='weekday-checkbox__day'>
+                                        <input type="checkbox" onChange={(e) => handleCheckboxChange(1, e.target.checked)} />
+                                        <span className="checkmark"></span>
+                                        Monday
+                                    </label>
+                                    <label className='weekday-checkbox__day'>
+                                        <input type="checkbox" onChange={(e) => handleCheckboxChange(2, e.target.checked)} />
+                                        <span className="checkmark"></span>
+                                        Tuesday
+                                    </label>
+                                    <label className='weekday-checkbox__day'>
+                                        <input type="checkbox" onChange={(e) => handleCheckboxChange(3, e.target.checked)} />
+                                        <span className="checkmark"></span>
+                                        Wednesday
+                                    </label>
+                                    <label className='weekday-checkbox__day'>
+                                        <input type="checkbox" onChange={(e) => handleCheckboxChange(4, e.target.checked)} />
+                                        <span className="checkmark"></span>
+                                        Thursday
+                                    </label>
+                                    <label className='weekday-checkbox__day'>
+                                        <input type="checkbox" onChange={(e) => handleCheckboxChange(5, e.target.checked)} />
+                                        <span className="checkmark"></span>
+                                        Friday
+                                    </label>
+                                    <label className='weekday-checkbox__day'>
+                                        <input type="checkbox" onChange={(e) => handleCheckboxChange(6, e.target.checked)} />
+                                        <span className="checkmark"></span>
+                                        Saturday
+                                    </label>
+                                    <label className='weekday-checkbox__day'>
+                                        <input type="checkbox" onChange={(e) => handleCheckboxChange(0, e.target.checked)} />
+                                        <span className="checkmark"></span>
+                                        Sunday
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="schedule-input" >
+                                <label>Repeat until:</label>
+                                <input ref={endRecurrenceDate} type="date" required />
+                            </div>
+                        </>
+
+                    }
                     <div className="schedule-input">
-                        <label>Background Color:</label>
+                        <label>Background color:</label>
                         <div className="color-flex">
                             <HexColorPicker color={color} onChange={setColor} />
                         </div>

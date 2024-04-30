@@ -1,7 +1,7 @@
 import axiosClient from '../axios-client';
 import { useState, useEffect, Suspense, lazy } from 'react'
 import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid' 
+import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction"
 import getCorrectColor from '../components/utils/ColorCorrection';
 
@@ -18,6 +18,7 @@ const Schedule = () => {
         axiosClient.get(`/schedule`)
             .then(({ data }) => {
                 setEvents(data.data);
+                (data);
             })
     }
     const formatTime = (date) => {
@@ -38,6 +39,43 @@ const Schedule = () => {
         setOpen(!open);
     };
 
+    // const fetchedEvents = [
+    //     {
+    //         id: 1,
+    //         title: 'Single Event',
+    //         start: '2024-04-01 10:00:00',
+    //         end: '2024-04-01 12:00:00',
+    //         backgroundColor: '#000000',
+    //         startRecur: null,
+    //         endRecur: null,
+    //         startTime: null, 
+    //         endTime: null,
+    //         daysOfWeek: null
+    //     },
+    //     {
+    //         id: 2,
+    //         title: 'Single Event',
+    //         start: '2024-04-02 10:00:00',
+    //         end: '2024-04-02 12:00:00',
+    //         backgroundColor: '#000000',
+    //         startRecur: null,
+    //         endRecur: null,
+    //         startTime: null, 
+    //         endTime: null,
+    //         daysOfWeek: null
+    //     },
+    //     {
+    //         id: 3,
+    //         title: 'Recurring Event',
+    //         startRecur: '2024-04-01 10:00:00',
+    //         endRecur: '2024-05-01 12:00:00',
+    //         startTime: '10:00:00', 
+    //         endTime: '12:00:00', 
+    //         daysOfWeek: [1, 4], 
+    //         backgroundColor: '#696969',
+
+    //     },
+    // ];
 
     const eventRender = ({ event }) => {
         if (event.end) {
@@ -87,7 +125,7 @@ const Schedule = () => {
                     {
                         editOpen &&
                         <Suspense>
-                            <EditSchedule isOpen={editOpen} setOpen={setEditOpen} id={schedId} getAllSched={getSchedule} />
+                            <EditSchedule allSchedule={events} isOpen={editOpen} setOpen={setEditOpen} id={schedId} getAllSched={getSchedule} />
                         </Suspense>
                     }
                     <FullCalendar

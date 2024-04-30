@@ -15,20 +15,38 @@ const EditSchedule = (props) => {
         setLoading(true);
         axiosClient.get(`/schedule/${props.id}`)
             .then(({ data }) => {
-                const startTime = new Date(data.data.start);
-                const endTime = new Date(data.data.end);
-                setLoading(false);
-                setSchedule(data.data);
-                setStartTime(startTime.toLocaleTimeString('en-US', {
-                    hour12: false,
-                    hour: '2-digit',
-                    minute: '2-digit',
-                }));
-                setEndTime(endTime.toLocaleTimeString('en-US', {
-                    hour12: false,
-                    hour: '2-digit',
-                    minute: '2-digit',
-                }))
+                if (data.data.startRecur) {
+                    const startTime = data.data.startTime;
+                    const endTime = data.data.endTime;
+                    setLoading(false);
+                    setSchedule(data.data);
+                    (startTime);
+                    setStartTime(startTime);
+                    setEndTime(endTime)
+                }
+                else {
+                    (data.data);
+                    const startTime = new Date(data.data.start);
+                    const endTime = new Date(data.data.end);
+                    setLoading(false);
+                    setSchedule(data.data);
+                    (startTime.toLocaleTimeString('en-US', {
+                        hour12: false,
+                        hour: '2-digit',
+                        minute: '2-digit',
+                    }));
+                    setStartTime(startTime.toLocaleTimeString('en-US', {
+                        hour12: false,
+                        hour: '2-digit',
+                        minute: '2-digit',
+                    }));
+                    setEndTime(endTime.toLocaleTimeString('en-US', {
+                        hour12: false,
+                        hour: '2-digit',
+                        minute: '2-digit',
+                    }))
+                }
+
             })
             .catch(err => {
                 const response = err.response;
@@ -65,26 +83,49 @@ const EditSchedule = (props) => {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        const dateStart = schedule.start.split(' ')[0];
-        const formData = new FormData();
-        formData.append("_method", "PUT");
-        formData.append('title', schedule.title);
-        formData.append('start', dateStart + ' ' + startTime);
-        formData.append('end', dateStart + ' ' + endTime);
-        formData.append('backgroundColor', schedule.backgroundColor);
+        if (schedule.startRecur) {
+            const formData = new FormData();
+            formData.append("_method", "PUT");
+            formData.append('title', schedule.title);
+            formData.append('startTime', startTime.substring(0,5));
+            formData.append('endTime', endTime.substring(0,5));
+            formData.append('backgroundColor', schedule.backgroundColor);
 
-        axiosClient.post(`/schedule/${props.id}`, formData)
-            .then(() => {
-                props.setOpen(false);
-                props.getAllSched();
-                toast.success('Schedule Updated')
-            })
-            .catch(err => {
-                const response = err.response;
-                if (response && response.status === 422) {
-                    toast.error(`${Object.values(response.data.errors)[0]}`)
-                }
-            })
+            axiosClient.post(`/schedule/${props.id}`, formData)
+                .then(() => {
+                    props.setOpen(false);
+                    props.getAllSched();
+                    toast.success('Schedule Updated')
+                })
+                .catch(err => {
+                    const response = err.response;
+                    if (response && response.status === 422) {
+                        toast.error(`${Object.values(response.data.errors)[0]}`)
+                    }
+                })
+        }
+        else {
+            const dateStart = schedule.start.split(' ')[0];
+            const formData = new FormData();
+            formData.append("_method", "PUT");
+            formData.append('title', schedule.title);
+            formData.append('start', dateStart + ' ' + startTime);
+            formData.append('end', dateStart + ' ' + endTime);
+            formData.append('backgroundColor', schedule.backgroundColor);
+
+            axiosClient.post(`/schedule/${props.id}`, formData)
+                .then(() => {
+                    props.setOpen(false);
+                    props.getAllSched();
+                    toast.success('Schedule Updated')
+                })
+                .catch(err => {
+                    const response = err.response;
+                    if (response && response.status === 422) {
+                        toast.error(`${Object.values(response.data.errors)[0]}`)
+                    }
+                })
+        }
     }
 
 

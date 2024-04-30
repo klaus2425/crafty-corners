@@ -514,6 +514,7 @@ input::-webkit-inner-spin-button {
 
 .react-select-container {
   width: 10rem;
+
   .react-select__control {
     border-radius: 10000px;
     outline: none;
@@ -1356,11 +1357,13 @@ input::-webkit-inner-spin-button {
   #delete-modal {
     width: fit-content;
     gap: 0.5rem;
+
     .close {
       display: flex;
       width: 100%;
       justify-content: space-between;
     }
+
     input,
     textarea,
     select {
@@ -1375,6 +1378,7 @@ input::-webkit-inner-spin-button {
       resize: none;
       transition: 0.5s;
     }
+
     .media-upload-container {
       border: 2px $light_grey solid;
       border-radius: 10px;
@@ -1455,6 +1459,7 @@ input::-webkit-inner-spin-button {
         }
       }
     }
+
     .uploaded-container {
       position: relative;
       width: fit-content;
@@ -1499,7 +1504,9 @@ input::-webkit-inner-spin-button {
       }
     }
   }
-
+  .modal::-webkit-scrollbar {
+    display: none;
+  }
   .modal {
     display: flex;
     flex-direction: column;
@@ -1510,9 +1517,12 @@ input::-webkit-inner-spin-button {
     transform: translate(-50%, -50%);
     background-color: #FFF;
     z-index: 1000;
+    max-height: 92vh;
+    scrollbar-width: none;
+    overflow-y: auto;
     padding: 1.46rem;
     width: clamp(20rem, 17vw + 2rem, 35rem);
-
+    
     input {
       width: 100%;
       height: 1rem;
@@ -1598,6 +1608,7 @@ input::-webkit-inner-spin-button {
         transition: 0.4s;
         outline: none;
       }
+
       input[type=checkbox] {
         width: fit-content;
         margin: 0;
@@ -1615,6 +1626,53 @@ input::-webkit-inner-spin-button {
         width: 2rem;
       }
 
+
+      
+      .weekday-checkbox-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+
+        .weekday-checkbox__item {
+          display: flex;
+
+        }
+
+        .weekday-checkbox__day {
+          display: flex;
+          position: relative;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-end;
+          height: calc(30px + 1rem);
+          input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+          }
+
+
+        }
+        .checkmark {
+          position: absolute;
+          top: 0;
+          height: 23px;
+          width: 23px;
+          background-color: #eee;
+          border-radius: 1000px;
+          cursor: pointer;
+        }
+        .weekday-checkbox__day:hover input~.checkmark {
+          background-color: #ccc;
+        }
+
+        .weekday-checkbox__day input:checked~.checkmark {
+          background-color: $purple;
+        }
+      }
 
 
       .radio-input {
@@ -1652,6 +1710,7 @@ input::-webkit-inner-spin-button {
     padding-top: 5rem;
     overflow-y: scroll;
     scrollbar-width: none;
+
     #community-level-card {
       display: flex;
       flex-direction: column;
@@ -2184,9 +2243,11 @@ input::-webkit-inner-spin-button {
     display: flex;
     flex-direction: column;
     gap: 0.48rem;
+
     .comment-card--pointer {
       cursor: pointer;
     }
+
     .comment-card {
       display: flex;
       background-color: #FFFFFF;
@@ -2197,6 +2258,7 @@ input::-webkit-inner-spin-button {
       margin-bottom: 0.5rem;
       padding: 1rem;
       gap: 0.4rem;
+
       .name-comment {
         width: 100%;
       }
@@ -2631,6 +2693,7 @@ input::-webkit-inner-spin-button {
         position: relative;
         display: flex;
         flex-direction: column;
+
         input {
           border-radius: 10px;
           border: 2px solid #D8DCE3;
@@ -2643,41 +2706,44 @@ input::-webkit-inner-spin-button {
           width: 100%;
           max-width: calc(100% - 10rem);
         }
+
         .react-select-container {
           width: 100%;
           margin-bottom: 1rem;
+
           .react-select__control {
             border-radius: 15px;
             outline: none;
             border: 2px solid $light_grey;
             box-shadow: none;
           }
+
           .react-select__input-container {
             font-size: 1rem;
           }
-        
+
           .react-select__option:hover {
             color: #FFF;
             background-color: $purple;
           }
-        
+
           .react-select__option--is-focused {
             background-color: #FFF;
           }
-        
+
           .react-select__option--is-selected {
             background-color: $dark_purple;
           }
-        
+
           .react-select__value-container {
             max-width: 100%;
             text-wrap: nowrap;
           }
-        
+
           .react-select__indicator {
             width: 3rem;
           }
-        
+
         }
 
         textarea {
@@ -3833,6 +3899,7 @@ input::-webkit-inner-spin-button {
   .top-report {
     display: flex;
     gap: 1rem;
+
     .left {
       width: 50%;
     }
@@ -3896,15 +3963,18 @@ input::-webkit-inner-spin-button {
 
 .communities-container {
   width: 80%;
+
   .filters {
     gap: 1rem;
     display: flex;
     width: 100%;
     margin-bottom: 1rem;
     align-items: center;
+
     input {
       width: 15rem;
     }
+
     .student-id-search {
       border: 1px solid $light_grey;
       border-radius: 25px;
@@ -3912,42 +3982,44 @@ input::-webkit-inner-spin-button {
       color: $dark_grey;
       font-size: 1rem;
     }
+
     .react-select-container {
       width: 12rem;
-  
+
       .react-select__control {
         border-radius: 10000px;
         outline: none;
         box-shadow: none;
       }
-  
+
       .react-select__input-container {
         font-size: 1rem;
       }
-  
+
       .react-select__option:hover {
         color: #FFF;
         background-color: $purple;
       }
-  
+
       .react-select__option--is-focused {
         background-color: #FFF;
       }
-  
+
       .react-select__option--is-selected {
         background-color: $dark_purple;
       }
-  
+
       .react-select__value-container {
         max-width: 100%;
       }
-  
+
       .react-select__indicator {
         width: 3rem;
       }
-  
+
     }
   }
+
   .top-section {
     padding: 2rem 0;
     text-align: center;
@@ -4343,6 +4415,7 @@ input::-webkit-inner-spin-button {
         align-self: flex-start;
       }
     }
+
     .terms-conditions {
       color: $dark_purple;
       cursor: pointer;
@@ -4398,9 +4471,11 @@ input::-webkit-inner-spin-button {
     }
   }
 }
+
 #login-modal {
   height: fit-content;
 }
+
 .sign-up {
   border: 0;
   background-color: $purple;
@@ -5854,10 +5929,13 @@ input::-webkit-inner-spin-button {
   }
 
   #delete-modal {
-    select, textarea {
+
+    select,
+    textarea {
       background-color: $darker;
       border: none;
     }
+
     .media-upload-container {
       background-color: $darker;
       border: none;
