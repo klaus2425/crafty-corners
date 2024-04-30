@@ -214,14 +214,18 @@ export default function SignUpModal(props) {
                                 purpose.
                             </p>
                             <p>
-                                <strong>5. Collaborative Filtering:</strong> Crafty Corners utilizes collaborative filtering technology to
+                                <strong>5. Plagiarism:</strong> Users must not engage in plagiarism or using someone else's work without giving
+                                proper credit and claiming it as the original owner
+                            </p>
+                            <p>
+                                <strong>6. Collaborative Filtering:</strong> Crafty Corners utilizes collaborative filtering technology to
                                 recommend hobbies based on user preferences and interactions. While we strive to provide
                                 accurate recommendations, we cannot guarantee the accuracy, completeness, or reliability of the
                                 recommendations.
                             </p>
 
                             <p>
-                                <strong>6. Prohibited Activities:</strong> Users agree not to engage in any of the following activities:
+                                <strong>7. Prohibited Activities:</strong> Users agree not to engage in any of the following activities:
                                 <ul>
                                     <li>Violating any applicable laws or regulations.</li>
                                     <li>Interfering with the operation of Crafty Corners or the rights of other users.</li>
@@ -231,28 +235,28 @@ export default function SignUpModal(props) {
                                 </ul>
                             </p>
                             <p>
-                                <strong>7. Privacy Policy:</strong> Crafty Corners respects your privacy and handles your personal information in
-                                accordance with our Privacy Policy, which is incorporated herein by reference.
+                                <strong>8. Privacy Policy:</strong> Crafty Corners respects your privacy and handles your personal information in
+                                accordance with our <span className="terms-conditions" onClick={() => setIsPolicyOpen(true)}>Privacy Policy</span>, which is incorporated herein by reference.
                             </p>
                             <p>
-                                <strong>8. Termination:</strong> Crafty Corners reserves the right to suspend or terminate your access to the
+                                <strong>9. Termination:</strong> Crafty Corners reserves the right to suspend or terminate your access to the
                                 website at any time, with cause, and with prior notice.
                             </p>
                             <p>
-                                <strong>9. Disclaimer of Warranties:</strong> Crafty Corners do not guarantee that the website will be error-free
+                                <strong>10. Disclaimer of Warranties:</strong> Crafty Corners do not guarantee that the website will be error-free
                                 or uninterrupted. The user will bear sole risk for use.
                             </p>
                             <p>
-                                <strong>10. Limitation of Liability:</strong> In no event shall Crafty Corners or its affiliates be liable for any indirect,
+                                <strong>11. Limitation of Liability:</strong> In no event shall Crafty Corners or its affiliates be liable for any indirect,
                                 incidental, special, or consequential damages arising out of or in connection with your use of the
                                 website.
                             </p>
                             <p>
-                                <strong>11. Governing Law:</strong> These Terms & Conditions shall be governed by and construed in accordance
+                                <strong>12. Governing Law:</strong> These Terms & Conditions shall be governed by and construed in accordance
                                 with the laws of the jurisdiction where Crafty Corners operates.
                             </p>
                             <p>
-                                <strong>12. Changes to Terms:</strong> Crafty Corners reserves the right to update or modify these Terms &
+                                <strong>13. Changes to Terms:</strong> Crafty Corners reserves the right to update or modify these Terms &
                                 Conditions at any time without prior notice. Your continued use of the website after any such
                                 changes constitutes acceptance of the modified terms
                             </p>
@@ -266,7 +270,7 @@ export default function SignUpModal(props) {
                                     by these Terms & Conditions.
                                 </span>
                                 <span>
-                                    Last updated: April 22, 2024
+                                    Last updated: April 30, 2024
                                 </span>
                                 <button className='btn btn--purple' onClick={() => setIsTermsOpen(false)}>Accept</button>
                             </footer>
@@ -287,7 +291,7 @@ export default function SignUpModal(props) {
                                     <path d="M15 9L9 15" stroke="#222222" strokeLinecap="round" />
                                 </svg>
                             </div>
-                            <h4>Effective Date: April 22, 2024</h4>
+                            <h4>Effective Date: April 30, 2024</h4>
                             <p>
                                 Crafty Corners is committed to protecting the privacy of our users. This Privacy Policy
                                 describes how we collect, use, and disclose information when you visit our website www.craftycorners.online.
@@ -297,27 +301,36 @@ export default function SignUpModal(props) {
                                 <strong>1. Information We Collect <br /></strong> We may collect personal information that you voluntarily provide
                                 to us when you interact with our Site or use our services. This may include:
                                 <ul>
-                                    <li>Contact information such as your name, email address, and phone number.</li>
-                                    <li>Account credentials such as username and password.</li>
-                                    <li>Payment information if you make a purchase on our Site.</li>
-                                    <li>Information you provide when you contact us for customer support or other inquiries.</li>
-                                    <li>Usage data such as your IP address, browser type, operating system, and device information.</li>
+                                    <li>Personal Information: When you register on Crafty Corners, we gather your name,
+                                        BPSU email address, and BPSU student ID. We may also collect other information that you </li>
+                                    <li>Usage Information: We gather data about your interactions with Crafty Corners</li>
+                                    <li>Device Information: We may collect information about the device you use to visit Crafty
+                                        Corners, such as its kind, operating system, and browser type</li>
                                 </ul>
                             </p>
 
                             <p>
                                 <strong>2. Use of Information <br /></strong> We may use the information we collect for the following purposes:
                                 <ul>
-                                    <li>To provide and maintain our services.</li>
-                                    <li>To personalize your experience and improve our Site.</li>
-                                    <li>To communicate with you, including responding to your inquiries and providing customer support.</li>
-                                    <li>To process transactions and fulfill orders.</li>
-                                    <li>To send you promotional and marketing communications, if you have opted in to receive them.</li>
-                                    <li>To detect, prevent, and address technical issues and security vulnerabilities.</li>
+                                    <li>Personalization: We use the information collected to personalize your experience on
+                                        Crafty Corners, including recommending hobbies and content based on your interests and
+                                        preferences</li>
+                                    <li> Usage Information: We gather data about your interactions with Crafty Corners.</li>
+                                    <li>Device Information: We may collect information about the device you use to visit Crafty
+                                        Corners, such as its kind, operating system, and browser type</li>
                                 </ul>
                             </p>
                             <p>
-                                <strong>3. Sharing of Information</strong> <br /> We may share your information with third parties for the following purposes:
+                               <strong>3. Data Security</strong> <br />
+                                a. We implement appropriate technical and organizational measures to protect your
+                                information against unauthorized access, alteration, disclosure, or destruction.
+                                b. Despite our efforts to secure your information, no method of transmission over the
+                                internet or electronic storage is completely secure. Therefore, we cannot guarantee
+                                absolute security.
+                            </p>
+
+                            <p>
+                                <strong>4. Sharing of Information</strong> <br /> We may share your information with third parties for the following purposes:
                                 <ul>
                                     <li>With service providers who assist us in operating our Site and providing our services.</li>
                                     <li>With third-party vendors, consultants, and other service providers who need access to such information to perform services on our behalf.</li>
@@ -325,7 +338,7 @@ export default function SignUpModal(props) {
                                 </ul>
                             </p>
                             <p>
-                                <strong>4. Changes to this Privacy Policy</strong> <br />We may update this Privacy Policy from time to time, and any changes will be posted on this page. Please review this Privacy Policy periodically for any updates.
+                                <strong>5. Changes to this Privacy Policy</strong> <br />We may update this Privacy Policy from time to time, and any changes will be posted on this page. Please review this Privacy Policy periodically for any updates.
                             </p>
                             <p>
 
@@ -340,7 +353,7 @@ export default function SignUpModal(props) {
                                     <br />
                                 </span>
                                 <span>
-                                    Last updated: April 22, 2024
+                                    Last updated: April 30, 2024
                                 </span>
                                 <button className='btn btn--purple' onClick={() => setIsPolicyOpen(false)}>Accept</button>
                             </footer>
