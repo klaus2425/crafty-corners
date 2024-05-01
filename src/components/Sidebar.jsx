@@ -52,7 +52,7 @@ export const Sidebar = () => {
         return () => {
             echo.leave(`user-${user.id}`);
         }
-    }, [])
+    }, [user])
 
 
     return (
