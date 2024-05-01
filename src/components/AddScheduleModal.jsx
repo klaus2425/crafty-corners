@@ -104,7 +104,7 @@ const AddScheduleModal = (props) => {
                         <input ref={endTimeRef} type="time" required />
                     </div>
                     <div className="schedule-input" style={{ flexDirection: 'row-reverse', justifyContent: 'flex-start' }}>
-                        <label>Repeat Weekly</label>
+                        <label>Repeat</label>
                         <input type="checkbox" onChange={() => setRepeat(!repeat)} />
                     </div>
                     {
