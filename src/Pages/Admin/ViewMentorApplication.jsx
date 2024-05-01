@@ -39,7 +39,7 @@ const ViewMentorApplication = () => {
         toast.promise(axiosClient.post(`/accept-mentorship-application/${applicant.id}`), {
           loading: 'Accepting application',
           success: () => {
-            getApplicant();
+            queryClient.invalidateQueries('mentor-applicants')
             return <b>Application accepted</b>
           },
           error: (err) => {
@@ -65,7 +65,7 @@ const ViewMentorApplication = () => {
         toast.promise(axiosClient.post(`/mentor/${applicant.id}/revoke-mentorship`), {
           loading: 'Revoking mentorship',
           success: () => {
-            getApplicant();
+            queryClient.invalidateQueries('mentor-applicants')
             return <b>Mentorship revoked</b>
           },
           error: (err) => {
