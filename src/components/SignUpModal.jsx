@@ -138,7 +138,12 @@ export default function SignUpModal(props) {
 
                                 </div>
                                 <div className="right">
-                                    <label>Phone Number:</label>
+                                    <label  className='flex align-center sign-phone-label'>Phone Number:
+                                        <svg style={{width: 'fit-content'}} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8ZM13 17V11H11V17H13Z" fill="#6339DC" />
+                                        </svg>
+                                        <div className="card"> This phone number will serve as your GCash number for receiving tips/donations as a mentor</div>
+                                    </label>
                                     <input className='phoneNumberInput' id='phoneNumberInput' onChange={handleInputNumberChange} value={inputValue} ref={numberRef} required />
                                     <label>Email Address: (Use your BPSU email)</label>
                                     <input ref={emailRef} type='text' ></input>
@@ -321,7 +326,7 @@ export default function SignUpModal(props) {
                                 </ul>
                             </p>
                             <p>
-                               <strong>3. Data Security</strong> <br />
+                                <strong>3. Data Security</strong> <br />
                                 a. We implement appropriate technical and organizational measures to protect your
                                 information against unauthorized access, alteration, disclosure, or destruction.
                                 b. Despite our efforts to secure your information, no method of transmission over the

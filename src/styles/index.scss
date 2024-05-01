@@ -1331,6 +1331,27 @@ input::-webkit-inner-spin-button {
   max-height: 94vh;
   padding: 1rem 3rem;
   width: clamp(21rem, 60vw, 50rem);
+  .sign-phone-label {
+    position: relative;
+  }
+  .card {
+    opacity: 0;
+    width: 13rem;
+    text-align: start;
+    height: fit-content;
+    position: absolute;
+    background-color: #FFF;
+    padding: 1rem;
+    box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
+    border-radius: 25px;
+    bottom: 2rem;
+    transition: 0.3s;
+  }
+  .sign-phone-label:hover {
+    .card {
+      opacity: 1;
+    }
+  }
 }
 
 
