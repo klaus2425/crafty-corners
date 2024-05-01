@@ -1716,21 +1716,9 @@ input::-webkit-inner-spin-button {
       flex-direction: column;
       align-items: center;
 
-      .levelProgressBar {
-        width: 70%;
 
-        .barContainer {
-          background-color: $light_grey;
-          border-radius: 1000px;
-        }
 
-      }
 
-      .barCompleted {
-        border-radius: 1000px;
-        width: fit-content;
-        background-color: $purple;
-      }
 
       .user-level {
         font-weight: bold;
@@ -2885,11 +2873,10 @@ input::-webkit-inner-spin-button {
     display: grid;
     background-color: #FFF;
     border-radius: 15px;
-    width: fit-content;
     padding: 1rem;
     gap: 1rem;
     justify-items: center;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: fit-content;
 
     .level-container {

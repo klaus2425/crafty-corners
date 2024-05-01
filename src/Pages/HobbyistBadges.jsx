@@ -9,7 +9,7 @@ const HobbyistBadges = () => {
   const { id } = useParams();
 
   const { data } = useQuery({
-    queryKey: ['badges'],
+    queryKey: ['hobbyist-badges'],
     queryFn: () => axiosClient.get(`/user-levels/${id}`).then(({ data }) => (data.user_level)),
   })
 
@@ -26,7 +26,7 @@ const HobbyistBadges = () => {
                 <div className="level-container">
                   <span><strong>/{level.community_name}</strong></span>
                   <img src={`/${level.badge}`} alt="" />
-                  <ProgressBar height='1.5rem' width={120} completed={`${level.experience_points}` || 0} maxCompleted={level.next_level_experience || 0} />
+                  <ProgressBar baseBgColor='#FFF' bgColor='#6339DC' height='1.5rem' width={120} completed={`${level.experience_points}` || 0} maxCompleted={level.next_level_experience || 0} />
                   {level.experience_points + '/' + level.next_level_experience}
                   <span>Level {level.level}</span>
                 </div>
