@@ -13,6 +13,7 @@ import MembershipCheck from '../components/utils/Membership';
 
 const ViewCommunity = () => {
   const PostModal = lazy(() => import('../components/PostModal'));
+  const CommunityPostModal = lazy(() => import('../components/CommunityPostModal'));
   const [isOpen, setIsOpen] = useState(false);
   const [topic, setTopic] = useState();
   const [topicActive, setTopicActive] = useState(false)
@@ -117,7 +118,8 @@ const ViewCommunity = () => {
       {
         isOpen &&
         <Suspense>
-          <PostModal isOpen={isOpen} topics={useTopics.data} setIsOpen={setIsOpen} />
+          {/* <PostModal isOpen={isOpen} topics={useTopics.data} setIsOpen={setIsOpen} /> */}
+          <CommunityPostModal id={id} isOpen={isOpen} topics={useTopics.data} setIsOpen={setIsOpen} />
         </Suspense>
       }
       <div className="feed" id='feed'>
