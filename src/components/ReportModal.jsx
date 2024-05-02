@@ -48,6 +48,7 @@ const ReportModal = (props) => {
           <option value="Hate Speech">Hate Speech</option>
           <option value="False Information">False Information</option>
           <option value="Harassment">Harassment</option>
+          <option value="Foul Words">Foul Words</option>
           <option value="Nudity">Nudity</option>
           <option value="Irrelevant Topic">Irrelevant Topic</option>
           <option value="Plagiarism">Plagiarism</option>

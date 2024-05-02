@@ -56,6 +56,7 @@ const ReportConversationModal = (props) => {
           <option value="Violence">Violence</option>
           <option value="Hate Speech">Hate Speech</option>
           <option value="False Information">False Information</option>
+          <option value="Foul Words">Foul Words</option>
           <option value="Harassment">Harassment</option>
           <option value="Nudity">Nudity</option>
           <option value="Plagiarism">Plagiarism</option>

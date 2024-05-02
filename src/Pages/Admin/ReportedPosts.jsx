@@ -21,6 +21,7 @@ const ReportedPosts = () => {
     { value: "False Information", label: "False Information" },
     { value: "Harassment", label: "Harassment" }, 
     { value: "Nudity", label: "Nudity" },
+    { value: "Foul Words", label: "Foul Words"},
     { value: "Irrelevant Topic", label: "Irrelevant Topic" },
     { value: "Plagiarism", label: "Plagiarism" }
   ];

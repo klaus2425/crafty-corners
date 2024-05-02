@@ -14,6 +14,7 @@ const ReportedComments = () => {
     { value: "Hate Speech", label: "Hate Speech" },
     { value: "False Information", label: "False Information" },
     { value: "Harassment", label: "Harassment" },
+    { value: "Foul Words", label: "Foul Words"},
     { value: "Irrelevant Topic", label: "Irrelevant Topic" },
     { value: "Plagiarism", label: "Plagiarism" }
   ];
