@@ -13,8 +13,6 @@ const ViewReportedPost = () => {
     setResolveOpen(!resolveOpen);
   }
 
-
-
   const useReport = useQuery({
     queryKey: [`report-${reportId}`],
     queryFn: () => axiosClient.get(`/report/${reportId}`).then(({ data }) => data.data)
@@ -24,6 +22,7 @@ const ViewReportedPost = () => {
   if (useReport.isLoading) {
     return <Loading />
   }
+
   if (useReport?.data.reportable.post_type === 'text') {
     return (
       <div className="communities-container">
@@ -68,6 +67,13 @@ const ViewReportedPost = () => {
                 <strong>Content: <br /></strong>
                 {useReport?.data.reportable.content}
               </div>
+              {
+                useReport.data.is_resolved &&
+                <div className=""><strong>Resolution:</strong><br />
+                  • {useReport.data.resolution_option.toUpperCase()} <br />
+                  • {useReport.data.resolution_description}
+                </div>
+              }
             </div>
           </div>
           {
@@ -124,7 +130,13 @@ const ViewReportedPost = () => {
                 <strong>Content: <br /></strong>
                 {useReport?.data.reportable.link}
               </div>
-              
+              {
+                useReport.data.is_resolved &&
+                <div className=""><strong>Resolution:</strong><br />
+                  • {useReport.data.resolution_option.toUpperCase()} <br />
+                  • {useReport.data.resolution_description}
+                </div>
+              }
             </div>
           </div>
           {
@@ -179,6 +191,13 @@ const ViewReportedPost = () => {
               <span><strong>Reason for reporting:</strong><br />{useReport?.data.reason}</span>
               <div><strong>Description:</strong></div>
               <span>{useReport?.data.description}</span>
+              {
+                useReport.data.is_resolved &&
+                <div className=""><strong>Resolution:</strong><br />
+                  • {useReport.data.resolution_option.toUpperCase()} <br />
+                  • {useReport.data.resolution_description}
+                </div>
+              }
             </div>
           </div>
           {

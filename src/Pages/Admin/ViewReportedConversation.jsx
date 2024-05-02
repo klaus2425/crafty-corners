@@ -60,7 +60,14 @@ const ViewReportedConversation = () => {
               <img className="report-details__image" src={`${storageUrl}${data.proof}`} alt="" />
             </div>
             <span><strong>Reason for reporting:</strong><br />{data.reason}</span>
-            <div><strong>Description:</strong><br />{data.description}</div>
+            <div style={{ marginBottom: '2rem' }}> <strong>Description:</strong><br />{data.description}</div>
+            {
+              data.is_resolved &&
+              <div className=""><strong>Resolution:</strong><br />
+                • {data.resolution_option.toUpperCase()} <br />
+                • {data.resolution_description}
+              </div>
+            }
           </div>
         </div>
         {

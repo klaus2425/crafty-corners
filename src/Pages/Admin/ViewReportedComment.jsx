@@ -49,8 +49,17 @@ const ViewReportedComment = () => {
             </div>
           </div>
           <div className="right">
-            <strong>Comment:</strong>
-            <span>{data.reportable.content}</span>
+            <div style={{ marginBottom: '2rem' }} >
+              <strong>Comment:</strong>
+              <span >{data.reportable.content}</span>
+            </div>
+            {
+              data.is_resolved &&
+              <div className=""><strong>Resolution:</strong><br />
+                • {data.resolution_option.toUpperCase()} <br />
+                • {data.resolution_description}
+              </div>
+            }
           </div>
         </div>
         <div className="bottom-report">
