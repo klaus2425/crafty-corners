@@ -74,7 +74,7 @@ const UserFeed = () => {
                                         }
                                         <span>{user.sex ? user.sex : <Skeleton />}</span>
                                         <span>{!userData.isLoading ? `@${userData?.data?.data?.data?.user_name}` : <Skeleton />}</span>
-                                        <span>{!userData.isLoading ? `${userData.data.data.data.communities.length} Communities` : <Skeleton />}</span>
+                                        <span><strong>{!userData.isLoading ? `${userData.data.data.data.communities.length} Communities` : <Skeleton />}</strong></span>
                                     </div>
                                 </div>
                                 <div className='lower-details'>

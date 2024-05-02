@@ -12,7 +12,6 @@ import MembershipCheck from '../components/utils/Membership';
 
 
 const ViewCommunity = () => {
-  const PostModal = lazy(() => import('../components/PostModal'));
   const CommunityPostModal = lazy(() => import('../components/CommunityPostModal'));
   const [isOpen, setIsOpen] = useState(false);
   const [topic, setTopic] = useState();
@@ -233,7 +232,7 @@ const ViewCommunity = () => {
             <div className="card" id='community-level-card'>
               <h3>Community Progress</h3>
               <img id='badge' src={`/${useCommunity.data?.badge}`} alt='badge' />
-              <ProgressBar isLabelVisible={false} baseBgColor='#FFF' bgColor='#6339DC' height='1.5rem' width={150} completed={`${useCommunity.data?.user_experience_points}` || 0} maxCompleted={useCommunity.data?.next_level_experience || 0} />
+              <ProgressBar isLabelVisible={false} baseBgColor='#EEF1F5' bgColor='#6339DC' height='1.5rem' width={150} completed={`${useCommunity.data?.user_experience_points}` || 0} maxCompleted={useCommunity.data?.next_level_experience || 0} />
               <span className='points-needed'>{useCommunity.data?.next_level_experience - useCommunity.data?.user_experience_points} more points to go</span>
               <span className='user-level'>Level {useCommunity.data?.user_level}</span>
             </div>
