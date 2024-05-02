@@ -4,7 +4,6 @@ import axiosClient from '../axios-client';
 import UserNotifications from '../components/UserNotifications';
 import Loading from '../components/utils/Loading';
 import { useStateContext } from '../context/ContextProvider';
-import RecommendedCard from '../components/RecommendedCard';
 
 
 const UserFeed = () => {
