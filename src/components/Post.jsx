@@ -500,6 +500,13 @@ export const UserPost = (props) => {
     const { user } = useStateContext();
     const menuRef = useRef();
     const [open, setOpen] = useState(false);
+    const [reportOpen, setReportOpen] = useState(false);
+    const ReportModal = lazy(() => import('./ReportModal'))
+
+    const handleReport = () => {
+        setReportOpen(true);
+        setOpen(false);
+    }
 
     const deletePost = () => {
         Swal.fire({
@@ -577,6 +584,12 @@ export const UserPost = (props) => {
     if (post.post_type === 'image') {
         return (
             <div className="post">
+                {
+                    reportOpen &&
+                    <Suspense>
+                        <ReportModal type={'post'} poster_id={post_user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                    </Suspense>
+                }
                 <div className="post-header" id="posts">
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
@@ -588,7 +601,7 @@ export const UserPost = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
-                         {
+                        {
                             post.subtopics != 'undefined' &&
                             <div className="flair">
                                 <span className="flair__text">
@@ -638,6 +651,12 @@ export const UserPost = (props) => {
                                         </li>
                                     }
                                     {
+                                        user?.id != post_user.id &&
+                                        <li onClick={handleReport} >
+                                            Report Post
+                                        </li>
+                                    }
+                                    {
                                         user?.id == post_user.id &&
                                         <li onClick={deletePost} >
                                             Delete Post
@@ -655,6 +674,12 @@ export const UserPost = (props) => {
     if (post.post_type === 'video') {
         return (
             <div className="post">
+                {
+                    reportOpen &&
+                    <Suspense>
+                        <ReportModal type={'post'} poster_id={post_user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                    </Suspense>
+                }
                 <div className="post-header" id="posts">
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
@@ -666,7 +691,7 @@ export const UserPost = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
-                         {
+                        {
                             post.subtopics != 'undefined' &&
                             <div className="flair">
                                 <span className="flair__text">
@@ -715,6 +740,12 @@ export const UserPost = (props) => {
                                         </li>
                                     }
                                     {
+                                        user?.id != post_user.id &&
+                                        <li onClick={handleReport} >
+                                            Report Post
+                                        </li>
+                                    }
+                                    {
                                         user?.id == post_user.id &&
                                         <li onClick={deletePost} >
                                             Delete Post
@@ -732,6 +763,12 @@ export const UserPost = (props) => {
     if (post.post_type === 'text') {
         return (
             <div className="post">
+                {
+                    reportOpen &&
+                    <Suspense>
+                        <ReportModal type={'post'} poster_id={post_user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                    </Suspense>
+                }
                 <div className="post-header" id="posts">
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
@@ -743,7 +780,7 @@ export const UserPost = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
-                         {
+                        {
                             post.subtopics != 'undefined' &&
                             <div className="flair">
                                 <span className="flair__text">
@@ -791,6 +828,12 @@ export const UserPost = (props) => {
                                         user?.id == post_user.id &&
                                         <li onClick={handleEditPost}>
                                             Edit Post
+                                        </li>
+                                    }
+                                    {
+                                        user?.id != post_user.id &&
+                                        <li onClick={handleReport} >
+                                            Report Post
                                         </li>
                                     }
                                     {
@@ -812,6 +855,12 @@ export const UserPost = (props) => {
     if (post.post_type === 'link') {
         return (
             <div className="post">
+                {
+                    reportOpen &&
+                    <Suspense>
+                        <ReportModal type={'post'} poster_id={post_user.id} postId={post.id} isOpen={reportOpen} setIsOpen={setReportOpen} />
+                    </Suspense>
+                }
                 <div className="post-header" id="posts">
                     <div className="left">
                         {loadingProfile && <Skeleton circle className="post-image" />}
@@ -823,7 +872,7 @@ export const UserPost = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
-                         {
+                        {
                             post.subtopics != 'undefined' &&
                             <div className="flair">
                                 <span className="flair__text">
@@ -872,6 +921,12 @@ export const UserPost = (props) => {
                                         user?.id == post_user.id &&
                                         <li onClick={handleEditPost}>
                                             Edit Post
+                                        </li>
+                                    }
+                                    {
+                                        user?.id != post_user.id &&
+                                        <li onClick={handleReport} >
+                                            Report Post
                                         </li>
                                     }
                                     {

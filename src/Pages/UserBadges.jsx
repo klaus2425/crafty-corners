@@ -27,7 +27,7 @@ const UserBadges = () => {
                       <div className="level-container">
                         <span><strong>/{level.community_name}</strong></span>
                         <img src={`/${level.badge}`} alt="" />
-                        <ProgressBar isLabelVisible='false' baseBgColor='#FFF' bgColor='#6339DC' height='1.5rem' width={120} completed={`${level.experience_points}` || 0} maxCompleted={level.next_level_experience || 0} />
+                        <ProgressBar isLabelVisible={false} baseBgColor='#FFF' bgColor='#6339DC' height='1.5rem' width={120} completed={`${level.experience_points}` || 0} maxCompleted={level.next_level_experience || 0} />
                         {level.experience_points + '/' + level.next_level_experience}
                         <span>Level {level.level}</span>
                       </div>
