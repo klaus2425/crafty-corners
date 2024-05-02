@@ -229,7 +229,6 @@ const ViewPost = () => {
     commentIdRef.current = comment_id;
     setReportCommentOpen(true);
   }
-  console.log(usePost.data);
 
   return (
     !usePost.isLoading ?

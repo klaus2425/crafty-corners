@@ -2209,6 +2209,9 @@ input::-webkit-inner-spin-button {
       right: 1.5rem;
       width: clamp(17rem, 30vw, 20rem) !important;
       height: 20rem !important;
+      input {
+        font-size: 1rem;
+      }
     }
 
     .emoji-icon {
@@ -5086,6 +5089,9 @@ input::-webkit-inner-spin-button {
     bottom: 4rem;
     right: -1rem;
     width: clamp(16rem, 50vw, 20rem) !important;
+    input {
+      font-size: 1rem;
+    }
   }
 
   .textbox {
