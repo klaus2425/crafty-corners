@@ -588,11 +588,14 @@ export const UserPost = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
-                        <div className="flair">
-                            <span className="flair__text">
-                                {post.subtopics}
-                            </span>
-                        </div>
+                         {
+                            post.subtopics != 'undefined' &&
+                            <div className="flair">
+                                <span className="flair__text">
+                                    {post.subtopics}
+                                </span>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className="title-content-container" onClick={() => viewPost()}>
@@ -663,11 +666,14 @@ export const UserPost = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
-                        <div className="flair">
-                            <span className="flair__text">
-                                {post.subtopics}
-                            </span>
-                        </div>
+                         {
+                            post.subtopics != 'undefined' &&
+                            <div className="flair">
+                                <span className="flair__text">
+                                    {post.subtopics}
+                                </span>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className="title-content-container" onClick={() => viewPost()}>
@@ -737,11 +743,14 @@ export const UserPost = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
-                        <div className="flair">
-                            <span className="flair__text">
-                                {post.subtopics}
-                            </span>
-                        </div>
+                         {
+                            post.subtopics != 'undefined' &&
+                            <div className="flair">
+                                <span className="flair__text">
+                                    {post.subtopics}
+                                </span>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className="title-content-container" onClick={() => viewPost()}>
@@ -814,11 +823,14 @@ export const UserPost = (props) => {
                     </div>
                     <div className="right">
                         <span>/{community.name}</span>
-                        <div className="flair">
-                            <span className="flair__text">
-                                {post.subtopics}
-                            </span>
-                        </div>
+                         {
+                            post.subtopics != 'undefined' &&
+                            <div className="flair">
+                                <span className="flair__text">
+                                    {post.subtopics}
+                                </span>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className="title-content-container" onClick={() => viewPost()}>
