@@ -59,9 +59,12 @@ const ViewReportedComment = () => {
         <div className="bottom-report">
           <strong>Student ID:</strong> {data.reported_by.student_id}
         </div>
-        <div className="bottom-report">
-          <button onClick={handleResolve} className="purple-button">Resolve Post</button>
-        </div>
+        {
+          !data.is_resolved &&
+          <div className="bottom-report">
+            <button onClick={handleResolve} className="purple-button">Resolve Post</button>
+          </div>
+        }
       </div>
     </div>
   ) :

@@ -19,7 +19,7 @@ const ViewReportedConversation = () => {
   }
 
 
-  
+
   return !isLoading ? (
     <div className="communities-container">
       {resolveOpen &&
@@ -55,17 +55,20 @@ const ViewReportedConversation = () => {
             </div>
           </div>
           <div className="right">
-          <div style={{ marginBottom: '2rem' }} className="report-details">
-                <strong>Proof:</strong>
-                <img className="report-details__image" src={`${storageUrl}${data.proof}`} alt="" />
-              </div>
+            <div style={{ marginBottom: '2rem' }} className="report-details">
+              <strong>Proof:</strong>
+              <img className="report-details__image" src={`${storageUrl}${data.proof}`} alt="" />
+            </div>
             <span><strong>Reason for reporting:</strong><br />{data.reason}</span>
             <div><strong>Description:</strong><br />{data.description}</div>
           </div>
         </div>
-        <div className="bottom-report">
-          <button onClick={handleResolve} className="purple-button">Resolve Post</button>
-        </div>
+        {
+          !data.is_resolved &&
+          <div className="bottom-report">
+            <button onClick={handleResolve} className="purple-button">Resolve Post</button>
+          </div>
+        }
       </div>
     </div>
   )

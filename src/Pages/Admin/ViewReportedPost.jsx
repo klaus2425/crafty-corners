@@ -70,9 +70,12 @@ const ViewReportedPost = () => {
               </div>
             </div>
           </div>
-          <div className="bottom-report">
-            <button onClick={handleResolve} className="purple-button">Resolve Post</button>
-          </div>
+          {
+             !useReport.data.is_resolved &&
+            <div className="bottom-report">
+              <button onClick={handleResolve} className="purple-button">Resolve Post</button>
+            </div>
+          }
         </div>
       </div>
     )
@@ -121,11 +124,15 @@ const ViewReportedPost = () => {
                 <strong>Content: <br /></strong>
                 {useReport?.data.reportable.link}
               </div>
+              
             </div>
           </div>
-          <div className="bottom-report">
-            <button onClick={handleResolve} className="purple-button">Resolve Post</button>
-          </div>
+          {
+            !useReport.data.is_resolved &&
+            <div className="bottom-report">
+              <button onClick={handleResolve} className="purple-button">Resolve Post</button>
+            </div>
+          }
         </div>
       </div>
     )
@@ -174,9 +181,14 @@ const ViewReportedPost = () => {
               <span>{useReport?.data.description}</span>
             </div>
           </div>
-          <div className="bottom-report">
-            <button onClick={handleResolve} className="purple-button">Resolve Post</button>
-          </div>
+          {
+             !useReport.data.is_resolved &&
+            <div className="bottom-report">
+              <button onClick={handleResolve} className="purple-button">Resolve Post</button>
+            </div>
+          }
+
+
         </div>
       </div>
     )
@@ -223,11 +235,20 @@ const ViewReportedPost = () => {
               <span><strong>Reason for reporting:</strong><br />{useReport?.data.reason}</span>
               <div><strong>Description:</strong></div>
               <span>{useReport?.data.description}</span>
+              {
+                useReport.data.is_resolved &&
+                <div className=""><strong>Resolution:</strong><br />
+                  {useReport.data.resolution_option}
+                </div>
+              }
             </div>
           </div>
-          <div className="bottom-report">
-            <button onClick={handleResolve} className="purple-button">Resolve Post</button>
-          </div>
+          {
+             !useReport.data.is_resolved &&
+            <div className="bottom-report">
+              <button onClick={handleResolve} className="purple-button">Resolve Post</button>
+            </div>
+          }
         </div>
       </div>
     )
