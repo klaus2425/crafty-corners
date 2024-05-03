@@ -119,7 +119,6 @@ export default function SignUpModal(props) {
                                 <img id='update-picture' src={image} />
                                 <input ref={profilePictureRef} id='upload-button' type="file" onChange={handleChange} />
                                 <label htmlFor='upload-button'>Upload File</label>
-                                Maximum file size: 2MB
                             </div>
                             <div className="signup-inputs">
                                 <div className="left">
