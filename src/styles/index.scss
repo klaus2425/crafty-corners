@@ -20,11 +20,9 @@ $dark: #242526;
 }
 
 
-
 .flex {
   display: flex;
 }
-
 
 
 .flex--justify-space-between {
@@ -84,8 +82,6 @@ $dark: #242526;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-
 
 
 .hide {
@@ -295,7 +291,6 @@ $dark: #242526;
 }
 
 
-
 .collapsible.open {
   max-height: 14rem;
   transition: max-height 0.3s ease-in;
@@ -490,7 +485,6 @@ input::-webkit-inner-spin-button {
 }
 
 
-
 #logout_button {
   display: flex;
   color: white;
@@ -549,7 +543,6 @@ input::-webkit-inner-spin-button {
   }
 
 }
-
 
 
 .upload-picture {
@@ -660,7 +653,6 @@ input::-webkit-inner-spin-button {
   }
 
 
-
   input:focus {
     border-color: $purple;
   }
@@ -736,8 +728,6 @@ input::-webkit-inner-spin-button {
     }
 
 
-
-
     .login-main {
       h2 {
         padding-left: 0.3rem;
@@ -811,7 +801,6 @@ input::-webkit-inner-spin-button {
   }
 
 }
-
 
 
 .bottom-navbar {
@@ -956,8 +945,6 @@ input::-webkit-inner-spin-button {
   }
 
 
-
-
   .profile {
     display: flex;
     justify-content: center;
@@ -980,7 +967,7 @@ input::-webkit-inner-spin-button {
     }
 
     .navbar-img:hover {
-      border: 3px solid#4627a1;
+      border: 3px solid #4627a1;
       cursor: pointer;
       transition: 0.15s;
     }
@@ -1065,7 +1052,6 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
   }
 }
-
 
 
 #home {
@@ -1331,9 +1317,11 @@ input::-webkit-inner-spin-button {
   max-height: 94vh;
   padding: 1rem 3rem;
   width: clamp(21rem, 60vw, 50rem);
+
   .sign-phone-label {
     position: relative;
   }
+
   .card {
     opacity: 0;
     width: 13rem;
@@ -1347,6 +1335,7 @@ input::-webkit-inner-spin-button {
     bottom: 2rem;
     transition: 0.3s;
   }
+
   .sign-phone-label:hover {
     .card {
       opacity: 1;
@@ -1525,9 +1514,11 @@ input::-webkit-inner-spin-button {
       }
     }
   }
+
   .modal::-webkit-scrollbar {
     display: none;
   }
+
   .modal {
     display: flex;
     flex-direction: column;
@@ -1543,7 +1534,7 @@ input::-webkit-inner-spin-button {
     overflow-y: auto;
     padding: 1.46rem;
     width: clamp(20rem, 17vw + 2rem, 35rem);
-    
+
     input {
       width: 100%;
       height: 1rem;
@@ -1648,7 +1639,6 @@ input::-webkit-inner-spin-button {
       }
 
 
-      
       .weekday-checkbox-container {
         display: flex;
         flex-wrap: wrap;
@@ -1667,6 +1657,7 @@ input::-webkit-inner-spin-button {
           align-items: center;
           justify-content: flex-end;
           height: calc(30px + 1rem);
+
           input {
             position: absolute;
             opacity: 0;
@@ -1677,6 +1668,7 @@ input::-webkit-inner-spin-button {
 
 
         }
+
         .checkmark {
           position: absolute;
           top: 0;
@@ -1686,11 +1678,12 @@ input::-webkit-inner-spin-button {
           border-radius: 1000px;
           cursor: pointer;
         }
-        .weekday-checkbox__day:hover input~.checkmark {
+
+        .weekday-checkbox__day:hover input ~ .checkmark {
           background-color: #ccc;
         }
 
-        .weekday-checkbox__day input:checked~.checkmark {
+        .weekday-checkbox__day input:checked ~ .checkmark {
           background-color: $purple;
         }
       }
@@ -1718,7 +1711,6 @@ input::-webkit-inner-spin-button {
     }
 
 
-
   }
 
   .recommended::-webkit-scrollbar {
@@ -1736,9 +1728,6 @@ input::-webkit-inner-spin-button {
       display: flex;
       flex-direction: column;
       align-items: center;
-
-
-
 
 
       .user-level {
@@ -1959,9 +1948,11 @@ input::-webkit-inner-spin-button {
         gap: 0.5rem;
         flex-direction: column;
       }
+
       ul {
         margin-left: 2rem;
       }
+
       h3 {
         text-align: center;
         color: $darker;
@@ -2211,6 +2202,7 @@ input::-webkit-inner-spin-button {
       right: 1.5rem;
       width: clamp(17rem, 30vw, 20rem) !important;
       height: 20rem !important;
+
       input {
         font-size: 1rem;
       }
@@ -2249,7 +2241,6 @@ input::-webkit-inner-spin-button {
     margin-bottom: 1rem;
 
   }
-
 
 
   .comments-container {
@@ -2299,10 +2290,6 @@ input::-webkit-inner-spin-button {
   }
 
 
-
-
-
-
   .card {
     display: flex;
     flex-direction: column;
@@ -2330,7 +2317,6 @@ input::-webkit-inner-spin-button {
       transition: 0.5s;
       margin-bottom: 1rem;
     }
-
 
 
     .mentor-apply-select {
@@ -2601,7 +2587,7 @@ input::-webkit-inner-spin-button {
           .lower-details {
             display: flex;
             width: 100%;
-            font-size: 1.2 rem;
+            font-size: 1.2rem;
             align-items: flex-start;
             padding-left: 7.96rem;
 
@@ -2786,8 +2772,8 @@ input::-webkit-inner-spin-button {
           align-items: center;
         }
 
-        input:focus~label,
-        input:valid~label {
+        input:focus ~ label,
+        input:valid ~ label {
           transform: translateY(-23px);
           font-size: 0.85rem;
         }
@@ -3100,10 +3086,6 @@ input::-webkit-inner-spin-button {
   }
 
 
-
-
-
-
   @media screen and (max-width: 945px) {
     .authenticated-container {
       margin-bottom: 3.2rem;
@@ -3186,7 +3168,6 @@ input::-webkit-inner-spin-button {
 
 
   }
-
 
 
 }
@@ -3317,7 +3298,6 @@ input::-webkit-inner-spin-button {
   }
 
 }
-
 
 
 #scroll {
@@ -3567,7 +3547,6 @@ input::-webkit-inner-spin-button {
         opacity: 1;
       }
     }
-
 
 
   }
@@ -3945,7 +3924,6 @@ input::-webkit-inner-spin-button {
 }
 
 
-
 .loading-container {
   width: 100%;
   display: flex;
@@ -4101,6 +4079,16 @@ input::-webkit-inner-spin-button {
   .resolve-modal-header {
     color: #000;
     font-weight: bold;
+
+  }
+
+  .close {
+    svg {
+      border-radius: 1000px;
+      path {
+        border-radius: 1000px;
+      }
+    }
   }
 
   .red-button {
@@ -4553,7 +4541,6 @@ input::-webkit-inner-spin-button {
   }
 
 
-
   .left {
     display: flex;
     flex-direction: column;
@@ -4745,7 +4732,6 @@ input::-webkit-inner-spin-button {
 }
 
 
-
 .community-item {
   background-color: #FFF;
   border: 2px solid $light_grey;
@@ -4776,7 +4762,6 @@ input::-webkit-inner-spin-button {
     }
   }
 }
-
 
 
 .buttons-community {
@@ -4978,7 +4963,6 @@ input::-webkit-inner-spin-button {
       }
 
 
-
       .chat {
         word-break: break-all;
         height: fit-content;
@@ -5091,6 +5075,7 @@ input::-webkit-inner-spin-button {
     bottom: 4rem;
     right: -1rem;
     width: clamp(16rem, 50vw, 20rem) !important;
+
     input {
       font-size: 1rem;
     }
@@ -5155,7 +5140,6 @@ input::-webkit-inner-spin-button {
 }
 
 
-
 .title {
   font-weight: bold;
   color: #000;
@@ -5203,7 +5187,6 @@ input::-webkit-inner-spin-button {
 .article:hover {
   background-color: $lighter_grey;
 }
-
 
 
 .video {
@@ -5458,8 +5441,6 @@ input::-webkit-inner-spin-button {
     }
 
 
-
-
     .list-card-item:hover {
       background-color: $lighter_grey;
     }
@@ -5636,7 +5617,7 @@ input::-webkit-inner-spin-button {
     cursor: pointer;
     width: clamp(10rem, 8vw, 15rem);
     padding: 1rem;
-    height: 11 rem;
+    height: 11rem;
     position: relative;
 
     .mentor-item-card__likes {
@@ -5765,7 +5746,6 @@ input::-webkit-inner-spin-button {
 }
 
 
-
 .verify-container {
   display: flex;
   width: 100%;
@@ -5783,7 +5763,7 @@ input::-webkit-inner-spin-button {
     box-shadow: 0 0px 3px rgb(0 0 0 / 0.2);
     min-width: fit-content;
     margin-bottom: 0.5rem;
-    font-size: 1.25 rem;
+    font-size: 1.25rem;
     padding: 5rem;
     align-items: center;
 
@@ -5814,7 +5794,7 @@ input::-webkit-inner-spin-button {
     width: 20rem;
     height: fit-content;
     margin-bottom: 0.5rem;
-    font-size: 1.25 rem;
+    font-size: 1.25rem;
     padding: 1rem;
 
     .inputs {
@@ -5829,7 +5809,6 @@ input::-webkit-inner-spin-button {
     }
 
   }
-
 
 
 }
@@ -6307,7 +6286,6 @@ input::-webkit-inner-spin-button {
   }
 
 
-
   .list-card {
     background-color: #242526;
 
@@ -6557,7 +6535,6 @@ input::-webkit-inner-spin-button {
   }
 
 
-
   .article,
   .video {
     .title {
@@ -6693,18 +6670,21 @@ input::-webkit-inner-spin-button {
   .community-mentor-item:hover {
     background-color: $darker;
   }
+
   #report-modal {
     select {
-      background-color: $darker;
+      background-color: $dark;
       color: #e4e6eb;
       border: none;
     }
+
     textarea {
-      background-color: $darker;
+      background-color: $dark;
       color: #e4e6eb;
       border: none;
     }
   }
+
   #notification-circle {
     fill: #FF4646;
   }
@@ -6745,7 +6725,8 @@ input::-webkit-inner-spin-button {
   }
 }
 
-@media screen and (max-width: 900px) {}
+@media screen and (max-width: 900px) {
+}
 
 @media screen and (max-width: 1200px) {
   .input-container {
