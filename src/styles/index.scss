@@ -1959,7 +1959,9 @@ input::-webkit-inner-spin-button {
         gap: 0.5rem;
         flex-direction: column;
       }
-
+      ul {
+        margin-left: 2rem;
+      }
       h3 {
         text-align: center;
         color: $darker;
