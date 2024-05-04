@@ -43,7 +43,7 @@ const ResolveReport = (props) => {
 
   return props.resolveOpen ? (
     <div className="overlay">
-      <div className="modal" id="report-modal">
+      <div className="modal" id="resolve-modal">
         <div className='close'>
           <span className="resolve-modal-header">Resolve this post</span>
           <svg onClick={handleClose} xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">

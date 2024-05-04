@@ -4073,7 +4073,7 @@ input::-webkit-inner-spin-button {
 
 }
 
-#report-modal {
+#report-modal, #resolve-modal {
   width: clamp(15rem, 15vw, 30rem);
 
   .resolve-modal-header {
@@ -6680,6 +6680,19 @@ input::-webkit-inner-spin-button {
 
     textarea {
       background-color: $dark;
+      color: #e4e6eb;
+      border: none;
+    }
+  }
+  #resolve-modal {
+    select {
+      background-color: $darker;
+      color: #e4e6eb;
+      border: none;
+    }
+
+    textarea {
+      background-color: $darker;
       color: #e4e6eb;
       border: none;
     }
