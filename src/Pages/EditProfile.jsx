@@ -55,7 +55,7 @@ const EditProfile = () => {
             toast.promise(axiosClient.post(`users/${currentUser.id}`, formData), {
                 loading: 'Updating Profile',
                 success: () => {
-                    queryClient.invalidateQueries('user');
+                    queryClient.invalidateQueries({ queryKey: ['user'] });
                     return <b>Profile Updated</b>
                 },
                 error: (err) => {
@@ -74,7 +74,7 @@ const EditProfile = () => {
             toast.promise(axiosClient.post(`users/${currentUser.id}`, formData), {
                 loading: 'Updating Profile',
                 success: () => {
-                    queryClient.invalidateQueries('user');
+                    queryClient.invalidateQueries({queryKey: ['user']});
                     return <b>Profile Updated</b>
                 },
                 error: (err) => {

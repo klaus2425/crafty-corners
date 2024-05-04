@@ -48,7 +48,7 @@ const Post = (props) => {
                 toast.promise(axiosClient.delete(`/posts/${post.id}`), {
                     loading: 'Deleting post',
                     success: () => {
-                        queryClient.invalidateQueries('post')
+                        queryClient.invalidateQueries({queryKey: ['posts']})
                         return <b>Post deleted!</b>
                     },
                     error: (err) => {
@@ -522,7 +522,7 @@ export const UserPost = (props) => {
                 toast.promise(axiosClient.delete(`/posts/${post.id}`), {
                     loading: 'Deleting post',
                     success: () => {
-                        queryClient.invalidateQueries('user-post')
+                        queryClient.invalidateQueries({queryKey: ['user-posts']})
                         return <b>Post deleted!</b>
                     },
                     error: (err) => {

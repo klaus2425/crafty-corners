@@ -24,7 +24,7 @@ const Assessment = () => {
   const handleProceed = () => {
     axiosClient.post('/done-assessment')
     .then(() => {
-      queryClient.invalidateQueries('communities').then(() => {
+      queryClient.invalidateQueries({ queryKey: ['communities'] }).then(() => {
         navigate('/')
       })
     })

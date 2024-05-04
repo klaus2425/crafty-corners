@@ -53,7 +53,7 @@ const PostModal = (props) => {
         {
           loading: 'Posting',
           success: () => {
-            queryClient.invalidateQueries(`posts`);
+            queryClient.invalidateQueries([`posts`]);
             handleClose();
             return <b>Post success!</b>
           },
@@ -123,7 +123,7 @@ const PostModal = (props) => {
         , {
           loading: 'Posting',
           success: () => {
-            queryClient.invalidateQueries(`posts`);
+            queryClient.invalidateQueries({ queryKey: ['posts'] });
             handleClose();
             return <b>Post success!</b>
           },

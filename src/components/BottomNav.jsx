@@ -23,7 +23,7 @@ const BottomNav = () => {
 
       })
       .listen('PostInteraction', () => {
-        queryClient.invalidateQueries('notifications');
+        queryClient.invalidateQueries({queryKey: ['notifications']});
         if (window.location.pathname != '/notifications') {
           setHasNotification(true);
         }

@@ -47,7 +47,7 @@ const UserFeed = () => {
                             <h3>Notifications</h3>
                         </div>
                         <span onClick={() => axiosClient.post('/notifications/mark-all-as-read')
-                            .then(() => queryClient.invalidateQueries('notifications'))
+                            .then(() => queryClient.invalidateQueries({ queryKey: ['notifications'] }))
                         } className='mark-all-span'>Mark All As Read</span>
                     </div>
 

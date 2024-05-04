@@ -212,7 +212,7 @@ const ViewPost = () => {
         toast.promise(axiosClient.delete(`/posts/${usePost.data.id}`), {
           loading: 'Updating community information',
           success: () => {
-            queryClient.invalidateQueries('posts')
+            queryClient.invalidateQueries({queryKey: ['posts'] });
             navigate('/home')
             return <b>Community Updated</b>
           },

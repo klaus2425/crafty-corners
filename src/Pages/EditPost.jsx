@@ -31,8 +31,7 @@ export const EditPost = () => {
       {
         loading: 'Editing post',
         success: () => {
-          queryClient.invalidateQueries(`post-${id}`)
-          queryClient.invalidateQueries(`posts`)
+          queryClient.invalidateQueries({ queryKey: [`post-${id}`, `posts`] })
           navigate(`/p/${id}?uid=user.id`)
           return <b>Success</b>
         },

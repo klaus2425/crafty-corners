@@ -40,7 +40,7 @@ const Messages = () => {
   }, 400)
 
   useEffect(() => {
-    queryClient.invalidateQueries('conversations');
+    queryClient.invalidateQueries({ queryKey: ['conversations'] });
   }, [])
 
 

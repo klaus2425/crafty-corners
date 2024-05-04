@@ -52,7 +52,7 @@ const CommunityPostModal = (props) => {
         {
           loading: 'Posting',
           success: () => {
-            queryClient.invalidateQueries(`posts`);
+            queryClient.invalidateQueries({queryKey: ['posts']});
             handleClose();
             return <b>Post success!</b>
           },
@@ -87,7 +87,7 @@ const CommunityPostModal = (props) => {
         , {
           loading: 'Posting',
           success: () => {
-            queryClient.invalidateQueries(`posts`);
+            queryClient.invalidateQueries({queryKey: ['posts']});
             handleClose();
             return <b>Post success!</b>
           },
@@ -122,7 +122,7 @@ const CommunityPostModal = (props) => {
         , {
           loading: 'Posting',
           success: () => {
-            queryClient.invalidateQueries(`posts`);
+            queryClient.invalidateQueries({queryKey: ['posts']});
             handleClose();
             return <b>Post success!</b>
           },
@@ -158,7 +158,7 @@ const CommunityPostModal = (props) => {
         , {
           loading: 'Posting',
           success: () => {
-            queryClient.invalidateQueries(`posts`);
+            queryClient.invalidateQueries({queryKey: ['posts']});
             handleClose();
             return <b>Post success!</b>
           },

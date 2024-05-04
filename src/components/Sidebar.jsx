@@ -25,7 +25,7 @@ export const Sidebar = () => {
                     playChatNotification();
                 }
                 if ((window.location.pathname == '/messages')) {
-                    queryClient.invalidateQueries('conversations')
+                    queryClient.invalidateQueries({queryKey: ['conversations']})
                     playChatNotification();
                 }
                 else {
@@ -34,7 +34,7 @@ export const Sidebar = () => {
                 }
             })
             .listen('PostInteraction', () => {
-                queryClient.invalidateQueries('notifications');
+                queryClient.invalidateQueries({queryKey: ['notifications']});
                 if (window.location.pathname != '/notifications') {
                     setHasNotification(true);
                 }
