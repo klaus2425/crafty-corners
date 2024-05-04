@@ -8,7 +8,8 @@ import {
     faGroupArrowsRotate,
     faMessage,
     faNewspaper,
-    faTableColumns, faUsers
+    faTableColumns,
+    faUsers
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Suspense, useState } from "react";

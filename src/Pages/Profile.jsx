@@ -5,7 +5,7 @@ import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axiosClient from '../axios-client';
 import { UserPost } from '../components/Post';
 import Loading from '../components/utils/Loading';

@@ -1,4 +1,3 @@
-
 import { useInfiniteQuery } from '@tanstack/react-query';
 import Loading from '../components/utils/Loading';
 import Post from '../components/Post';

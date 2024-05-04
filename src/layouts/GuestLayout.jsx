@@ -5,6 +5,7 @@ import { useStateContext } from "../context/ContextProvider";
 import '../styles/index.scss';
 import { Suspense } from "react";
 import Loading from "../components/utils/Loading";
+
 const GuestLayout = () => {
     const { token } = useStateContext();
     if (token) {

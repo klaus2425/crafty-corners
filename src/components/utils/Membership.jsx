@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2';
-import Skeleton from "react-loading-skeleton";
 import { useQueryClient } from "@tanstack/react-query";
 
 const MembershipCheck = (props) => {

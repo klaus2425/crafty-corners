@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axiosClient from "../../axios-client";
-import { lazy, useState, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import Loading from "../../components/utils/Loading";
 
 const ViewReportedConversation = () => {

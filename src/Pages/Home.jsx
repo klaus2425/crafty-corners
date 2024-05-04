@@ -1,4 +1,3 @@
-
 import HomePosts from '../components/HomePosts';
 import RecommendedCard from '../components/RecommendedCard';
 

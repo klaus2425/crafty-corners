@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { useStateContext } from "../../context/ContextProvider";

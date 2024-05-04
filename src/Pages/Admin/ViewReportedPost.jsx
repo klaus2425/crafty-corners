@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { lazy, useState, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosClient from "../../axios-client";
 import Loading from "../../components/utils/Loading";

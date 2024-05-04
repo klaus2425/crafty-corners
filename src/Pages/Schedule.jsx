@@ -1,5 +1,5 @@
 import axiosClient from '../axios-client';
-import { useState, useEffect, Suspense, lazy } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction"

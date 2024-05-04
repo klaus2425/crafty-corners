@@ -4,6 +4,7 @@ import axiosClient from "../../axios-client"
 import Swal from 'sweetalert2';
 import Loading from "../../components/utils/Loading";
 import toast from 'react-hot-toast';
+
 const EditCommunity = () => {
 
   let { id } = useParams();

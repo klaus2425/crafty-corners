@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axiosClient from '../../axios-client';
-import {  useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Loading from '../../components/utils/Loading';
 
 const EditVideo = () => {

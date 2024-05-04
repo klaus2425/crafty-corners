@@ -1,6 +1,6 @@
 import ProgressBar from '@ramonak/react-progress-bar';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { Suspense, lazy, useEffect, useState, useCallback } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';

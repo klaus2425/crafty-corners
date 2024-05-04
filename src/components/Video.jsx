@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom'
 import ReactPlayer from 'react-player';
 
 
-
 const Video = (props) => {
     const navigate = useNavigate();
 

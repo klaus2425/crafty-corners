@@ -1,6 +1,5 @@
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef, useState, } from 'react';
-import { useNavigate } from 'react-router-dom'
 import axiosClient from '../axios-client';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Loading from '../components/utils/Loading';

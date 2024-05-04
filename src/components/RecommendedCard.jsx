@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axiosClient from '../axios-client';
 import RecommendedCommunities from '../components/RecommendedCommunities';
 import Loading from '../components/utils/Loading';
+
 const RecommendedCard = () => {
   const useRecommended = useQuery({
     queryKey: ['recommended-communities'],

@@ -1,8 +1,8 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import axiosClient from "../../axios-client";
 import Loading from "../../components/utils/Loading";
-import {useQuery} from '@tanstack/react-query';
-import {useState} from "react";
+import { useQuery } from '@tanstack/react-query';
+import { useState } from "react";
 import ReactSelect from "react-select";
 
 const MentorApplicants = () => {

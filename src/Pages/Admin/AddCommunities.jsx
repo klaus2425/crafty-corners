@@ -1,7 +1,8 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import axiosClient from "../../axios-client";
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
+
 const AddCommunities = () => {
     const [image, setImage] = useState();
     const handleChange = (ev) => {

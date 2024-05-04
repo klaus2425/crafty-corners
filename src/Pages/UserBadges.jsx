@@ -1,4 +1,4 @@
-import {useQuery} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axiosClient from "../axios-client";
 import Loading from "../components/utils/Loading";
 import ProgressBar from "@ramonak/react-progress-bar";

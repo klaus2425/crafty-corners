@@ -4,7 +4,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Loading from "../components/utils/Loading";
 import TimeAgo from 'javascript-time-ago'
 import toast from "react-hot-toast";
-import { Suspense, lazy, useRef, useState } from "react";
+import { lazy, Suspense, useRef, useState } from "react";
+
 export const EditPost = () => {
   const { id } = useParams();
   const ImageModal = lazy(() => import('../components/ImageModal'));

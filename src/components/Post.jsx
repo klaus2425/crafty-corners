@@ -1,6 +1,6 @@
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { lazy, useEffect, useRef, useState, Suspense } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import toast from 'react-hot-toast';
 import Skeleton from "react-loading-skeleton";
 import { useNavigate } from 'react-router-dom';
