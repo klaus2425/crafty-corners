@@ -1191,6 +1191,7 @@ input::-webkit-inner-spin-button {
 
       video {
         width: 100%;
+        max-height: 50vh;
         max-width: calc(30vw + 10%);
       }
 
@@ -1412,6 +1413,7 @@ input::-webkit-inner-spin-button {
 
       video {
         width: 100%;
+        max-height: 50vh;
         max-width: calc(30vw + 10%);
       }
 

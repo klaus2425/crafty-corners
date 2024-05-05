@@ -16,7 +16,7 @@ const ViewConversation = () => {
 
     const [pageIndex, setPageIndex] = useState(1);
     const location = useLocation();
-    const {theme} = useThemeContext();
+    const { theme } = useThemeContext();
     const [hasMore, setHasMore] = useState(true);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [messages, setMessages] = useState([]);
@@ -32,7 +32,7 @@ const ViewConversation = () => {
     const [receiver, setReceiver] = useState();
     const receiver_id = useRef();
     const storageBaseUrl = import.meta.env.VITE_API_STORAGE_URL;
-    const {conversation_id} = useParams();
+    const { conversation_id } = useParams();
     const navigate = useNavigate();
     const conversationEndRef = useRef(null);
     const [file, setFile] = useState();
@@ -250,11 +250,11 @@ const ViewConversation = () => {
                     </div>
                     <div className="conversation-container">
                         <div id='conversation-scroll'>
-                            <InfiniteScroll style={{display: 'flex', flexDirection: 'column-reverse'}} inverse={true}
+                            <InfiniteScroll style={{ display: 'flex', flexDirection: 'column-reverse' }} inverse={true}
                                             scrollableTarget='conversation-scroll' dataLength={messages.length}
                                             next={fetchNext} hasMore={hasMore} loader={<Loading/>}
                                             endMessage={
-                                                <div style={{textAlign: 'center', marginBottom: '8rem'}}>
+                                                <div style={{ textAlign: 'center', marginBottom: '8rem' }}>
                                                     <h2>Start of Conversation</h2>
                                                 </div>
                                             }>
