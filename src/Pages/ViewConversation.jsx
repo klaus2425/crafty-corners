@@ -117,7 +117,6 @@ const ViewConversation = () => {
         }
 
     }
-    console.log(messages)
     const submit = () => {
         const formData = new FormData();
         setIsButtonDisabled(true);
@@ -137,7 +136,6 @@ const ViewConversation = () => {
                     fileRef.current.value = null;
                     setFileName('');
                     // getMessages(res.data.data.receiver.receiver_id);
-                    console.log(res)
                     const message = res.data.data
                     setMessages(prevMessages => [{
                             created_at: message.created_at,
