@@ -136,13 +136,14 @@ const ViewConversation = () => {
                     fileRef.current.value = null;
                     setFileName('');
                     // getMessages(res.data.data.receiver.receiver_id);
-                    const message = res.data.data
+                    const message = res.data.data;
                     setMessages(prevMessages => [{
                             created_at: message.created_at,
                             id: message.id,
                             message: message.message,
                             read: true,
                             sender_id: uid,
+                            attachments: message.attachments
                         }, ...messages]
                     )
                 })
