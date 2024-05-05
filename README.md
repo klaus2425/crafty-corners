@@ -14,8 +14,7 @@
 ## About The Project
 
 Crafty Corners is a web application to introduce people
-to communities of different hobbies. This was developed as a final requirement for
-our Thesis Writing 2. This project utilized React and a
+to communities of different hobbies. This was developed as a final requirement for the course Thesis Writing 2. This project utilized React and a
 <a href="https://github.com/Overseer24/craftycorners_backend">
 Laravel API
 </a>
