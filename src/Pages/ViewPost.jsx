@@ -14,6 +14,7 @@ import { useStateContext } from '../context/ContextProvider';
 import Loading from '../components/utils/Loading';
 import EmojiPicker from 'emoji-picker-react';
 import { useThemeContext } from '../context/ThemeProvider';
+import ReactPlayer from "react-player/lazy";
 
 const ViewPost = () => {
   const ReportCommentsModal = lazy(() => import('../components/ReportCommentsModal'));
@@ -164,8 +165,9 @@ const ViewPost = () => {
 
   const handleNotify = (val) => {
     axiosClient.post(`/posts/${id}`, { _method: 'PUT', notifiable: val })
-      .then(() => {
-      })
+      .then(() =>
+          queryClient.invalidateQueries({queryKey: [`post-${id}`]})
+      )
   }
 
   const liked = usePost?.data?.liked_by_user;
@@ -310,8 +312,13 @@ const ViewPost = () => {
                     </div>
                     :
                     <>
-                      <div className="post-content">
+                      <div className="post-content flex--column">
                         <p className='post-text'>{post.content || <Skeleton containerClassName='post-text' count={5} />}</p>
+                        {
+                            post.link.includes('youtu') &&
+                            <ReactPlayer style={{alignSelf: 'center'}} width="95%"
+                                         height="30rem" url={post.link} controls />
+                        }
                       </div>
                       <div className="link-button-container">
                         <p>{post.content && `Link to ${post.link}`}</p>

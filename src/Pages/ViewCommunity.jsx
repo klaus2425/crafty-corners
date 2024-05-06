@@ -31,7 +31,7 @@ const ViewCommunity = () => {
   })
 
   const useTopics = useQuery({
-    queryKey: ['topics'],
+    queryKey: [`topics-${id}`],
     queryFn: () => axiosClient.get(`/community/${id}/subtopics`)
       .then(({ data }) => data.subtopics)
   })

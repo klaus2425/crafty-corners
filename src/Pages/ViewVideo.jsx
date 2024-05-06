@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import axiosClient from '../axios-client';
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/lazy';
 import Loading from '../components/utils/Loading';
 
 const ViewVideo = () => {
