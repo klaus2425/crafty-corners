@@ -92,7 +92,7 @@ export const EditPost = () => {
           {
             data.post_type === 'link' &&
             <div className="post-content">
-              <p className='post-text'>{post.content}</p>
+              <p className='post-text'>{data.content}</p>
             </div>
           }
           <div onClick={onSubmit} className="btn btn--purple" style={{ alignSelf: "flex-end" }}>Submit</div>
