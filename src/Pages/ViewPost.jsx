@@ -256,9 +256,9 @@ const ViewPost = () => {
           </div>
           <div className="post">
             <div className="post-header" id="posts">
-              <div className="left">
+              <div className="left" >
                 {loadingProfile && <Skeleton circle className="post-image" />}
-                <img className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${postUser?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
+                <img onClick={() => { navigate(`/u/${postUser.id}?uid=${user.id}`) }} className={loadingProfile ? 'hide' : 'post-image'} src={`${storageUserUrl}${postUser?.profile_picture}`} alt="" onLoad={() => setLoadingProfile(false)} />
                 <div className='post-user'>
                   <h4>{postUser?.first_name}</h4>
                   <span id='post-time'>{ago} </span>
