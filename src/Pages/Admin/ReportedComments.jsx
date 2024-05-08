@@ -88,7 +88,7 @@ const ReportedComments = () => {
                   <span><strong>Status:  <br /></strong><span className={u.is_resolved ? 'green' : 'red'}>{u.is_resolved ? 'Resolved' : 'Unresolved'}</span></span>
                 </div>
                 <div className="buttons-community">
-                  <Link to={`/view-reported-comment/${u.id}/${u.comment.id}`} className="orange-button">View Post</Link>
+                  <Link to={`/view-reported-comment/${u.id}/${u.comment.id}`} className="orange-button">View Report</Link>
                 </div>
               </div>
             </div>
