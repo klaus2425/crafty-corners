@@ -36,7 +36,6 @@ const Assessment = () => {
     }
 
     useEffect(() => {
-        console.log(interests);
         getCommunities();
     }, [interests])
 
