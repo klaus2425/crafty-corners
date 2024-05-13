@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2';
 import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const MembershipCheck = (props) => {
   const [isMember, setIsMember] = useState(false);
@@ -10,7 +11,7 @@ const MembershipCheck = (props) => {
   const getCommunity = () => {
     axiosClient.get(`/communities/${props.community_id}/users`)
       .then(() => {
-        queryClient.invalidateQueries({queryKey: ['communities']});
+
       })
   }
 
@@ -18,7 +19,9 @@ const MembershipCheck = (props) => {
   const joinCommunity = (id) => {
     axiosClient.post(`/join-community/${id}`)
       .then((res) => {
-        getCommunity();
+        queryClient.invalidateQueries({queryKey: ['communities']});
+        queryClient.invalidateQueries({ queryKey: ['recommended-communities']});
+        queryClient.invalidateQueries({ queryKey: [`community-${id}`] })
         setIsMember(true);
       })
       .catch(err => {
@@ -46,7 +49,9 @@ const MembershipCheck = (props) => {
         setIsMember(false);
         axiosClient.post(`/leave-community/${id}`)
           .then(() => {
-            getCommunity();
+            queryClient.invalidateQueries({queryKey: ['communities']});
+            queryClient.invalidateQueries({ queryKey: ['recommended-communities']});
+            queryClient.invalidateQueries({ queryKey: [`community-${id}`] })
           })
           .catch(err => {
             setIsMember(true);

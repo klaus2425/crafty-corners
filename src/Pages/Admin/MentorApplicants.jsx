@@ -21,8 +21,8 @@ const MentorApplicants = () => {
     const options = [
         {value: "approved", label: "Approved"},
         {value: "revoked", label: "Revoked"},
-        {value: "pending", label: "Pending"}
-
+        {value: "pending", label: "Pending"},
+        {value: "for assessment", label: "For Assessment"}
     ];
     const handleSelectChangeStatus = (value) => {
         setStatusFilterKey(value)

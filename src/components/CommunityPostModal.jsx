@@ -184,6 +184,8 @@ const CommunityPostModal = (props) => {
       toast.error('Upload an image or a video')
       setIsButtonDisabled(false);
     }
+    queryClient.invalidateQueries({queryKey: [`community-posts-${community_id}`]});
+
   }
 
   const handleTopicChange = (ev) => {

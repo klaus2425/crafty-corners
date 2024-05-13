@@ -31,7 +31,7 @@ const MentorApplication = () => {
 
   const getCommunities = (ev) => {
     setLoading(true);
-    axiosClient.get('/communities').then(({ data }) => {
+    axiosClient.get('/user-joined-communities').then(({ data }) => {
       setCommunities(data);
       setLoading(false);
     }).catch(err => {

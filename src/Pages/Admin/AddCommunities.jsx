@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import axiosClient from "../../axios-client";
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
+import { useQueryClient } from "@tanstack/react-query";
 
 const AddCommunities = () => {
     const [image, setImage] = useState();
@@ -13,7 +14,7 @@ const AddCommunities = () => {
     const communityDescriptionRef = useRef();
     const communityImageRef = useRef();
     const [topics, setTopics] = useState([]);
-
+    const queryClient = useQueryClient();
     const handleTextareaChange = (event) => {
         const newValue = event.target.value;
         const newTopics = newValue.split(',');
@@ -34,6 +35,8 @@ const AddCommunities = () => {
             loading: 'Adding Community',
             success: () => {
                 navigate('/admin-communities');
+                queryClient.invalidateQueries({queryKey: ['admin-communities']});
+                queryClie
                 return <b>Community Added</b>
             },
             error: (err) => {

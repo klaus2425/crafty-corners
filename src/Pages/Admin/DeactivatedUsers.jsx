@@ -26,7 +26,8 @@ const DeactivatedUsers = () => {
         axiosClient.post(`/activate/${user.id}`)
           .then(() => {
             toast.success('User has been activated')
-            queryClient.invalidateQueries({queryKey: ['deactivated-users', 'admin-users']});
+            queryClient.invalidateQueries({queryKey: ['deactivated-users']});
+            queryClient.invalidateQueries({queryKey: ['admin-users']});
           })
       }
     });

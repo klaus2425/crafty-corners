@@ -116,6 +116,14 @@ $dark: #242526;
   align-items: center;
   transition: 0.3s;
 
+  input {
+    padding: 0.75rem;
+    border-radius: 25px;
+    color: $dark;
+    border: 2px solid $light_grey;
+    width: 20rem;
+  }
+
   @media screen and (max-width: 1365px) {
     #assessment-card {
       grid-template-columns: repeat(3, 1fr) !important;
@@ -152,7 +160,7 @@ $dark: #242526;
     justify-items: center;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 0.5fr;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     .community-assmnt-card {
       background-color: $lighter_grey;
@@ -4087,6 +4095,7 @@ input::-webkit-inner-spin-button {
   .close {
     svg {
       border-radius: 1000px;
+
       path {
         border-radius: 1000px;
       }
@@ -4616,9 +4625,19 @@ input::-webkit-inner-spin-button {
   align-items: center;
   flex-direction: column;
   gap: 0.2rem;
+  .terms-input-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.3rem;
+    align-items: flex-start;
 
+  }
   p {
     max-width: 80%;
+  }
+
+  input[type="checkbox"] {
+    width: fit-content;
   }
 
   .terms-conditions {
@@ -6686,6 +6705,7 @@ input::-webkit-inner-spin-button {
       border: none;
     }
   }
+
   #resolve-modal {
     select {
       background-color: $darker;

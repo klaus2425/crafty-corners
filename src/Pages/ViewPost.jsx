@@ -215,6 +215,7 @@ const ViewPost = () => {
           loading: 'Updating community information',
           success: () => {
             queryClient.invalidateQueries({queryKey: ['posts'] });
+            queryClient.invalidateQueries({queryKey: [`community-posts-${community.id}`]});
             navigate('/home')
             return <b>Community Updated</b>
           },
