@@ -43,8 +43,9 @@ const Assessment = () => {
         axiosClient.post('/done-assessment')
             .then(() => {
                 queryClient.invalidateQueries({ queryKey: ['communities'] });
-                queryClient.invalidateQueries({ queryKey: ['recommended-communities'] });
-                navigate('/');
+                queryClient.invalidateQueries({ queryKey: ['recommended-communities'] })
+                queryClient.refetchQueries({queryKey: ['user']}).then(() => navigate('/Home'));
+
             })
     }
 
