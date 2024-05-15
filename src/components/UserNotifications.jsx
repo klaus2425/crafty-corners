@@ -8,10 +8,17 @@ const UserNotifications = (props) => {
         const navigate = useNavigate();
         const handlePostClick = () => {
             navigate(`/p/${props.post_id}?uid=${props.uid}`)
-            axiosClient.post(`/notifications/mark-as-read/${props.id}`).then(() => queryClient.invalidateQueries({queryKey: ['notifications']})
+            axiosClient.post(`/notifications/mark-as-read/${props.id}`)
+                .then(() => queryClient.invalidateQueries({queryKey: ['notifications']})
 
             )
         }
+
+        const handleClickNotification = () => {
+            axiosClient.post(`/notifications/mark-as-read/${props.id}`)
+                .then(() => queryClient.invalidateQueries({queryKey: ['notifications']}))
+        }
+
         const timeAgo = new TimeAgo('en-US')
         if (props.type == "App\\Notifications\\PostLiked") {
             return (
@@ -40,18 +47,38 @@ const UserNotifications = (props) => {
                 </div>
             )
         }
+    if (props.type == "App\\Notifications\\MentorLikeNotification") {
+        return (
+            <div className="notification-card" >
+                {
+                    <div onClick={handleClickNotification} className="notification">
+                        <div className="left">
+                            <img src={'/Star.svg'} />
+                            <span><span id="bold">{props.liker_name}</span> gave you a star </span>
+                        </div>
+                        {
+                            !props.read ?
+                                <div className="flex flex--column gap-1 h-100 align-end">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="7" cy="7" r="7" fill="#FF4646" />
+                                    </svg>
+                                    {timeAgo.format(new Date(props.created_at.replace(" ", "T")), 'twitter-now')}
+                                </div>
+                                :
+                                <div className="flex flex--column gap-1 h-100 justify-end">
+                                    {timeAgo.format(new Date(props.created_at.replace(" ", "T")), 'twitter-now')}
+                                </div>
+                        }
+                    </div>
+                }
+            </div>
+        )
+    }
         if (props.type == "App\\Notifications\\PostViolationNotification") {
             return (
                 <div className="notification-card" >
                     {
-                        <div onClick={() => axiosClient.post(`/notifications/mark-as-read/${props.id}`)
-                            .then(
-                                () => queryClient.invalidateQueries({queryKey: ['notifications']})
-
-                            )
-
-
-                        } className="notification">
+                        <div onClick={handleClickNotification} className="notification">
                             <div className="left">
                                 <img src={'/Logo.svg'} />
                                 <span ><strong>{props.message}</strong></span>
@@ -134,7 +161,7 @@ const UserNotifications = (props) => {
             return (
                 <div className="notification-card">
                     {
-                        <div onClick={() => axiosClient.post(`/notifications/mark-as-read/${props.id}`)}  className="notification">
+                        <div onClick={handleClickNotification}  className="notification">
                             <div className="left">
                                 <img src={'/Logo.svg'}/>
                                 <span>{props.message}</span>
@@ -163,7 +190,7 @@ const UserNotifications = (props) => {
             return (
                 <div className="notification-card">
                     {
-                        <div onClick={() => axiosClient.post(`/notifications/mark-as-read/${props.id}`)}  className="notification">
+                        <div onClick={handleClickNotification}  className="notification">
                             <div className="left">
                                 <img src={'/Logo.svg'}/>
                                 <span>{props.message}</span>
@@ -192,7 +219,7 @@ const UserNotifications = (props) => {
             return (
                 <div className="notification-card">
                     {
-                        <div onClick={() => axiosClient.post(`/notifications/mark-as-read/${props.id}`)}
+                        <div onClick={handleClickNotification}
                              className="notification">
                             <div className="left">
                                 <img src={'/Logo.svg'}/>

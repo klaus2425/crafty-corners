@@ -79,6 +79,7 @@ const UserFeed = () => {
                                                            post_id={notification.data.post_id} type={notification.type}
                                                            notifier={notification.data.first_name + ' ' + notification.data.last_name}
                                                            id={notification.id}
+                                                           liker_name={notification.data.liker_first_name + ' ' + notification.data.liker_last_name}
                                                            notifierImage={storageUrl + notification.data.profile_picture}
                                                            community={notification.data.community_name}
                                                            read={notification.read_at ? true : false}
