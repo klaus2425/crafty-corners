@@ -22,7 +22,6 @@ const Mentors = () => {
         queryFn: getMentors,
     })
 
-
     return (
         <div className="authenticated-container">
             <div className="feed">
