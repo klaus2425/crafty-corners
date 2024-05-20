@@ -379,7 +379,38 @@ input::-webkit-inner-spin-button {
   padding: 0;
   box-sizing: border-box;
 }
+.refresh-button {
+  background-color: $light_grey;
+  outline: none;
+  border: none;
+  border-radius: 1000px;
+  width: 2.6rem;
+  height: 2.6rem;
+  cursor: pointer;
+  transition: 0.3s;
 
+}
+
+@-moz-keyframes spin {
+  100% { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.refresh-button:hover {
+  background-color: $purple;
+  path {
+    stroke: $white;
+  }
+  animation: spin 0.45s;
+}
 .btn {
   border-radius: 1000px;
   width: fit-content;
