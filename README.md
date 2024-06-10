@@ -7,8 +7,10 @@
 <p align="center">
 <a href="https://www.craftycorners.online/">View website</a>
 
-
+![Crafty Corners Screenshot][crafty-corners-screenshot-2]
 ![Crafty Corners Screenshot][crafty-corners-screenshot]
+
+
 </p>
 
 ## About The Project
@@ -34,3 +36,4 @@ for the backend.
 [SASS-url]: https://sass-lang.com/
 
 [crafty-corners-screenshot]: public/Sample.png
+[crafty-corners-screenshot-2]: public/Sample2.png
